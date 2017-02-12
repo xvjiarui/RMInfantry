@@ -1,7 +1,8 @@
---cpu Cortex-M4.fp
+--cpu=Cortex-M4.fp
 "..\obj\stm32f4xx_it.o"
 "..\obj\main.o"
 "..\obj\system_stm32f4xx.o"
+"..\obj\pid_s.o"
 "..\obj\startup_stm32f40_41xxx.o"
 "..\obj\misc.o"
 "..\obj\stm32f4xx_adc.o"

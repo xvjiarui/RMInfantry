@@ -68,3 +68,4 @@
 ..\obj\main.o: canBusProcess.h
 ..\obj\main.o: Dbus.h
 ..\obj\main.o: judge.h
+..\obj\main.o: PID_s.h

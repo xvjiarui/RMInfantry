@@ -3,28 +3,29 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.12.0.0
-Copyright (C) 2014 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Ngai Cheung, HKUST, LIC=FYKZ9-429MS-VERHA-1XS4W-9LM2Q-F4C0H
+IDE-Version: ¦ÌVision V5.22.0.0
+Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Jiarui XU, HKUST, LIC=03CTG-VPVHX-LCFJF-6Y1BY-UQX6Z-ET0W4
  
 Tool Versions:
-Toolchain:       MDK-ARM Standard  Version: 5.12.0.0
+Toolchain:       MDK-ARM Plus  Version: 5.22
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.05 (build 41)
-Assembler:       Armasm.exe V5.05 (build 41)
-Linker/Locator:  ArmLink.exe V5.05 (build 41)
-Library Manager: ArmAr.exe V5.05 (build 41)
-Hex Converter:   FromElf.exe V5.05 (build 41)
-CPU DLL:         SARMCM3.DLL V5.12.0.0
-Dialog DLL:      DCM.DLL V1.13.0.0
-    Target DLL: STLink\ST-LINKIII-KEIL_SWO.dll
-Dialog DLL:      TCM.DLL V1.14.2.0
+C Compiler:      Armcc.exe V5.06 update 4 (build 422)
+Assembler:       Armasm.exe V5.06 update 4 (build 422)
+Linker/Locator:  ArmLink.exe V5.06 update 4 (build 422)
+Library Manager: ArmAr.exe V5.06 update 4 (build 422)
+Hex Converter:   FromElf.exe V5.06 update 4 (build 422)
+CPU DLL:         SARMCM3.DLL V5.22
+Dialog DLL:      DCM.DLL V1.13.9.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.18.0
+Dialog DLL:      TCM.DLL V1.21.0.0
  
 <h2>Project:</h2>
-C:\Users\Ngai\Google Drive\RoboMasters2017\HKUST_RM_2017_herewego\SW_information\HKUST_RM2017_Mainboard_V1.2_code\user\Template.uvprojx
-Project File Date:  02/04/2017
+\\Mac\Home\Documents\Robomaster\HKUST_RM2017_Mainboard_V1.2_code\user\Template.uvprojx
+Project File Date:  02/12/2017
 
 <h2>Output:</h2>
+*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'HKUST_RM2017_Mainboard'
 compiling main.c...
 led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
@@ -64,156 +65,17 @@ function_list.h(55): warning:  #1295-D: Deprecated declaration CAN1_Configuratio
 function_list.h(56): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
   void CAN2_Configuration();
 main.c: 18 warnings, 0 errors
-compiling yaw_gyro.c...
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
-1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
-  void tft_brightness_check_menu();
-yaw_gyro.c: 2 warnings, 0 errors
-compiling Dbus.c...
-Dbus.c(162): warning:  #1-D: last line of file ends without a newline
-  }
-Dbus.c: 1 warning, 0 errors
 linking...
-Program Size: Code=32820 RO-data=2644 RW-data=16552 ZI-data=5056  
+Program Size: Code=40432 RO-data=2936 RW-data=16576 ZI-data=5928  
 FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 21 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 18 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\Ngai\Google Drive\RoboMasters2017\HKUST_RM_2017_herewego\SW_information\HKUST_RM2017_Mainboard_V1.2_code\user\RTE
-  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  \\Mac\Home\Documents\Robomaster\HKUST_RM2017_Mainboard_V1.2_code\user\RTE\_HKUST_RM2017_Mainboard
+  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>
-types
-  void button_init();
-button.h(13): warning:  #1295-D: Deprecated declaration button_check - give arg types
-  void button_check();
-button.h(15): warning:  #1-D: last line of file ends without a newline
-  #endif
-button.c(31): warning:  #1-D: last line of file ends without a newline
-  }
-button.c: 4 warnings, 0 errors
-compiling led.c...
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
-led.c: 1 warning, 0 errors
-compiling buzzer_song.c...
-buzzer_song.c(7): warning:  #188-D: enumerated type mixed with another type
-  const MUSIC_NOTE CLICK_RIGHT[] = {{1, 7}, {NOTE_END}};
-buzzer_song.c(8): warning:  #188-D: enumerated type mixed with another type
-  const MUSIC_NOTE CLICK_DOWN[] = {{2, 7}, {NOTE_END}};
-buzzer_song.c(9): warning:  #188-D: enumerated type mixed with another type
-  const MUSIC_NOTE CLICK_UP[] = {{3, 7}, {NOTE_END}};
-buzzer_song.c(10): warning:  #188-D: enumerated type mixed with another type
-  const MUSIC_NOTE CLICK_CENTER[] = {{4, 7}, {NOTE_END}};
-buzzer_song.c(11): warning:  #188-D: enumerated type mixed with another type
-  const MUSIC_NOTE CLICK_SMALL_BUTTON[] = {{5, 7}, {NOTE_END}};
-buzzer_song.c(12): warning:  #188-D: enumerated type mixed with another type
-  const MUSIC_NOTE CLICK_MUSIC[] = {{6,7} ,{NOTE_END}};
-buzzer_song.c: 6 warnings, 0 errors
-compiling 1.8 TFT_display.c...
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
-1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
-  void tft_brightness_check_menu();
-button.h(12): warning:  #1295-D: Deprecated declaration button_init - give arg types
-  void button_init();
-button.h(13): warning:  #1295-D: Deprecated declaration button_check - give arg types
-  void button_check();
-button.h(15): warning:  #1-D: last line of file ends without a newline
-  #endif
-compiling flash.c...
-compiling yaw_gyro.c...
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
-1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
-  void tft_brightness_check_menu();
-yaw_gyro.c: 2 warnings, 0 errors
-compiling adc.c...
-adc.h(35): warning:  #1295-D: Deprecated declaration get_mcu_temperature - give arg types
-  float get_mcu_temperature();
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
-1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
-  void tft_brightness_check_menu();
-adc.c: 3 warnings, 0 errors
-compiling encoder.c...
-compiling pneumatic.c...
-pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
-  void pneumatic_init();
-pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
-  void pneumatic_control(u8 port, u8 state);
-pneumatic.c(16): warning:  #188-D: enumerated type mixed with another type
-                case 1: {GPIO_WriteBit(GPIOC, GPIO_Pin_6, state);break;}
-pneumatic.c(17): warning:  #188-D: enumerated type mixed with another type
-                case 2: {GPIO_WriteBit(GPIOC, GPIO_Pin_7, state);break;}
-pneumatic.c(18): warning:  #188-D: enumerated type mixed with another type
-                case 3: {GPIO_WriteBit(GPIOC, GPIO_Pin_8, state);break;}
-pneumatic.c(19): warning:  #188-D: enumerated type mixed with another type
-                case 4: {GPIO_WriteBit(GPIOC, GPIO_Pin_9, state);break;}
-pneumatic.c(21): warning:  #1-D: last line of file ends without a newline
-  }
-pneumatic.c: 7 warnings, 0 errors
-compiling can1.c...
-can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
-  void CAN1_Configuration();
-can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
-  void CAN2_Configuration();
-can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
-  void CAN1_Configuration();
-can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
-  void CAN2_Configuration();
-can1.c: 4 warnings, 0 errors
-compiling can2.c...
-can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
-  void CAN1_Configuration();
-can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
-  void CAN2_Configuration();
-can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
-  void CAN1_Configuration();
-can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
-  void CAN2_Configuration();
-can2.c: 4 warnings, 0 errors
-compiling canBusProcess.c...
-can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
-  void CAN1_Configuration();
-can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
-  void CAN2_Configuration();
-judge.h(33): warning:  #1-D: last line of file ends without a newline
-  extern InfantryJudge_Struct InfantryJudge;
-canBusProcess.c: 3 warnings, 0 errors
-compiling Dbus.c...
-Dbus.c(156): warning:  #1-D: last line of file ends without a newline
-  }
-Dbus.c: 1 warning, 0 errors
-compiling judge.c...
-judge.h(33): warning:  #1-D: last line of file ends without a newline
-  extern InfantryJudge_Struct InfantryJudge;
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
-pwm.h(11): warning:  #1-D: last line of file ends without a newline
-  void Friction_wheel_control2(u16 speed);
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
-1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
-  void tft_brightness_check_menu();
-adc.h(35): warning:  #1295-D: Deprecated declaration get_mcu_temperature - give arg types
-  float get_mcu_temperature();
-judge.c: 6 warnings, 0 errors
-compiling data_monitor.c...
-judge.h(33): warning:  #1-D: last line of file ends without a newline
-  extern InfantryJudge_Struct InfantryJudge;
-data_monitor.c: 1 warning, 0 errors
-linking...
-Program Size: Code=32792 RO-data=2644 RW-data=16552 ZI-data=5056  
-FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 67 Warning(s).
-
-<h2>Collection of Component include folders:</h2>
-  C:\Users\Ngai\Google Drive\RoboMasters2017\HKUST_RM_2017_herewego\SW_information\HKUST_RM2017_Mainboard_V1.2_code\user\RTE
-  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
-
-<h2>Collection of Component Files used:</h2>
