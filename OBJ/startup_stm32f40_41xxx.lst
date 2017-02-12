@@ -869,12 +869,11 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=..\obj\startup_stm32f40_41xxx.d -o..\obj\startup_stm32f40_41xxx
-.o -I\\Mac\Home\Documents\Robomaster\HKUST_RM2017_Mainboard_V1.2_code\user\RTE\
-_HKUST_RM2017_Mainboard -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers
-\CMSIS\Device\ST\STM32F4xx\Include -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_v5\
-ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include --predefine="__UVISION_VERSIO
-N SETA 522" --predefine="STM32F407xx SETA 1" --list=..\obj\startup_stm32f40_41x
-xx.lst ..\CORE\startup_stm32f40_41xxx.s
+.o -ID:\robot\user\RTE\_HKUST_RM2017_Mainboard -ID:\Keil_v5\ARM\PACK\Keil\STM32
+F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -ID:\Keil_v5\ARM\CMSI
+S\Include -ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include --pred
+efine="__UVISION_VERSION SETA 522" --predefine="STM32F407xx SETA 1" --list=..\o
+bj\startup_stm32f40_41xxx.lst ..\CORE\startup_stm32f40_41xxx.s
 
 
 
