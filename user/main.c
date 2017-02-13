@@ -109,6 +109,7 @@ int main(void)
 				LED_blink(LED1);
 			}
 			if(DBUS_ReceiveData.rc.switch_left==1){
+				//emergency stop
 				control_car(0,0,0);
 			}
 			else if (DBUS_ReceiveData.rc.switch_right==3)
@@ -140,10 +141,13 @@ int main(void)
 				// control_gimbal_pitch(ch_input[3]);
 			}
 			else{
+				//keyboard sample
+				/*
 				int16_t key_input_ch0 = (DBUS_CheckPush(KEY_D)-DBUS_CheckPush(KEY_A)) * 660;
 				int16_t key_input_ch1 = (DBUS_CheckPush(KEY_W)-DBUS_CheckPush(KEY_S)) *660;
 				int16_t key_input_ch2 =	DBUS_ReceiveData.mouse.x;
 				control_car(key_input_ch0, key_input_ch1, key_input_ch2);
+				*/
 			} 
 			//control_car(DBUS_ReceiveData.rc.ch0, DBUS_ReceiveData.rc.ch1, DBUS_ReceiveData.rc.ch2);
 			
