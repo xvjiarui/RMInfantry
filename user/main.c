@@ -6,6 +6,12 @@
 #include "gimbal_control.h"
 static u32 ticks_msimg = (u32)-1;
 
+s32 max(s32 a, s32 b){
+	if (a > b)
+		return a;
+	return b;
+}
+
 void init() {
     SysTick_Init();
     Dbus_init();//usart1
@@ -43,6 +49,7 @@ PID gimbal_pid[2];
 u8 str[256];
 float buffer_remain;
 float init_pitch_pos;
+s32 max_angle=0;
 int main(void)
 {
 // u8 dum[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '\n'};
@@ -54,7 +61,7 @@ int main(void)
     }
     PID_init(&gimbal_pid[0], 50, 0, 0,5000);
     PID_init(&gimbal_pid[1], 1, 0, 0,5000);
-    PID_init(&angle_pid,3,0,0,660);//5 20
+    PID_init(&angle_pid,1.1,0,1,660);//5 20
     //PID_init(&ang_vel_pid,0.01,0,0,1000);
     //PID_init(&power_pid,0.1,0,0,100);
     PID_init(&buffer_pid,0.02,0,0,60);
@@ -88,9 +95,11 @@ int main(void)
                 tft_prints(1,6,"err:%f",wheels_speed_pid[0].target - wheels_speed_pid[0].current);
                 tft_prints(1,7,"5:%d 6:%d",GMYawEncoder.filter_rate,GMPitchEncoder.filter_rate);
                 tft_prints(1,8,"buffer: %f", buffer_remain);
-                tft_prints(1,9,"cur:%f",init_pitch_pos);
-                tft_prints(1,10,"tar:%f",init_pitch_pos + DBUS_ReceiveData.rc.ch3);
-                tft_prints(1,11,"ecd:%f",CM1Encoder.ecd_angle);
+                tft_prints(1,9,"cur:%d",current_angle);
+                tft_prints(1,10,"tar:%d",target_angle);
+							max_angle = max(abs(current_angle - target_angle), max_angle);
+							tft_prints(1,11,"max:%d",max_angle);
+								//tft_prints(1,11,"ecd:%f",CM1Encoder.ecd_angle);
                 tft_update();
                 LED_blink(LED1);
             }
