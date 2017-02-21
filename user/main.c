@@ -89,13 +89,14 @@ int main(void)
                 tft_prints(1,2,"rc0:%d rc1:%d",DBUS_ReceiveData.rc.ch0,DBUS_ReceiveData.rc.ch1);
                 tft_prints(1,3,"rc2:%d rc3:%d",DBUS_ReceiveData.rc.ch2,DBUS_ReceiveData.rc.ch3);
                 tft_prints(1,4,"Pr:%f",InfantryJudge.RealCurrent * InfantryJudge.RealVoltage);
-                tft_prints(1,5,"cur:%f",wheels_speed_pid[0].current);
-                tft_prints(1,6,"err:%f",wheels_speed_pid[0].target - wheels_speed_pid[0].current);
+                //tft_prints(1,5,"cur:%f",wheels_speed_pid[0].current);
+                //tft_prints(1,6,"err:%f",wheels_speed_pid[0].target - wheels_speed_pid[0].current);
+								tft_prints(1,5,"init:%d",init_yaw_pos);
                 tft_prints(1,7,"5:%d 6:%d",GMYawEncoder.filter_rate,GMPitchEncoder.filter_rate);
                 tft_prints(1,8,"buffer: %f", buffer_remain);
                 tft_prints(1,9,"cur:%d",current_angle);
                 tft_prints(1,10,"tar:%d",target_angle);
-								
+								tft_prints(1,11,"Mouse:%d",DBUS_ReceiveData.mouse.x);
 							//tft_prints(1,11,"max:%d",max_angle);
 								//tft_prints(1,11,"ecd:%f",CM1Encoder.ecd_angle);
                 tft_update();
@@ -151,9 +152,9 @@ int main(void)
                     else ch_input[i]+=ch_changes[i];
 										last_ch_input[i] = ch_input[i];
                 }
-								ch_input[2] = DBUS_ReceiveData.rc.ch2;
-                //control_car(ch_input[0],ch_input[1],ch_input[2]);
-								control_gimbal_yaw(DBUS_ReceiveData.mouse.x);
+								//ch_input[2] = DBUS_ReceiveData.rc.ch2;
+                control_car(ch_input[0],ch_input[1],ch_input[2]);
+								
             }
             else {
                 //keyboard sample
@@ -166,9 +167,10 @@ int main(void)
 								int16_t ch_changes[4];
 								ch_changes[0]= (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 - last_ch_input[0];
                 ch_changes[1]= (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 - last_ch_input[1];
+								ch_changes[2]= (DBUS_ReceiveData.mouse.x - last_ch_input[2]);
 								int16_t max_change=2;
                 int16_t min_change=-2;
-								 for (int i = 0; i < 2; ++i)
+								 for (int i = 0; i < 3; ++i)
                 {
                     if (ch_changes[i]>max_change)
                     {
@@ -181,9 +183,10 @@ int main(void)
                     else ch_input[i]+=ch_changes[i];
 										last_ch_input[i] = ch_input[i];
                 }
-								ch_input[2] = 0;
+								//ch_input[2] = 0;
 								//ch_input[2] = DBUS_ReceiveData.rc.ch2;
-                control_car(ch_input[0],ch_input[1],ch_input[2]);
+                //control_car(ch_input[0],ch_input[1],ch_input[2]);
+								control_gimbal_yaw_speed(-2 * ch_input[2]);
             }
         }
     }
