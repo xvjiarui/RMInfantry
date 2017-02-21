@@ -145,11 +145,11 @@ int main(void)
 								int16_t ch_changes[4];
 								ch_changes[0]=DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
                 ch_changes[1]=DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
-                ch_changes[2]=DBUS_ReceiveData.rc.ch2 - last_ch_input[2];
-                ch_changes[3]=DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
+                //ch_changes[2]=DBUS_ReceiveData.rc.ch2 - last_ch_input[2];
+                //ch_changes[3]=DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
 								int16_t max_change=2;
                 int16_t min_change=-2;
-								 for (int i = 0; i < 4; ++i)
+								 for (int i = 0; i < 2; ++i)
                 {
                     if (ch_changes[i]>max_change)
                     {

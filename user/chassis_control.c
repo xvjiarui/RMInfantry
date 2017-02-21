@@ -48,10 +48,9 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2) {
         target_angle = current_angle;
         target_speed = control_remoter(ch0,ch1,ch2,1,1,1,0);
     }
-    else if (DBUS_ReceiveData.rc.switch_right == 3)  {
+    else {
         target_speed = control_remoter(ch0,ch1,ch2,1,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
     }
-    else target_speed=control_remoter(ch0,ch1,ch2,1,1,1,PID_output(&angle_pid,target_angle));
     wheels_speed_pid[0].current=CM1Encoder.filter_rate;
     wheels_speed_pid[1].current=CM2Encoder.filter_rate;
     wheels_speed_pid[2].current=CM3Encoder.filter_rate;
