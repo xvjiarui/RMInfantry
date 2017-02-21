@@ -27,15 +27,21 @@ Project File Date:  02/12/2017
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'HKUST_RM2017_Mainboard'
-compiling chassis_control.c...
+compiling main.c...
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
 pwm.h(11): warning:  #1-D: last line of file ends without a newline
   void Friction_wheel_control2(u16 speed);
 led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
   void LED_master_init();
+1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+adc.h(35): warning:  #1295-D: Deprecated declaration get_mcu_temperature - give arg types
+  float get_mcu_temperature();
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
 led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
   void LED_master_init();
-1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
-  void tft_brightness_check_menu();
 pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
   void pneumatic_init();
 pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
@@ -62,17 +68,17 @@ function_list.h(123): warning:  #1-D: last line of file ends without a newline
   #endif
 PID_s.h(22): warning:  #1-D: last line of file ends without a newline
   #endif
+power_control.h(3): warning:  #1-D: last line of file ends without a newline
+  void buffer_call(void);
 global_variable.h(18): warning:  #1-D: last line of file ends without a newline
   #endif
-chassis_control.c(12): warning:  #223-D: function "sin" declared implicitly
-      ch0=ch1_temp*sin(theta)+ch0_temp*cos(theta);
-chassis_control.c(12): warning:  #223-D: function "cos" declared implicitly
-      ch0=ch1_temp*sin(theta)+ch0_temp*cos(theta);
-chassis_control.c: 20 warnings, 0 errors
+gimbal_control.h(4): warning:  #1-D: last line of file ends without a newline
+  void control_gimbal_pitch(int16_t ch3);
+main.c: 23 warnings, 0 errors
 linking...
-Program Size: Code=39984 RO-data=2936 RW-data=16580 ZI-data=5932  
+Program Size: Code=39928 RO-data=2936 RW-data=16580 ZI-data=5932  
 FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 20 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 23 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard

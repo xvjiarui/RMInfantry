@@ -6,12 +6,6 @@
 #include "gimbal_control.h"
 static u32 ticks_msimg = (u32)-1;
 
-s32 max(s32 a, s32 b){
-	if (a > b)
-		return a;
-	return b;
-}
-
 void init() {
     SysTick_Init();
     Dbus_init();//usart1
@@ -98,8 +92,9 @@ int main(void)
                 tft_prints(1,8,"buffer: %f", buffer_remain);
                 tft_prints(1,9,"cur:%d",current_angle);
                 tft_prints(1,10,"tar:%d",target_angle);
-							max_angle = max(abs(current_angle - target_angle), max_angle);
-							tft_prints(1,11,"max:%d",max_angle);
+								tft_prints(1,11,"Mouse:%d",DBUS_ReceiveData.mouse.x);
+								
+							//tft_prints(1,11,"max:%d",max_angle);
 								//tft_prints(1,11,"ecd:%f",CM1Encoder.ecd_angle);
                 tft_update();
                 LED_blink(LED1);
@@ -109,7 +104,9 @@ int main(void)
                 control_car(0,0,0);
             }
             else if (DBUS_ReceiveData.rc.switch_right==3)
-            {   int16_t ch_changes[4];
+            { 
+							/*
+								int16_t ch_changes[4];
                 ch_input[0]=LASTDBUS_ReceiveData.rc.ch0;
                 ch_input[1]=LASTDBUS_ReceiveData.rc.ch1;
                 ch_input[2]=LASTDBUS_ReceiveData.rc.ch2;
@@ -133,20 +130,10 @@ int main(void)
                     else ch_input[i]+=ch_changes[i];
                 }
                 control_car(ch_input[0],ch_input[1],ch_input[2]);
-            }
-            else {
-                //keyboard sample
-                /*
-                int16_t key_input_ch0 = (DBUS_CheckPush(KEY_D)-DBUS_CheckPush(KEY_A)) * 660;
-                int16_t key_input_ch1 = (DBUS_CheckPush(KEY_W)-DBUS_CheckPush(KEY_S)) *660;
-                int16_t key_input_ch2 =	DBUS_ReceiveData.mouse.x;
-                control_car(key_input_ch0, key_input_ch1, key_input_ch2);
-                */
+								*/
 								int16_t ch_changes[4];
 								ch_changes[0]=DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
                 ch_changes[1]=DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
-                //ch_changes[2]=DBUS_ReceiveData.rc.ch2 - last_ch_input[2];
-                //ch_changes[3]=DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
 								int16_t max_change=2;
                 int16_t min_change=-2;
 								 for (int i = 0; i < 2; ++i)
@@ -163,6 +150,37 @@ int main(void)
 										last_ch_input[i] = ch_input[i];
                 }
 								ch_input[2] = DBUS_ReceiveData.rc.ch2;
+                control_car(ch_input[0],ch_input[1],ch_input[2]);
+							
+            }
+            else {
+                //keyboard sample
+                /*
+                int16_t key_input_ch0 = (DBUS_CheckPush(KEY_D)-DBUS_CheckPush(KEY_A)) * 660;
+                int16_t key_input_ch1 = (DBUS_CheckPush(KEY_W)-DBUS_CheckPush(KEY_S)) *660;
+                int16_t key_input_ch2 =	DBUS_ReceiveData.mouse.x;
+                control_car(key_input_ch0, key_input_ch1, key_input_ch2);
+                */
+								int16_t ch_changes[4];
+								ch_changes[0]= (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 - last_ch_input[0];
+                ch_changes[1]= (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 - last_ch_input[1];
+								int16_t max_change=2;
+                int16_t min_change=-2;
+								 for (int i = 0; i < 2; ++i)
+                {
+                    if (ch_changes[i]>max_change)
+                    {
+                        ch_input[i]+=max_change;
+                    }
+                    else if (ch_changes[i] < min_change)
+                    {
+                        ch_input[i]+=min_change;
+                    }
+                    else ch_input[i]+=ch_changes[i];
+										last_ch_input[i] = ch_input[i];
+                }
+								ch_input[2] = 0;
+								//ch_input[2] = DBUS_ReceiveData.rc.ch2;
                 control_car(ch_input[0],ch_input[1],ch_input[2]);
             }
         }
