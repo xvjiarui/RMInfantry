@@ -7,12 +7,13 @@ extern PID angle_pid;
 extern PID ang_vel_pid;
 extern PID power_pid;
 extern PID buffer_pid;
-extern PID gimbal_pid[2];
+extern PID gimbal_speed_pid[2];
+extern PID gimbal_pos_pid[2];
 extern u8 str[256];
 extern float buffer_remain;
 extern s32 target_angle;
 extern s32 current_angle;
 extern int16_t result[4];
-extern float init_pitch_pos;
+extern float init_yaw_pos;
 
 #endif

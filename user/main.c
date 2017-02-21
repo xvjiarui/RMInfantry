@@ -39,10 +39,11 @@ PID angle_pid;
 PID ang_vel_pid;
 PID power_pid;
 PID buffer_pid;
-PID gimbal_pid[2];
+PID gimbal_speed_pid[2];
+PID gimbal_pos_pid[2];
 u8 str[256];
 float buffer_remain;
-float init_pitch_pos;
+float init_yaw_pos;
 s32 max_angle=0;
 int main(void)
 {
@@ -51,10 +52,12 @@ int main(void)
     for (int i = 0; i < 4; i++) {
         //PID_init(&wheels_pos_pid[i],130, 0.004, 0, 5000);//30 0.001 5 65 0.001 5
         PID_init(&wheels_pos_pid[i],0.15, 0, 0, 20000);
-        PID_init(&wheels_speed_pid[i],80,5,100,20000);//0.00001
+        PID_init(&wheels_speed_pid[i],80,5,100, 20000);//0.00001
     }
-    PID_init(&gimbal_pid[0], 50, 0, 0,5000);
-    PID_init(&gimbal_pid[1], 1, 0, 0,5000);
+    PID_init(&gimbal_speed_pid[0], 80, 5, 100, 20000);
+    PID_init(&gimbal_speed_pid[1], 80, 5, 100, 20000);
+		PID_init(&gimbal_pos_pid[0],0.3, 0, 0, 20000);
+		PID_init(&gimbal_pos_pid[1],0.3, 0, 0, 20000);
     PID_init(&angle_pid,4,0,0,660);//5 20
     //PID_init(&ang_vel_pid,0.01,0,0,1000);
     //PID_init(&power_pid,0.1,0,0,100);
@@ -62,7 +65,7 @@ int main(void)
     int16_t ch_input[4]= {0,0,0,0};
 		int16_t last_ch_input[4] = {0,0,0,0};
     buffer_remain=60;
-    init_pitch_pos=CM3Encoder.ecd_angle;
+    init_yaw_pos = GMYawEncoder.ecd_angle;
     while (1)  {
 
         if (ticks_msimg != get_ms_ticks())
@@ -92,7 +95,6 @@ int main(void)
                 tft_prints(1,8,"buffer: %f", buffer_remain);
                 tft_prints(1,9,"cur:%d",current_angle);
                 tft_prints(1,10,"tar:%d",target_angle);
-								tft_prints(1,11,"Mouse:%d",DBUS_ReceiveData.mouse.x);
 								
 							//tft_prints(1,11,"max:%d",max_angle);
 								//tft_prints(1,11,"ecd:%f",CM1Encoder.ecd_angle);
@@ -150,8 +152,8 @@ int main(void)
 										last_ch_input[i] = ch_input[i];
                 }
 								ch_input[2] = DBUS_ReceiveData.rc.ch2;
-                control_car(ch_input[0],ch_input[1],ch_input[2]);
-							
+                //control_car(ch_input[0],ch_input[1],ch_input[2]);
+								control_gimbal_yaw(DBUS_ReceiveData.mouse.x);
             }
             else {
                 //keyboard sample

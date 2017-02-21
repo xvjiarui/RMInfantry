@@ -40,7 +40,7 @@ I (ticks.h)(0x58A05B39)
 I (buzzer.h)(0x58A05B39)
 I (gpio.h)(0x58A05B39)
 I (timer.h)(0x58A05B39)
-F (.\main.c)(0x58AC280D)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-ID:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x58AC3C31)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-ID:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (main.h)(0x58A05B39)
 I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -104,8 +104,8 @@ I (judge.h)(0x58A05B39)
 I (PID_s.h)(0x58A06062)
 I (power_control.h)(0x58A0614D)
 I (chassis_control.h)(0x58A060A2)
-I (gimbal_control.h)(0x58A06026)
-I (global_variable.h)(0x58A0615E)
+I (gimbal_control.h)(0x58AC2D0E)
+I (global_variable.h)(0x58AC2F79)
 F (.\system_stm32f4xx.c)(0x58A05B39)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-ID:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\system_stm32f4xx.o --omf_browse ..\obj\system_stm32f4xx.crf --depend ..\obj\system_stm32f4xx.d)
 I (stm32f4xx.h)(0x58A05B39)
 I (..\CORE\core_cm4.h)(0x58A05B38)
@@ -194,7 +194,7 @@ I (can.h)(0x58A05B39)
 I (Dbus.h)(0x58A05B39)
 I (judge.h)(0x58A05B39)
 I (PID_s.h)(0x58A06062)
-I (global_variable.h)(0x58A0615E)
+I (global_variable.h)(0x58AC2F79)
 I (chassis_control.h)(0x58A060A2)
 F (.\power_control.h)(0x58A0614D)()
 F (.\power_control.c)(0x58A060BE)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-ID:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\power_control.o --omf_browse ..\obj\power_control.crf --depend ..\obj\power_control.d)
@@ -249,10 +249,10 @@ I (can.h)(0x58A05B39)
 I (Dbus.h)(0x58A05B39)
 I (judge.h)(0x58A05B39)
 I (PID_s.h)(0x58A06062)
-I (global_variable.h)(0x58A0615E)
+I (global_variable.h)(0x58AC2F79)
 I (power_control.h)(0x58A0614D)
-F (.\gimbal_control.h)(0x58A06026)()
-F (.\gimbal_control.c)(0x58A2FB87)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-ID:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\gimbal_control.o --omf_browse ..\obj\gimbal_control.crf --depend ..\obj\gimbal_control.d)
+F (.\gimbal_control.h)(0x58AC2D0E)()
+F (.\gimbal_control.c)(0x58AC3B9E)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-ID:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\gimbal_control.o --omf_browse ..\obj\gimbal_control.crf --depend ..\obj\gimbal_control.d)
 I (function_list.h)(0x58A05EC4)
 I (pwm.h)(0x58A05B39)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x58A05B39)
@@ -304,8 +304,8 @@ I (can.h)(0x58A05B39)
 I (Dbus.h)(0x58A05B39)
 I (judge.h)(0x58A05B39)
 I (PID_s.h)(0x58A06062)
-I (global_variable.h)(0x58A0615E)
-F (.\global_variable.h)(0x58A0615E)()
+I (global_variable.h)(0x58AC2F79)
+F (.\global_variable.h)(0x58AC2F79)()
 F (.\PID_s.c)(0x58A05B39)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-ID:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\pid_s.o --omf_browse ..\obj\pid_s.crf --depend ..\obj\pid_s.d)
 I (PID_s.h)(0x58A06062)
 F (..\CORE\startup_stm32f40_41xxx.s)(0x58A05B38)(--cpu Cortex-M4.fp -g --apcs=interwork -ID:\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include--pd "__UVISION_VERSION SETA 522" --pd "STM32F407xx SETA 1"--list ..\obj\startup_stm32f40_41xxx.lst --xref -o ..\obj\startup_stm32f40_41xxx.o --depend ..\obj\startup_stm32f40_41xxx.d)
