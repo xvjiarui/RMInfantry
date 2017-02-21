@@ -3,7 +3,7 @@
 ..\obj\buzzer.o: ..\FWLIB\inc\stm32f4xx_gpio.h
 ..\obj\buzzer.o: ..\USER\stm32f4xx.h
 ..\obj\buzzer.o: ..\CORE\core_cm4.h
-..\obj\buzzer.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\buzzer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\buzzer.o: ..\CORE\core_cmInstr.h
 ..\obj\buzzer.o: ..\CORE\core_cmFunc.h
 ..\obj\buzzer.o: ..\CORE\core_cmSimd.h

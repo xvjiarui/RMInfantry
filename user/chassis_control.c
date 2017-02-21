@@ -24,7 +24,7 @@ int16_t* control_dir(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float r
 int16_t* control_remoter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float ratio1, float ratio2, int16_t delta) {
     //potential bug exists
     //the data from gyro will accumulate and may be overflow?
-    if(ch2<4 && ch2>-4) {
+    if(ch2<1 && ch2>-1) {
         ch2=delta;
     }
     else target_angle=output_angle;
@@ -49,7 +49,7 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2) {
         target_speed = control_remoter(ch0,ch1,ch2,1,1,1,0);
     }
     else if (DBUS_ReceiveData.rc.switch_right == 3)  {
-        target_speed = control_remoter(ch0,ch1,ch2,1,1,1,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
+        target_speed = control_remoter(ch0,ch1,ch2,1,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
     }
     else target_speed=control_remoter(ch0,ch1,ch2,1,1,1,PID_output(&angle_pid,target_angle));
     wheels_speed_pid[0].current=CM1Encoder.filter_rate;

@@ -61,11 +61,12 @@ int main(void)
     }
     PID_init(&gimbal_pid[0], 50, 0, 0,5000);
     PID_init(&gimbal_pid[1], 1, 0, 0,5000);
-    PID_init(&angle_pid,1.1,0,1,660);//5 20
+    PID_init(&angle_pid,4,0,0,660);//5 20
     //PID_init(&ang_vel_pid,0.01,0,0,1000);
     //PID_init(&power_pid,0.1,0,0,100);
     PID_init(&buffer_pid,0.02,0,0,60);
     int16_t ch_input[4]= {0,0,0,0};
+		int16_t last_ch_input[4] = {0,0,0,0};
     buffer_remain=60;
     init_pitch_pos=CM3Encoder.ecd_angle;
     while (1)  {
@@ -141,6 +142,28 @@ int main(void)
                 int16_t key_input_ch2 =	DBUS_ReceiveData.mouse.x;
                 control_car(key_input_ch0, key_input_ch1, key_input_ch2);
                 */
+								int16_t ch_changes[4];
+								ch_changes[0]=DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
+                ch_changes[1]=DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
+                ch_changes[2]=DBUS_ReceiveData.rc.ch2 - last_ch_input[2];
+                ch_changes[3]=DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
+								int16_t max_change=2;
+                int16_t min_change=-2;
+								 for (int i = 0; i < 4; ++i)
+                {
+                    if (ch_changes[i]>max_change)
+                    {
+                        ch_input[i]+=max_change;
+                    }
+                    else if (ch_changes[i] < min_change)
+                    {
+                        ch_input[i]+=min_change;
+                    }
+                    else ch_input[i]+=ch_changes[i];
+										last_ch_input[i] = ch_input[i];
+                }
+								ch_input[2] = DBUS_ReceiveData.rc.ch2;
+                control_car(ch_input[0],ch_input[1],ch_input[2]);
             }
         }
     }

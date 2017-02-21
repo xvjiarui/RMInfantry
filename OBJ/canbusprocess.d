@@ -1,10 +1,10 @@
 ..\obj\canbusprocess.o: canBusProcess.c
-..\obj\canbusprocess.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\canbusprocess.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\canbusprocess.o: canBusProcess.h
 ..\obj\canbusprocess.o: can.h
 ..\obj\canbusprocess.o: stm32f4xx.h
 ..\obj\canbusprocess.o: ..\CORE\core_cm4.h
-..\obj\canbusprocess.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\canbusprocess.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\canbusprocess.o: ..\CORE\core_cmInstr.h
 ..\obj\canbusprocess.o: ..\CORE\core_cmFunc.h
 ..\obj\canbusprocess.o: ..\CORE\core_cmSimd.h

@@ -3,9 +3,9 @@
 <title>Static Call Graph - [..\OBJ\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Tue Feb 14 21:12:20 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sat Feb 18 21:59:28 2017
 <BR><P>
-<H3>Maximum Stack Usage =        440 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        448 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 <P>
@@ -401,7 +401,7 @@ Global Symbols
 <P><STRONG><a name="[1d0]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[95]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 440 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 448 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -484,8 +484,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[96]"></a>main</STRONG> (Thumb, 816 bytes, Stack size 24 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 440 + Unknown Stack Size
+<P><STRONG><a name="[96]"></a>main</STRONG> (Thumb, 1008 bytes, Stack size 32 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 448 + Unknown Stack Size
 <LI>Call Chain = main &rArr; tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_update
@@ -518,7 +518,7 @@ Global Symbols
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 </UL>
 
-<P><STRONG><a name="[be]"></a>control_remoter</STRONG> (Thumb, 130 bytes, Stack size 12 bytes, chassis_control.o(.text))
+<P><STRONG><a name="[be]"></a>control_remoter</STRONG> (Thumb, 128 bytes, Stack size 12 bytes, chassis_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = control_remoter
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
