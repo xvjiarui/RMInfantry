@@ -27,21 +27,15 @@ Project File Date:  02/12/2017
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'HKUST_RM2017_Mainboard'
-compiling main.c...
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
+compiling gimbal_control.c...
 pwm.h(11): warning:  #1-D: last line of file ends without a newline
   void Friction_wheel_control2(u16 speed);
 led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
   void LED_master_init();
-1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
   void tft_brightness_check_menu();
-adc.h(35): warning:  #1295-D: Deprecated declaration get_mcu_temperature - give arg types
-  float get_mcu_temperature();
-pwm.h(11): warning:  #1-D: last line of file ends without a newline
-  void Friction_wheel_control2(u16 speed);
-led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
-  void LED_master_init();
 pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
   void pneumatic_init();
 pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
@@ -68,23 +62,21 @@ function_list.h(123): warning:  #1-D: last line of file ends without a newline
   #endif
 PID_s.h(22): warning:  #1-D: last line of file ends without a newline
   #endif
-power_control.h(3): warning:  #1-D: last line of file ends without a newline
-  void buffer_call(void);
 global_variable.h(19): warning:  #1-D: last line of file ends without a newline
   #endif
-gimbal_control.h(5): warning:  #1-D: last line of file ends without a newline
-  void control_gimbal_yaw_speed(int16_t ch2);
-main.c: 23 warnings, 0 errors
-linking...
-Program Size: Code=40280 RO-data=2936 RW-data=16580 ZI-data=6020  
-FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 23 Warning(s).
+gimbal_control.c(58): warning:  #223-D: function "yaw_pos_equal" declared implicitly
+      while (yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, target_pos, 1) != 1) {
+gimbal_control.c(62): error:  #159: declaration is incompatible with previous "yaw_pos_equal"  (declared at line 58)
+  int16_t yaw_pos_equal(float x, float y, float delta)
+gimbal_control.c: 19 warnings, 1 error
+"..\OBJ\Template.axf" - 1 Error(s), 19 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   \\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard
   C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
+Target not created.
 Build Time Elapsed:  00:00:04
 </pre>
 </body>
