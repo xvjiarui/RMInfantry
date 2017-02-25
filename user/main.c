@@ -99,7 +99,8 @@ int main(void)
                 tft_prints(1, 5, "init:%f", init_yaw_pos);
                 tft_prints(1, 6, "curr:%f", GMYawEncoder.ecd_angle);
                 tft_prints(1, 7, "5:%d 6:%d", GMYawEncoder.filter_rate, GMPitchEncoder.filter_rate);
-                tft_prints(1, 8, "buffer: %f", buffer_remain);
+                // tft_prints(1, 8, "buffer: %f", buffer_remain);
+                tft_prints(1, 8, "equal:%d", yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 100));
                 tft_prints(1, 9, "cur:%d", current_angle);
                 tft_prints(1, 10, "tar:%d", target_angle);
                 tft_prints(1, 11, "Mouse:%d right:%d", DBUS_ReceiveData.mouse.x, DBUS_ReceiveData.mouse.press_right);
@@ -191,8 +192,8 @@ int main(void)
                     last_ch_input[i] = ch_input[i];
                 }
                 int16_t mouse_changes[2];
-                mouse_changes[0] = - DBUS_ReceiveData.mouse.x - last_mouse_input[0];
-                mouse_changes[1] = - DBUS_ReceiveData.mouse.y - last_mouse_input[1];
+                mouse_changes[0] = - 2 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
+                mouse_changes[1] = - 2 * DBUS_ReceiveData.mouse.y - last_mouse_input[1];
                 int16_t max_mouse_change = 2;
                 int16_t min_mouse_change = -2;
                 for (int i = 0; i < 2; ++i)
@@ -217,8 +218,8 @@ int main(void)
                 control_car(ch_input[0], ch_input[1], ch_input[2]);
                 if (DBUS_ReceiveData.mouse.press_right)
                 {
-
                     gimbal_yaw_set(0);
+                    // control_gimbal_yaw_pos(0);
                 }
                 else control_gimbal_yaw_speed(mouse_input[0]);
             }
