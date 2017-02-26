@@ -20,7 +20,8 @@ void control_gimbal_yaw_pos(int16_t ch2) {
     // init_yaw_pos = GMYawEncoder.ecd_angle;
     int16_t ratio = 2;
     int16_t target_position = ratio * ch2 + init_yaw_pos;
-    gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle - init_yaw_pos;
+	gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle;
+    //gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle - init_yaw_pos;
     int16_t target_speed = PID_output2(&gimbal_pos_pid[0], target_position, init_yaw_pos + ratio * 660, init_yaw_pos - ratio * 660, 100, 30);
     // int16_t target_speed = ch3;
     gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;

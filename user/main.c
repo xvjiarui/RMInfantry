@@ -221,7 +221,14 @@ int main(void)
                     gimbal_yaw_set(0);
                     // control_gimbal_yaw_pos(0);
                 }
-                else control_gimbal_yaw_speed(mouse_input[0]);
+                else if (DBUS_ReceiveData.mouse.press_left){
+									//gimbal_yaw_set(
+									//target_angle += 10;
+									target_angle = current_angle + (GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
+								}
+								else {
+									control_gimbal_yaw_speed(mouse_input[0]);
+								}
             }
         }
     }
