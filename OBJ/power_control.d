@@ -4,7 +4,7 @@
 ..\obj\power_control.o: ..\FWLIB\inc\stm32f4xx_tim.h
 ..\obj\power_control.o: ..\USER\stm32f4xx.h
 ..\obj\power_control.o: ..\CORE\core_cm4.h
-..\obj\power_control.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\power_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\power_control.o: ..\CORE\core_cmInstr.h
 ..\obj\power_control.o: ..\CORE\core_cmFunc.h
 ..\obj\power_control.o: ..\CORE\core_cmSimd.h
@@ -42,8 +42,8 @@
 ..\obj\power_control.o: 1.8 tft_display.h
 ..\obj\power_control.o: 1.8 TFT_ascii.h
 ..\obj\power_control.o: led.h
-..\obj\power_control.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\power_control.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\power_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\power_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\power_control.o: ticks.h
 ..\obj\power_control.o: yaw_gyro.h
 ..\obj\power_control.o: ticks.h

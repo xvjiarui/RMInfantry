@@ -65,11 +65,19 @@ int16_t yaw_pos_equal(float x, float y, float delta)
 
 void gimbal_yaw_set(float target_pos)
 {
-    static u32 ticks;
+    u32 ticks = (u32) -1;
     while (yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, target_pos, 10) != 1) {
-        control_gimbal_yaw_pos(target_pos);
-        ticks = get_ms_ticks();
-        while(get_ms_ticks() < ticks + 2); // pause for 10ms
+        if (ticks != get_ms_ticks())
+        {
+            ticks = get_ms_ticks();
+            if (ticks % 3 == 0)
+            {
+                 control_gimbal_yaw_pos(target_pos);
+            }
+        } 
+        // control_gimbal_yaw_pos(target_pos);
+        // ticks = get_ms_ticks();
+        // while(get_ms_ticks() < ticks + 2); // pause for 10ms
         // tft_prints(1, 5, "init:%f", init_yaw_pos);
         // tft_prints(1, 6, "curr:%f", GMYawEncoder.ecd_angle);
         // tft_prints(1, 7, "5:%d 6:%d", GMYawEncoder.filter_rate, GMPitchEncoder.filter_rate);
