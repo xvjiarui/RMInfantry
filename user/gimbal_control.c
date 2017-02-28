@@ -16,9 +16,11 @@ void control_gimbal(int16_t ch2, int16_t ch3) {
     Set_Gimbal_Current(CAN2,input[0],0,0);
 }
 */
+// inpur relative position
+// range (-5, 5)
 void control_gimbal_yaw_pos(int16_t ch2) {
     // init_yaw_pos = GMYawEncoder.ecd_angle;
-    int16_t ratio = 2;
+    int16_t ratio = 1;
     int16_t target_position = ratio * ch2 + init_yaw_pos;
 	gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle;
     //gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle - init_yaw_pos;

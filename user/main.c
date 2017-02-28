@@ -28,9 +28,11 @@ void init() {
     TIM5_Int_Init(24, 13124); // 256hz //3.9xx ms for gyro usage
     DataMonitor_Init();
 }
-
+float debug = 0;
 s32 target_angle = 0;
 s32 current_angle = 0;
+float current_yaw_pos = 0;
+float target_yaw_pos = 0;
 int16_t result[4] = {0, 0, 0, 0};
 //int16_t result[4]={0,0,0,0};
 PID wheels_pos_pid[4];
@@ -41,6 +43,7 @@ PID power_pid;
 PID buffer_pid;
 PID gimbal_speed_pid[2];
 PID gimbal_pos_pid[2];
+PID gimbal_reset_pid;
 u8 str[256];
 float buffer_remain;
 float init_yaw_pos;
@@ -62,6 +65,7 @@ int main(void)
     //PID_init(&ang_vel_pid,0.01,0,0,1000);
     //PID_init(&power_pid,0.1,0,0,100);
     PID_init(&buffer_pid, 0.02, 0, 0, 60);
+    PID_init(&gimbal_reset_pid, 0.02, 0, 0, 10);
     int16_t ch_input[4] = {0, 0, 0, 0};
     int16_t last_ch_input[4] = {0, 0, 0, 0};
     int16_t mouse_pos[2] = {0, 0};
@@ -100,7 +104,8 @@ int main(void)
                 tft_prints(1, 6, "curr:%f", GMYawEncoder.ecd_angle);
                 tft_prints(1, 7, "5:%d 6:%d", GMYawEncoder.filter_rate, GMPitchEncoder.filter_rate);
                 // tft_prints(1, 8, "buffer: %f", buffer_remain);
-                tft_prints(1, 8, "equal:%d", yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 100));
+                // tft_prints(1, 8, "equal:%d", yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 100));
+                tft_prints(1, 8, "debug:%f", debug);
                 tft_prints(1, 9, "cur:%d", current_angle);
                 tft_prints(1, 10, "tar:%d", target_angle);
                 tft_prints(1, 11, "Mouse:%d right:%d", DBUS_ReceiveData.mouse.x, DBUS_ReceiveData.mouse.press_right);
@@ -172,6 +177,8 @@ int main(void)
                 int16_t key_input_ch2 = DBUS_ReceiveData.mouse.x;
                 control_car(key_input_ch0, key_input_ch1, key_input_ch2);
                 */
+                current_yaw_pos = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
+                target_yaw_pos = current_yaw_pos;
                 int16_t ch_changes[4];
                 ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 - last_ch_input[0];
                 ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 - last_ch_input[1];
@@ -213,14 +220,14 @@ int main(void)
                 {
                     mouse_input[0] = 0;
                     last_mouse_input[0] = 0;
-                    if ( (GMYawEncoder.ecd_angle - init_yaw_pos) > 27 || (GMYawEncoder.ecd_angle - init_yaw_pos) < -27)
-                    {
-                        target_angle = current_angle - (GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
-                    }
-                    
-                    gimbal_yaw_set(0);
+                    // if ( yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1)
+                    // {
+                    //     target_angle = current_angle - (GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
+                    // }
+
+                    // gimbal_yaw_set(0);
                 }
-                control_car(ch_input[0], ch_input[1], ch_input[2]);
+                // control_car(ch_input[0], ch_input[1], ch_input[2]);
                 if (DBUS_ReceiveData.mouse.press_right)
                 {
                     gimbal_yaw_set(0);
@@ -229,11 +236,29 @@ int main(void)
                 else if (DBUS_ReceiveData.mouse.press_left) {
                     //gimbal_yaw_set(
                     //target_angle += 10;
-                    target_angle = current_angle - (GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
+                    if ( yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 150) != 1)
+                    {
+                        gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
+                        float step = - PID_output(&gimbal_reset_pid, 0);
+                        step = step > 0 ? step : -step;
+                        debug = step;
+                        if (GMYawEncoder.ecd_angle - init_yaw_pos < -10)
+                        {
+                            // clockwise
+                            target_angle = current_angle + 10 * step;
+                            control_gimbal_yaw_pos(GMYawEncoder.ecd_angle - init_yaw_pos + step * 27);
+                        }
+                        else {
+                            target_angle = current_angle - 10 * step;
+                            control_gimbal_yaw_pos(GMYawEncoder.ecd_angle - init_yaw_pos - step * 27);
+                        }
+                    }
+                    // target_angle = current_angle - (GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
                 }
                 else {
                     control_gimbal_yaw_speed(mouse_input[0]);
                 }
+                control_car(ch_input[0], ch_input[1], ch_input[2]);
             }
         }
     }
