@@ -72,7 +72,7 @@ void gimbal_yaw_set(float target_pos)
         if (ticks != get_ms_ticks())
         {
             ticks = get_ms_ticks();
-            if (ticks % 3 == 0)
+            if (ticks % 1 == 0)
             {
                  control_gimbal_yaw_pos(target_pos);
             }

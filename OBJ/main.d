@@ -73,3 +73,4 @@
 ..\obj\main.o: chassis_control.h
 ..\obj\main.o: gimbal_control.h
 ..\obj\main.o: global_variable.h
+..\obj\main.o: customized_function.h

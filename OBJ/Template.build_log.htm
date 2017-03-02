@@ -78,26 +78,28 @@ gimbal_control.h(7): warning:  #1295-D: Deprecated declaration exceed_range_left
   int16_t exceed_range_left();
 gimbal_control.h(9): warning:  #1-D: last line of file ends without a newline
   void gimbal_yaw_set(float target_pos);
-main.c(180): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+customized_function.h(1): warning:  #1-D: last line of file ends without a newline
+  void pause(int ms);
+main.c(181): warning:  #1035-D: single-precision operand implicitly converted to double-precision
                   current_yaw_pos = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
-main.c(71): warning:  #177-D: variable "mouse_pos"  was declared but never referenced
+main.c(72): warning:  #177-D: variable "mouse_pos"  was declared but never referenced
       int16_t mouse_pos[2] = {0, 0};
-main.c(74): warning:  #177-D: variable "press_right"  was declared but never referenced
+main.c(75): warning:  #177-D: variable "press_right"  was declared but never referenced
       int16_t press_right = 0;
-main.c(75): warning:  #177-D: variable "last_press_right"  was declared but never referenced
+main.c(76): warning:  #177-D: variable "last_press_right"  was declared but never referenced
       int16_t last_press_right = 0;
-main.c: 29 warnings, 0 errors
+main.c: 30 warnings, 0 errors
 linking...
-Program Size: Code=41336 RO-data=2936 RW-data=16592 ZI-data=6064  
+Program Size: Code=41200 RO-data=2936 RW-data=16592 ZI-data=6064  
 FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 29 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 30 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   \\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard
   C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

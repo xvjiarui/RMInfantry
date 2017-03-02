@@ -6,6 +6,7 @@
 "..\obj\power_control.o"
 "..\obj\gimbal_control.o"
 "..\obj\pid_s.o"
+"..\obj\customized_function.o"
 "..\obj\startup_stm32f40_41xxx.o"
 "..\obj\misc.o"
 "..\obj\stm32f4xx_adc.o"
