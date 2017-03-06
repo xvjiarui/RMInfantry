@@ -13,6 +13,7 @@ extern u8 str[256];
 extern float buffer_remain;
 extern s32 target_angle;
 extern s32 current_angle;
+extern s32 last_angle;
 extern int16_t result[4];
 extern float init_yaw_pos;
 

@@ -429,6 +429,16 @@
               <FileType>1</FileType>
               <FilePath>.\PID_s.c</FilePath>
             </File>
+            <File>
+              <FileName>customized_function.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\customized_function.c</FilePath>
+            </File>
+            <File>
+              <FileName>customized_function.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\customized_function.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

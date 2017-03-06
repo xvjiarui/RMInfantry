@@ -32,8 +32,7 @@ void init() {
 float debug = 0;
 s32 target_angle = 0;
 s32 current_angle = 0;
-float current_yaw_pos = 0;
-float target_yaw_pos = 0;
+s32 last_angle = 0;
 int16_t result[4] = {0, 0, 0, 0};
 //int16_t result[4]={0,0,0,0};
 PID wheels_pos_pid[4];
@@ -49,6 +48,8 @@ u8 str[256];
 float buffer_remain;
 float init_yaw_pos;
 s32 max_angle = 0;
+int16_t following_mode = 0;
+int16_t stable_mode = 0;
 int main(void)
 {
 // u8 dum[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '\n'};
@@ -66,14 +67,11 @@ int main(void)
     //PID_init(&ang_vel_pid,0.01,0,0,1000);
     //PID_init(&power_pid,0.1,0,0,100);
     PID_init(&buffer_pid, 0.02, 0, 0, 60);
-    PID_init(&gimbal_reset_pid, 0.02, 0, 1, 50);
+    PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
     int16_t ch_input[4] = {0, 0, 0, 0};
     int16_t last_ch_input[4] = {0, 0, 0, 0};
-    int16_t mouse_pos[2] = {0, 0};
     int16_t mouse_input[2] = {0, 0};
     int16_t last_mouse_input[2] = {0, 0};
-    int16_t press_right = 0;
-    int16_t last_press_right = 0;
     buffer_remain = 60;
     init_yaw_pos = GMYawEncoder.ecd_angle;
     while (1)  {
@@ -106,7 +104,8 @@ int main(void)
                 tft_prints(1, 7, "5:%d 6:%d", GMYawEncoder.filter_rate, GMPitchEncoder.filter_rate);
                 // tft_prints(1, 8, "buffer: %f", buffer_remain);
                 //tft_prints(1, 8, "equal:%d", yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 54));
-                tft_prints(1, 8, "step:%f", debug);
+                // tft_prints(1, 8, "stable:%d", stable_mode);
+                tft_prints(1, 8, "debug:%f", debug);
                 tft_prints(1, 9, "cur:%d", current_angle);
                 tft_prints(1, 10, "tar:%d", target_angle);
                 tft_prints(1, 11, "Mouse:%d right:%d", DBUS_ReceiveData.mouse.x, DBUS_ReceiveData.mouse.press_right);
@@ -171,15 +170,6 @@ int main(void)
 
             }
             else {
-                //keyboard sample
-                /*
-                int16_t key_input_ch0 = (DBUS_CheckPush(KEY_D)-DBUS_CheckPush(KEY_A)) * 660;
-                int16_t key_input_ch1 = (DBUS_CheckPush(KEY_W)-DBUS_CheckPush(KEY_S)) *660;
-                int16_t key_input_ch2 = DBUS_ReceiveData.mouse.x;
-                control_car(key_input_ch0, key_input_ch1, key_input_ch2);
-                */
-                current_yaw_pos = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
-                target_yaw_pos = current_yaw_pos;
                 int16_t ch_changes[4];
                 ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 - last_ch_input[0];
                 ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 - last_ch_input[1];
@@ -202,8 +192,8 @@ int main(void)
                 int16_t mouse_changes[2];
                 mouse_changes[0] = - 2 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
                 mouse_changes[1] = - 2 * DBUS_ReceiveData.mouse.y - last_mouse_input[1];
-                int16_t max_mouse_change = 2;
-                int16_t min_mouse_change = -2;
+                int16_t max_mouse_change = 1;
+                int16_t min_mouse_change = -1;
                 for (int i = 0; i < 2; ++i)
                 {
                     if (mouse_changes[i] > max_mouse_change)
@@ -221,37 +211,41 @@ int main(void)
                 {
                     mouse_input[0] = 0;
                     last_mouse_input[0] = 0;
-                    // if ( yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1)
-                    // {
-                    //     target_angle = current_angle - (GMYawEncoder.ecd_angle - init_yaw_pos) / 2.7;
-                    // }
-
-                    // gimbal_yaw_set(0);
                 }
                 // control_car(ch_input[0], ch_input[1], ch_input[2]);
+                if (DBUS_ReceiveData.mouse.press_left)
+                {
+                    // following_mode = 1;
+                    stable_mode = (stable_mode == 1) ? 0:1;
+                }
                 if (DBUS_ReceiveData.mouse.press_right)
                 {
                     gimbal_yaw_set(0);
                 }
-                else if (DBUS_ReceiveData.mouse.press_left) {
-                    // float d_angle = (GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-                    // while (yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 54) != 1){
-                    //     gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
-                    //     float step = PID_output(&gimbal_reset_pid, 0);
-                    //     debug = step;
-                    //     target_angle = current_angle + 10 * step;
-                    //     control_gimbal_yaw_pos(GMYawEncoder.ecd_angle - init_yaw_pos + step * 27);
-                    //     pause(1);
-                    // }
-                    if ( yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1)
+                else if (following_mode) {
+
+                    if ( yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 15) != 1)
                     {
                         gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
                         float step = PID_output(&gimbal_reset_pid, 0);
-                        debug = step;
+                        // debug = step;
                         target_angle = current_angle + 10 * step;
                         control_gimbal_yaw_pos(GMYawEncoder.ecd_angle - init_yaw_pos + step * 27);
                     }
-
+                    else following_mode = 0;
+                }
+                else if (stable_mode)
+                {
+                    s16 gyro_angle_speed = gyro_get_vel();
+                    int16_t target_yaw_filter_rate = - gyro_angle_speed * 27 * 6144 / 3600 /1000; 
+                    debug = target_yaw_filter_rate;
+                    if ((target_yaw_filter_rate > 0 && exceed_range_right()) || (target_yaw_filter_rate < 0 && exceed_range_left()))
+                    {
+                        mouse_input[0] = 0;
+                        last_mouse_input[0] = 0;
+                        target_yaw_filter_rate = 0;
+                    }
+                    control_gimbal_yaw_speed(target_yaw_filter_rate);
                 }
                 else {
                     control_gimbal_yaw_speed(mouse_input[0]);

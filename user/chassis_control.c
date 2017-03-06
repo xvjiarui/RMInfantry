@@ -39,6 +39,7 @@ int16_t* control_remoter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,flo
 }
 
 void control_car(int16_t ch0, int16_t ch1, int16_t ch2) {
+    last_angle = current_angle;
     current_angle = output_angle;
     angle_pid.current=current_angle;
     buffer_pid.current=buffer_remain;
