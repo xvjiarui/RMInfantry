@@ -44,7 +44,8 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2) {
     angle_pid.current=current_angle;
     buffer_pid.current=buffer_remain;
     int16_t* target_speed;
-    if (DBUS_ReceiveData.rc.switch_left == 1) {
+	
+    if (DBUS_ReceiveData.rc.switch_right == 1) {
         //emergency stop
         target_angle = current_angle;
         target_speed = control_remoter(ch0,ch1,ch2,1,1,1,0);
@@ -52,6 +53,7 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2) {
     else {
         target_speed = control_remoter(ch0,ch1,ch2,1,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
     }
+		
     wheels_speed_pid[0].current=CM1Encoder.filter_rate;
     wheels_speed_pid[1].current=CM2Encoder.filter_rate;
     wheels_speed_pid[2].current=CM3Encoder.filter_rate;

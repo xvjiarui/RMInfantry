@@ -439,6 +439,16 @@
               <FileType>5</FileType>
               <FilePath>.\customized_function.h</FilePath>
             </File>
+            <File>
+              <FileName>external_control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\external_control.h</FilePath>
+            </File>
+            <File>
+              <FileName>external_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\external_control.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

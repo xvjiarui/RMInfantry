@@ -4,7 +4,7 @@
 ..\obj\button.o: ..\FWLIB\inc\stm32f4xx_gpio.h
 ..\obj\button.o: ..\USER\stm32f4xx.h
 ..\obj\button.o: ..\CORE\core_cm4.h
-..\obj\button.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\button.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\button.o: ..\CORE\core_cmInstr.h
 ..\obj\button.o: ..\CORE\core_cmFunc.h
 ..\obj\button.o: ..\CORE\core_cmSimd.h

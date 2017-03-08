@@ -5,6 +5,7 @@
 #include "chassis_control.h"
 #include "gimbal_control.h"
 #include "customized_function.h"
+#include "external_control.h"
 static u32 ticks_msimg = (u32) - 1;
 
 void init() {
@@ -29,17 +30,21 @@ void init() {
     TIM5_Int_Init(24, 13124); // 256hz //3.9xx ms for gyro usage
     DataMonitor_Init();
 }
+
 float debug = 0;
 s32 target_angle = 0;
 s32 current_angle = 0;
 s32 last_angle = 0;
 int16_t result[4] = {0, 0, 0, 0};
-//int16_t result[4]={0,0,0,0};
 PID wheels_pos_pid[4];
 PID wheels_speed_pid[4];
 PID angle_pid;
+//still in use?
+/*
 PID ang_vel_pid;
 PID power_pid;
+*/
+///////////////
 PID buffer_pid;
 PID gimbal_speed_pid[2];
 PID gimbal_pos_pid[2];
@@ -50,6 +55,7 @@ float init_yaw_pos;
 s32 max_angle = 0;
 int16_t following_mode = 0;
 int16_t stable_mode = 0;
+
 int main(void)
 {
 // u8 dum[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '\n'};
@@ -64,14 +70,18 @@ int main(void)
     PID_init(&gimbal_pos_pid[0], 0.15, 0, 0, 20000);
     PID_init(&gimbal_pos_pid[1], 0.15, 0, 0, 20000);
     PID_init(&angle_pid, 4, 0, 0, 660); //5 20
-    //PID_init(&ang_vel_pid,0.01,0,0,1000);
-    //PID_init(&power_pid,0.1,0,0,100);
     PID_init(&buffer_pid, 0.02, 0, 0, 60);
     PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
-    int16_t ch_input[4] = {0, 0, 0, 0};
-    int16_t last_ch_input[4] = {0, 0, 0, 0};
-    int16_t mouse_input[2] = {0, 0};
-    int16_t last_mouse_input[2] = {0, 0};
+		
+		////////////////////////////////////////////
+		/////////////////////////now become static variables in external_control()
+		//may be avoided
+    //int16_t ch_input[4] = {0, 0, 0, 0};
+
+    //int16_t last_ch_input[4] = {0, 0, 0, 0};
+    //int16_t mouse_input[2] = {0, 0};
+    //int16_t last_mouse_input[2] = {0, 0};
+
     buffer_remain = 60;
     init_yaw_pos = GMYawEncoder.ecd_angle;
     while (1)  {
@@ -97,166 +107,18 @@ int main(void)
                 tft_prints(1, 2, "rc0:%d rc1:%d", DBUS_ReceiveData.rc.ch0, DBUS_ReceiveData.rc.ch1);
                 tft_prints(1, 3, "rc2:%d rc3:%d", DBUS_ReceiveData.rc.ch2, DBUS_ReceiveData.rc.ch3);
                 tft_prints(1, 4, "Pr:%f", InfantryJudge.RealCurrent * InfantryJudge.RealVoltage);
-                //tft_prints(1,5,"cur:%f",wheels_speed_pid[0].current);
-                //tft_prints(1,6,"err:%f",wheels_speed_pid[0].target - wheels_speed_pid[0].current);
                 tft_prints(1, 5, "init:%f", init_yaw_pos);
                 tft_prints(1, 6, "curr:%f", GMYawEncoder.ecd_angle);
                 tft_prints(1, 7, "5:%d 6:%d", GMYawEncoder.filter_rate, GMPitchEncoder.filter_rate);
-                // tft_prints(1, 8, "buffer: %f", buffer_remain);
-                //tft_prints(1, 8, "equal:%d", yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 54));
-                // tft_prints(1, 8, "stable:%d", stable_mode);
                 tft_prints(1, 8, "debug:%f", debug);
                 tft_prints(1, 9, "cur:%d", current_angle);
                 tft_prints(1, 10, "tar:%d", target_angle);
                 tft_prints(1, 11, "Mouse:%d right:%d", DBUS_ReceiveData.mouse.x, DBUS_ReceiveData.mouse.press_right);
-                //tft_prints(1,11,"max:%d",max_angle);
-                //tft_prints(1,11,"ecd:%f",CM1Encoder.ecd_angle);
                 tft_update();
                 LED_blink(LED1);
             }
-            if (DBUS_ReceiveData.rc.switch_left == 1) {
-                //emergency stop
-                control_car(0, 0, 0);
-                control_gimbal_yaw_pos(0);
-            }
-            else if (DBUS_ReceiveData.rc.switch_right == 3)
-            {
-                /*
-                    int16_t ch_changes[4];
-                ch_input[0]=LASTDBUS_ReceiveData.rc.ch0;
-                ch_input[1]=LASTDBUS_ReceiveData.rc.ch1;
-                ch_input[2]=LASTDBUS_ReceiveData.rc.ch2;
-                ch_input[3]=LASTDBUS_ReceiveData.rc.ch3;
-                ch_changes[0]=DBUS_ReceiveData.rc.ch0 - LASTDBUS_ReceiveData.rc.ch0;
-                ch_changes[1]=DBUS_ReceiveData.rc.ch1 - LASTDBUS_ReceiveData.rc.ch1;
-                ch_changes[2]=DBUS_ReceiveData.rc.ch2 - LASTDBUS_ReceiveData.rc.ch2;
-                ch_changes[3]=DBUS_ReceiveData.rc.ch3 - LASTDBUS_ReceiveData.rc.ch3;
-                int16_t max_change=1;
-                int16_t min_change=-1;
-                for (int i = 0; i < 4; ++i)
-                {
-                if (ch_changes[i]>max_change)
-                {
-                ch_input[i]+=max_change;
-                }
-                else if (ch_changes[i] < min_change)
-                {
-                ch_input[i]+=min_change;
-                }
-                else ch_input[i]+=ch_changes[i];
-                }
-                control_car(ch_input[0],ch_input[1],ch_input[2]);
-                    */
-                int16_t ch_changes[4];
-                ch_changes[0] = DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
-                ch_changes[1] = DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
-                int16_t max_change = 2;
-                int16_t min_change = -2;
-                for (int i = 0; i < 2; ++i)
-                {
-                    if (ch_changes[i] > max_change)
-                    {
-                        ch_input[i] += max_change;
-                    }
-                    else if (ch_changes[i] < min_change)
-                    {
-                        ch_input[i] += min_change;
-                    }
-                    else ch_input[i] += ch_changes[i];
-                    last_ch_input[i] = ch_input[i];
-                }
-                ch_input[2] = DBUS_ReceiveData.rc.ch2;
-                control_car(ch_input[0], ch_input[1], ch_input[2]);
-
-            }
-            else {
-                int16_t ch_changes[4];
-                ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 - last_ch_input[0];
-                ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 - last_ch_input[1];
-                ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 - last_ch_input[2];
-                int16_t max_change = 2;
-                int16_t min_change = -2;
-                for (int i = 0; i < 3; ++i)
-                {
-                    if (ch_changes[i] > max_change)
-                    {
-                        ch_input[i] += max_change;
-                    }
-                    else if (ch_changes[i] < min_change)
-                    {
-                        ch_input[i] += min_change;
-                    }
-                    else ch_input[i] += ch_changes[i];
-                    last_ch_input[i] = ch_input[i];
-                }
-                int16_t mouse_changes[2];
-                mouse_changes[0] = - 2 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
-                mouse_changes[1] = - 2 * DBUS_ReceiveData.mouse.y - last_mouse_input[1];
-                int16_t max_mouse_change = 1;
-                int16_t min_mouse_change = -1;
-                for (int i = 0; i < 2; ++i)
-                {
-                    if (mouse_changes[i] > max_mouse_change)
-                    {
-                        mouse_input[i] += max_mouse_change;
-                    }
-                    else if (mouse_changes[i] < min_mouse_change)
-                    {
-                        mouse_input[i] += min_mouse_change;
-                    }
-                    else mouse_input[i] += mouse_changes[i];
-                    last_mouse_input[i] = mouse_input[i];
-                }
-                if ((mouse_input[0] > 0 && exceed_range_right()) || (mouse_input[0] < 0 && exceed_range_left()))
-                {
-                    mouse_input[0] = 0;
-                    last_mouse_input[0] = 0;
-                }
-                // control_car(ch_input[0], ch_input[1], ch_input[2]);
-                if (DBUS_ReceiveData.mouse.press_left)
-                {
-                    // following_mode = 1;
-                    stable_mode = (stable_mode == 1) ? 0:1;
-                }
-                if (DBUS_ReceiveData.mouse.press_right)
-                {
-                    gimbal_yaw_set(0);
-                }
-                else if (following_mode) {
-
-                    if ( yaw_pos_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 15) != 1)
-                    {
-                        gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
-                        float step = PID_output(&gimbal_reset_pid, 0);
-                        // debug = step;
-                        target_angle = current_angle + 10 * step;
-                        control_gimbal_yaw_pos(GMYawEncoder.ecd_angle - init_yaw_pos + step * 27);
-                    }
-                    else following_mode = 0;
-                }
-                else if (stable_mode)
-                {
-                    s16 gyro_angle_speed = gyro_get_vel();
-                    int16_t target_yaw_filter_rate = - gyro_angle_speed * 27 * 6144 / 3600 /1000; 
-                    debug = target_yaw_filter_rate;
-                    if ((target_yaw_filter_rate > 0 && exceed_range_right()) || (target_yaw_filter_rate < 0 && exceed_range_left()))
-                    {
-                        mouse_input[0] = 0;
-                        last_mouse_input[0] = 0;
-                        target_yaw_filter_rate = 0;
-                    }
-                    control_gimbal_yaw_speed(target_yaw_filter_rate);
-                }
-                else {
-                    control_gimbal_yaw_speed(mouse_input[0]);
-                }
-                control_car(ch_input[0], ch_input[1], ch_input[2]);
-            }
         }
+				
+				external_control();
     }
 }
-
-
-
-
-

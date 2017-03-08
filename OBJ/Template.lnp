@@ -7,6 +7,7 @@
 "..\obj\gimbal_control.o"
 "..\obj\pid_s.o"
 "..\obj\customized_function.o"
+"..\obj\external_control.o"
 "..\obj\startup_stm32f40_41xxx.o"
 "..\obj\misc.o"
 "..\obj\stm32f4xx_adc.o"
