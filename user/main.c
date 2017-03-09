@@ -72,10 +72,10 @@ int main(void)
     PID_init(&angle_pid, 4, 0, 0, 660); //5 20
     PID_init(&buffer_pid, 0.02, 0, 0, 60);
     PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
-		
-		////////////////////////////////////////////
-		/////////////////////////now become static variables in external_control()
-		//may be avoided
+
+    ////////////////////////////////////////////
+    /////////////////////////now become static variables in external_control()
+    //may be avoided
     //int16_t ch_input[4] = {0, 0, 0, 0};
 
     //int16_t last_ch_input[4] = {0, 0, 0, 0};
@@ -117,8 +117,8 @@ int main(void)
                 tft_update();
                 LED_blink(LED1);
             }
-						external_control();
+            external_control();
         }
-				
+
     }
 }

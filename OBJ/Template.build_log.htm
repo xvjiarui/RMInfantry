@@ -5,11 +5,11 @@
 <h2>Tool Versions:</h2>
 IDE-Version: ¦ÌVision V5.22.0.0
 Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: G T, CPY, LIC=FYK12-9G7KD-8TQ3P-MTDIV-BJKC8-S46FP
+License Information: Jiarui XU, HKUST, LIC=03CTG-VPVHX-LCFJF-6Y1BY-UQX6Z-ET0W4
  
 Tool Versions:
 Toolchain:       MDK-ARM Plus  Version: 5.22
-Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 4 (build 422)
 Assembler:       Armasm.exe V5.06 update 4 (build 422)
 Linker/Locator:  ArmLink.exe V5.06 update 4 (build 422)
@@ -21,12 +21,195 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.18.0
 Dialog DLL:      TCM.DLL V1.21.0.0
  
 <h2>Project:</h2>
-C:\Users\Atmosphere\Dropbox\robot\robot\user\Template.uvprojx
-Project File Date:  03/08/2017
+\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\Template.uvprojx
+Project File Date:  03/09/2017
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'HKUST_RM2017_Mainboard'
+compiling stm32f4xx_it.c...
+compiling main.c...
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+adc.h(35): warning:  #1295-D: Deprecated declaration get_mcu_temperature - give arg types
+  float get_mcu_temperature();
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(u8 port, u8 state);
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+function_list.h(28): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+function_list.h(33): warning:  #1295-D: Deprecated declaration tft_update - give arg types
+  void tft_update();
+function_list.h(34): warning:  #1295-D: Deprecated declaration tft_clear - give arg types
+  void tft_clear();
+function_list.h(54): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+function_list.h(58): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+function_list.h(59): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+gimbal_control.h(6): warning:  #1295-D: Deprecated declaration gimbal_exceed_right_bound - give arg types
+  int16_t gimbal_exceed_right_bound();
+gimbal_control.h(7): warning:  #1295-D: Deprecated declaration gimbal_exceed_left_bound - give arg types
+  int16_t gimbal_exceed_left_bound();
+external_control.h(4): warning:  #1295-D: Deprecated declaration external_control - give arg types
+  void external_control();
+main.c: 21 warnings, 0 errors
+compiling system_stm32f4xx.c...
+compiling chassis_control.c...
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(u8 port, u8 state);
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+function_list.h(28): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+function_list.h(33): warning:  #1295-D: Deprecated declaration tft_update - give arg types
+  void tft_update();
+function_list.h(34): warning:  #1295-D: Deprecated declaration tft_clear - give arg types
+  void tft_clear();
+function_list.h(54): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+function_list.h(58): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+function_list.h(59): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+chassis_control.c(12): warning:  #223-D: function "sin" declared implicitly
+      ch0=ch1_temp*sin(theta)+ch0_temp*cos(theta);
+chassis_control.c(12): warning:  #223-D: function "cos" declared implicitly
+      ch0=ch1_temp*sin(theta)+ch0_temp*cos(theta);
+chassis_control.c: 17 warnings, 0 errors
+compiling power_control.c...
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(u8 port, u8 state);
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+function_list.h(28): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+function_list.h(33): warning:  #1295-D: Deprecated declaration tft_update - give arg types
+  void tft_update();
+function_list.h(34): warning:  #1295-D: Deprecated declaration tft_clear - give arg types
+  void tft_clear();
+function_list.h(54): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+function_list.h(58): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+function_list.h(59): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+power_control.c: 15 warnings, 0 errors
+compiling gimbal_control.c...
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(u8 port, u8 state);
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+function_list.h(28): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+function_list.h(33): warning:  #1295-D: Deprecated declaration tft_update - give arg types
+  void tft_update();
+function_list.h(34): warning:  #1295-D: Deprecated declaration tft_clear - give arg types
+  void tft_clear();
+function_list.h(54): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+function_list.h(58): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+function_list.h(59): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+gimbal_control.c(59): warning:  #223-D: function "float_equal" declared implicitly
+      while (float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, target_pos, 10) != 1) {
+gimbal_control.c: 16 warnings, 0 errors
+compiling PID_s.c...
+compiling customized_function.c...
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(u8 port, u8 state);
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+function_list.h(28): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+function_list.h(33): warning:  #1295-D: Deprecated declaration tft_update - give arg types
+  void tft_update();
+function_list.h(34): warning:  #1295-D: Deprecated declaration tft_clear - give arg types
+  void tft_clear();
+function_list.h(54): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+function_list.h(58): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+function_list.h(59): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+customized_function.c(23): warning:  #1-D: last line of file ends without a newline
+  }
+customized_function.c: 16 warnings, 0 errors
 compiling external_control.c...
 pwm.h(11): warning:  #1-D: last line of file ends without a newline
   void Friction_wheel_control2(u16 speed);
@@ -65,17 +248,171 @@ gimbal_control.h(6): warning:  #1295-D: Deprecated declaration gimbal_exceed_rig
 gimbal_control.h(7): warning:  #1295-D: Deprecated declaration gimbal_exceed_left_bound - give arg types
   int16_t gimbal_exceed_left_bound();
 external_control.c: 18 warnings, 0 errors
+assembling startup_stm32f40_41xxx.s...
+compiling misc.c...
+compiling stm32f4xx_adc.c...
+compiling stm32f4xx_can.c...
+compiling stm32f4xx_crc.c...
+compiling stm32f4xx_dma.c...
+compiling stm32f4xx_flash.c...
+compiling stm32f4xx_gpio.c...
+compiling stm32f4xx_i2c.c...
+compiling stm32f4xx_spi.c...
+compiling stm32f4xx_syscfg.c...
+compiling stm32f4xx_tim.c...
+compiling stm32f4xx_usart.c...
+compiling stm32f4xx_rcc.c...
+compiling buzzer.c...
+compiling gpio.c...
+compiling ticks.c...
+compiling pwm.c...
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+pwm.c: 1 warning, 0 errors
+compiling timer.c...
+timer.c(117): warning:  #1-D: last line of file ends without a newline
+  */
+timer.c: 1 warning, 0 errors
+compiling button.c...
+button.h(12): warning:  #1295-D: Deprecated declaration button_init - give arg types
+  void button_init();
+button.h(13): warning:  #1295-D: Deprecated declaration button_check - give arg types
+  void button_check();
+button.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+button.c(31): warning:  #1-D: last line of file ends without a newline
+  }
+button.c: 4 warnings, 0 errors
+compiling led.c...
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+led.c: 1 warning, 0 errors
+compiling buzzer_song.c...
+buzzer_song.c(7): warning:  #188-D: enumerated type mixed with another type
+  const MUSIC_NOTE CLICK_RIGHT[] = {{1, 7}, {NOTE_END}};
+buzzer_song.c(8): warning:  #188-D: enumerated type mixed with another type
+  const MUSIC_NOTE CLICK_DOWN[] = {{2, 7}, {NOTE_END}};
+buzzer_song.c(9): warning:  #188-D: enumerated type mixed with another type
+  const MUSIC_NOTE CLICK_UP[] = {{3, 7}, {NOTE_END}};
+buzzer_song.c(10): warning:  #188-D: enumerated type mixed with another type
+  const MUSIC_NOTE CLICK_CENTER[] = {{4, 7}, {NOTE_END}};
+buzzer_song.c(11): warning:  #188-D: enumerated type mixed with another type
+  const MUSIC_NOTE CLICK_SMALL_BUTTON[] = {{5, 7}, {NOTE_END}};
+buzzer_song.c(12): warning:  #188-D: enumerated type mixed with another type
+  const MUSIC_NOTE CLICK_MUSIC[] = {{6,7} ,{NOTE_END}};
+buzzer_song.c: 6 warnings, 0 errors
+compiling 1.8 TFT_display.c...
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+button.h(12): warning:  #1295-D: Deprecated declaration button_init - give arg types
+  void button_init();
+button.h(13): warning:  #1295-D: Deprecated declaration button_check - give arg types
+  void button_check();
+button.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+compiling flash.c...
+compiling yaw_gyro.c...
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+yaw_gyro.c: 2 warnings, 0 errors
+compiling adc.c...
+adc.h(35): warning:  #1295-D: Deprecated declaration get_mcu_temperature - give arg types
+  float get_mcu_temperature();
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+adc.c: 3 warnings, 0 errors
+compiling encoder.c...
+compiling pneumatic.c...
+pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(u8 port, u8 state);
+pneumatic.c(16): warning:  #188-D: enumerated type mixed with another type
+                case 1: {GPIO_WriteBit(
+PIOC, 
+PIO_Pin_6, state);break;}
+pneumatic.c(17): warning:  #188-D: enumerated type mixed with another type
+                case 2: {GPIO_WriteBit(
+PIOC, 
+PIO_Pin_7, state);break;}
+pneumatic.c(18): warning:  #188-D: enumerated type mixed with another type
+                case 3: {GPIO_WriteBit(
+PIOC, 
+PIO_Pin_8, state);break;}
+pneumatic.c(19): warning:  #188-D: enumerated type mixed with another type
+                case 4: {GPIO_WriteBit(
+PIOC, 
+PIO_Pin_9, state);break;}
+pneumatic.c(21): warning:  #1-D: last line of file ends without a newline
+  }
+pneumatic.c: 7 warnings, 0 errors
+compiling can1.c...
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+can1.c: 4 warnings, 0 errors
+compiling can2.c...
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+can2.c: 4 warnings, 0 errors
+compiling canBusProcess.c...
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+canBusProcess.c: 3 warnings, 0 errors
+compiling Dbus.c...
+Dbus.c(162): warning:  #1-D: last line of file ends without a newline
+  }
+Dbus.c: 1 warning, 0 errors
+compiling judge.c...
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+adc.h(35): warning:  #1295-D: Deprecated declaration get_mcu_temperature - give arg types
+  float get_mcu_temperature();
+judge.c: 6 warnings, 0 errors
+compiling data_monitor.c...
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+data_monitor.c: 1 warning, 0 errors
 linking...
-Program Size: Code=41000 RO-data=2936 RW-data=20712 ZI-data=5976  
+Program Size: Code=41168 RO-data=2936 RW-data=20712 ZI-data=5976  
 FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 18 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 152 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\Atmosphere\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard
-  D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  \\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard
+  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:01:04
 </pre>
 </body>
 </html>

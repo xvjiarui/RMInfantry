@@ -2,7 +2,7 @@
 ..\obj\data_monitor.o: data_monitor.h
 ..\obj\data_monitor.o: stm32f4xx.h
 ..\obj\data_monitor.o: ..\CORE\core_cm4.h
-..\obj\data_monitor.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\data_monitor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\data_monitor.o: ..\CORE\core_cmInstr.h
 ..\obj\data_monitor.o: ..\CORE\core_cmFunc.h
 ..\obj\data_monitor.o: ..\CORE\core_cmSimd.h

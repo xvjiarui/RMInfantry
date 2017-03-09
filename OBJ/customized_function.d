@@ -4,7 +4,7 @@
 ..\obj\customized_function.o: ..\FWLIB\inc\stm32f4xx_tim.h
 ..\obj\customized_function.o: ..\USER\stm32f4xx.h
 ..\obj\customized_function.o: ..\CORE\core_cm4.h
-..\obj\customized_function.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\customized_function.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\customized_function.o: ..\CORE\core_cmInstr.h
 ..\obj\customized_function.o: ..\CORE\core_cmFunc.h
 ..\obj\customized_function.o: ..\CORE\core_cmSimd.h
@@ -42,8 +42,8 @@
 ..\obj\customized_function.o: 1.8 tft_display.h
 ..\obj\customized_function.o: 1.8 TFT_ascii.h
 ..\obj\customized_function.o: led.h
-..\obj\customized_function.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\customized_function.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\customized_function.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\customized_function.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\customized_function.o: ticks.h
 ..\obj\customized_function.o: yaw_gyro.h
 ..\obj\customized_function.o: ticks.h
