@@ -117,8 +117,8 @@ int main(void)
                 tft_update();
                 LED_blink(LED1);
             }
+						external_control();
         }
 				
-				external_control();
     }
 }

@@ -20,7 +20,7 @@ void external_control(){
 	}
 	else if (DBUS_ReceiveData.rc.switch_right == 3)
 	{
-			int16_t ch_changes[4];
+			int16_t ch_changes[4] = {0, 0, 0, 0};
 			ch_changes[0] = DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
 			ch_changes[1] = DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
 			/////////////////////
@@ -53,11 +53,10 @@ void external_control(){
 	}
 	else {
 		//to clearly organize the code
-			int16_t ch_changes[4];
-			int16_t mouse_changes[2];
+			int16_t ch_changes[4] = {0, 0, 0, 0};
+			int16_t mouse_changes[2] = {0, 0};
 			static int16_t mouse_input[2];
 			static int16_t last_mouse_input[2];
-		
 			ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 - last_ch_input[0];
 			ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 - last_ch_input[1];
 			ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 - last_ch_input[2];
@@ -131,6 +130,7 @@ void external_control(){
 			{
 					gimbal_yaw_set(0);
 			}
+			/*
 			else if (following_mode) {
 					//if there is angle difference between the chassis and gimbal, chassis will follow it
 					if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 15) != 1)
@@ -156,10 +156,10 @@ void external_control(){
 					}
 					control_gimbal_yaw_speed(target_yaw_filter_rate);
 			}
+			*/
 			else {
 					control_gimbal_yaw_speed(mouse_input[0]);
 			}
-			control_car(ch_input[0], ch_input[1], ch_input[2]);
 			control_car(ch_input[0], ch_input[1], ch_input[2]);
 	}
 }
