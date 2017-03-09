@@ -3,7 +3,7 @@
 
 #include "PID_s.h"
 
-extern float debug;
+extern s32 debug;
 extern s32 target_angle;
 extern s32 current_angle;
 extern s32 last_angle;

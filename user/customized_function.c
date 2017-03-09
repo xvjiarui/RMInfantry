@@ -2,8 +2,8 @@
 
 void pause(u32 ms){
 	u32 ticks = get_ms_ticks();
+	while (get_ms_ticks() == ticks);
 	while ((get_ms_ticks() - ticks) % ms != 0);
-	return;
 }
 
 void limit_int_range(int16_t* num, int16_t upper_bound, int16_t lower_bound){

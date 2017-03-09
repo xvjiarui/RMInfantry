@@ -31,7 +31,7 @@ void init() {
     DataMonitor_Init();
 }
 
-float debug = 0;
+s32 debug = 0;
 s32 target_angle = 0;
 s32 current_angle = 0;
 s32 last_angle = 0;
@@ -39,12 +39,6 @@ int16_t result[4] = {0, 0, 0, 0};
 PID wheels_pos_pid[4];
 PID wheels_speed_pid[4];
 PID angle_pid;
-//still in use?
-/*
-PID ang_vel_pid;
-PID power_pid;
-*/
-///////////////
 PID buffer_pid;
 PID gimbal_speed_pid[2];
 PID gimbal_pos_pid[2];
@@ -52,9 +46,6 @@ PID gimbal_reset_pid;
 u8 str[256];
 float buffer_remain;
 float init_yaw_pos;
-s32 max_angle = 0;
-int16_t following_mode = 0;
-int16_t stable_mode = 0;
 
 int main(void)
 {
@@ -72,17 +63,7 @@ int main(void)
     PID_init(&angle_pid, 4, 0, 0, 660); //5 20
     PID_init(&buffer_pid, 0.02, 0, 0, 60);
     PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
-
-    ////////////////////////////////////////////
-    /////////////////////////now become static variables in external_control()
-    //may be avoided
-    //int16_t ch_input[4] = {0, 0, 0, 0};
-
-    //int16_t last_ch_input[4] = {0, 0, 0, 0};
-    //int16_t mouse_input[2] = {0, 0};
-    //int16_t last_mouse_input[2] = {0, 0};
-
-    buffer_remain = 60;
+    buffer_remain = 60;;
     init_yaw_pos = GMYawEncoder.ecd_angle;
     while (1)  {
 
@@ -119,6 +100,6 @@ int main(void)
             }
             external_control();
         }
-
     }
+		
 }

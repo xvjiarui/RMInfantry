@@ -6,3 +6,4 @@ void control_gimbal_yaw_speed(int16_t ch2);
 int16_t gimbal_exceed_right_bound();
 int16_t gimbal_exceed_left_bound();
 void gimbal_yaw_set(float target_pos);
+void instant_stabilize_gimbal();

@@ -1,6 +1,7 @@
 #include "function_list.h"
 #include "PID_s.h"
 #include "global_variable.h"
+#include "customized_function.h"
 
 /*
 void control_gimbal(int16_t ch2, int16_t ch3) {
@@ -54,19 +55,21 @@ int16_t gimbal_exceed_left_bound() {
 }
 
 void gimbal_yaw_set(float target_pos)
-{
-    u32 ticks = (u32) -1;
+{ //feel like this function is useless because it takes time to run
     while (float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, target_pos, 10) != 1) {
-        if (ticks != get_ms_ticks())
-        {
-            ticks = get_ms_ticks();
-            if (ticks % 1 == 0)
-            {
-                 control_gimbal_yaw_pos(target_pos);
-            }
-        }
+				pause(2);
+				control_gimbal_yaw_pos(target_pos);
     }
 }
 
-
+void instant_stabilize_gimbal() {
+	s16 gyro_angle_speed = gyro_get_vel();
+	int16_t target_yaw_filter_rate = - gyro_angle_speed * 27 * 6144 / 3600 / 1000;
+	debug = target_yaw_filter_rate;
+	if ((target_yaw_filter_rate > 0 && gimbal_exceed_right_bound()) || (target_yaw_filter_rate < 0 && gimbal_exceed_left_bound()))
+	{
+		target_yaw_filter_rate = 0;
+	}
+	control_gimbal_yaw_speed(target_yaw_filter_rate);
+}
 

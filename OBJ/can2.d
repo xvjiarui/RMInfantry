@@ -2,7 +2,7 @@
 ..\obj\can2.o: can.h
 ..\obj\can2.o: stm32f4xx.h
 ..\obj\can2.o: ..\CORE\core_cm4.h
-..\obj\can2.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\can2.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\can2.o: ..\CORE\core_cmInstr.h
 ..\obj\can2.o: ..\CORE\core_cmFunc.h
 ..\obj\can2.o: ..\CORE\core_cmSimd.h
