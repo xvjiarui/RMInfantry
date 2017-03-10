@@ -85,3 +85,29 @@ int16_t chassis_follow()
     else return 0;
 }
 
+void control_gimbal_yaw_pos_with_speed(int16_t ch2, int16_t input_speed) 
+{
+    int16_t ratio = 1;
+    int16_t target_position = ratio * ch2 + init_yaw_pos;
+    gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle;
+    int16_t target_speed = input_speed + PID_output2(&gimbal_pos_pid[0], target_position, init_yaw_pos + ratio * 660, init_yaw_pos - ratio * 660, 100, 30);
+    gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;
+    int16_t input = PID_output2(&gimbal_speed_pid[0], target_speed, 660, -660, 100, 15);
+    Set_CM_Speed(CAN1, input, 0, 0, 0);
+}
+
+int16_t chassis_follow_with_control(int16_t ch2)
+{
+    if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 15) != 1) {
+        gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
+        float step = PID_output(&gimbal_reset_pid, 0);
+        target_angle = current_angle + 10 * step;
+        control_gimbal_yaw_pos_with_speed((GMYawEncoder.ecd_angle - init_yaw_pos + step * 27), ch2);
+        return 1;
+    }
+    else return 0;
+}
+
+
+
+

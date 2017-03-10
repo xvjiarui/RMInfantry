@@ -104,7 +104,7 @@ I (judge.h)(0x585858B8)
 I (PID_s.h)(0x58C110AE)
 I (power_control.h)(0x58C110AE)
 I (chassis_control.h)(0x58A062DD)
-I (gimbal_control.h)(0x58C20AC8)
+I (gimbal_control.h)(0x58C258BC)
 I (global_variable.h)(0x58C251FF)
 I (customized_function.h)(0x58C110AE)
 I (external_control.h)(0x58C251FF)
@@ -253,8 +253,8 @@ I (judge.h)(0x585858B8)
 I (PID_s.h)(0x58C110AE)
 I (global_variable.h)(0x58C251FF)
 I (power_control.h)(0x58C110AE)
-F (.\gimbal_control.h)(0x58C20AC8)()
-F (.\gimbal_control.c)(0x58C20A23)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\gimbal_control.o --omf_browse ..\obj\gimbal_control.crf --depend ..\obj\gimbal_control.d)
+F (.\gimbal_control.h)(0x58C258BC)()
+F (.\gimbal_control.c)(0x58C2ABDF)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\gimbal_control.o --omf_browse ..\obj\gimbal_control.crf --depend ..\obj\gimbal_control.d)
 I (function_list.h)(0x58C110AE)
 I (pwm.h)(0x58484EFA)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x55E556E8)
@@ -364,7 +364,7 @@ I (Dbus.h)(0x58A02C38)
 I (judge.h)(0x585858B8)
 F (.\customized_function.h)(0x58C110AE)()
 F (.\external_control.h)(0x58C251FF)()
-F (.\external_control.c)(0x58C20AA6)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\external_control.o --omf_browse ..\obj\external_control.crf --depend ..\obj\external_control.d)
+F (.\external_control.c)(0x58C2B120)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\external_control.o --omf_browse ..\obj\external_control.crf --depend ..\obj\external_control.d)
 I (function_list.h)(0x58C110AE)
 I (pwm.h)(0x58484EFA)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x55E556E8)
@@ -419,7 +419,7 @@ I (external_control.h)(0x58C251FF)
 I (PID_s.h)(0x58C110AE)
 I (power_control.h)(0x58C110AE)
 I (chassis_control.h)(0x58A062DD)
-I (gimbal_control.h)(0x58C20AC8)
+I (gimbal_control.h)(0x58C258BC)
 I (global_variable.h)(0x58C251FF)
 I (customized_function.h)(0x58C110AE)
 F (..\CORE\startup_stm32f40_41xxx.s)(0x55E556E8)(--cpu Cortex-M4.fp -g --apcs=interwork -I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include--pd "__UVISION_VERSION SETA 522" --pd "STM32F407xx SETA 1"--list ..\obj\startup_stm32f40_41xxx.lst --xref -o ..\obj\startup_stm32f40_41xxx.o --depend ..\obj\startup_stm32f40_41xxx.d)
