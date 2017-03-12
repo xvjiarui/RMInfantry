@@ -27,7 +27,7 @@ Project File Date:  03/09/2017
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'HKUST_RM2017_Mainboard'
-compiling external_control.c...
+compiling gimbal_control.c...
 pwm.h(11): warning:  #1-D: last line of file ends without a newline
   void Friction_wheel_control2(u16 speed);
 led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
@@ -58,34 +58,18 @@ function_list.h(58): warning:  #1295-D: Deprecated declaration CAN1_Configuratio
   void CAN1_Configuration();
 function_list.h(59): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
   void CAN2_Configuration();
-external_control.h(4): warning:  #1295-D: Deprecated declaration external_control - give arg types
-  void external_control();
-external_control.h(5): warning:  #1295-D: Deprecated declaration remote_control - give arg types
-  void remote_control();
-external_control.h(6): warning:  #1295-D: Deprecated declaration computer_control - give arg types
-  void computer_control();
-gimbal_control.h(6): warning:  #1295-D: Deprecated declaration gimbal_exceed_right_bound - give arg types
-  int16_t gimbal_exceed_right_bound();
-gimbal_control.h(7): warning:  #1295-D: Deprecated declaration gimbal_exceed_left_bound - give arg types
-  int16_t gimbal_exceed_left_bound();
-gimbal_control.h(9): warning:  #1295-D: Deprecated declaration instant_stabilize_gimbal - give arg types
-  void instant_stabilize_gimbal();
-gimbal_control.h(10): warning:  #1295-D: Deprecated declaration chassis_follow - give arg types
-  int16_t chassis_follow();
-gimbal_control.h(12): warning:  #1-D: last line of file ends without a newline
-  int16_t chassis_follow_with_control(int16_t ch2);
-external_control.c: 23 warnings, 0 errors
+gimbal_control.c: 15 warnings, 0 errors
 linking...
-Program Size: Code=41576 RO-data=2936 RW-data=20724 ZI-data=5972  
+Program Size: Code=42088 RO-data=2936 RW-data=20732 ZI-data=5972  
 FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 23 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 15 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   \\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard
   C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:12
+Build Time Elapsed:  00:00:21
 </pre>
 </body>
 </html>

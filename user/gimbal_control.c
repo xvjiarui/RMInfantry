@@ -39,7 +39,7 @@ void control_gimbal_yaw_speed(int16_t ch2) {
 }
 
 int16_t gimbal_exceed_right_bound() {
-    if (GMYawEncoder.ecd_angle > init_yaw_pos + 2430 )
+    if (GMYawEncoder.ecd_angle > init_yaw_pos + 1620 )
     {
         return 1;
     }
@@ -47,7 +47,7 @@ int16_t gimbal_exceed_right_bound() {
 }
 
 int16_t gimbal_exceed_left_bound() {
-    if (GMYawEncoder.ecd_angle < init_yaw_pos - 2430)
+    if (GMYawEncoder.ecd_angle < init_yaw_pos - 1620 )
     {
         return 1;
     }
@@ -65,7 +65,6 @@ void gimbal_yaw_set(float target_pos)
 void instant_stabilize_gimbal() {
     s16 gyro_angle_speed = gyro_get_vel();
     int16_t target_yaw_filter_rate = - gyro_angle_speed * 27 * 6144 / 3600 / 1000;
-    debug = target_yaw_filter_rate;
     if ((target_yaw_filter_rate > 0 && gimbal_exceed_right_bound()) || (target_yaw_filter_rate < 0 && gimbal_exceed_left_bound()))
     {
         target_yaw_filter_rate = 0;
@@ -75,7 +74,7 @@ void instant_stabilize_gimbal() {
 
 int16_t chassis_follow()
 {
-    if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 15) != 1) {
+    if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1) {
         gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
         float step = PID_output(&gimbal_reset_pid, 0);
         target_angle = current_angle + 10 * step;
@@ -98,9 +97,10 @@ void control_gimbal_yaw_pos_with_speed(int16_t ch2, int16_t input_speed)
 
 int16_t chassis_follow_with_control(int16_t ch2)
 {
-    if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 15) != 1) {
+    if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1) {
         gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
         float step = PID_output(&gimbal_reset_pid, 0);
+        debug = step;
         target_angle = current_angle + 10 * step;
         control_gimbal_yaw_pos_with_speed((GMYawEncoder.ecd_angle - init_yaw_pos + step * 27), ch2);
         return 1;
@@ -108,6 +108,14 @@ int16_t chassis_follow_with_control(int16_t ch2)
     else return 0;
 }
 
-
+void buff_mode_gimbal_yaw_pos(int16_t index)
+{
+    target_angle = current_angle;
+    if (index != -1)
+    {
+        control_gimbal_yaw_pos(-27 * buff_yaw_pos[index]);
+    }
+    else control_gimbal_yaw_pos(GMYawEncoder.ecd_angle - init_yaw_pos);
+}
 
 

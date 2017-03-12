@@ -10,3 +10,4 @@ void instant_stabilize_gimbal();
 int16_t chassis_follow();
 void control_gimbal_yaw_pos_with_speed(int16_t ch2, int16_t input_speed);
 int16_t chassis_follow_with_control(int16_t ch2);
+void buff_mode_gimbal_yaw_pos(int16_t index);

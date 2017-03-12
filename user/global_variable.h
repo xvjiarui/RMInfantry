@@ -22,5 +22,6 @@ extern PID gimbal_reset_pid;
 extern u8 str[256];
 extern float buffer_remain;
 extern float init_yaw_pos;
+extern int16_t buff_yaw_pos[3];
 
 #endif

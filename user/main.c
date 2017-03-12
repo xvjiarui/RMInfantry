@@ -46,6 +46,7 @@ PID gimbal_reset_pid;
 u8 str[256];
 float buffer_remain;
 float init_yaw_pos;
+int16_t buff_yaw_pos[3] = {-40, 0, 40};
 
 int main(void)
 {
