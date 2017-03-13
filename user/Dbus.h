@@ -49,8 +49,8 @@ typedef struct {
 		uint8_t press_left;
 		uint8_t press_right;
     
-		uint16_t x_position;
-		uint16_t y_position;
+		int16_t x_position;
+		int16_t y_position;
 		
 	}mouse;
 	

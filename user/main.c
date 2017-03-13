@@ -46,8 +46,9 @@ PID gimbal_reset_pid;
 u8 str[256];
 float buffer_remain;
 float init_yaw_pos;
+float init_pitch_pos;
 int16_t buff_yaw_pos[3] = {-40, 0, 40};
-
+int16_t buff_pitch_pos[3] = {0, 20, 40};
 int main(void)
 {
 // u8 dum[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '\n'};
@@ -64,8 +65,9 @@ int main(void)
     PID_init(&angle_pid, 4, 0, 0, 660); //5 20
     PID_init(&buffer_pid, 0.02, 0, 0, 60);
     PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
-    buffer_remain = 60;;
+    buffer_remain = 60;
     init_yaw_pos = GMYawEncoder.ecd_angle;
+    init_pitch_pos = GMPitchEncoder.ecd_angle;
     while (1)  {
 
         if (ticks_msimg != get_ms_ticks())
@@ -95,7 +97,7 @@ int main(void)
                 tft_prints(1, 8, "debug:%f", debug);
                 tft_prints(1, 9, "cur:%d", current_angle);
                 tft_prints(1, 10, "tar:%d", target_angle);
-                tft_prints(1, 11, "Mouse:%d right:%d", DBUS_ReceiveData.mouse.x, DBUS_ReceiveData.mouse.press_right);
+                tft_prints(1, 11, "Mouse:%d", DBUS_ReceiveData.mouse.y_position);
                 tft_update();
                 LED_blink(LED1);
             }
