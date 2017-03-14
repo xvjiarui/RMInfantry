@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Mar 13 22:55:51 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Tue Mar 14 21:39:01 2017
 <BR><P>
 <H3>Maximum Stack Usage =        432 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -527,8 +527,8 @@ Global Symbols
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_remoter
 </UL>
-<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
@@ -542,7 +542,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_CM_Speed
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output2
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c3]"></a>control_gimbal_yaw_pos</STRONG> (Thumb, 236 bytes, Stack size 32 bytes, gimbal_control.o(.text))
@@ -551,20 +551,15 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_CM_Speed
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output2
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_mode_gimbal_yaw_pos
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow
+<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_mode_gimbal_yaw_pos
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_yaw_set
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
-<P><STRONG><a name="[c4]"></a>control_gimbal_yaw_speed</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, gimbal_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = control_gimbal_yaw_speed &rArr; Set_CM_Speed &rArr; CAN_Transmit
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_CM_Speed
+<P><STRONG><a name="[c4]"></a>control_gimbal_yaw_speed</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, gimbal_control.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_CM_Speed
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output2
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;instant_stabilize_gimbal
 </UL>
 
 <P><STRONG><a name="[c5]"></a>control_gimbal_pos</STRONG> (Thumb, 316 bytes, Stack size 32 bytes, gimbal_control.o(.text))
@@ -573,7 +568,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_CM_Speed
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output2
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_mode_gimbal_pos
+<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_mode_gimbal_pos
 </UL>
 
 <P><STRONG><a name="[c6]"></a>control_gimbal_speed</STRONG> (Thumb, 226 bytes, Stack size 24 bytes, gimbal_control.o(.text), UNUSED)
@@ -581,22 +576,20 @@ Global Symbols
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output2
 </UL>
 
-<P><STRONG><a name="[cc]"></a>gimbal_exceed_right_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;instant_stabilize_gimbal
+<P><STRONG><a name="[d9]"></a>gimbal_exceed_right_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
-<P><STRONG><a name="[cd]"></a>gimbal_exceed_left_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;instant_stabilize_gimbal
+<P><STRONG><a name="[da]"></a>gimbal_exceed_left_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
-<P><STRONG><a name="[dc]"></a>gimbal_exceed_upper_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<P><STRONG><a name="[db]"></a>gimbal_exceed_upper_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
-<P><STRONG><a name="[dd]"></a>gimbal_exceed_lower_bound</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, gimbal_control.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<P><STRONG><a name="[dc]"></a>gimbal_exceed_lower_bound</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, gimbal_control.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c7]"></a>gimbal_yaw_set</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, gimbal_control.o(.text), UNUSED)
@@ -605,60 +598,58 @@ Global Symbols
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos
 </UL>
 
-<P><STRONG><a name="[ca]"></a>instant_stabilize_gimbal</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, gimbal_control.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_left_bound
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_right_bound
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_speed
-</UL>
-
-<P><STRONG><a name="[ce]"></a>chassis_follow</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, gimbal_control.o(.text), UNUSED)
+<P><STRONG><a name="[ca]"></a>chassis_follow</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, gimbal_control.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float_equal
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output
 </UL>
 
-<P><STRONG><a name="[cf]"></a>control_gimbal_yaw_pos_with_speed</STRONG> (Thumb, 256 bytes, Stack size 32 bytes, gimbal_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = control_gimbal_yaw_pos_with_speed &rArr; Set_CM_Speed &rArr; CAN_Transmit
+<P><STRONG><a name="[cb]"></a>control_gimbal_yaw_pos_with_speed</STRONG> (Thumb, 256 bytes, Stack size 32 bytes, gimbal_control.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_CM_Speed
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output2
+</UL>
+
+<P><STRONG><a name="[cc]"></a>control_gimbal_pos_with_speed</STRONG> (Thumb, 386 bytes, Stack size 32 bytes, gimbal_control.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = control_gimbal_pos_with_speed &rArr; Set_CM_Speed &rArr; CAN_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_CM_Speed
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output2
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
+<BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
 </UL>
 
-<P><STRONG><a name="[d0]"></a>chassis_follow_with_control</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, gimbal_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = chassis_follow_with_control &rArr; control_gimbal_yaw_pos_with_speed &rArr; Set_CM_Speed &rArr; CAN_Transmit
+<P><STRONG><a name="[cd]"></a>chassis_follow_with_control</STRONG> (Thumb, 172 bytes, Stack size 24 bytes, gimbal_control.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = chassis_follow_with_control &rArr; control_gimbal_pos_with_speed &rArr; Set_CM_Speed &rArr; CAN_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float_equal
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos_with_speed
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos_with_speed
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
-<P><STRONG><a name="[d1]"></a>buff_mode_gimbal_yaw_pos</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, gimbal_control.o(.text), UNUSED)
+<P><STRONG><a name="[ce]"></a>buff_mode_gimbal_yaw_pos</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, gimbal_control.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos
 </UL>
 
-<P><STRONG><a name="[d2]"></a>buff_mode_gimbal_pos</STRONG> (Thumb, 196 bytes, Stack size 16 bytes, gimbal_control.o(.text))
+<P><STRONG><a name="[cf]"></a>buff_mode_gimbal_pos</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, gimbal_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = buff_mode_gimbal_pos &rArr; control_gimbal_pos &rArr; Set_CM_Speed &rArr; CAN_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_switch
+<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_switch
 </UL>
 
-<P><STRONG><a name="[d3]"></a>buff_switch</STRONG> (Thumb, 162 bytes, Stack size 8 bytes, gimbal_control.o(.text))
+<P><STRONG><a name="[d0]"></a>buff_switch</STRONG> (Thumb, 162 bytes, Stack size 8 bytes, gimbal_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = buff_switch &rArr; buff_mode_gimbal_pos &rArr; control_gimbal_pos &rArr; Set_CM_Speed &rArr; CAN_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBUS_CheckPush
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_mode_gimbal_pos
+<BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBUS_CheckPush
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_mode_gimbal_pos
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
-<P><STRONG><a name="[d5]"></a>fabs</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, pid_s.o(.text))
+<P><STRONG><a name="[d2]"></a>fabs</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, pid_s.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output2
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
@@ -668,17 +659,18 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c0]"></a>PID_output</STRONG> (Thumb, 182 bytes, Stack size 0 bytes, pid_s.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow
+<BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
 </UL>
 
 <P><STRONG><a name="[bf]"></a>PID_output2</STRONG> (Thumb, 668 bytes, Stack size 4 bytes, pid_s.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = PID_output2
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fabs
+<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fabs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos_with_speed
+<BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos_with_speed
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos_with_speed
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_speed
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_speed
@@ -693,44 +685,43 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_yaw_set
 </UL>
 
-<P><STRONG><a name="[db]"></a>limit_int_range</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, customized_function.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<P><STRONG><a name="[d8]"></a>limit_int_range</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, customized_function.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c9]"></a>float_equal</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, customized_function.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow
+<BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_yaw_set
 </UL>
 
-<P><STRONG><a name="[d6]"></a>computer_control</STRONG> (Thumb, 764 bytes, Stack size 88 bytes, external_control.o(.text))
+<P><STRONG><a name="[d3]"></a>computer_control</STRONG> (Thumb, 776 bytes, Stack size 88 bytes, external_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = computer_control &rArr; buff_switch &rArr; buff_mode_gimbal_pos &rArr; control_gimbal_pos &rArr; Set_CM_Speed &rArr; CAN_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBUS_CheckPush
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_switch
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_lower_bound
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_upper_bound
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_left_bound
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_right_bound
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_speed
+<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBUS_CheckPush
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_switch
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_lower_bound
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_upper_bound
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_left_bound
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_right_bound
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
-<P><STRONG><a name="[de]"></a>remote_control</STRONG> (Thumb, 128 bytes, Stack size 24 bytes, external_control.o(.text))
+<P><STRONG><a name="[dd]"></a>remote_control</STRONG> (Thumb, 128 bytes, Stack size 24 bytes, external_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = remote_control &rArr; control_car &rArr; Set_CM_Speed &rArr; CAN_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
+<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
@@ -739,8 +730,8 @@ Global Symbols
 <P><STRONG><a name="[b8]"></a>external_control</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, external_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = external_control &rArr; computer_control &rArr; buff_switch &rArr; buff_mode_gimbal_pos &rArr; control_gimbal_pos &rArr; Set_CM_Speed &rArr; CAN_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
 </UL>
@@ -1003,8 +994,8 @@ Global Symbols
 
 <P><STRONG><a name="[1f0]"></a>SysTick_CLKSourceConfig</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, misc.o(.text), UNUSED)
 
-<P><STRONG><a name="[df]"></a>ADC_DeInit</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, stm32f4xx_adc.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
+<P><STRONG><a name="[de]"></a>ADC_DeInit</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, stm32f4xx_adc.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
 </UL>
 
 <P><STRONG><a name="[15c]"></a>ADC_Init</STRONG> (Thumb, 74 bytes, Stack size 12 bytes, stm32f4xx_adc.o(.text))
@@ -1099,10 +1090,10 @@ Global Symbols
 
 <P><STRONG><a name="[20e]"></a>ADC_ClearITPendingBit</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_adc.o(.text), UNUSED)
 
-<P><STRONG><a name="[e1]"></a>CAN_DeInit</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[e0]"></a>CAN_DeInit</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = CAN_DeInit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
+<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Configuration
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
@@ -1176,10 +1167,10 @@ Global Symbols
 
 <P><STRONG><a name="[21d]"></a>CAN_ClearFlag</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text), UNUSED)
 
-<P><STRONG><a name="[e3]"></a>CAN_GetITStatus</STRONG> (Thumb, 310 bytes, Stack size 16 bytes, stm32f4xx_can.o(.text))
+<P><STRONG><a name="[e2]"></a>CAN_GetITStatus</STRONG> (Thumb, 310 bytes, Stack size 16 bytes, stm32f4xx_can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = CAN_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckITStatus
+<BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckITStatus
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_RX0_IRQHandler
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_TX_IRQHandler
@@ -1262,11 +1253,11 @@ Global Symbols
 
 <P><STRONG><a name="[22a]"></a>DMA_ClearITPendingBit</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, stm32f4xx_dma.o(.text), UNUSED)
 
-<P><STRONG><a name="[e5]"></a>GPIO_DeInit</STRONG> (Thumb, 268 bytes, Stack size 8 bytes, stm32f4xx_gpio.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphResetCmd
+<P><STRONG><a name="[e4]"></a>GPIO_DeInit</STRONG> (Thumb, 268 bytes, Stack size 8 bytes, stm32f4xx_gpio.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphResetCmd
 </UL>
 
-<P><STRONG><a name="[103]"></a>GPIO_Init</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(.text))
+<P><STRONG><a name="[102]"></a>GPIO_Init</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;judging_system_init
@@ -1275,20 +1266,20 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Configuration
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC1_init
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUTTON_init
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_gpio_init
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUTTON_init
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_gpio_init
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
 
 <P><STRONG><a name="[22b]"></a>GPIO_StructInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
 
 <P><STRONG><a name="[22c]"></a>GPIO_PinLockConfig</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, stm32f4xx_gpio.o(.text), UNUSED)
 
-<P><STRONG><a name="[108]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_read_input
+<P><STRONG><a name="[107]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_read_input
 </UL>
 
 <P><STRONG><a name="[22d]"></a>GPIO_ReadInputData</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
@@ -1297,31 +1288,31 @@ Global Symbols
 
 <P><STRONG><a name="[22f]"></a>GPIO_ReadOutputData</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
 
-<P><STRONG><a name="[110]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text))
+<P><STRONG><a name="[10f]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_blink
-<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_chip_deselect
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
-<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_control
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control2
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control1
+<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_chip_deselect
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_control
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control2
+<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control1
 </UL>
 
-<P><STRONG><a name="[10f]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text))
+<P><STRONG><a name="[10e]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_blink
-<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_chip_select
-<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
-<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_control
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control2
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control1
+<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_chip_select
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_control
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control2
+<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control1
 </UL>
 
-<P><STRONG><a name="[10a]"></a>GPIO_WriteBit</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_write
+<P><STRONG><a name="[109]"></a>GPIO_WriteBit</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_write
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pneumatic_control
 </UL>
 
@@ -1329,7 +1320,7 @@ Global Symbols
 
 <P><STRONG><a name="[231]"></a>GPIO_ToggleBits</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(.text), UNUSED)
 
-<P><STRONG><a name="[ff]"></a>GPIO_PinAFConfig</STRONG> (Thumb, 70 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(.text))
+<P><STRONG><a name="[fe]"></a>GPIO_PinAFConfig</STRONG> (Thumb, 70 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_PinAFConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;judging_system_init
@@ -1337,26 +1328,26 @@ Global Symbols
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dbus_init
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Configuration
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AF_config
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AF_config
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
 
-<P><STRONG><a name="[e7]"></a>SPI_I2S_DeInit</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, stm32f4xx_spi.o(.text))
+<P><STRONG><a name="[e6]"></a>SPI_I2S_DeInit</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, stm32f4xx_spi.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SPI_I2S_DeInit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
+<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
 </UL>
 
-<P><STRONG><a name="[129]"></a>SPI_Init</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, stm32f4xx_spi.o(.text))
+<P><STRONG><a name="[128]"></a>SPI_Init</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, stm32f4xx_spi.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SPI_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
 
 <P><STRONG><a name="[232]"></a>I2S_Init</STRONG> (Thumb, 396 bytes, Stack size 36 bytes, stm32f4xx_spi.o(.text), UNUSED)
@@ -1365,9 +1356,9 @@ Global Symbols
 
 <P><STRONG><a name="[234]"></a>I2S_StructInit</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text), UNUSED)
 
-<P><STRONG><a name="[12a]"></a>SPI_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<P><STRONG><a name="[129]"></a>SPI_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
 
 <P><STRONG><a name="[235]"></a>I2S_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text), UNUSED)
@@ -1378,30 +1369,30 @@ Global Symbols
 
 <P><STRONG><a name="[238]"></a>SPI_NSSInternalSoftwareConfig</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text), UNUSED)
 
-<P><STRONG><a name="[12c]"></a>SPI_SSOutputCmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<P><STRONG><a name="[12b]"></a>SPI_SSOutputCmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
 
 <P><STRONG><a name="[239]"></a>SPI_TIModeCmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text), UNUSED)
 
 <P><STRONG><a name="[23a]"></a>I2S_FullDuplexConfig</STRONG> (Thumb, 80 bytes, Stack size 12 bytes, stm32f4xx_spi.o(.text), UNUSED)
 
-<P><STRONG><a name="[130]"></a>SPI_I2S_ReceiveData</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<P><STRONG><a name="[12f]"></a>SPI_I2S_ReceiveData</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
 </UL>
 
-<P><STRONG><a name="[12f]"></a>SPI_I2S_SendData</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<P><STRONG><a name="[12e]"></a>SPI_I2S_SendData</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
 </UL>
 
-<P><STRONG><a name="[12b]"></a>SPI_CalculateCRC</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<P><STRONG><a name="[12a]"></a>SPI_CalculateCRC</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
 
 <P><STRONG><a name="[23b]"></a>SPI_TransmitCRC</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text), UNUSED)
@@ -1414,10 +1405,10 @@ Global Symbols
 
 <P><STRONG><a name="[23f]"></a>SPI_I2S_ITConfig</STRONG> (Thumb, 68 bytes, Stack size 12 bytes, stm32f4xx_spi.o(.text), UNUSED)
 
-<P><STRONG><a name="[12e]"></a>SPI_I2S_GetFlagStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<P><STRONG><a name="[12d]"></a>SPI_I2S_GetFlagStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
 </UL>
 
 <P><STRONG><a name="[240]"></a>SPI_I2S_ClearFlag</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_spi.o(.text), UNUSED)
@@ -1426,14 +1417,14 @@ Global Symbols
 
 <P><STRONG><a name="[242]"></a>SPI_I2S_ClearITPendingBit</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, stm32f4xx_spi.o(.text), UNUSED)
 
-<P><STRONG><a name="[e8]"></a>TIM_DeInit</STRONG> (Thumb, 346 bytes, Stack size 8 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
+<P><STRONG><a name="[e7]"></a>TIM_DeInit</STRONG> (Thumb, 346 bytes, Stack size 8 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
 </UL>
 
-<P><STRONG><a name="[11b]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 104 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<P><STRONG><a name="[11a]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 104 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_Int_Init
-<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
 </UL>
 
 <P><STRONG><a name="[243]"></a>TIM_TimeBaseStructInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
@@ -1454,60 +1445,60 @@ Global Symbols
 
 <P><STRONG><a name="[24b]"></a>TIM_UpdateRequestConfig</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[125]"></a>TIM_ARRPreloadConfig</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<P><STRONG><a name="[124]"></a>TIM_ARRPreloadConfig</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
 <P><STRONG><a name="[24c]"></a>TIM_SelectOnePulseMode</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
 <P><STRONG><a name="[24d]"></a>TIM_SetClockDivision</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[126]"></a>TIM_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<P><STRONG><a name="[125]"></a>TIM_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_Int_Init
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Quad_Encoder_Configuration
-<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
-<P><STRONG><a name="[11c]"></a>TIM_OC1Init</STRONG> (Thumb, 114 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text))
+<P><STRONG><a name="[11b]"></a>TIM_OC1Init</STRONG> (Thumb, 114 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TIM_OC1Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
-<P><STRONG><a name="[11e]"></a>TIM_OC2Init</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text))
+<P><STRONG><a name="[11d]"></a>TIM_OC2Init</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TIM_OC2Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
-<P><STRONG><a name="[120]"></a>TIM_OC3Init</STRONG> (Thumb, 204 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text))
+<P><STRONG><a name="[11f]"></a>TIM_OC3Init</STRONG> (Thumb, 204 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TIM_OC3Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
-<P><STRONG><a name="[122]"></a>TIM_OC4Init</STRONG> (Thumb, 112 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text))
+<P><STRONG><a name="[121]"></a>TIM_OC4Init</STRONG> (Thumb, 112 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TIM_OC4Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
 <P><STRONG><a name="[24e]"></a>TIM_OCStructInit</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
 <P><STRONG><a name="[24f]"></a>TIM_SelectOCxM</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[111]"></a>TIM_SetCompare1</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_control1
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control1
+<P><STRONG><a name="[110]"></a>TIM_SetCompare1</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_control1
+<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control1
 </UL>
 
-<P><STRONG><a name="[116]"></a>TIM_SetCompare2</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_control2
+<P><STRONG><a name="[115]"></a>TIM_SetCompare2</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_control2
 </UL>
 
-<P><STRONG><a name="[113]"></a>TIM_SetCompare3</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_control3
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control2
+<P><STRONG><a name="[112]"></a>TIM_SetCompare3</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_control3
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_control2
 </UL>
 
 <P><STRONG><a name="[250]"></a>TIM_SetCompare4</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
@@ -1520,20 +1511,20 @@ Global Symbols
 
 <P><STRONG><a name="[254]"></a>TIM_ForcedOC4Config</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[11d]"></a>TIM_OC1PreloadConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<P><STRONG><a name="[11c]"></a>TIM_OC1PreloadConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
-<P><STRONG><a name="[11f]"></a>TIM_OC2PreloadConfig</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<P><STRONG><a name="[11e]"></a>TIM_OC2PreloadConfig</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
-<P><STRONG><a name="[121]"></a>TIM_OC3PreloadConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<P><STRONG><a name="[120]"></a>TIM_OC3PreloadConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
-<P><STRONG><a name="[123]"></a>TIM_OC4PreloadConfig</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<P><STRONG><a name="[122]"></a>TIM_OC4PreloadConfig</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
 <P><STRONG><a name="[255]"></a>TIM_OC1FastConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
@@ -1570,42 +1561,42 @@ Global Symbols
 
 <P><STRONG><a name="[265]"></a>TIM_CCxNCmd</STRONG> (Thumb, 30 bytes, Stack size 12 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[f1]"></a>TIM_SetIC4Prescaler</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
+<P><STRONG><a name="[f0]"></a>TIM_SetIC4Prescaler</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[ef]"></a>TIM_SetIC3Prescaler</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
+<P><STRONG><a name="[ee]"></a>TIM_SetIC3Prescaler</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[ed]"></a>TIM_SetIC2Prescaler</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_PWMIConfig
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
+<P><STRONG><a name="[ec]"></a>TIM_SetIC2Prescaler</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_PWMIConfig
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[eb]"></a>TIM_SetIC1Prescaler</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_PWMIConfig
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
+<P><STRONG><a name="[ea]"></a>TIM_SetIC1Prescaler</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_PWMIConfig
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[e9]"></a>TIM_ICInit</STRONG> (Thumb, 110 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC1Prescaler
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC2Prescaler
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC3Prescaler
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC4Prescaler
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI3_Config
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI4_Config
+<P><STRONG><a name="[e8]"></a>TIM_ICInit</STRONG> (Thumb, 110 bytes, Stack size 16 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC1Prescaler
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC2Prescaler
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC3Prescaler
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC4Prescaler
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI3_Config
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI4_Config
 </UL>
 
 <P><STRONG><a name="[266]"></a>TIM_ICStructInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[f2]"></a>TIM_PWMIConfig</STRONG> (Thumb, 124 bytes, Stack size 24 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC1Prescaler
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC2Prescaler
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
+<P><STRONG><a name="[f1]"></a>TIM_PWMIConfig</STRONG> (Thumb, 124 bytes, Stack size 24 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC1Prescaler
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC2Prescaler
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
 </UL>
 
 <P><STRONG><a name="[267]"></a>TIM_GetCapture1</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
@@ -1620,8 +1611,8 @@ Global Symbols
 
 <P><STRONG><a name="[26c]"></a>TIM_BDTRStructInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[124]"></a>TIM_CtrlPWMOutputs</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<P><STRONG><a name="[123]"></a>TIM_CtrlPWMOutputs</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
 </UL>
 
 <P><STRONG><a name="[26d]"></a>TIM_SelectCOM</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
@@ -1658,32 +1649,32 @@ Global Symbols
 
 <P><STRONG><a name="[274]"></a>TIM_InternalClockConfig</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[f4]"></a>TIM_SelectInputTrigger</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TIxExternalClockConfig
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITRxExternalClockConfig
+<P><STRONG><a name="[f3]"></a>TIM_SelectInputTrigger</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TIxExternalClockConfig
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITRxExternalClockConfig
 </UL>
 
-<P><STRONG><a name="[f3]"></a>TIM_ITRxExternalClockConfig</STRONG> (Thumb, 24 bytes, Stack size 12 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SelectInputTrigger
+<P><STRONG><a name="[f2]"></a>TIM_ITRxExternalClockConfig</STRONG> (Thumb, 24 bytes, Stack size 12 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SelectInputTrigger
 </UL>
 
-<P><STRONG><a name="[f5]"></a>TIM_TIxExternalClockConfig</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SelectInputTrigger
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
+<P><STRONG><a name="[f4]"></a>TIM_TIxExternalClockConfig</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SelectInputTrigger
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
 </UL>
 
-<P><STRONG><a name="[f7]"></a>TIM_ETRConfig</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETRClockMode2Config
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETRClockMode1Config
+<P><STRONG><a name="[f6]"></a>TIM_ETRConfig</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETRClockMode2Config
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETRClockMode1Config
 </UL>
 
-<P><STRONG><a name="[f6]"></a>TIM_ETRClockMode1Config</STRONG> (Thumb, 54 bytes, Stack size 24 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETRConfig
+<P><STRONG><a name="[f5]"></a>TIM_ETRClockMode1Config</STRONG> (Thumb, 54 bytes, Stack size 24 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETRConfig
 </UL>
 
-<P><STRONG><a name="[f8]"></a>TIM_ETRClockMode2Config</STRONG> (Thumb, 32 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETRConfig
+<P><STRONG><a name="[f7]"></a>TIM_ETRClockMode2Config</STRONG> (Thumb, 32 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETRConfig
 </UL>
 
 <P><STRONG><a name="[275]"></a>TIM_SelectOutputTrigger</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
@@ -1702,15 +1693,15 @@ Global Symbols
 
 <P><STRONG><a name="[279]"></a>TIM_RemapConfig</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[f9]"></a>USART_DeInit</STRONG> (Thumb, 206 bytes, Stack size 8 bytes, stm32f4xx_usart.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
+<P><STRONG><a name="[f8]"></a>USART_DeInit</STRONG> (Thumb, 206 bytes, Stack size 8 bytes, stm32f4xx_usart.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
 </UL>
 
-<P><STRONG><a name="[fa]"></a>USART_Init</STRONG> (Thumb, 204 bytes, Stack size 48 bytes, stm32f4xx_usart.o(.text))
+<P><STRONG><a name="[f9]"></a>USART_Init</STRONG> (Thumb, 204 bytes, Stack size 48 bytes, stm32f4xx_usart.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetClocksFreq
+<BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetClocksFreq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;judging_system_init
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dbus_init
@@ -1786,12 +1777,12 @@ Global Symbols
 
 <P><STRONG><a name="[293]"></a>RCC_HSEConfig</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
-<P><STRONG><a name="[fd]"></a>RCC_GetFlagStatus</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, stm32f4xx_rcc.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_WaitForHSEStartUp
+<P><STRONG><a name="[fc]"></a>RCC_GetFlagStatus</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, stm32f4xx_rcc.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_WaitForHSEStartUp
 </UL>
 
-<P><STRONG><a name="[fc]"></a>RCC_WaitForHSEStartUp</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, stm32f4xx_rcc.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetFlagStatus
+<P><STRONG><a name="[fb]"></a>RCC_WaitForHSEStartUp</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, stm32f4xx_rcc.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetFlagStatus
 </UL>
 
 <P><STRONG><a name="[294]"></a>RCC_AdjustHSICalibrationValue</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
@@ -1830,10 +1821,10 @@ Global Symbols
 
 <P><STRONG><a name="[2a5]"></a>RCC_PCLK2Config</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
-<P><STRONG><a name="[fb]"></a>RCC_GetClocksFreq</STRONG> (Thumb, 222 bytes, Stack size 20 bytes, stm32f4xx_rcc.o(.text))
+<P><STRONG><a name="[fa]"></a>RCC_GetClocksFreq</STRONG> (Thumb, 222 bytes, Stack size 20 bytes, stm32f4xx_rcc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = RCC_GetClocksFreq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 </UL>
 
 <P><STRONG><a name="[2a6]"></a>RCC_RTCCLKConfig</STRONG> (Thumb, 54 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
@@ -1856,59 +1847,59 @@ Global Symbols
 
 <P><STRONG><a name="[2af]"></a>RCC_TIMCLKPresConfig</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
-<P><STRONG><a name="[101]"></a>RCC_AHB1PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
+<P><STRONG><a name="[100]"></a>RCC_AHB1PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;judging_system_init
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Quad_Encoder_Configuration
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dbus_init
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Configuration
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC1_init
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
 
 <P><STRONG><a name="[2b0]"></a>RCC_AHB2PeriphClockCmd</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
 <P><STRONG><a name="[2b1]"></a>RCC_AHB3PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
-<P><STRONG><a name="[11a]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
+<P><STRONG><a name="[119]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;judging_system_init
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_Int_Init
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Quad_Encoder_Configuration
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_Configuration
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_Configuration
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_rcc_init
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_rcc_init
 </UL>
 
-<P><STRONG><a name="[119]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
+<P><STRONG><a name="[118]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dbus_init
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC1_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_rcc_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_rcc_init
 </UL>
 
-<P><STRONG><a name="[e6]"></a>RCC_AHB1PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_DeInit
+<P><STRONG><a name="[e5]"></a>RCC_AHB1PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_DeInit
 </UL>
 
 <P><STRONG><a name="[2b2]"></a>RCC_AHB2PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
 <P><STRONG><a name="[2b3]"></a>RCC_AHB3PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
-<P><STRONG><a name="[e2]"></a>RCC_APB1PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_DeInit
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_DeInit
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
+<P><STRONG><a name="[e1]"></a>RCC_APB1PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_DeInit
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_DeInit
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
 </UL>
 
-<P><STRONG><a name="[e0]"></a>RCC_APB2PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_DeInit
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_DeInit
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_DeInit
+<P><STRONG><a name="[df]"></a>RCC_APB2PeriphResetCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_DeInit
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_DeInit
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_DeInit
 </UL>
 
 <P><STRONG><a name="[2b4]"></a>RCC_AHB1PeriphClockLPModeCmd</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
@@ -1931,65 +1922,65 @@ Global Symbols
 
 <P><STRONG><a name="[2bd]"></a>RCC_ClearITPendingBit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(.text), UNUSED)
 
-<P><STRONG><a name="[fe]"></a>AF_config</STRONG> (Thumb, 280 bytes, Stack size 16 bytes, gpio.o(.text))
+<P><STRONG><a name="[fd]"></a>AF_config</STRONG> (Thumb, 280 bytes, Stack size 16 bytes, gpio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = AF_config &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<BR>[Calls]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_init
-<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
 </UL>
 
-<P><STRONG><a name="[100]"></a>gpio_rcc_init</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, gpio.o(.text))
+<P><STRONG><a name="[ff]"></a>gpio_rcc_init</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, gpio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = gpio_rcc_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUTTON_init
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_gpio_init
-</UL>
-
-<P><STRONG><a name="[102]"></a>gpio_init</STRONG> (Thumb, 54 bytes, Stack size 32 bytes, gpio.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUTTON_init
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_gpio_init
 </UL>
 
-<P><STRONG><a name="[104]"></a>timer_gpio_init</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, gpio.o(.text))
+<P><STRONG><a name="[101]"></a>gpio_init</STRONG> (Thumb, 54 bytes, Stack size 32 bytes, gpio.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+</UL>
+
+<P><STRONG><a name="[103]"></a>timer_gpio_init</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, gpio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = timer_gpio_init &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_init
-<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
 </UL>
 
-<P><STRONG><a name="[105]"></a>BUTTON_init</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, gpio.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<P><STRONG><a name="[104]"></a>BUTTON_init</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, gpio.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 
-<P><STRONG><a name="[106]"></a>LED_init</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, gpio.o(.text))
+<P><STRONG><a name="[105]"></a>LED_init</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, gpio.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = LED_init &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_rcc_init
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pneumatic_init
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_master_init
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
-<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
 </UL>
 
-<P><STRONG><a name="[107]"></a>gpio_read_input</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, gpio.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
+<P><STRONG><a name="[106]"></a>gpio_read_input</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, gpio.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
 
-<P><STRONG><a name="[109]"></a>gpio_write</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, gpio.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_WriteBit
+<P><STRONG><a name="[108]"></a>gpio_write</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, gpio.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_WriteBit
 </UL>
 
 <P><STRONG><a name="[9f]"></a>SysTick_Init</STRONG> (Thumb, 90 bytes, Stack size 12 bytes, ticks.o(.text))
@@ -2013,217 +2004,217 @@ Global Symbols
 
 <P><STRONG><a name="[2be]"></a>delay_1ms</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, ticks.o(.text), UNUSED)
 
-<P><STRONG><a name="[134]"></a>delay_nms</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, ticks.o(.text))
+<P><STRONG><a name="[133]"></a>delay_nms</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, ticks.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_init
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_cal
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_cal_short
-<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
 </UL>
 
-<P><STRONG><a name="[10b]"></a>Brush_motor_pwm_dir_init</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, pwm.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
-<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_gpio_init
-<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AF_config
+<P><STRONG><a name="[10a]"></a>Brush_motor_pwm_dir_init</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, pwm.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_gpio_init
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AF_config
 </UL>
 
-<P><STRONG><a name="[10e]"></a>Brush_motor_control1</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, pwm.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare1
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<P><STRONG><a name="[10d]"></a>Brush_motor_control1</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, pwm.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare1
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 
-<P><STRONG><a name="[112]"></a>Brush_motor_control2</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, pwm.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<P><STRONG><a name="[111]"></a>Brush_motor_control2</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, pwm.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 
 <P><STRONG><a name="[ad]"></a>Friction_wheel_init</STRONG> (Thumb, 116 bytes, Stack size 16 bytes, pwm.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = Friction_wheel_init &rArr; pwm_timer_init &rArr; TIM_OC4Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_gpio_init
-<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AF_config
+<BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_gpio_init
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pwm_timer_init
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AF_config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
 
-<P><STRONG><a name="[114]"></a>Friction_wheel_control1</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, pwm.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare1
+<P><STRONG><a name="[113]"></a>Friction_wheel_control1</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, pwm.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare1
 </UL>
 
-<P><STRONG><a name="[115]"></a>Friction_wheel_control2</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, pwm.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
+<P><STRONG><a name="[114]"></a>Friction_wheel_control2</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, pwm.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
 </UL>
 
-<P><STRONG><a name="[117]"></a>Friction_wheel_control3</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, pwm.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
+<P><STRONG><a name="[116]"></a>Friction_wheel_control3</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, pwm.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
 </UL>
 
-<P><STRONG><a name="[118]"></a>timer_rcc_init</STRONG> (Thumb, 228 bytes, Stack size 8 bytes, timer.o(.text))
+<P><STRONG><a name="[117]"></a>timer_rcc_init</STRONG> (Thumb, 228 bytes, Stack size 8 bytes, timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = timer_rcc_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
+<BR>[Calls]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
 </UL>
 
-<P><STRONG><a name="[10c]"></a>timer_init</STRONG> (Thumb, 54 bytes, Stack size 40 bytes, timer.o(.text))
+<P><STRONG><a name="[10b]"></a>timer_init</STRONG> (Thumb, 54 bytes, Stack size 40 bytes, timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = timer_init &rArr; timer_rcc_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_rcc_init
+<BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_rcc_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_init
-<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
 </UL>
 
-<P><STRONG><a name="[10d]"></a>pwm_timer_init</STRONG> (Thumb, 178 bytes, Stack size 48 bytes, timer.o(.text))
+<P><STRONG><a name="[10c]"></a>pwm_timer_init</STRONG> (Thumb, 178 bytes, Stack size 48 bytes, timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = pwm_timer_init &rArr; TIM_OC4Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_CtrlPWMOutputs
-<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4PreloadConfig
-<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3PreloadConfig
-<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2PreloadConfig
-<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1PreloadConfig
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4Init
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3Init
-<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2Init
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1Init
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
-<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ARRPreloadConfig
+<BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_CtrlPWMOutputs
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4PreloadConfig
+<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3PreloadConfig
+<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2PreloadConfig
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1PreloadConfig
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4Init
+<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3Init
+<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2Init
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1Init
+<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ARRPreloadConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Friction_wheel_init
-<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Brush_motor_pwm_dir_init
 </UL>
 
 <P><STRONG><a name="[a2]"></a>LED_master_init</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, led.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = LED_master_init &rArr; LED_init &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
+<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
 
-<P><STRONG><a name="[127]"></a>LED_control</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, led.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<P><STRONG><a name="[126]"></a>LED_control</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 
 <P><STRONG><a name="[b7]"></a>LED_blink</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, led.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LED_blink
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[128]"></a>tft_spi_init</STRONG> (Thumb, 178 bytes, Stack size 32 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[127]"></a>tft_spi_init</STRONG> (Thumb, 178 bytes, Stack size 32 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = tft_spi_init &rArr; LED_init &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_CalculateCRC
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_SSOutputCmd
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Cmd
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Init
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
+<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_CalculateCRC
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_SSOutputCmd
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Cmd
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Init
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_init
 </UL>
 
-<P><STRONG><a name="[12d]"></a>tft_write_command</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[12c]"></a>tft_write_command</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = tft_write_command
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_GetFlagStatus
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_SendData
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_ReceiveData
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_GetFlagStatus
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_SendData
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_ReceiveData
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_init
-<LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_char_pos
-<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_pixel_pos
-<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_fill_color
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_config
+<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_char_pos
+<LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_pixel_pos
+<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_fill_color
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_config
 </UL>
 
-<P><STRONG><a name="[131]"></a>tft_write_data</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[130]"></a>tft_write_data</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = tft_write_data
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_GetFlagStatus
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_SendData
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_ReceiveData
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_GetFlagStatus
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_SendData
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_ReceiveData
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_update
-<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_put_pixel
-<LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_char_pos
-<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_pixel_pos
-<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_fill_color
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_config
+<LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_put_pixel
+<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_char_pos
+<LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_pixel_pos
+<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_fill_color
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_config
 </UL>
 
-<P><STRONG><a name="[132]"></a>tft_config</STRONG> (Thumb, 514 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[131]"></a>tft_config</STRONG> (Thumb, 514 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = tft_config &rArr; tft_write_data
 </UL>
-<BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_init
 </UL>
 
-<P><STRONG><a name="[133]"></a>tft_reset</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[132]"></a>tft_reset</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = tft_reset
 </UL>
-<BR>[Calls]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nms
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nms
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_init
 </UL>
 
-<P><STRONG><a name="[135]"></a>tft_fill_color</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[134]"></a>tft_fill_color</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = tft_fill_color &rArr; tft_write_data
 </UL>
-<BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_init
-<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_force_clear
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_force_clear
 </UL>
 
-<P><STRONG><a name="[138]"></a>tft_set_special_color</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[137]"></a>tft_set_special_color</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_init
 </UL>
 
-<P><STRONG><a name="[137]"></a>tft_set_text_color</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[136]"></a>tft_set_text_color</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_init
 </UL>
 
-<P><STRONG><a name="[136]"></a>tft_set_bg_color</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[135]"></a>tft_set_bg_color</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_init
 </UL>
 
 <P><STRONG><a name="[a1]"></a>tft_init</STRONG> (Thumb, 214 bytes, Stack size 32 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = tft_init &rArr; tft_spi_init &rArr; LED_init &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_bg_color
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_text_color
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_special_color
-<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_fill_color
-<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_config
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
+<BR>[Calls]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_bg_color
+<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_text_color
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_special_color
+<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_fill_color
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_config
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
@@ -2240,38 +2231,38 @@ Global Symbols
 
 <P><STRONG><a name="[2c4]"></a>tft_get_orientation</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text), UNUSED)
 
-<P><STRONG><a name="[139]"></a>tft_force_clear</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, 1.8 tft_display.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_fill_color
+<P><STRONG><a name="[138]"></a>tft_force_clear</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, 1.8 tft_display.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_fill_color
 </UL>
-<BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_toggle
-<LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_orientation
+<BR>[Called By]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_toggle
+<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_orientation
 </UL>
 
-<P><STRONG><a name="[13a]"></a>tft_set_orientation</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_force_clear
+<P><STRONG><a name="[139]"></a>tft_set_orientation</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_force_clear
 </UL>
 
 <P><STRONG><a name="[2c5]"></a>tft_get_max_x_char</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text), UNUSED)
 
 <P><STRONG><a name="[2c6]"></a>tft_get_max_y_char</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, 1.8 tft_display.o(.text), UNUSED)
 
-<P><STRONG><a name="[13b]"></a>tft_set_pixel_pos</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, 1.8 tft_display.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<P><STRONG><a name="[13a]"></a>tft_set_pixel_pos</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, 1.8 tft_display.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
 </UL>
-<BR>[Called By]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_put_pixel
+<BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_put_pixel
 </UL>
 
-<P><STRONG><a name="[13c]"></a>tft_set_char_pos</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[13b]"></a>tft_set_char_pos</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = tft_set_char_pos &rArr; tft_write_data
 </UL>
-<BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
+<BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_update
 </UL>
 
-<P><STRONG><a name="[13d]"></a>tft_clear_line</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[13c]"></a>tft_clear_line</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = tft_clear_line
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_clear
@@ -2280,23 +2271,23 @@ Global Symbols
 <P><STRONG><a name="[b3]"></a>tft_clear</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = tft_clear &rArr; tft_clear_line
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_clear_line
+<BR>[Calls]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_clear_line
 </UL>
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_toggle
+<LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_toggle
 </UL>
 
-<P><STRONG><a name="[13e]"></a>tft_toggle</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text), UNUSED)
+<P><STRONG><a name="[13d]"></a>tft_toggle</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, 1.8 tft_display.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_clear
-<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_force_clear
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_force_clear
 </UL>
 
-<P><STRONG><a name="[13f]"></a>tft_put_pixel</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, 1.8 tft_display.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_pixel_pos
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<P><STRONG><a name="[13e]"></a>tft_put_pixel</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, 1.8 tft_display.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_pixel_pos
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
 </UL>
 
-<P><STRONG><a name="[141]"></a>tft_char_is_changed</STRONG> (Thumb, 186 bytes, Stack size 12 bytes, 1.8 tft_display.o(.text))
+<P><STRONG><a name="[140]"></a>tft_char_is_changed</STRONG> (Thumb, 186 bytes, Stack size 12 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = tft_char_is_changed
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_update
@@ -2306,7 +2297,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 416 + Unknown Stack Size
 <LI>Call Chain = tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
+<BR>[Calls]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2314,100 +2305,99 @@ Global Symbols
 <P><STRONG><a name="[b6]"></a>tft_update</STRONG> (Thumb, 1454 bytes, Stack size 40 bytes, 1.8 tft_display.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = tft_update &rArr; tft_set_char_pos &rArr; tft_write_data
 </UL>
-<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_char_is_changed
-<LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_char_pos
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
+<BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_char_is_changed
+<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_char_pos
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
 </UL>
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[142]"></a>gyro_spi_init</STRONG> (Thumb, 306 bytes, Stack size 32 bytes, yaw_gyro.o(.text))
+<P><STRONG><a name="[141]"></a>gyro_spi_init</STRONG> (Thumb, 306 bytes, Stack size 32 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = gyro_spi_init &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_CalculateCRC
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_SSOutputCmd
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Cmd
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Init
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_DeInit
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_CalculateCRC
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_SSOutputCmd
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Cmd
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Init
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_DeInit
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_init
 </UL>
 
-<P><STRONG><a name="[143]"></a>gyro_chip_deselect</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, yaw_gyro.o(.text))
+<P><STRONG><a name="[142]"></a>gyro_chip_deselect</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = gyro_chip_deselect
 </UL>
-<BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
+<BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
 </UL>
 
-<P><STRONG><a name="[144]"></a>gyro_chip_select</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, yaw_gyro.o(.text))
+<P><STRONG><a name="[143]"></a>gyro_chip_select</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = gyro_chip_select
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<BR>[Calls]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
+<BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
 </UL>
 
-<P><STRONG><a name="[145]"></a>spi_frame</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, yaw_gyro.o(.text))
+<P><STRONG><a name="[144]"></a>spi_frame</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = spi_frame &rArr; gyro_chip_select
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_GetFlagStatus
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_SendData
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_ReceiveData
-<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_chip_select
-<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_chip_deselect
+<BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_GetFlagStatus
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_SendData
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_ReceiveData
+<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_chip_select
+<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_chip_deselect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_write
+<BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_write
 </UL>
 
-<P><STRONG><a name="[146]"></a>adis_write</STRONG> (Thumb, 50 bytes, Stack size 24 bytes, yaw_gyro.o(.text))
+<P><STRONG><a name="[145]"></a>adis_write</STRONG> (Thumb, 50 bytes, Stack size 24 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = adis_write &rArr; spi_frame &rArr; gyro_chip_select
 </UL>
-<BR>[Calls]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
+<BR>[Calls]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_init
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_cal
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_cal_short
 </UL>
 
-<P><STRONG><a name="[147]"></a>adis_read</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, yaw_gyro.o(.text))
+<P><STRONG><a name="[146]"></a>adis_read</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = adis_read &rArr; spi_frame &rArr; gyro_chip_select
 </UL>
-<BR>[Calls]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
+<BR>[Calls]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_frame
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
-<LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_temp
+<BR>[Called By]<UL><LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_temp
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_adc
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_power
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_flash
 <LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_angle
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_off
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
 </UL>
 
 <P><STRONG><a name="[a3]"></a>gyro_init</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = gyro_init &rArr; gyro_spi_init &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nms
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_write
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
+<BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nms
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_write
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_spi_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
 
-<P><STRONG><a name="[cb]"></a>gyro_get_vel</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, yaw_gyro.o(.text))
+<P><STRONG><a name="[147]"></a>gyro_get_vel</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = gyro_get_vel &rArr; adis_read &rArr; spi_frame &rArr; gyro_chip_select
 </UL>
-<BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
+<BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;instant_stabilize_gimbal
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_cal
+<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_cal
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_update
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_cal_short
 </UL>
@@ -2415,9 +2405,9 @@ Global Symbols
 <P><STRONG><a name="[a9]"></a>gyro_cal</STRONG> (Thumb, 116 bytes, Stack size 24 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = gyro_cal &rArr; gyro_get_vel &rArr; adis_read &rArr; spi_frame &rArr; gyro_chip_select
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
-<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nms
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_write
+<BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nms
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_write
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
@@ -2427,30 +2417,30 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[148]"></a>gyro_get_off</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, yaw_gyro.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
+<BR><BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
 </UL>
 <BR>[Called By]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_cal_short
 </UL>
 
 <P><STRONG><a name="[149]"></a>gyro_cal_short</STRONG> (Thumb, 140 bytes, Stack size 32 bytes, yaw_gyro.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
-<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nms
+<BR><BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nms
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_off
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Abs
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_write
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_write
 </UL>
 
 <P><STRONG><a name="[14b]"></a>gyro_get_angle</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, yaw_gyro.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
+<BR><BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
 </UL>
 
 <P><STRONG><a name="[14c]"></a>gyro_update</STRONG> (Thumb, 434 bytes, Stack size 24 bytes, yaw_gyro.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = gyro_update &rArr; gyro_get_vel &rArr; adis_read &rArr; spi_frame &rArr; gyro_chip_select
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_get_vel
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 </UL>
@@ -2458,19 +2448,19 @@ Global Symbols
 <P><STRONG><a name="[2c7]"></a>get_angle</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, yaw_gyro.o(.text), UNUSED)
 
 <P><STRONG><a name="[14f]"></a>gyro_get_flash</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, yaw_gyro.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
+<BR><BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
 </UL>
 
 <P><STRONG><a name="[150]"></a>gyro_get_power</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, yaw_gyro.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
+<BR><BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
 </UL>
 
 <P><STRONG><a name="[151]"></a>gyro_get_adc</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, yaw_gyro.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
+<BR><BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
 </UL>
 
 <P><STRONG><a name="[152]"></a>gyro_get_temp</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, yaw_gyro.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
+<BR><BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adis_read
 </UL>
 
 <P><STRONG><a name="[2c8]"></a>set_angle</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, yaw_gyro.o(.text), UNUSED)
@@ -2479,11 +2469,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = TIM5_Int_Init &rArr; NVIC_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearFlag
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITConfig
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
@@ -2509,9 +2499,9 @@ Global Symbols
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Cmd
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_CommonInit
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Init
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Init
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_DeInit
@@ -2532,12 +2522,12 @@ Global Symbols
 <P><STRONG><a name="[aa]"></a>Quad_Encoder_Configuration</STRONG> (Thumb, 178 bytes, Stack size 16 bytes, encoder.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Quad_Encoder_Configuration &rArr; TIM_EncoderInterfaceConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_EncoderInterfaceConfig
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
@@ -2557,28 +2547,28 @@ Global Symbols
 <P><STRONG><a name="[a6]"></a>pneumatic_init</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, pneumatic.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = pneumatic_init &rArr; LED_init &rArr; GPIO_PinAFConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
+<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
 
 <P><STRONG><a name="[165]"></a>pneumatic_control</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, pneumatic.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_WriteBit
+<BR><BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_WriteBit
 </UL>
 
 <P><STRONG><a name="[a7]"></a>CAN1_Configuration</STRONG> (Thumb, 262 bytes, Stack size 48 bytes, can1.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = CAN1_Configuration &rArr; GPIO_PinAFConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ITConfig
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_StructInit
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_FilterInit
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
@@ -2587,7 +2577,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = CAN1_TX_IRQHandler &rArr; CAN_GetITStatus
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
@@ -2595,7 +2585,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = CAN1_RX0_IRQHandler &rArr; CanReceiveMsgProcess_for_gimbal &rArr; EncoderProcess
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanReceiveMsgProcess_for_gimbal
 </UL>
@@ -2605,15 +2595,15 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = CAN2_Configuration &rArr; GPIO_PinAFConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ITConfig
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_StructInit
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_FilterInit
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_DeInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>
@@ -2622,7 +2612,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = CAN2_TX_IRQHandler &rArr; CAN_GetITStatus
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
@@ -2630,7 +2620,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = CAN2_RX0_IRQHandler &rArr; CanReceiveMsgProcess_for_chassis &rArr; EncoderProcess
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_ClearITPendingBit
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanReceiveMsgProcess_for_chassis
 </UL>
@@ -2671,7 +2661,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos_with_speed
+<BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos_with_speed
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos_with_speed
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_speed
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_speed
@@ -2689,14 +2680,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DMACmd
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Init
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_DeInit
@@ -2712,9 +2703,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[d4]"></a>DBUS_CheckPush</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, dbus.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_switch
+<P><STRONG><a name="[d1]"></a>DBUS_CheckPush</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, dbus.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_switch
 </UL>
 
 <P><STRONG><a name="[32]"></a>USART1_IRQHandler</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, dbus.o(.text))
@@ -2732,14 +2723,14 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 164<LI>Call Chain = judging_system_init &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DMACmd
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Init
 </UL>
@@ -2801,7 +2792,7 @@ Global Symbols
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Init
 </UL>
 
-<P><STRONG><a name="[140]"></a>vsprintf</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, vsprintf.o(.text))
+<P><STRONG><a name="[13f]"></a>vsprintf</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, vsprintf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120 + Unknown Stack Size
 <LI>Call Chain = vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -2901,11 +2892,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
+<BR>[Called By]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
 </UL>
 
 <P><STRONG><a name="[61]"></a>_sputc</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, _sputc.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
+<BR><BR>[Called By]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> vsprintf.o(.text)
 </UL>
@@ -3286,14 +3277,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1ad]"></a>__ieee754_rem_pio2</STRONG> (Thumb, 938 bytes, Stack size 120 bytes, rred.o(i.__ieee754_rem_pio2), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fabs
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR><BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fabs
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dneg
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
@@ -3301,7 +3292,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1af]"></a>__kernel_cos</STRONG> (Thumb, 322 bytes, Stack size 64 bytes, cos_i.o(i.__kernel_cos), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR><BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
@@ -3312,18 +3303,18 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b5]"></a>__kernel_poly</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, poly.o(i.__kernel_poly), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<BR><BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
 
 <P><STRONG><a name="[1ae]"></a>__kernel_sin</STRONG> (Thumb, 280 bytes, Stack size 72 bytes, sin_i.o(i.__kernel_sin), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR><BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
@@ -3333,7 +3324,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1ac]"></a>__mathlib_dbl_infnan</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_infnan), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<BR><BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
@@ -3347,7 +3338,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b6]"></a>__mathlib_dbl_underflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_underflow), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR><BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 </UL>
@@ -3401,10 +3392,10 @@ Global Symbols
 
 <P><STRONG><a name="[2e1]"></a>_fabs</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, basic.o(x$fpl$basic), UNUSED)
 
-<P><STRONG><a name="[da]"></a>__aeabi_d2f</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f))
+<P><STRONG><a name="[d7]"></a>__aeabi_d2f</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[1b8]"></a>_d2f</STRONG> (Thumb, 98 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f), UNUSED)
@@ -3412,10 +3403,10 @@ Global Symbols
 <LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[d9]"></a>__aeabi_dadd</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, daddsub_clz.o(x$fpl$dadd))
+<P><STRONG><a name="[d6]"></a>__aeabi_dadd</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, daddsub_clz.o(x$fpl$dadd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
@@ -3452,8 +3443,8 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[d7]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
-<BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<P><STRONG><a name="[d4]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
+<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_update
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
@@ -3466,10 +3457,10 @@ Global Symbols
 
 <P><STRONG><a name="[2e3]"></a>_dfltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu), UNUSED)
 
-<P><STRONG><a name="[d8]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
+<P><STRONG><a name="[d5]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
@@ -3523,7 +3514,7 @@ Global Symbols
 <P><STRONG><a name="[b5]"></a>__aeabi_f2d</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2d
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_dir
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -3576,28 +3567,28 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
 </UL>
 
-<P><STRONG><a name="[e4]"></a>CheckITStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
+<P><STRONG><a name="[e3]"></a>CheckITStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_can.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GetITStatus
 </UL>
 
-<P><STRONG><a name="[f0]"></a>TI4_Config</STRONG> (Thumb, 80 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
+<P><STRONG><a name="[ef]"></a>TI4_Config</STRONG> (Thumb, 80 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[ee]"></a>TI3_Config</STRONG> (Thumb, 72 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
+<P><STRONG><a name="[ed]"></a>TI3_Config</STRONG> (Thumb, 72 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[ec]"></a>TI2_Config</STRONG> (Thumb, 90 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TIxExternalClockConfig
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_PWMIConfig
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
+<P><STRONG><a name="[eb]"></a>TI2_Config</STRONG> (Thumb, 90 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TIxExternalClockConfig
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_PWMIConfig
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[ea]"></a>TI1_Config</STRONG> (Thumb, 58 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TIxExternalClockConfig
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_PWMIConfig
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
+<P><STRONG><a name="[e9]"></a>TI1_Config</STRONG> (Thumb, 58 bytes, Stack size 20 bytes, stm32f4xx_tim.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TIxExternalClockConfig
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_PWMIConfig
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
 <P><STRONG><a name="[1c2]"></a>_dadd1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, daddsub_clz.o(x$fpl$dadd), UNUSED)

@@ -127,9 +127,10 @@ void computer_control() {
 		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
 			//following mode
 			//if there is angle difference between the chassis and gimbal, chassis will follow it
-			if ( ! chassis_follow_with_control(mouse_input[0]))
+			if ( ! chassis_follow_with_control(mouse_input[0], mouse_input[1]))
 			{
-				control_gimbal_yaw_speed(mouse_input[0]); // turn the gimbal regarding the input of mouse
+				control_gimbal(mouse_input[0], mouse_input[1]);
+				// control_gimbal_yaw_speed(mouse_input[0]); // turn the gimbal regarding the input of mouse
 			}
 		}
 		else //left switch middle or down
@@ -138,7 +139,7 @@ void computer_control() {
 				in_following_flag = 1;
 			}
 			if (in_following_flag) {
-				if (!chassis_follow_with_control(mouse_input[0]))
+				if (!chassis_follow_with_control(mouse_input[0], mouse_input[1]))
 				{
 					in_following_flag = 0;
 					// control_gimbal_yaw_speed(mouse_input[0]); // turn the gimbal regarding the input of mouse
