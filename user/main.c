@@ -48,7 +48,7 @@ float buffer_remain;
 float init_yaw_pos;
 float init_pitch_pos;
 int16_t buff_yaw_pos[3] = {-40, 0, 40};
-int16_t buff_pitch_pos[3] = {0, 20, 40};
+int16_t buff_pitch_pos[3] = {40, 20, 0};
 int main(void)
 {
 // u8 dum[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '\n'};

@@ -161,7 +161,7 @@ void buff_mode_gimbal_pos(int16_t index)
     target_angle = current_angle;
     if (index != -1)
     {
-        control_gimbal_pos( -27 * buff_yaw_pos[index % 3], -19 * buff_pitch_pos[index / 3]);
+        control_gimbal_pos( -27 * buff_yaw_pos[index % 3], 19 * buff_pitch_pos[index / 3]);
     }
     else control_gimbal_pos(GMYawEncoder.ecd_angle - init_yaw_pos, GMPitchEncoder.ecd_angle - init_pitch_pos);
 }
