@@ -67,7 +67,7 @@ int main(void)
     PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
     buffer_remain = 60;
     init_yaw_pos = GMYawEncoder.ecd_angle;
-    init_pitch_pos = GMPitchEncoder.ecd_angle;
+    init_pitch_pos = GMPitchEncoder.ecd_angle + 14 * 19;
     while (1)  {
 
         if (ticks_msimg != get_ms_ticks())

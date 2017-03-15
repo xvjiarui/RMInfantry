@@ -36,12 +36,12 @@ void control_gimbal_yaw_speed(int16_t ch2) {
 }
 
 void control_gimbal_pos(int16_t ch2, int16_t ch3) {
-    int16_t target_position[2] = {ch2, ch3};
+    int16_t target_position[2] = {ch2 + init_yaw_pos, ch3 + init_pitch_pos};
     gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle;
     gimbal_pos_pid[1].current = GMPitchEncoder.ecd_angle;
     int16_t target_speed[2] ={0, 0};
-    target_speed[0] = PID_output2(&gimbal_pos_pid[0], target_position[0], 660, -660, 100, 30);
-    target_speed[1] = PID_output2(&gimbal_pos_pid[1], target_position[1], 660, -600, 100, 30);
+    target_speed[0] = PID_output2(&gimbal_pos_pid[0], target_position[0], init_yaw_pos + 660, init_yaw_pos - 660, 100, 30);
+    target_speed[1] = PID_output2(&gimbal_pos_pid[1], target_position[1], init_pitch_pos + 660, init_pitch_pos - 600, 100, 30);
     gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;
     gimbal_speed_pid[1].current = GMPitchEncoder.filter_rate;
     int16_t input[2] = {0, 0};
@@ -77,7 +77,7 @@ int16_t gimbal_exceed_left_bound() {
 }
 
 int16_t gimbal_exceed_upper_bound() {
-    if (GMPitchEncoder.ecd_angle > init_yaw_pos + 19 * 45 )
+    if (GMPitchEncoder.ecd_angle > init_pitch_pos + 19 * 45 )
     {
         return 1;
     }
@@ -85,7 +85,7 @@ int16_t gimbal_exceed_upper_bound() {
 }
 
 int16_t gimbal_exceed_lower_bound() {
-    if (GMPitchEncoder.ecd_angle < init_yaw_pos )
+    if (GMPitchEncoder.ecd_angle < init_pitch_pos )
     {
         return 1;
     }

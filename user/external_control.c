@@ -65,7 +65,7 @@ void computer_control() {
 	}
 	//mouse part
 	mouse_changes[0] = - 2 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
-	mouse_changes[1] = - 3 * DBUS_ReceiveData.mouse.y_position - last_mouse_input[1];
+	mouse_changes[1] = - 2 * DBUS_ReceiveData.mouse.y_position - last_mouse_input[1];
 	int16_t max_mouse_change = 2;
 	int16_t min_mouse_change = -2;
 	for (int i = 0; i < 2; ++i)
@@ -83,7 +83,7 @@ void computer_control() {
 	{
 		mouse_input[1] = 19 * 45;
 		last_mouse_input[1] = 19 * 45;
-		DBUS_ReceiveData.mouse.y_position = -mouse_input[1]/3;
+		DBUS_ReceiveData.mouse.y_position = -mouse_input[1]/2;
 	}
 	if (mouse_input[1] < 0 && gimbal_exceed_lower_bound() )
 	{
