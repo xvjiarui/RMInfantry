@@ -94,7 +94,7 @@ int main(void)
                 tft_prints(1, 5, "init:%f", init_yaw_pos);
                 tft_prints(1, 6, "curr:%f", GMYawEncoder.ecd_angle);
                 tft_prints(1, 7, "5:%d 6:%d", GMYawEncoder.filter_rate, GMPitchEncoder.filter_rate);
-                tft_prints(1, 8, "1:%d", CM1Encoder.filter_rate);
+								tft_prints(1, 8, "debug:%d", debug);
                 tft_prints(1, 9, "cur:%d", current_angle);
                 tft_prints(1, 10, "tar:%d", target_angle);
                 tft_prints(1, 11, "Mouse:%d", DBUS_ReceiveData.mouse.y_position);

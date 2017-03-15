@@ -50,10 +50,12 @@ void computer_control() {
 	static int16_t in_following_flag; //a flag that help
 	int16_t buff_mode = 0;
 	//keyboard part
-	float ratio = 1;
-	ratio += 0.5 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
+	float ratio = 0.75;
+	ratio += 0.25 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
 	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * ratio - last_ch_input[0];
 	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
+	////////////////////////////
+	/////////////May be ratio in this line can be deleted
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
 	int16_t max_change = 2;
 	int16_t min_change = -2;
@@ -102,24 +104,9 @@ void computer_control() {
 		//shooooooooooooooooooooooooooot
 	}
 	buff_mode = (DBUS_CheckPush(KEY_V));
-	//do something related to current mode
 	if (buff_mode)
 	{
 		control_car(0, 0, 0);
-		
-		// if (DBUS_CheckPush(KEY_Q) || DBUS_CheckPush(KEY_A) || DBUS_CheckPush(KEY_Z))
-		// {
-		// 	buff_mode_gimbal_yaw_pos(0);
-		// }
-		// else if (DBUS_CheckPush(KEY_E) || DBUS_CheckPush(KEY_D) || DBUS_CheckPush(KEY_C))
-		// {
-		// 	buff_mode_gimbal_yaw_pos(2);
-		// }
-		// else if (DBUS_CheckPush(KEY_W) || DBUS_CheckPush(KEY_S) || DBUS_CheckPush(KEY_X)) 
-		// {
-		// 	buff_mode_gimbal_yaw_pos(1);
-		// }
-		// else buff_mode_gimbal_yaw_pos(-1);
 		buff_switch();
 	}
 	else 
@@ -127,27 +114,30 @@ void computer_control() {
 		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
 			//following mode
 			//if there is angle difference between the chassis and gimbal, chassis will follow it
-			if ( ! chassis_follow_with_control(mouse_input[0], mouse_input[1]))
-			{
+			if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1) {
+				chassis_follow_with_control(mouse_input[0], mouse_input[1]);
+			}
+			else {
 				control_gimbal(mouse_input[0], mouse_input[1]);
-				// control_gimbal_yaw_speed(mouse_input[0]); // turn the gimbal regarding the input of mouse
 			}
 		}
 		else //left switch middle or down
 		{
 			if (!in_following_flag && (gimbal_exceed_right_bound() || gimbal_exceed_left_bound()) ) {
+			//////////////////////////////////////
+			/////////////To be test
+			//if (!in_following_flag && (gimbal_exceed_right_bound() || gimbal_exceed_left_bound() || DBUS_CheckPush(KEY_F) ) {
 				in_following_flag = 1;
 			}
 			if (in_following_flag) {
-				if (!chassis_follow_with_control(mouse_input[0], mouse_input[1]))
-				{
+				if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1) {
+					chassis_follow_with_control(mouse_input[0], mouse_input[1]);
+				}
+				else {
 					in_following_flag = 0;
-					// control_gimbal_yaw_speed(mouse_input[0]); // turn the gimbal regarding the input of mouse
 					control_gimbal(mouse_input[0], mouse_input[1]);
 				}
 			}
-			// else control_gimbal_yaw_speed(mouse_input[0]); // turn the gimbal regarding the input of mouse
-			// else control_gimbal_pos(0, mouse_input[1]); // turn the gimbal regarding the input of mouse
 			else control_gimbal(mouse_input[0], mouse_input[1]);
 		}
 		control_car(ch_input[0], ch_input[1], ch_input[2]);
