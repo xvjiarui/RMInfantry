@@ -89,7 +89,7 @@ void computer_control() {
 	{
 		mouse_input[1] = 0;
 		last_mouse_input[1] = 0;
-		DBUS_ReceiveData.mouse.y_position = -mouse_input[1]/3;
+		DBUS_ReceiveData.mouse.y_position = -mouse_input[1]/2;
 	}
 
 	//shoot check

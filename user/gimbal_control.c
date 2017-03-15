@@ -125,12 +125,12 @@ void control_gimbal_yaw_pos_with_speed(int16_t ch2, int16_t input_speed)
 
 void control_gimbal_pos_with_speed(int16_t input_yaw_pos, int16_t input_pitch_pos, int16_t input_yaw_speed)
 {
-    int16_t target_position[2] = {input_yaw_pos, input_pitch_pos};
+    int16_t target_position[2] = {input_yaw_pos + init_yaw_pos, input_pitch_pos + init_pitch_pos};
     gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle;
     gimbal_pos_pid[1].current = GMPitchEncoder.ecd_angle;
     int16_t target_speed[2] ={0, 0};
-    target_speed[0] = input_yaw_speed + PID_output2(&gimbal_pos_pid[0], target_position[0], 660, -660, 100, 30);
-    target_speed[1] = PID_output2(&gimbal_pos_pid[1], target_position[1], 660, -600, 100, 30);
+    target_speed[0] = input_yaw_speed + PID_output2(&gimbal_pos_pid[0], target_position[0], init_yaw_pos + 660, init_yaw_pos -660, 100, 30);
+    target_speed[1] = PID_output2(&gimbal_pos_pid[1], target_position[1], init_pitch_pos + 660, init_pitch_pos -600, 100, 30);
     gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;
     gimbal_speed_pid[1].current = GMPitchEncoder.filter_rate;
     int16_t input[2] = {0, 0};
