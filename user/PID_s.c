@@ -1,7 +1,5 @@
 #include "PID_s.h"
-float fabs(float x){
-	return x>0? x: -x;
-}
+
 void PID_init(PID* pid, float Kp_val, float Ki_val, float Kd_val, float limit){
 	pid->Kp=Kp_val;
 	pid->Ki=Ki_val;

@@ -25,6 +25,8 @@
 #include "stm32f4xx_crc.h"
 #include "core_cm4.h"
 #include "core_cmFunc.h"
+#include "Driver_Gun.h"
+#include "Driver_Encoder.h"
 
 #define USE_SIMULATED_JUDGE
 

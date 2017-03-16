@@ -35,3 +35,4 @@
 ..\obj\dbus.o: ..\FWLIB\inc\stm32f4xx_dac.h
 ..\obj\dbus.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\dbus.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
+..\obj\dbus.o: Driver_Gun.h

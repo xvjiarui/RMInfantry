@@ -59,6 +59,8 @@
 ..\obj\main.o: data_monitor.h
 ..\obj\main.o: adc.h
 ..\obj\main.o: ..\CORE\core_cm4.h
+..\obj\main.o: Driver_Gun.h
+..\obj\main.o: Driver_Encoder.h
 ..\obj\main.o: function_list.h
 ..\obj\main.o: pwm.h
 ..\obj\main.o: led.h

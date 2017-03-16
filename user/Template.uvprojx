@@ -395,24 +395,9 @@
               <FilePath>.\system_stm32f4xx.c</FilePath>
             </File>
             <File>
-              <FileName>chassis_control.c</FileName>
+              <FileName>external_control.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\chassis_control.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_control.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\power_control.h</FilePath>
-            </File>
-            <File>
-              <FileName>power_control.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\power_control.c</FilePath>
-            </File>
-            <File>
-              <FileName>gimbal_control.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\gimbal_control.h</FilePath>
+              <FilePath>.\external_control.c</FilePath>
             </File>
             <File>
               <FileName>gimbal_control.c</FileName>
@@ -420,19 +405,39 @@
               <FilePath>.\gimbal_control.c</FilePath>
             </File>
             <File>
-              <FileName>global_variable.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\global_variable.h</FilePath>
-            </File>
-            <File>
               <FileName>PID_s.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\PID_s.c</FilePath>
             </File>
             <File>
+              <FileName>power_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\power_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>chassis_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\chassis_control.c</FilePath>
+            </File>
+            <File>
               <FileName>customized_function.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\customized_function.c</FilePath>
+            </File>
+            <File>
+              <FileName>power_control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\power_control.h</FilePath>
+            </File>
+            <File>
+              <FileName>gimbal_control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\gimbal_control.h</FilePath>
+            </File>
+            <File>
+              <FileName>global_variable.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\global_variable.h</FilePath>
             </File>
             <File>
               <FileName>customized_function.h</FileName>
@@ -445,9 +450,9 @@
               <FilePath>.\external_control.h</FilePath>
             </File>
             <File>
-              <FileName>external_control.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\external_control.c</FilePath>
+              <FileName>PID_s.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PID_s.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -658,6 +663,16 @@
               <FileName>data_monitor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\data_monitor.c</FilePath>
+            </File>
+            <File>
+              <FileName>Driver_Encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Driver_Encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>Driver_Gun.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Driver_Gun.c</FilePath>
             </File>
           </Files>
         </Group>

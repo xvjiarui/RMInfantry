@@ -1,4 +1,5 @@
 #include "Dbus.h"
+#include "Driver_Gun.h"
 
 
 DBUSDecoding_Type DBUS_ReceiveData, LASTDBUS_ReceiveData;
@@ -109,6 +110,7 @@ void DBUS_DataDecoding(void)
    * ¼üÅÌÍ¨µÀ:15   14   13   12   11   10   9   8   7   6     5     4   3   2   1
    *          V    C    X	  Z    G    F    R   E   Q  CTRL  SHIFT  D   A   S   W
 ************************************************************************************/
+    GUN_SetMotion();
 }
 
 

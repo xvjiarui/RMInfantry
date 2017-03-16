@@ -60,3 +60,5 @@
 ..\obj\judge.o: data_monitor.h
 ..\obj\judge.o: adc.h
 ..\obj\judge.o: ..\CORE\core_cm4.h
+..\obj\judge.o: Driver_Gun.h
+..\obj\judge.o: Driver_Encoder.h
