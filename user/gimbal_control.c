@@ -29,10 +29,10 @@ void control_gimbal_pos(int16_t target_yaw_pos, int16_t target_pitch_pos) {
 		send_to_gimbal(pid_gimbal_yaw_pos(target_yaw_pos), pid_gimbal_pitch_pos(target_pitch_pos));
 }
 
-void control_gimbal_pos_with_speed(int16_t input_yaw_pos, int16_t input_pitch_pos, int16_t input_yaw_speed)
+void control_gimbal_pos_with_speed(int16_t target_yaw_pos, int16_t target_pitch_pos, int16_t input_yaw_speed)
 {
-		int16_t pid_yaw = pid_gimbal_yaw_pos_with_speed(input_yaw_pos, input_yaw_speed);
-		int16_t pid_pitch = pid_gimbal_pitch_pos(input_pitch_pos);
+		int16_t pid_yaw = pid_gimbal_yaw_pos_with_speed(target_yaw_pos, input_yaw_speed);
+		int16_t pid_pitch = pid_gimbal_pitch_pos(target_pitch_pos);
 		send_to_gimbal(pid_yaw, pid_pitch);
 }
 
@@ -53,15 +53,14 @@ void chassis_follow_with_control(int16_t input_yaw_speed, int16_t input_pitch_po
 ////////////////////////PID PART
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
-int16_t pid_gimbal_yaw_pos(int16_t target_yaw_pos) {
-    return pid_gimbal_yaw_pos_with_speed(target_yaw_pos, 0);
+
+int16_t pid_gimbal_yaw_speed(int16_t target_yaw_speed) {
+    gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;
+		return PID_output2(&gimbal_speed_pid[0], target_yaw_speed, 660, -660, 100, 15);;
 }
 
-int16_t pid_gimbal_pitch_pos(int16_t target_pitch_pos) {
-		target_pitch_pos += init_pitch_pos;
-		gimbal_pos_pid[1].current = GMPitchEncoder.ecd_angle;
-    int16_t target_pitch_speed = PID_output2(&gimbal_pos_pid[1], target_pitch_pos, init_pitch_pos + 660, init_pitch_pos - 660, 100, 30);
-		return pid_gimbal_pitch_speed(target_pitch_speed);
+int16_t pid_gimbal_yaw_pos(int16_t target_yaw_pos) {
+    return pid_gimbal_yaw_pos_with_speed(target_yaw_pos, 0);
 }
 
 int16_t pid_gimbal_yaw_pos_with_speed(int16_t target_yaw_pos, int16_t yaw_speed) {
@@ -70,14 +69,17 @@ int16_t pid_gimbal_yaw_pos_with_speed(int16_t target_yaw_pos, int16_t yaw_speed)
     int16_t target_yaw_speed = yaw_speed + PID_output2(&gimbal_pos_pid[0], target_yaw_pos, init_yaw_pos + 660, init_yaw_pos - 660, 100, 30);
 		return pid_gimbal_yaw_speed(target_yaw_speed);
 }
-int16_t pid_gimbal_yaw_speed(int16_t target_yaw_speed) {
-    gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;
-		return PID_output2(&gimbal_speed_pid[0], target_yaw_speed, 660, -660, 100, 15);;
-}
 
 int16_t pid_gimbal_pitch_speed(int16_t target_pitch_speed) {
 		gimbal_speed_pid[1].current = GMPitchEncoder.filter_rate;
     return PID_output2(&gimbal_speed_pid[1], target_pitch_speed, 660, -660, 100, 15);
+}
+
+int16_t pid_gimbal_pitch_pos(int16_t target_pitch_pos) {
+		target_pitch_pos += init_pitch_pos;
+		gimbal_pos_pid[1].current = GMPitchEncoder.ecd_angle;
+    int16_t target_pitch_speed = PID_output2(&gimbal_pos_pid[1], target_pitch_pos, init_pitch_pos + 660, init_pitch_pos - 660, 100, 30);
+		return pid_gimbal_pitch_speed(target_pitch_speed);
 }
 
 //////////////////////////////////////////////////
@@ -117,11 +119,6 @@ int16_t gimbal_exceed_lower_bound() {
     else return 0;
 }
 
-
-
-
-
-
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 ////////////////////////FUNCTION PART
@@ -142,42 +139,42 @@ void buff_mode_gimbal_pos(int16_t index)
 void buff_switch()
 {
     if (DBUS_CheckPush(KEY_Q))
-        {
-            buff_mode_gimbal_pos(0);
-        }
-        else if (DBUS_CheckPush(KEY_W))
-        {
-            buff_mode_gimbal_pos(1);
-        }
-        else if (DBUS_CheckPush(KEY_E))
-        {
-            buff_mode_gimbal_pos(2);
-        }
-        else if (DBUS_CheckPush(KEY_A))
-        {
-            buff_mode_gimbal_pos(3);
-        }
-        else if (DBUS_CheckPush(KEY_S))
-        {
-            buff_mode_gimbal_pos(4);
-        }
-        else if (DBUS_CheckPush(KEY_D))
-        {
-            buff_mode_gimbal_pos(5);
-        }
-        else if (DBUS_CheckPush(KEY_Z))
-        {
-            buff_mode_gimbal_pos(6);
-        }
-        else if (DBUS_CheckPush(KEY_X))
-        {
-            buff_mode_gimbal_pos(7);
-        }
-        else if (DBUS_CheckPush(KEY_C))
-        {
-            buff_mode_gimbal_pos(8);
-        }
-        else buff_mode_gimbal_pos(-1);
+		{
+				buff_mode_gimbal_pos(0);
+		}
+		else if (DBUS_CheckPush(KEY_W))
+		{
+				buff_mode_gimbal_pos(1);
+		}
+		else if (DBUS_CheckPush(KEY_E))
+		{
+				buff_mode_gimbal_pos(2);
+		}
+		else if (DBUS_CheckPush(KEY_A))
+		{
+				buff_mode_gimbal_pos(3);
+		}
+		else if (DBUS_CheckPush(KEY_S))
+		{
+				buff_mode_gimbal_pos(4);
+		}
+		else if (DBUS_CheckPush(KEY_D))
+		{
+				buff_mode_gimbal_pos(5);
+		}
+		else if (DBUS_CheckPush(KEY_Z))
+		{
+				buff_mode_gimbal_pos(6);
+		}
+		else if (DBUS_CheckPush(KEY_X))
+		{
+				buff_mode_gimbal_pos(7);
+		}
+		else if (DBUS_CheckPush(KEY_C))
+		{
+				buff_mode_gimbal_pos(8);
+		}
+		else buff_mode_gimbal_pos(-1);
 }
 
 

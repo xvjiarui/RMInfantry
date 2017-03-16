@@ -123,10 +123,7 @@ void computer_control() {
 		}
 		else //left switch middle or down
 		{
-			if (!in_following_flag && (gimbal_exceed_right_bound() || gimbal_exceed_left_bound()) ) {
-			//////////////////////////////////////
-			/////////////To be test
-			//if (!in_following_flag && (gimbal_exceed_right_bound() || gimbal_exceed_left_bound() || DBUS_CheckPush(KEY_F) ) {
+			if (!in_following_flag && (gimbal_exceed_right_bound() || gimbal_exceed_left_bound() || DBUS_CheckPush(KEY_F) )) {
 				in_following_flag = 1;
 			}
 			if (in_following_flag) {
