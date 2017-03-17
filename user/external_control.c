@@ -28,16 +28,40 @@ void remote_control() {
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	ch_changes[0] = DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
 	ch_changes[1] = DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
+	ch_changes[2] = -DBUS_ReceiveData.rc.ch2/3 - last_ch_input[2];
+	ch_changes[3] = DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
 	int16_t max_change = 2;
 	int16_t min_change = -2;
-	for (int i = 0; i < 2; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
 		limit_int_range(&ch_changes[i], max_change, min_change);
 		ch_input[i] += ch_changes[i];
 		last_ch_input[i] = ch_input[i];
 	}
-	ch_input[2] = DBUS_ReceiveData.rc.ch2;
-	control_car(ch_input[0], ch_input[1], ch_input[2]);
+	// ch_input[2] = DBUS_ReceiveData.rc.ch2;
+	// control_car(ch_input[0], ch_input[1], ch_input[2]);
+	if ((ch_input[2] > 0 && gimbal_exceed_right_bound()) || (ch_input[2] < 0 && gimbal_exceed_left_bound()))
+	{
+		ch_input[2] = 0;
+		last_ch_input[2] = 0;
+	}
+	if ( ch_input[3] > 19 * 45 && gimbal_exceed_upper_bound() )
+	{
+		ch_input[3] = 19 * 45;
+		last_ch_input[3] = 19 * 45;
+	}
+	if (ch_input[3] < 0 && gimbal_exceed_lower_bound() )
+	{
+		ch_input[3] = 0;
+		last_ch_input[3] = 0;
+	}
+	if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1) {
+		chassis_follow_with_control(ch_input[2], ch_input[3]);
+	}
+	else {
+		control_gimbal(ch_input[2], ch_input[3]);
+	}
+	control_car(ch_input[0], ch_input[1], 0);
 }
 
 void computer_control() {

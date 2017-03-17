@@ -3,7 +3,7 @@
 ..\obj\adc.o: ..\FWLIB\inc\stm32f4xx_gpio.h
 ..\obj\adc.o: ..\USER\stm32f4xx.h
 ..\obj\adc.o: ..\CORE\core_cm4.h
-..\obj\adc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\adc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\adc.o: ..\CORE\core_cmInstr.h
 ..\obj\adc.o: ..\CORE\core_cmFunc.h
 ..\obj\adc.o: ..\CORE\core_cmSimd.h
@@ -40,8 +40,8 @@
 ..\obj\adc.o: 1.8 TFT_ascii.h
 ..\obj\adc.o: gpio.h
 ..\obj\adc.o: led.h
-..\obj\adc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\adc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\adc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\adc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\adc.o: ticks.h
 ..\obj\adc.o: buzzer_song.h
 ..\obj\adc.o: buzzer.h

@@ -1,14 +1,14 @@
 ..\obj\main.o: main.c
 ..\obj\main.o: main.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\main.o: yaw_gyro.h
 ..\obj\main.o: ticks.h
 ..\obj\main.o: stm32f4xx.h
 ..\obj\main.o: ..\CORE\core_cm4.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\main.o: ..\CORE\core_cmInstr.h
 ..\obj\main.o: ..\CORE\core_cmFunc.h
 ..\obj\main.o: ..\CORE\core_cmSimd.h
@@ -53,7 +53,7 @@
 ..\obj\main.o: 1.8 TFT_display.h
 ..\obj\main.o: 1.8 TFT_ascii.h
 ..\obj\main.o: led.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\main.o: ticks.h
 ..\obj\main.o: encoder.h
 ..\obj\main.o: data_monitor.h

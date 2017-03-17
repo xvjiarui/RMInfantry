@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Thu Mar 16 18:41:03 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Mar 17 20:16:49 2017
 <BR><P>
 <H3>Maximum Stack Usage =        416 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -527,11 +527,18 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
-<P><STRONG><a name="[c8]"></a>remote_control</STRONG> (Thumb, 128 bytes, Stack size 24 bytes, external_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = remote_control &rArr; control_car &rArr; Set_CM_Speed &rArr; CAN_Transmit
+<P><STRONG><a name="[c8]"></a>remote_control</STRONG> (Thumb, 378 bytes, Stack size 24 bytes, external_control.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = remote_control &rArr; chassis_follow_with_control &rArr; control_gimbal_pos_with_speed &rArr; pid_gimbal_yaw_pos_with_speed &rArr; pid_gimbal_yaw_speed &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_upper_bound
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_right_bound
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_lower_bound
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_left_bound
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float_equal
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
@@ -598,7 +605,8 @@ Global Symbols
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid_gimbal_yaw_speed
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid_gimbal_pitch_pos
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[d0]"></a>control_gimbal_yaw_speed</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, gimbal_control.o(.text), UNUSED)
@@ -666,23 +674,28 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos_with_speed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[bf]"></a>gimbal_exceed_right_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c0]"></a>gimbal_exceed_left_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c1]"></a>gimbal_exceed_upper_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c2]"></a>gimbal_exceed_lower_bound</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, gimbal_control.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[d7]"></a>buff_mode_gimbal_pos</STRONG> (Thumb, 206 bytes, Stack size 16 bytes, gimbal_control.o(.text))
@@ -759,7 +772,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c5]"></a>float_equal</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, customized_function.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
+<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[3]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, startup_stm32f40_41xxx.o(.text))
@@ -2409,11 +2423,9 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
 <P><STRONG><a name="[a4]"></a>ADC1_init</STRONG> (Thumb, 254 bytes, Stack size 112 bytes, adc.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = ADC1_init &rArr; ADC_RegularChannelConfig
+<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = ADC1_init &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_SoftwareStartConv
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_RegularChannelConfig
-<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Cmd
+<BR>[Calls]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Cmd
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_CommonInit
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Init
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
@@ -2424,6 +2436,8 @@ Global Symbols
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_DeInit
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_DMARequestAfterLastTransferCmd
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_DMACmd
+<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_SoftwareStartConv
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_RegularChannelConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
 </UL>

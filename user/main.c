@@ -45,8 +45,8 @@ u8 str[256];
 float buffer_remain;
 float init_yaw_pos;
 float init_pitch_pos;
-int16_t buff_yaw_pos[3] = {-40, 0, 40};
-int16_t buff_pitch_pos[3] = {40, 20, 0};
+int16_t buff_yaw_pos[3] = {-15, 0, 15};
+int16_t buff_pitch_pos[3] = {18, 10, 3};
 int main(void)
 {	
 	init();
