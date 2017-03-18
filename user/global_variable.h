@@ -2,7 +2,10 @@
 #define GLOBAL_VARIABLE_H
 
 #include "PID_s.h"
-
+typedef union u32ANDint16_t{
+	u32 flash;
+	int16_t mem;
+} u32ANDint16_t;
 extern s32 debug;
 extern s32 target_angle;
 extern s32 current_angle;
@@ -15,6 +18,7 @@ extern PID angle_pid;
 extern PID ang_vel_pid;
 extern PID power_pid;
 */
+
 extern PID buffer_pid;
 extern PID gimbal_speed_pid[2];
 extern PID gimbal_pos_pid[2];
@@ -25,5 +29,7 @@ extern float init_yaw_pos;
 extern float init_pitch_pos;
 extern int16_t buff_yaw_pos[3];
 extern int16_t buff_pitch_pos[3];
+extern u32ANDint16_t manual_buff_yaw_pos[3];
+extern u32ANDint16_t manual_buff_pitch_pos[3];
 
 #endif

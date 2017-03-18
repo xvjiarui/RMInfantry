@@ -77,3 +77,4 @@
 ..\obj\main.o: global_variable.h
 ..\obj\main.o: customized_function.h
 ..\obj\main.o: external_control.h
+..\obj\main.o: flash.h

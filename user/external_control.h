@@ -4,5 +4,6 @@
 void external_control();
 void remote_control();
 void computer_control();
+void remote_buff_adjust();
 
 #endif

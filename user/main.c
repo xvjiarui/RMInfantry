@@ -6,6 +6,7 @@
 #include "gimbal_control.h"
 #include "customized_function.h"
 #include "external_control.h"
+#include "flash.h"
 
 volatile u32 ticks_msimg = (u32)-1;
 
@@ -47,6 +48,8 @@ float init_yaw_pos;
 float init_pitch_pos;
 int16_t buff_yaw_pos[3] = {-15, 0, 15};
 int16_t buff_pitch_pos[3] = {18, 10, 3};
+union u32ANDint16_t manual_buff_yaw_pos[3];
+union u32ANDint16_t manual_buff_pitch_pos[3];
 int main(void)
 {	
 	init();
@@ -65,6 +68,14 @@ int main(void)
 	buffer_remain = 60;
 	init_yaw_pos = GMYawEncoder.ecd_angle;
 	init_pitch_pos = GMPitchEncoder.ecd_angle + 14 * 19;
+	for (int i = 0; i < 3; ++i)
+	{
+		manual_buff_yaw_pos[i].flash = readFlash(i);
+	}
+	for (int i = 0; i < 3; ++i)
+	{
+		manual_buff_pitch_pos[i].flash = readFlash(i + 3);
+	}
 	while (1)  {	
 
 		if (ticks_msimg != get_ms_ticks()) 
@@ -80,6 +91,8 @@ int main(void)
 				
 				tft_prints(0,2,"Infantry V1.3");
 				tft_prints(0,3,"%d",ticks_msimg);
+				tft_prints(0,4,"yaw %d %d %d", manual_buff_yaw_pos[0].mem, manual_buff_yaw_pos[1].mem, manual_buff_yaw_pos[2].mem);
+				tft_prints(0,5,"yaw %d %d %d", manual_buff_pitch_pos[0].mem, manual_buff_pitch_pos[1].mem, manual_buff_pitch_pos[2].mem);
 				
 				tft_update();
 				LED_blink(LED1);
