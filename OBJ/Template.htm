@@ -3,9 +3,9 @@
 <title>Static Call Graph - [..\OBJ\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sat Mar 18 18:59:11 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sat Mar 18 20:41:09 2017
 <BR><P>
-<H3>Maximum Stack Usage =       1112 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       1104 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; external_control &rArr; remote_buff_adjust &rArr; writeFlash &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 <P>
@@ -401,7 +401,7 @@ Global Symbols
 <P><STRONG><a name="[20d]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[95]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1112 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1104 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; external_control &rArr; remote_buff_adjust &rArr; writeFlash &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -478,8 +478,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[96]"></a>main</STRONG> (Thumb, 498 bytes, Stack size 16 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1112 + Unknown Stack Size
+<P><STRONG><a name="[96]"></a>main</STRONG> (Thumb, 656 bytes, Stack size 16 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1104 + Unknown Stack Size
 <LI>Call Chain = main &rArr; external_control &rArr; remote_buff_adjust &rArr; writeFlash &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_update
@@ -505,7 +505,7 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[210]"></a>SystemCoreClockUpdate</STRONG> (Thumb, 174 bytes, Stack size 16 bytes, system_stm32f4xx.o(.text), UNUSED)
 
-<P><STRONG><a name="[b8]"></a>computer_control</STRONG> (Thumb, 854 bytes, Stack size 88 bytes, external_control.o(.text))
+<P><STRONG><a name="[b8]"></a>computer_control</STRONG> (Thumb, 844 bytes, Stack size 88 bytes, external_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = computer_control &rArr; buff_switch &rArr; buff_mode_gimbal_pos &rArr; control_gimbal_pos &rArr; pid_gimbal_yaw_pos &rArr; pid_gimbal_yaw_pos_with_speed &rArr; pid_gimbal_yaw_speed &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
@@ -528,16 +528,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
-<P><STRONG><a name="[c9]"></a>remote_buff_adjust</STRONG> (Thumb, 590 bytes, Stack size 24 bytes, external_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1088<LI>Call Chain = remote_buff_adjust &rArr; writeFlash &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
+<P><STRONG><a name="[c9]"></a>remote_buff_adjust</STRONG> (Thumb, 822 bytes, Stack size 16 bytes, external_control.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1080<LI>Call Chain = remote_buff_adjust &rArr; writeFlash &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeFlash
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_upper_bound
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_right_bound
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_lower_bound
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_left_bound
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_play_song
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
@@ -559,7 +554,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b6]"></a>external_control</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, external_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1096<LI>Call Chain = external_control &rArr; remote_buff_adjust &rArr; writeFlash &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
+<BR><BR>[Stack]<UL><LI>Max Depth = 1088<LI>Call Chain = external_control &rArr; remote_buff_adjust &rArr; writeFlash &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_yaw_pos
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
@@ -696,25 +691,21 @@ Global Symbols
 
 <P><STRONG><a name="[c0]"></a>gimbal_exceed_right_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_buff_adjust
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c1]"></a>gimbal_exceed_left_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_buff_adjust
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c2]"></a>gimbal_exceed_upper_bound</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, gimbal_control.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_buff_adjust
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
 <P><STRONG><a name="[c3]"></a>gimbal_exceed_lower_bound</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, gimbal_control.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_buff_adjust
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
@@ -788,7 +779,6 @@ Global Symbols
 
 <P><STRONG><a name="[bf]"></a>limit_int_range</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, customized_function.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_buff_adjust
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
@@ -1642,8 +1632,8 @@ Global Symbols
 
 <P><STRONG><a name="[27d]"></a>TIM_SetCounter</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[11a]"></a>TIM_SetAutoreload</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_set_note_period
+<P><STRONG><a name="[11b]"></a>TIM_SetAutoreload</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_set_note_period
 </UL>
 
 <P><STRONG><a name="[27e]"></a>TIM_GetCounter</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
@@ -1706,7 +1696,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[113]"></a>TIM_SetCompare3</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
+<BR><BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_off
 </UL>
 
@@ -2142,9 +2132,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_check
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_set_note_period
+<BR>[Called By]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_check
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_set_note_period
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_init
 </UL>
 
@@ -2156,53 +2146,60 @@ Global Symbols
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_off
 </UL>
 
-<P><STRONG><a name="[cb]"></a>buzzer_on</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, buzzer.o(.text))
+<P><STRONG><a name="[119]"></a>buzzer_on</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, buzzer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = buzzer_on &rArr; buzzer_off
 </UL>
 <BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_off
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_buff_adjust
-<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_play_song
-<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_control
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_check
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_play_song
+<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_control
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_check
 </UL>
 
-<P><STRONG><a name="[11c]"></a>get_note_period</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, buzzer.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_play_song
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_check
+<P><STRONG><a name="[11d]"></a>get_note_period</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, buzzer.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = get_note_period
+</UL>
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_play_song
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_check
 </UL>
 
-<P><STRONG><a name="[119]"></a>buzzer_set_note_period</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, buzzer.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_off
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetAutoreload
+<P><STRONG><a name="[11a]"></a>buzzer_set_note_period</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, buzzer.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = buzzer_set_note_period &rArr; buzzer_off
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_play_song
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_check
+<BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_off
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetAutoreload
+</UL>
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_play_song
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_check
 </UL>
 
-<P><STRONG><a name="[11b]"></a>buzzer_check</STRONG> (Thumb, 280 bytes, Stack size 16 bytes, buzzer.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_set_note_period
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_note_period
+<P><STRONG><a name="[11c]"></a>buzzer_check</STRONG> (Thumb, 280 bytes, Stack size 16 bytes, buzzer.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_set_note_period
+<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_note_period
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_off
 </UL>
 
-<P><STRONG><a name="[11e]"></a>buzzer_stop_song</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, buzzer.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_control
+<P><STRONG><a name="[11f]"></a>buzzer_stop_song</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, buzzer.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_control
 </UL>
 
-<P><STRONG><a name="[11d]"></a>buzzer_control</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, buzzer.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
-<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_stop_song
+<P><STRONG><a name="[11e]"></a>buzzer_control</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, buzzer.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_stop_song
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
 </UL>
 
 <P><STRONG><a name="[2f4]"></a>buzzer_set_volume</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, buzzer.o(.text), UNUSED)
 
-<P><STRONG><a name="[11f]"></a>buzzer_play_song</STRONG> (Thumb, 84 bytes, Stack size 24 bytes, buzzer.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_set_note_period
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_note_period
+<P><STRONG><a name="[cb]"></a>buzzer_play_song</STRONG> (Thumb, 84 bytes, Stack size 24 bytes, buzzer.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = buzzer_play_song &rArr; buzzer_set_note_period &rArr; buzzer_off
+</UL>
+<BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_set_note_period
+<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_note_period
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
+</UL>
+<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_buff_adjust
 </UL>
 
 <P><STRONG><a name="[116]"></a>AF_config</STRONG> (Thumb, 280 bytes, Stack size 16 bytes, gpio.o(.text), UNUSED)

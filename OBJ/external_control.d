@@ -62,5 +62,6 @@
 ..\obj\external_control.o: global_variable.h
 ..\obj\external_control.o: customized_function.h
 ..\obj\external_control.o: flash.h
+..\obj\external_control.o: buzzer_song.h
 ..\obj\external_control.o: buzzer.h
 ..\obj\external_control.o: timer.h

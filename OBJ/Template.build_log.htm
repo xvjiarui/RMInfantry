@@ -66,6 +66,8 @@ external_control.h(6): warning:  #1295-D: Deprecated declaration computer_contro
   void computer_control();
 external_control.h(7): warning:  #1295-D: Deprecated declaration remote_buff_adjust - give arg types
   void remote_buff_adjust();
+global_variable.h(35): warning:  #1-D: last line of file ends without a newline
+  #endif
 gimbal_control.h(17): warning:  #1295-D: Deprecated declaration gimbal_exceed_right_bound - give arg types
   int16_t gimbal_exceed_right_bound();
 gimbal_control.h(18): warning:  #1295-D: Deprecated declaration gimbal_exceed_left_bound - give arg types
@@ -78,11 +80,15 @@ gimbal_control.h(21): warning:  #1295-D: Deprecated declaration chassis_follow -
   int16_t chassis_follow();
 gimbal_control.h(24): warning:  #1295-D: Deprecated declaration buff_switch - give arg types
   void buff_switch();
-external_control.c: 25 warnings, 0 errors
+external_control.c(102): warning:  #177-D: variable "max_mouse_change"  was declared but never referenced
+        int16_t max_mouse_change = 4;
+external_control.c(103): warning:  #177-D: variable "min_mouse_change"  was declared but never referenced
+        int16_t min_mouse_change = -4;
+external_control.c: 28 warnings, 0 errors
 linking...
-Program Size: Code=46672 RO-data=2936 RW-data=20800 ZI-data=6208  
+Program Size: Code=47080 RO-data=3136 RW-data=20788 ZI-data=6260  
 FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 25 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 28 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   \\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard

@@ -29,7 +29,7 @@ extern float init_yaw_pos;
 extern float init_pitch_pos;
 extern int16_t buff_yaw_pos[3];
 extern int16_t buff_pitch_pos[3];
-extern u32ANDint16_t manual_buff_yaw_pos[3];
-extern u32ANDint16_t manual_buff_pitch_pos[3];
+extern u32ANDint16_t manual_buff_yaw_pos[3][3];
+extern u32ANDint16_t manual_buff_pitch_pos[3][3];
 
 #endif

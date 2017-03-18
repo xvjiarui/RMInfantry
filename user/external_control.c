@@ -7,7 +7,7 @@
 #include "customized_function.h"
 #include "global_variable.h"
 #include "flash.h"
-#include "buzzer.h"
+#include "buzzer_song.h"
 
 void external_control() {
 	if (DBUS_ReceiveData.rc.switch_right == 1)
@@ -97,16 +97,15 @@ void computer_control() {
 		last_ch_input[i] = ch_input[i];
 	}
 	//mouse part
-	mouse_changes[0] = - 2 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
+	mouse_changes[0] = - 3 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
 	mouse_changes[1] = - 2 * DBUS_ReceiveData.mouse.y_position - last_mouse_input[1];
-	int16_t max_mouse_change = 2;
-	int16_t min_mouse_change = -2;
-	for (int i = 0; i < 2; ++i)
-	{
-		limit_int_range(&mouse_changes[i], max_mouse_change, min_mouse_change);
-		mouse_input[i] += mouse_changes[i];
-		last_mouse_input[i] = mouse_input[i];
-	}
+	int16_t max_mouse_change = 4;
+	int16_t min_mouse_change = -4;
+	// limit_int_range(&mouse_changes[0], max_mouse_change, min_mouse_change);
+	mouse_input[0] += mouse_changes[0];
+	last_mouse_input[0] = mouse_input[0];
+	mouse_input[1] += mouse_changes[1];
+	last_mouse_input[1] = mouse_input[1];
 	if ((mouse_input[0] > 0 && gimbal_exceed_right_bound()) || (mouse_input[0] < 0 && gimbal_exceed_left_bound()))
 	{
 		mouse_input[0] = 0;
@@ -173,67 +172,75 @@ void computer_control() {
 }
 
 void remote_buff_adjust() {
-	static int16_t last_ch_input[4];
-	static int16_t ch_input[4];
-	int16_t ch_changes[4] = {0, 0, 0, 0};
-	ch_changes[0] = DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
-	ch_changes[1] = DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
-	ch_changes[2] = -DBUS_ReceiveData.rc.ch2/3 - last_ch_input[2];
-	ch_changes[3] = DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
-	int16_t max_change = 2;
-	int16_t min_change = -2;
-	for (int i = 0; i < 4; ++i)
-	{
-		limit_int_range(&ch_changes[i], max_change, min_change);
-		ch_input[i] += ch_changes[i];
-		last_ch_input[i] = ch_input[i];
-	}
-	if ((ch_input[2] > 0 && gimbal_exceed_right_bound()) || (ch_input[2] < 0 && gimbal_exceed_left_bound()))
-	{
-		ch_input[2] = 0;
-		last_ch_input[2] = 0;
-	}
-	if ( ch_input[3] > 19 * 45 && gimbal_exceed_upper_bound() )
-	{
-		ch_input[3] = 19 * 45;
-		last_ch_input[3] = 19 * 45;
-	}
-	if (ch_input[3] < 0 && gimbal_exceed_lower_bound() )
-	{
-		ch_input[3] = 0;
-		last_ch_input[3] = 0;
-	}
+	static int16_t ch_input[2];
+	ch_input[0] = DBUS_ReceiveData.rc.ch0;
+	ch_input[1] = DBUS_ReceiveData.rc.ch1;
 
 	if (ch_input[0] < -220)
 	{
-		manual_buff_yaw_pos[0].mem = -GMYawEncoder.ecd_angle/27;
+		if (ch_input[1] > 220)
+		{
+			manual_buff_yaw_pos[0][0].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[0][0].mem = GMPitchEncoder.ecd_angle/19;
+		}
+		else if (ch_input[1] < -220)
+		{
+			manual_buff_yaw_pos[2][0].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[2][0].mem = GMPitchEncoder.ecd_angle/19;
+		}
+		else 
+		{
+			manual_buff_yaw_pos[1][0].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[1][0].mem = GMPitchEncoder.ecd_angle/19;	
+		}		
 	}
 	else if (ch_input[0] > 220)
 	{
-		manual_buff_yaw_pos[2].mem = -GMYawEncoder.ecd_angle/27;
+		if (ch_input[1] > 220)
+		{
+			manual_buff_yaw_pos[0][2].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[0][2].mem = GMPitchEncoder.ecd_angle/19;
+		}
+		else if (ch_input[1] < -220)
+		{
+			manual_buff_yaw_pos[2][2].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[2][2].mem = GMPitchEncoder.ecd_angle/19;
+		}
+		else 
+		{
+			manual_buff_yaw_pos[1][2].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[1][2].mem = GMPitchEncoder.ecd_angle/19;	
+		}
 	}
-	else manual_buff_yaw_pos[1].mem = -GMYawEncoder.ecd_angle/27;
-
-	if (ch_input[1] > 220)
+	else 
 	{
-		manual_buff_pitch_pos[0].mem = GMPitchEncoder.ecd_angle/19;
+		if (ch_input[1] > 220)
+		{
+			manual_buff_yaw_pos[0][1].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[0][1].mem = GMPitchEncoder.ecd_angle/19;
+		}
+		else if (ch_input[1] < -220)
+		{
+			manual_buff_yaw_pos[2][1].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[2][1].mem = GMPitchEncoder.ecd_angle/19;
+		}
+		else 
+		{
+			manual_buff_yaw_pos[1][1].mem = -GMYawEncoder.ecd_angle/27;
+			manual_buff_pitch_pos[1][1].mem = GMPitchEncoder.ecd_angle/19;	
+		}
 	}
-	else if (ch_input[1] < -220)
-	{
-		manual_buff_pitch_pos[2].mem = GMPitchEncoder.ecd_angle/19;
-	}
-	else manual_buff_pitch_pos[1].mem = GMPitchEncoder.ecd_angle/19;
 	// writing into the flash, takes about 30s
 	if (DBUS_ReceiveData.rc.switch_left == 2)
 	{
 		for (u8 i = 0; i < 3; ++i)
 		{
-			writeFlash(i, manual_buff_yaw_pos[i].flash);
+			for (u8 j = 0; j < 3; ++j)
+			{
+				writeFlash(3 * i + j, manual_buff_yaw_pos[i][j].flash);
+				writeFlash(3 * i + j + 9, manual_buff_pitch_pos[i][j].flash);
+			}
 		}
-		for (u8 i = 0; i < 3; ++i)
-		{
-			writeFlash(i + 3, manual_buff_pitch_pos[i].flash);
-		}
-		buzzer_on();
+		FAIL_MUSIC;
 	}
 }
