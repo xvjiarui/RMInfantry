@@ -20,5 +20,6 @@ int16_t gimbal_exceed_upper_bound();
 int16_t gimbal_exceed_lower_bound();
 int16_t chassis_follow();
 void chassis_follow_with_control(int16_t input_yaw_speed, int16_t input_pitch_pos);
+void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t input_yaw_speed, int16_t input_pitch_pos);
 void buff_mode_gimbal_pos(int16_t index);
 void buff_switch();

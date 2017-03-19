@@ -30,6 +30,7 @@ void external_control() {
 }
 
 void remote_control() {
+	is_writing_flash = 0;
 	static int16_t last_ch_input[4];
 	static int16_t ch_input[4];
 	int16_t ch_changes[4] = {0, 0, 0, 0};
@@ -139,6 +140,11 @@ void computer_control() {
 		control_car(0, 0, 0);
 		buff_switch();
 	}
+	else if (DBUS_CheckPush(KEY_C))
+	{
+		chassis_gimbal_relative_angle_with_control(30, mouse_input[0], mouse_input[1]);
+		control_car(ch_input[0], ch_input[1], ch_input[2]);
+	}
 	else 
 	{
 		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
@@ -172,75 +178,78 @@ void computer_control() {
 }
 
 void remote_buff_adjust() {
-	static int16_t ch_input[2];
+	Set_CM_Speed(CAN1, 0, 0, 0, 0);
+	static int16_t ch_input[3];
 	ch_input[0] = DBUS_ReceiveData.rc.ch0;
 	ch_input[1] = DBUS_ReceiveData.rc.ch1;
-
-	if (ch_input[0] < -220)
+	ch_input[2] = DBUS_ReceiveData.rc.ch2;
+	if (ch_input[2] > 600 )
 	{
-		if (ch_input[1] > 220)
+		if (ch_input[0] < -220)
 		{
-			manual_buff_yaw_pos[0][0].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[0][0].mem = GMPitchEncoder.ecd_angle/19;
+			if (ch_input[1] > 220)
+			{
+				manual_buff_pos[0].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[9].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}
+			else if (ch_input[1] < -220)
+			{
+				manual_buff_pos[6].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[15].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}
+			else 
+			{
+				manual_buff_pos[3].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[12].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}		
 		}
-		else if (ch_input[1] < -220)
+		else if (ch_input[0] > 220)
 		{
-			manual_buff_yaw_pos[2][0].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[2][0].mem = GMPitchEncoder.ecd_angle/19;
+			if (ch_input[1] > 220)
+			{
+				manual_buff_pos[2].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[11].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}
+			else if (ch_input[1] < -220)
+			{
+				manual_buff_pos[8].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[17].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}
+			else 
+			{
+				manual_buff_pos[5].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[14].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}
 		}
 		else 
 		{
-			manual_buff_yaw_pos[1][0].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[1][0].mem = GMPitchEncoder.ecd_angle/19;	
-		}		
-	}
-	else if (ch_input[0] > 220)
-	{
-		if (ch_input[1] > 220)
-		{
-			manual_buff_yaw_pos[0][2].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[0][2].mem = GMPitchEncoder.ecd_angle/19;
-		}
-		else if (ch_input[1] < -220)
-		{
-			manual_buff_yaw_pos[2][2].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[2][2].mem = GMPitchEncoder.ecd_angle/19;
-		}
-		else 
-		{
-			manual_buff_yaw_pos[1][2].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[1][2].mem = GMPitchEncoder.ecd_angle/19;	
-		}
-	}
-	else 
-	{
-		if (ch_input[1] > 220)
-		{
-			manual_buff_yaw_pos[0][1].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[0][1].mem = GMPitchEncoder.ecd_angle/19;
-		}
-		else if (ch_input[1] < -220)
-		{
-			manual_buff_yaw_pos[2][1].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[2][1].mem = GMPitchEncoder.ecd_angle/19;
-		}
-		else 
-		{
-			manual_buff_yaw_pos[1][1].mem = -GMYawEncoder.ecd_angle/27;
-			manual_buff_pitch_pos[1][1].mem = GMPitchEncoder.ecd_angle/19;	
+			if (ch_input[1] > 220)
+			{
+				manual_buff_pos[1].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[10].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}
+			else if (ch_input[1] < -220)
+			{
+				manual_buff_pos[7].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[16].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}
+			else 
+			{
+				manual_buff_pos[4].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+				manual_buff_pos[13].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos)/19;
+			}
 		}
 	}
 	// writing into the flash, takes about 30s
-	if (DBUS_ReceiveData.rc.switch_left == 2)
+	if (DBUS_ReceiveData.rc.switch_left == 2 && !is_writing_flash)
 	{
-		for (u8 i = 0; i < 3; ++i)
+		is_writing_flash = 1;
+		u32 data[18];
+		for (int i = 0; i < 18; ++i)
 		{
-			for (u8 j = 0; j < 3; ++j)
-			{
-				writeFlash(3 * i + j, manual_buff_yaw_pos[i][j].flash);
-				writeFlash(3 * i + j + 9, manual_buff_pitch_pos[i][j].flash);
-			}
+			data[i] = manual_buff_pos[i].flash;
 		}
+		writeFlash(data, 18);
 		FAIL_MUSIC;
 	}
 }

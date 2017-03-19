@@ -5,7 +5,7 @@
 #include "stm32f4xx.h"
 
 
-void writeFlash(u8 address_num,u32 data);
+void writeFlash(u32 *data, u8 num);
 u32 readFlash(u16 address_num);
 
 
