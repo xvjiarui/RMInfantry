@@ -39,35 +39,55 @@ int16_t* control_remoter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,flo
 }
 
 void control_car(int16_t ch0, int16_t ch1, int16_t ch2) {
-    last_angle = current_angle;
     current_angle = output_angle;
     angle_pid.current=current_angle;
     buffer_pid.current=buffer_remain;
     int16_t* target_speed;
-	
-    if (DBUS_ReceiveData.rc.switch_right == 1) {
-        //emergency stop
-        target_angle = current_angle;
-        target_speed = control_remoter(ch0,ch1,ch2,1,1,1,0);
-    }
-    else {
-        target_speed = control_remoter(ch0,ch1,ch2,1,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
-    }
-		
+    // should be take care
+    target_speed = control_remoter(ch0,ch1,ch2,1,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
+        
     wheels_speed_pid[0].current=CM1Encoder.filter_rate;
     wheels_speed_pid[1].current=CM2Encoder.filter_rate;
     wheels_speed_pid[2].current=CM3Encoder.filter_rate;
     wheels_speed_pid[3].current=CM4Encoder.filter_rate;
     int16_t input[4];
+    float ratio=1;
+    if (buffer_remain<60)
+    {
+        ratio = 1 - PID_output(&buffer_pid, 60);
+        ratio= ratio>0? ratio:-ratio;
+    }
     for (int i = 0; i < 4; i++) {
-        float ratio=1;
-        if (buffer_remain<60)
-        {
-            ratio = 1 - PID_output(&buffer_pid, 60);
-            ratio= ratio>0? ratio:-ratio;
-        }
+       
         target_speed[i] *= ratio;
         input[i]=PID_output2(&wheels_speed_pid[i],target_speed[i],660, -660, 100, 15);
+    }
+    Set_CM_Speed(CAN2, input[0],input[1], input[2], input[3]);
+}
+void control_car_open_loop(int16_t ch0, int16_t ch1, int16_t ch2)
+{
+    current_angle = output_angle;
+    target_angle = current_angle;
+    angle_pid.current = current_angle;
+    buffer_pid.current=buffer_remain;
+    int16_t* target_speed;
+    // should be take care
+    target_speed = control_remoter(ch0,ch1,ch2,1,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
+        
+    wheels_speed_pid[0].current=CM1Encoder.filter_rate;
+    wheels_speed_pid[1].current=CM2Encoder.filter_rate;
+    wheels_speed_pid[2].current=CM3Encoder.filter_rate;
+    wheels_speed_pid[3].current=CM4Encoder.filter_rate;
+    int16_t input[4];
+    float ratio=1;
+    if (buffer_remain<60)
+    {
+        ratio = 1 - PID_output(&buffer_pid, 60);
+        ratio= ratio>0? ratio:-ratio;
+    }
+    for (int i = 0; i < 4; i++) {
+        target_speed[i] *= ratio;
+        input[i] = target_speed[i];
     }
     Set_CM_Speed(CAN2, input[0],input[1], input[2], input[3]);
 }

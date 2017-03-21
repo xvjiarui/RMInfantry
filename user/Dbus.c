@@ -76,7 +76,7 @@ void Dbus_init(void){
   */
 void DBUS_DataDecoding(void)
 {
-	
+	// Long time no signal can be regarded as disconnected
 	LASTDBUS_ReceiveData = DBUS_ReceiveData;
 	//for the ch x data will be signed int from  -660 to 660
 	DBUS_ReceiveData.rc.ch0 = (DBUSBuffer[0] | DBUSBuffer[1]<<8) & 0x07FF;
@@ -153,6 +153,8 @@ void USART1_IRQHandler(void)
 			if(DMA2_Stream5->NDTR == DBUSBackLength)
 			{
 					DBUS_DataDecoding();
+				
+				
 			}
 			
 			//÷ÿ∆ÙDMA

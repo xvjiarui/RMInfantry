@@ -54,3 +54,5 @@
 ..\obj\customized_function.o: canBusProcess.h
 ..\obj\customized_function.o: Dbus.h
 ..\obj\customized_function.o: judge.h
+..\obj\customized_function.o: global_variable.h
+..\obj\customized_function.o: PID_s.h

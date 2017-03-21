@@ -48,6 +48,18 @@ void chassis_follow_with_control(int16_t input_yaw_speed, int16_t input_pitch_po
 	control_gimbal_pos_with_speed((GMYawEncoder.ecd_angle - init_yaw_pos + step * 27), input_pitch_pos, input_yaw_speed);
 }
 
+// void chassis_follow_pos(int16_t input_yaw_pos, int16_t input_pitch_pos)
+// {
+// 	gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
+// 	float step = PID_output(&gimbal_reset_pid, 0);
+// 	target_angle = current_angle + 10 * step;
+// 	control_gimbal_pos(GMYawEncoder.ecd_angle - init_yaw_pos + step * 27, input_pitch_pos);
+// 	// test2
+// 	// float difference = -(GMYawEncoder.ecd_angle - init_yaw_pos)/27;
+// 	// target_angle = current_angle + 10 * difference;
+// 	// control_gimbal_pos(input_yaw_pos + difference * 27, input_pitch_pos);
+// }
+
 void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t input_yaw_speed, int16_t input_pitch_pos)
 {
 	gimbal_relative_angle_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
@@ -125,6 +137,10 @@ int16_t gimbal_exceed_lower_bound() {
 		return 1;
 	}
 	else return 0;
+}
+
+int16_t gimbal_yaw_back(){
+	return float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 27);
 }
 
 //////////////////////////////////////////////////

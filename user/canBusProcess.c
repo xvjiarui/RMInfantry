@@ -102,7 +102,7 @@ void EncoderProcess(volatile Encoder *v, CanRxMsg * msg)
 * Note(s)    : none
 ************************************************************************************************************************
 */
-
+//same as dbus
 void CanReceiveMsgProcess_for_chassis(CanRxMsg * msg)
 {     
     can_count++;
@@ -129,7 +129,7 @@ void CanReceiveMsgProcess_for_chassis(CanRxMsg * msg)
 		}
  
 }
-
+// same as dbus
 void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg)
 {     
     can_count++;

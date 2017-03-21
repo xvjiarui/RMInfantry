@@ -33,7 +33,6 @@ void init(){
 float debug = 0;
 s32 target_angle = 0;
 s32 current_angle = 0;
-s32 last_angle = 0;
 int16_t result[4] = {0, 0, 0, 0};
 PID wheels_pos_pid[4];
 PID wheels_speed_pid[4];
@@ -54,19 +53,7 @@ int16_t is_writing_flash = 0;
 int main(void)
 {	
 	init();
-	for (int i = 0; i < 4; i++) {
-			//PID_init(&wheels_pos_pid[i],130, 0.004, 0, 5000);//30 0.001 5 65 0.001 5
-			PID_init(&wheels_pos_pid[i], 0.15, 0, 0, 20000);
-			PID_init(&wheels_speed_pid[i], 80, 5, 100, 20000); //0.00001
-	}
-	PID_init(&gimbal_speed_pid[0], 80, 5, 100, 20000);
-	PID_init(&gimbal_speed_pid[1], 80, 5, 100, 20000);
-	PID_init(&gimbal_pos_pid[0], 0.15, 0, 0, 20000);
-	PID_init(&gimbal_pos_pid[1], 0.35, 0, 0, 20000);
-	PID_init(&angle_pid, 4, 0, 0, 660); //5 20
-	PID_init(&buffer_pid, 0.02, 0, 0, 60);
-	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
-	PID_init(&gimbal_relative_angle_pid, 0.02, 0, 0, 50);
+	PID_init_all();
 	buffer_remain = 60;
 	init_yaw_pos = GMYawEncoder.ecd_angle;
 	init_pitch_pos = GMPitchEncoder.ecd_angle + 14 * 19;
@@ -91,6 +78,10 @@ int main(void)
 				tft_prints(0,3,"%d",ticks_msimg);
 				tft_prints(0,4,"Yaw:%f", GMYawEncoder.ecd_angle);
 				tft_prints(0,5,"Debug:%f", debug);
+				tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
+				tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
+				tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
+				tft_prints(0,9,"Y_p:%d", DBUS_ReceiveData.mouse.y_position);
 				// tft_prints(0,4,"Q:%d W:%d E:%d", manual_buff_pos[0].mem, manual_buff_pos[1].mem, manual_buff_pos[2].mem);
 				// tft_prints(0,5,"Q:%d W:%d E:%d", manual_buff_pos[9].mem, manual_buff_pos[10].mem, manual_buff_pos[11].mem);
 				// tft_prints(0,6,"A:%d S:%d D:%d", manual_buff_pos[3].mem, manual_buff_pos[4].mem, manual_buff_pos[5].mem);

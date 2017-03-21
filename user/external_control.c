@@ -12,9 +12,15 @@
 void external_control() {
 	if (DBUS_ReceiveData.rc.switch_right == 1)
 	{
-		//emergency stop
-		control_car(0, 0, 0); //warning: there is some emergency code inside this function
-		control_gimbal_yaw_pos(0);
+		// //emergency stop
+		// control_car(0, 0, 0); //warning: there is some emergency code inside this function
+		// control_gimbal_yaw_pos(0);
+		Set_CM_Speed(CAN1, 0, 0, 0, 0);
+		Set_CM_Speed(CAN2, 0, 0, 0, 0);
+		target_angle = current_angle;
+		PID_init_all();
+		DBUS_ReceiveData.mouse.x_position = 0;
+		DBUS_ReceiveData.mouse.y_position = 0;
 	}
 	else if (DBUS_ReceiveData.rc.switch_right == 3)
 	{
@@ -36,7 +42,7 @@ void remote_control() {
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	ch_changes[0] = DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
 	ch_changes[1] = DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
-	ch_changes[2] = -DBUS_ReceiveData.rc.ch2/3 - last_ch_input[2];
+	ch_changes[2] = -DBUS_ReceiveData.rc.ch2/4 - last_ch_input[2];
 	ch_changes[3] = DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
 	int16_t max_change = 2;
 	int16_t min_change = -2;
@@ -48,7 +54,7 @@ void remote_control() {
 	}
 	// ch_input[2] = DBUS_ReceiveData.rc.ch2;
 	// control_car(ch_input[0], ch_input[1], ch_input[2]);
-	if ((ch_input[2] > 0 && gimbal_exceed_right_bound()) || (ch_input[2] < 0 && gimbal_exceed_left_bound()))
+	if ((ch_input[2] < 0 && gimbal_exceed_right_bound()) || (ch_input[2] > 0 && gimbal_exceed_left_bound()))
 	{
 		ch_input[2] = 0;
 		last_ch_input[2] = 0;
@@ -63,10 +69,11 @@ void remote_control() {
 		ch_input[3] = 0;
 		last_ch_input[3] = 0;
 	}
-	if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1) {
+	if ( !gimbal_back()) {
 		chassis_follow_with_control(ch_input[2], ch_input[3]);
 	}
-	else {
+	else 
+	{
 		control_gimbal(ch_input[2], ch_input[3]);
 	}
 	control_car(ch_input[0], ch_input[1], 0);
@@ -98,16 +105,17 @@ void computer_control() {
 		last_ch_input[i] = ch_input[i];
 	}
 	//mouse part
-	mouse_changes[0] = - 3 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
+	mouse_changes[0] = - 4 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
 	mouse_changes[1] = - 2 * DBUS_ReceiveData.mouse.y_position - last_mouse_input[1];
 	int16_t max_mouse_change = 4;
 	int16_t min_mouse_change = -4;
-	// limit_int_range(&mouse_changes[0], max_mouse_change, min_mouse_change);
+	limit_int_range(&mouse_changes[0], max_mouse_change, min_mouse_change);
+	limit_int_range(&mouse_changes[1], max_mouse_change, min_mouse_change);
 	mouse_input[0] += mouse_changes[0];
 	last_mouse_input[0] = mouse_input[0];
 	mouse_input[1] += mouse_changes[1];
 	last_mouse_input[1] = mouse_input[1];
-	if ((mouse_input[0] > 0 && gimbal_exceed_right_bound()) || (mouse_input[0] < 0 && gimbal_exceed_left_bound()))
+	if ((mouse_input[0] < 0 && gimbal_exceed_right_bound()) || (mouse_input[0] > 0 && gimbal_exceed_left_bound()))
 	{
 		mouse_input[0] = 0;
 		last_mouse_input[0] = 0;
@@ -125,24 +133,37 @@ void computer_control() {
 		DBUS_ReceiveData.mouse.y_position = -mouse_input[1]/2;
 	}
 
-	//shoot check
-	if (DBUS_ReceiveData.mouse.press_left)
-	{
-		//shoot
-	}
-	else if (DBUS_ReceiveData.mouse.press_right)
-	{
-		//shooooooooooooooooooooooooooot
-	}
 	buff_mode = (DBUS_CheckPush(KEY_V));
 	if (buff_mode)
 	{
 		control_car(0, 0, 0);
 		buff_switch();
 	}
+	// enter supply deport, open loop control
+	else if (DBUS_CheckPush(KEY_R))
+	{
+		mouse_input[0] = 0;
+		last_mouse_input[0] = 0;
+		mouse_input[1] = 0;
+		last_mouse_input[1] = 0;
+		DBUS_ReceiveData.mouse.y_position = 0;
+		control_gimbal_pos(0, 0);
+		control_car_open_loop(ch_input[0], ch_input[1], ch_input[2]);
+	}
+	// dancing
 	else if (DBUS_CheckPush(KEY_C))
 	{
-		chassis_gimbal_relative_angle_with_control(30, mouse_input[0], mouse_input[1]);
+		// testing1
+		static int16_t dir = 1;
+		if (GMYawEncoder.ecd_angle > init_yaw_pos + 45 * 27)
+		{
+			dir = -1;
+		}
+		else if (GMYawEncoder.ecd_angle < init_yaw_pos - 45 * 27)
+		{
+			dir = 1;
+		}
+		chassis_gimbal_relative_angle_with_control( dir * 50 *27, mouse_input[0], mouse_input[1]);
 		control_car(ch_input[0], ch_input[1], ch_input[2]);
 	}
 	else 
@@ -150,7 +171,7 @@ void computer_control() {
 		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
 			//following mode
 			//if there is angle difference between the chassis and gimbal, chassis will follow it
-			if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1) {
+			if ( !gimbal_yaw_back()) {
 				chassis_follow_with_control(mouse_input[0], mouse_input[1]);
 			}
 			else {
@@ -163,7 +184,7 @@ void computer_control() {
 				in_following_flag = 1;
 			}
 			if (in_following_flag) {
-				if ( float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 10) != 1) {
+				if ( !gimbal_yaw_back()) {
 					chassis_follow_with_control(mouse_input[0], mouse_input[1]);
 				}
 				else {
@@ -240,7 +261,7 @@ void remote_buff_adjust() {
 			}
 		}
 	}
-	// writing into the flash, takes about 30s
+	// writing into the flash, takes about 2s
 	if (DBUS_ReceiveData.rc.switch_left == 2 && !is_writing_flash)
 	{
 		is_writing_flash = 1;
