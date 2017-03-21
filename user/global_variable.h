@@ -9,7 +9,7 @@ typedef union u32ANDint16_t{
 extern float debug;
 extern s32 target_angle;
 extern s32 current_angle;
-extern int16_t result[4];
+extern int16_t M_wheel_result[4];
 extern PID wheels_pos_pid[4];
 extern PID wheels_speed_pid[4];
 extern PID angle_pid;

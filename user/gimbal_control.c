@@ -65,7 +65,7 @@ void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t 
 	gimbal_relative_angle_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
 	float step = PID_output(&gimbal_relative_angle_pid, relative_angle);
 	target_angle = current_angle + 10 * step;
-	control_gimbal_pos_with_speed((GMYawEncoder.ecd_angle - init_yaw_pos + step * 27), input_pitch_pos, input_yaw_speed);
+	control_gimbal_pos_with_speed((GMYawEncoder.ecd_angle - init_yaw_pos + step * 20), input_pitch_pos, input_yaw_speed);
 }
 
 //////////////////////////////////////////////////

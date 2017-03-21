@@ -69,7 +69,7 @@ void remote_control() {
 		ch_input[3] = 0;
 		last_ch_input[3] = 0;
 	}
-	if ( !gimbal_back()) {
+	if ( !gimbal_yaw_back()) {
 		chassis_follow_with_control(ch_input[2], ch_input[3]);
 	}
 	else 
@@ -153,18 +153,19 @@ void computer_control() {
 	// dancing
 	else if (DBUS_CheckPush(KEY_C))
 	{
-		// testing1
 		static int16_t dir = 1;
-		if (GMYawEncoder.ecd_angle > init_yaw_pos + 45 * 27)
+		int16_t target_yaw_filter_rate = 40;
+		// control_gimbal_yaw_speed(dir * target_yaw_filter_rate);
+		control_gimbal(dir * target_yaw_filter_rate, mouse_input[1]);
+		if (gimbal_exceed_left_bound())
 		{
 			dir = -1;
 		}
-		else if (GMYawEncoder.ecd_angle < init_yaw_pos - 45 * 27)
+		else if (gimbal_exceed_right_bound())
 		{
 			dir = 1;
 		}
-		chassis_gimbal_relative_angle_with_control( dir * 50 *27, mouse_input[0], mouse_input[1]);
-		control_car(ch_input[0], ch_input[1], ch_input[2]);
+		control_car(0, 0, dir * 220);
 	}
 	else 
 	{

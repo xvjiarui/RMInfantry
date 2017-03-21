@@ -33,7 +33,7 @@ void init(){
 float debug = 0;
 s32 target_angle = 0;
 s32 current_angle = 0;
-int16_t result[4] = {0, 0, 0, 0};
+int16_t M_wheel_result[4] = {0, 0, 0, 0};
 PID wheels_pos_pid[4];
 PID wheels_speed_pid[4];
 PID angle_pid;

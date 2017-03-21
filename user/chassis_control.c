@@ -14,11 +14,11 @@ int16_t* control_dir(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float r
     ch0 *= ratio0;
     ch1 *= ratio1;
     ch2 *= ratio2;
-    result[0]=ch1+ch0+ch2;
-    result[1]=-(ch1-ch0-ch2);
-    result[2]=-(ch1+ch0-ch2);
-    result[3]=ch1-ch0+ch2;
-    return result;
+    M_wheel_result[0]=ch1+ch0+ch2;
+    M_wheel_result[1]=-(ch1-ch0-ch2);
+    M_wheel_result[2]=-(ch1+ch0-ch2);
+    M_wheel_result[3]=ch1-ch0+ch2;
+    return M_wheel_result;
 }
 
 int16_t* control_remoter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float ratio1, float ratio2, int16_t delta) {
@@ -31,11 +31,11 @@ int16_t* control_remoter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,flo
     ch0 *= ratio0;
     ch1 *= ratio1;
     ch2 *= ratio2;
-    result[0]=ch1+ch0+ch2;
-    result[1]=-(ch1-ch0-ch2);
-    result[2]=-(ch1+ch0-ch2);
-    result[3]=ch1-ch0+ch2;
-    return result;
+    M_wheel_result[0]=ch1+ch0+ch2;
+    M_wheel_result[1]=-(ch1-ch0-ch2);
+    M_wheel_result[2]=-(ch1+ch0-ch2);
+    M_wheel_result[3]=ch1-ch0+ch2;
+    return M_wheel_result;
 }
 
 void control_car(int16_t ch0, int16_t ch1, int16_t ch2) {
@@ -72,8 +72,7 @@ void control_car_open_loop(int16_t ch0, int16_t ch1, int16_t ch2)
     buffer_pid.current=buffer_remain;
     int16_t* target_speed;
     // should be take care
-    target_speed = control_remoter(ch0,ch1,ch2,1,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
-        
+    target_speed = control_remoter(ch0,ch1,ch2,1,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));    
     wheels_speed_pid[0].current=CM1Encoder.filter_rate;
     wheels_speed_pid[1].current=CM2Encoder.filter_rate;
     wheels_speed_pid[2].current=CM3Encoder.filter_rate;
@@ -86,8 +85,9 @@ void control_car_open_loop(int16_t ch0, int16_t ch1, int16_t ch2)
         ratio= ratio>0? ratio:-ratio;
     }
     for (int i = 0; i < 4; i++) {
+        PID_output2(&wheels_speed_pid[i],wheels_speed_pid[i].current,660, -660, 100, 15);
         target_speed[i] *= ratio;
-        input[i] = target_speed[i];
+        input[i] = target_speed[i] * 3;
     }
     Set_CM_Speed(CAN2, input[0],input[1], input[2], input[3]);
 }

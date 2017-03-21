@@ -40,7 +40,7 @@ I (ticks.h)(0x55E556EA)
 I (buzzer.h)(0x5846B8B2)
 I (gpio.h)(0x57B42B6C)
 I (timer.h)(0x55E556EA)
-F (.\main.c)(0x58CFFA73)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x58D11308)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (main.h)(0x58CA6D33)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -106,8 +106,8 @@ I (judge.h)(0x585858B8)
 I (PID_s.h)(0x58C110AE)
 I (power_control.h)(0x58C110AE)
 I (chassis_control.h)(0x58CFFFC3)
-I (gimbal_control.h)(0x58CEA3AB)
-I (global_variable.h)(0x58CFFA73)
+I (gimbal_control.h)(0x58D0CAAF)
+I (global_variable.h)(0x58D11308)
 I (customized_function.h)(0x58CFB86E)
 I (external_control.h)(0x58CBFC65)
 I (flash.h)(0x58CD3B33)
@@ -147,7 +147,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x55E556E8)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x55E556E8)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x55E556E8)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x55E556E8)
-F (.\external_control.c)(0x58CFFE4B)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\external_control.o --omf_browse ..\obj\external_control.crf --depend ..\obj\external_control.d)
+F (.\external_control.c)(0x58D142B5)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\external_control.o --omf_browse ..\obj\external_control.crf --depend ..\obj\external_control.d)
 I (function_list.h)(0x58CA6D33)
 I (pwm.h)(0x58484EFA)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x55E556E8)
@@ -202,14 +202,14 @@ I (external_control.h)(0x58CBFC65)
 I (PID_s.h)(0x58C110AE)
 I (power_control.h)(0x58C110AE)
 I (chassis_control.h)(0x58CFFFC3)
-I (gimbal_control.h)(0x58CEA3AB)
-I (global_variable.h)(0x58CFFA73)
+I (gimbal_control.h)(0x58D0CAAF)
+I (global_variable.h)(0x58D11308)
 I (customized_function.h)(0x58CFB86E)
 I (flash.h)(0x58CD3B33)
 I (buzzer_song.h)(0x580114C8)
 I (buzzer.h)(0x5846B8B2)
 I (timer.h)(0x55E556EA)
-F (.\gimbal_control.c)(0x58CFE123)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\gimbal_control.o --omf_browse ..\obj\gimbal_control.crf --depend ..\obj\gimbal_control.d)
+F (.\gimbal_control.c)(0x58D12C3B)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\gimbal_control.o --omf_browse ..\obj\gimbal_control.crf --depend ..\obj\gimbal_control.d)
 I (function_list.h)(0x58CA6D33)
 I (pwm.h)(0x58484EFA)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x55E556E8)
@@ -261,9 +261,9 @@ I (can.h)(0x585C4C46)
 I (Dbus.h)(0x58CA6D33)
 I (judge.h)(0x585858B8)
 I (PID_s.h)(0x58C110AE)
-I (global_variable.h)(0x58CFFA73)
+I (global_variable.h)(0x58D11308)
 I (customized_function.h)(0x58CFB86E)
-I (gimbal_control.h)(0x58CEA3AB)
+I (gimbal_control.h)(0x58D0CAAF)
 F (.\PID_s.c)(0x58CA6D33)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\pid_s.o --omf_browse ..\obj\pid_s.crf --depend ..\obj\pid_s.d)
 I (PID_s.h)(0x58C110AE)
 F (.\power_control.c)(0x58A062DD)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\power_control.o --omf_browse ..\obj\power_control.crf --depend ..\obj\power_control.d)
@@ -318,9 +318,9 @@ I (can.h)(0x585C4C46)
 I (Dbus.h)(0x58CA6D33)
 I (judge.h)(0x585858B8)
 I (PID_s.h)(0x58C110AE)
-I (global_variable.h)(0x58CFFA73)
+I (global_variable.h)(0x58D11308)
 I (power_control.h)(0x58C110AE)
-F (.\chassis_control.c)(0x58CFFDA6)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\chassis_control.o --omf_browse ..\obj\chassis_control.crf --depend ..\obj\chassis_control.d)
+F (.\chassis_control.c)(0x58D133AB)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\chassis_control.o --omf_browse ..\obj\chassis_control.crf --depend ..\obj\chassis_control.d)
 I (function_list.h)(0x58CA6D33)
 I (pwm.h)(0x58484EFA)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x55E556E8)
@@ -372,9 +372,9 @@ I (can.h)(0x585C4C46)
 I (Dbus.h)(0x58CA6D33)
 I (judge.h)(0x585858B8)
 I (PID_s.h)(0x58C110AE)
-I (global_variable.h)(0x58CFFA73)
+I (global_variable.h)(0x58D11308)
 I (chassis_control.h)(0x58CFFFC3)
-F (.\customized_function.c)(0x58CFDDAA)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\customized_function.o --omf_browse ..\obj\customized_function.crf --depend ..\obj\customized_function.d)
+F (.\customized_function.c)(0x58D12C2F)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-I\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\customized_function.o --omf_browse ..\obj\customized_function.crf --depend ..\obj\customized_function.d)
 I (function_list.h)(0x58CA6D33)
 I (pwm.h)(0x58484EFA)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x55E556E8)
@@ -425,11 +425,11 @@ I (canBusProcess.h)(0x58958398)
 I (can.h)(0x585C4C46)
 I (Dbus.h)(0x58CA6D33)
 I (judge.h)(0x585858B8)
-I (global_variable.h)(0x58CFFA73)
+I (global_variable.h)(0x58D11308)
 I (PID_s.h)(0x58C110AE)
 F (.\power_control.h)(0x58C110AE)()
-F (.\gimbal_control.h)(0x58CEA3AB)()
-F (.\global_variable.h)(0x58CFFA73)()
+F (.\gimbal_control.h)(0x58D0CAAF)()
+F (.\global_variable.h)(0x58D11308)()
 F (.\customized_function.h)(0x58CFB86E)()
 F (.\external_control.h)(0x58CBFC65)()
 F (.\PID_s.h)(0x58C110AE)()

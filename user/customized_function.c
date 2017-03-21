@@ -34,8 +34,8 @@ void PID_init_all()
 	PID_init(&gimbal_speed_pid[1], 80, 5, 100, 20000);
 	PID_init(&gimbal_pos_pid[0], 0.15, 0, 0, 20000);
 	PID_init(&gimbal_pos_pid[1], 0.35, 0, 0, 20000);
-	PID_init(&angle_pid, 4, 0, 0, 330); //5 20
+	PID_init(&angle_pid, 4, 0, 0, 330); //4 is best
 	PID_init(&buffer_pid, 0.02, 0, 0, 60);
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
-	PID_init(&gimbal_relative_angle_pid, 0.01, 0, 0, 20);
+	PID_init(&gimbal_relative_angle_pid, 0.02, 0, 0, 50);
 }
