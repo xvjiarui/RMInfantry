@@ -10,17 +10,9 @@
 #include "buzzer_song.h"
 
 void external_control() {
-	if (DBUS_ReceiveData.rc.switch_right == 1)
+	if (DBUS_ReceiveData.rc.switch_right == 2)
 	{
-		// //emergency stop
-		// control_car(0, 0, 0); //warning: there is some emergency code inside this function
-		// control_gimbal_yaw_pos(0);
-		Set_CM_Speed(CAN1, 0, 0, 0, 0);
-		Set_CM_Speed(CAN2, 0, 0, 0, 0);
-		target_angle = current_angle;
-		PID_init_all();
-		DBUS_ReceiveData.mouse.x_position = 0;
-		DBUS_ReceiveData.mouse.y_position = 0;
+		computer_control();
 	}
 	else if (DBUS_ReceiveData.rc.switch_right == 3)
 	{
@@ -31,7 +23,12 @@ void external_control() {
 		else remote_buff_adjust();
 	}
 	else {
-		computer_control();
+		Set_CM_Speed(CAN1, 0, 0, 0, 0);
+		Set_CM_Speed(CAN2, 0, 0, 0, 0);
+		target_angle = current_angle;
+		PID_init_all();
+		DBUS_ReceiveData.mouse.x_position = 0;
+		DBUS_ReceiveData.mouse.y_position = 0;
 	}
 }
 
@@ -150,13 +147,24 @@ void computer_control() {
 		control_gimbal_pos(0, 0);
 		control_car_open_loop(ch_input[0], ch_input[1], ch_input[2]);
 	}
+	// enter supply deport, open loop control
+	else if (DBUS_CheckPush(KEY_G))
+	{
+		mouse_input[0] = 0;
+		last_mouse_input[0] = 0;
+		mouse_input[1] = 0;
+		last_mouse_input[1] = 0;
+		DBUS_ReceiveData.mouse.y_position = 0;
+		control_gimbal_pos(0, 0);
+		control_car_semi_closed_loop(ch_input[0], ch_input[1], ch_input[2]);
+	}
 	// dancing
 	else if (DBUS_CheckPush(KEY_C))
 	{
 		static int16_t dir = 1;
 		int16_t target_yaw_filter_rate = 40;
 		// control_gimbal_yaw_speed(dir * target_yaw_filter_rate);
-		control_gimbal(dir * target_yaw_filter_rate, mouse_input[1]);
+		control_gimbal(dir * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
 		if (gimbal_exceed_left_bound())
 		{
 			dir = -1;

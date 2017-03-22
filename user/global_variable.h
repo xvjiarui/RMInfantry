@@ -12,6 +12,7 @@ extern s32 current_angle;
 extern int16_t M_wheel_result[4];
 extern PID wheels_pos_pid[4];
 extern PID wheels_speed_pid[4];
+extern PID wheels_speed_semi_closed_pid[4];
 extern PID angle_pid;
 /*
 extern PID ang_vel_pid;

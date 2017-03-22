@@ -36,6 +36,7 @@ s32 current_angle = 0;
 int16_t M_wheel_result[4] = {0, 0, 0, 0};
 PID wheels_pos_pid[4];
 PID wheels_speed_pid[4];
+PID wheels_speed_semi_closed_pid[4];
 PID angle_pid;
 PID buffer_pid;
 PID gimbal_speed_pid[2];
@@ -82,6 +83,9 @@ int main(void)
 				tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
 				tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
 				tft_prints(0,9,"Y_p:%d", DBUS_ReceiveData.mouse.y_position);
+				tft_prints(0,10,"Cur:%d",current_angle);
+				tft_prints(0,11,"Tar:%d",target_angle);
+				tft_prints(0,12,"Out:%d",output_angle);
 				// tft_prints(0,4,"Q:%d W:%d E:%d", manual_buff_pos[0].mem, manual_buff_pos[1].mem, manual_buff_pos[2].mem);
 				// tft_prints(0,5,"Q:%d W:%d E:%d", manual_buff_pos[9].mem, manual_buff_pos[10].mem, manual_buff_pos[11].mem);
 				// tft_prints(0,6,"A:%d S:%d D:%d", manual_buff_pos[3].mem, manual_buff_pos[4].mem, manual_buff_pos[5].mem);
