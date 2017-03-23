@@ -6,6 +6,9 @@ DBUSDecoding_Type DBUS_ReceiveData, LASTDBUS_ReceiveData;
 uint8_t DBUSBuffer[DBUSLength + DBUSBackLength];	
 u8 connected_timer =0;
 
+uint32_t DBUS_count = 0;
+uint32_t DBUS_last_count = 0; 
+
 void Dbus_init(void){
 			
 	  DMA_InitTypeDef     DMA_InitStructure;
@@ -77,6 +80,7 @@ void Dbus_init(void){
 void DBUS_DataDecoding(void)
 {
 	// Long time no signal can be regarded as disconnected
+	DBUS_count++;
 	LASTDBUS_ReceiveData = DBUS_ReceiveData;
 	//for the ch x data will be signed int from  -660 to 660
 	DBUS_ReceiveData.rc.ch0 = (DBUSBuffer[0] | DBUSBuffer[1]<<8) & 0x07FF;
@@ -133,6 +137,15 @@ uint8_t DBUS_CheckPush(uint16_t Key)
     }
 }
 
+uint8_t DBUS_CheckConnection()
+{
+	if (DBUS_count != DBUS_last_count)
+	{
+		DBUS_last_count = DBUS_count;
+		return 1;
+	}
+	else return 0;
+}
 
 //用于清空串口标志位的临时变量
 uint8_t UARTtemp;

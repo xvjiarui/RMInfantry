@@ -12,11 +12,19 @@
 void external_control() {
 	if (DBUS_ReceiveData.rc.switch_right == 2)
 	{
-		computer_control();
+		if (!DBUS_Connected)
+		{
+			Dbus_init();
+		}
+		else computer_control();
 	}
 	else if (DBUS_ReceiveData.rc.switch_right == 3)
 	{
-		if (DBUS_ReceiveData.rc.switch_left == 1)
+		if (!DBUS_Connected)
+		{
+			Dbus_init();
+		}
+		else if (DBUS_ReceiveData.rc.switch_left == 1)
 		{
 			remote_control();
 		}
@@ -90,8 +98,6 @@ void computer_control() {
 	ratio += 0.25 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
 	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * ratio - last_ch_input[0];
 	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
-	////////////////////////////
-	/////////////May be ratio in this line can be deleted
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
 	int16_t max_change = 2;
 	int16_t min_change = -2;

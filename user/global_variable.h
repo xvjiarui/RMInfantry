@@ -31,6 +31,14 @@ extern float init_pitch_pos;
 extern int16_t buff_yaw_pos[3];
 extern int16_t buff_pitch_pos[3];
 extern union u32ANDint16_t manual_buff_pos[18];
-extern int16_t is_writing_flash;
+extern uint8_t is_writing_flash;
+extern uint8_t Chassis_Connected;
+extern uint8_t Gimbal_Connected;
+extern uint8_t DBUS_Connected;
+
+
 
 #endif
+
+
+

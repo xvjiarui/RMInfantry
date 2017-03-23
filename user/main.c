@@ -50,7 +50,10 @@ float init_pitch_pos;
 int16_t buff_yaw_pos[3] = {-15, 0, 15};
 int16_t buff_pitch_pos[3] = {18, 10, 3};
 union u32ANDint16_t manual_buff_pos[18];
-int16_t is_writing_flash = 0;
+uint8_t is_writing_flash = 0;
+uint8_t Chassis_Connected = 1;
+uint8_t Gimbal_Connected = 1;
+uint8_t DBUS_Connected = 1;
 int main(void)
 {	
 	init();
@@ -68,7 +71,12 @@ int main(void)
 		{
 			ticks_msimg = get_ms_ticks();  //maximum 1000000	
 			if (ticks_msimg % 20 == 0)
+			{
 				GUN_PokeControl();
+				Chassis_Connected = CanCheckConnection_for_Chassis();
+				Gimbal_Connected = CanCheckConnection_for_Gimbal();
+				DBUS_Connected = DBUS_CheckConnection();
+			}
 
 			//TODO: nothing:-)
 			if(ticks_msimg%50==0)
@@ -79,10 +87,13 @@ int main(void)
 				tft_prints(0,3,"%d",ticks_msimg);
 				tft_prints(0,4,"Yaw:%f", GMYawEncoder.ecd_angle);
 				tft_prints(0,5,"Debug:%f", debug);
-				tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
-				tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
-				tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
-				tft_prints(0,9,"Y_p:%d", DBUS_ReceiveData.mouse.y_position);
+				// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
+				// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
+				// tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
+				// tft_prints(0,9,"Y_p:%d", DBUS_ReceiveData.mouse.y_position);
+				tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
+				tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
+				tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
 				tft_prints(0,10,"Cur:%d",current_angle);
 				tft_prints(0,11,"Tar:%d",target_angle);
 				tft_prints(0,12,"Out:%d",output_angle);

@@ -14,7 +14,10 @@ volatile Encoder GMYawEncoder = {0,0,0,0,0,0,0,0,0};//205
 volatile Encoder GMPitchEncoder = {0,0,0,0,0,0,0,0,0};//206
 volatile Encoder GMxEncoder = {0,0,0,0,0,0,0,0,0};//207
 
-
+uint32_t can_chassis_count = 0;
+uint32_t can_chassis_last_count = 0;
+uint32_t can_gimbal_count = 0;
+uint32_t can_gimbal_last_count = 0;
 /*
 ***********************************************************************************************
 *Name          :GetEncoderBias
@@ -106,6 +109,7 @@ void EncoderProcess(volatile Encoder *v, CanRxMsg * msg)
 void CanReceiveMsgProcess_for_chassis(CanRxMsg * msg)
 {     
     can_count++;
+    can_chassis_count++;
 		switch(msg->StdId)
 		{
 				case CAN_BUS2_MOTOR1_FEEDBACK_MSG_ID:
@@ -133,6 +137,7 @@ void CanReceiveMsgProcess_for_chassis(CanRxMsg * msg)
 void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg)
 {     
     can_count++;
+    can_gimbal_count++;
 		switch(msg->StdId)
 		{
 				case CAN_BUS2_MOTOR1_FEEDBACK_MSG_ID:
@@ -145,6 +150,26 @@ void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg)
 				}break;				
 		}
  
+}
+
+uint8_t CanCheckConnection_for_Chassis()
+{
+	if (can_chassis_count != can_chassis_last_count)
+	{
+		can_chassis_last_count = can_chassis_count;
+		return 1;
+	}
+	else return 0;
+}
+
+uint8_t CanCheckConnection_for_Gimbal()
+{
+	if (can_gimbal_count != can_gimbal_last_count)
+	{
+		can_gimbal_last_count = can_gimbal_count;
+		return 1;
+	}
+	else return 0;
 }
 
 
