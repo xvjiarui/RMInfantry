@@ -10,20 +10,16 @@
 #include "buzzer_song.h"
 
 void external_control() {
-	static uint8_t not_first_time_not_connect;
 	if (DBUS_ReceiveData.rc.switch_right == 2)
 	{
 		if (!DBUS_Connected)
 		{
 			Set_CM_Speed(CAN1, 0, 0, 0, 0);
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
-			if (!not_first_time_not_connect){ not_first_time_not_connect = 1;
-				Dbus_init();
-			}
+			DBUS_ResetBuffer();
 		}
 		else 
 		{
-			not_first_time_not_connect = 0;
 			computer_control();
 		}
 	}
@@ -33,13 +29,10 @@ void external_control() {
 		{
 			Set_CM_Speed(CAN1, 0, 0, 0, 0);
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
-			if (!not_first_time_not_connect){ not_first_time_not_connect = 1;
-				Dbus_init();
-			}
+			DBUS_ResetBuffer();
 		}
 		else if (DBUS_ReceiveData.rc.switch_left == 1)
 		{
-			not_first_time_not_connect = 0;
 			remote_control();
 		}
 		else remote_buff_adjust();
@@ -55,7 +48,6 @@ void external_control() {
 }
 
 void remote_control() {
-	is_writing_flash = 0;
 	static int16_t last_ch_input[4];
 	static int16_t ch_input[4];
 	int16_t ch_changes[4] = {0, 0, 0, 0};
@@ -244,6 +236,7 @@ void remote_buff_adjust() {
 	ch_input[0] = DBUS_ReceiveData.rc.ch0;
 	ch_input[1] = DBUS_ReceiveData.rc.ch1;
 	ch_input[2] = DBUS_ReceiveData.rc.ch2;
+	static uint8_t is_writing_flash = 0;
 	if (ch_input[2] > 600 )
 	{
 		if (ch_input[0] < -220)
@@ -302,6 +295,10 @@ void remote_buff_adjust() {
 		}
 	}
 	// writing into the flash, takes about 2s
+	if (DBUS_ReceiveData.rc.switch_left == 3)
+	{
+		is_writing_flash = 0;
+	}
 	if (DBUS_ReceiveData.rc.switch_left == 2 && !is_writing_flash)
 	{
 		is_writing_flash = 1;

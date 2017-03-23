@@ -4,13 +4,12 @@
 #include "global_variable.h"
 #include "chassis_control.h"
 
-int16_t* control_dir(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float ratio1, float ratio2, int16_t delta) {
-    float theta=0;
-    theta=(target_angle-current_angle)%3600/10;
+int16_t* control_dir(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float ratio1, float ratio2) {
+    float theta = -(GMYawEncoder.ecd_angle - init_yaw_pos)*10/27;
     int16_t ch0_temp=ch0;
     int16_t ch1_temp=ch1;
-    ch0=ch1_temp*sin(theta)+ch0_temp*cos(theta);
-    ch1=ch1_temp*cos(theta)+ch0_temp*sin(theta);
+    ch0=ch1_temp*sin_val(theta)+ch0_temp*cos_val(theta);
+    ch1=ch1_temp*cos_val(theta)+ch0_temp*sin_val(theta);
     ch0 *= ratio0;
     ch1 *= ratio1;
     ch2 *= ratio2;

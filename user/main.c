@@ -50,10 +50,10 @@ float init_pitch_pos;
 int16_t buff_yaw_pos[3] = {-15, 0, 15};
 int16_t buff_pitch_pos[3] = {18, 10, 3};
 union u32ANDint16_t manual_buff_pos[18];
-uint8_t is_writing_flash = 0;
 uint8_t Chassis_Connected = 1;
 uint8_t Gimbal_Connected = 1;
 uint8_t DBUS_Connected = 1;
+
 int main(void)
 {	
 	init();

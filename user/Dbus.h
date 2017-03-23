@@ -70,6 +70,7 @@ typedef struct {
 extern DBUSDecoding_Type DBUS_ReceiveData, LASTDBUS_ReceiveData;
 
 uint8_t DBUS_CheckPush(uint16_t Key);
-uint8_t DBUS_CheckConnection();
+uint8_t DBUS_CheckConnection(void);
+void DBUS_ResetBuffer(void);
 extern u8 connected_timer;
 void Dbus_init(void);

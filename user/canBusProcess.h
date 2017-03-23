@@ -48,8 +48,7 @@ void CanReceiveMsgProcess_for_chassis(CanRxMsg * msg);
 void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg);
 void Set_Gimbal_Current(CAN_TypeDef *CANx, int16_t gimbal_yaw_iq, int16_t gimbal_pitch_iq,int16_t gimbal_x_iq);
 void Set_CM_Speed(CAN_TypeDef *CANx, int16_t cm1_iq, int16_t cm2_iq, int16_t cm3_iq, int16_t cm4_iq);
-uint8_t CanCheckConnection_for_Chassis();
-uint8_t CanCheckConnection_for_Gimbal();
+uint8_t CanCheckConnection_for_Chassis(void);
+uint8_t CanCheckConnection_for_Gimbal(void);
 
 #endif
-

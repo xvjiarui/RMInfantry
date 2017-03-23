@@ -137,7 +137,7 @@ uint8_t DBUS_CheckPush(uint16_t Key)
     }
 }
 
-uint8_t DBUS_CheckConnection()
+uint8_t DBUS_CheckConnection(void)
 {
 	if (DBUS_count != DBUS_last_count)
 	{
@@ -145,6 +145,14 @@ uint8_t DBUS_CheckConnection()
 		return 1;
 	}
 	else return 0;
+}
+
+void DBUS_ResetBuffer(void)
+{
+	for (uint8_t i = 0; i < DBUSLength + DBUSBackLength; ++i)
+	{
+		DBUSBuffer[i] = 0;
+	}
 }
 
 //用于清空串口标志位的临时变量

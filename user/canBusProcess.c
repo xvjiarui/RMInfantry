@@ -152,7 +152,7 @@ void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg)
  
 }
 
-uint8_t CanCheckConnection_for_Chassis()
+uint8_t CanCheckConnection_for_Chassis(void)
 {
 	if (can_chassis_count != can_chassis_last_count)
 	{
@@ -162,7 +162,7 @@ uint8_t CanCheckConnection_for_Chassis()
 	else return 0;
 }
 
-uint8_t CanCheckConnection_for_Gimbal()
+uint8_t CanCheckConnection_for_Gimbal(void)
 {
 	if (can_gimbal_count != can_gimbal_last_count)
 	{
