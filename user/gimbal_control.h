@@ -1,3 +1,6 @@
+#ifndef GIMBAL_CONTROL
+#define GIMBAL_CONTROL
+
 #include "global_variable.h"
 
 int16_t pid_gimbal_yaw_pos(int16_t target_yaw_pos);
@@ -25,3 +28,11 @@ void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t 
 void chassis_follow_pos(int16_t input_yaw_pos, int16_t input_pitch_pos);
 void buff_mode_gimbal_pos(int16_t index);
 void buff_switch();
+
+//const area
+#define YAW_ANGLE_RATIO 27
+#define YAW_LEFT_BOUND (YAW_ANGLE_RATIO * 60)
+#define YAW_RIGHT_BOUND (-YAW_ANGLE_RATIO * 60)
+#define PITCH_ANGLE_RATIO 19
+#define PITCH_UPPER_BOUND (PITCH_ANGLE_RATIO * 45)
+#endif

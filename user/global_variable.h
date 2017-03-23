@@ -2,6 +2,7 @@
 #define GLOBAL_VARIABLE_H
 
 #include "PID_s.h"
+
 typedef union u32ANDint16_t{
 	u32 flash;
 	int16_t mem;
@@ -14,10 +15,6 @@ extern PID wheels_pos_pid[4];
 extern PID wheels_speed_pid[4];
 extern PID wheels_speed_semi_closed_pid[4];
 extern PID angle_pid;
-/*
-extern PID ang_vel_pid;
-extern PID power_pid;
-*/
 
 extern PID buffer_pid;
 extern PID gimbal_speed_pid[2];
@@ -35,8 +32,6 @@ extern uint8_t is_writing_flash;
 extern uint8_t Chassis_Connected;
 extern uint8_t Gimbal_Connected;
 extern uint8_t DBUS_Connected;
-
-
 
 #endif
 

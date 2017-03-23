@@ -5,11 +5,11 @@
 <h2>Tool Versions:</h2>
 IDE-Version: ¦ÌVision V5.22.0.0
 Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Jiarui XU, HKUST, LIC=03CTG-VPVHX-LCFJF-6Y1BY-UQX6Z-ET0W4
+License Information: G T, CPY, LIC=FYK12-9G7KD-8TQ3P-MTDIV-BJKC8-S46FP
  
 Tool Versions:
 Toolchain:       MDK-ARM Plus  Version: 5.22
-Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 4 (build 422)
 Assembler:       Armasm.exe V5.06 update 4 (build 422)
 Linker/Locator:  ArmLink.exe V5.06 update 4 (build 422)
@@ -21,11 +21,11 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.18.0
 Dialog DLL:      TCM.DLL V1.21.0.0
  
 <h2>Project:</h2>
-\\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\Template.uvprojx
-Project File Date:  03/16/2017
+C:\Users\Atmosphere\Dropbox\robot\robot\user\Template.uvprojx
+Project File Date:  03/21/2017
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'HKUST_RM2017_Mainboard'
 compiling external_control.c...
 pwm.h(11): warning:  #1-D: last line of file ends without a newline
@@ -72,38 +72,40 @@ external_control.h(6): warning:  #1295-D: Deprecated declaration computer_contro
   void computer_control();
 external_control.h(7): warning:  #1295-D: Deprecated declaration remote_buff_adjust - give arg types
   void remote_buff_adjust();
-gimbal_control.h(17): warning:  #1295-D: Deprecated declaration gimbal_exceed_right_bound - give arg types
+gimbal_control.h(20): warning:  #1295-D: Deprecated declaration gimbal_exceed_right_bound - give arg types
   int16_t gimbal_exceed_right_bound();
-gimbal_control.h(18): warning:  #1295-D: Deprecated declaration gimbal_exceed_left_bound - give arg types
+gimbal_control.h(21): warning:  #1295-D: Deprecated declaration gimbal_exceed_left_bound - give arg types
   int16_t gimbal_exceed_left_bound();
-gimbal_control.h(19): warning:  #1295-D: Deprecated declaration gimbal_exceed_upper_bound - give arg types
+gimbal_control.h(22): warning:  #1295-D: Deprecated declaration gimbal_exceed_upper_bound - give arg types
   int16_t gimbal_exceed_upper_bound();
-gimbal_control.h(20): warning:  #1295-D: Deprecated declaration gimbal_exceed_lower_bound - give arg types
+gimbal_control.h(23): warning:  #1295-D: Deprecated declaration gimbal_exceed_lower_bound - give arg types
   int16_t gimbal_exceed_lower_bound();
-gimbal_control.h(21): warning:  #1295-D: Deprecated declaration gimbal_yaw_back - give arg types
+gimbal_control.h(24): warning:  #1295-D: Deprecated declaration gimbal_yaw_back - give arg types
   int16_t gimbal_yaw_back();
-gimbal_control.h(22): warning:  #1295-D: Deprecated declaration chassis_follow - give arg types
+gimbal_control.h(25): warning:  #1295-D: Deprecated declaration chassis_follow - give arg types
   int16_t chassis_follow();
-gimbal_control.h(27): warning:  #1295-D: Deprecated declaration buff_switch - give arg types
+gimbal_control.h(30): warning:  #1295-D: Deprecated declaration buff_switch - give arg types
   void buff_switch();
-customized_function.h(7): warning:  #1295-D: Deprecated declaration PID_init_all - give arg types
-  void PID_init_all();
-customized_function.h(9): warning:  #1-D: last line of file ends without a newline
+gimbal_control.h(38): warning:  #1-D: last line of file ends without a newline
   #endif
-external_control.c(293): warning:  #1-D: last line of file ends without a newline
+customized_function.h(8): warning:  #1295-D: Deprecated declaration PID_init_all - give arg types
+  void PID_init_all();
+customized_function.h(10): warning:  #1-D: last line of file ends without a newline
+  #endif
+external_control.c(316): warning:  #1-D: last line of file ends without a newline
   }
-external_control.c: 32 warnings, 0 errors
+external_control.c: 33 warnings, 0 errors
 linking...
-Program Size: Code=48928 RO-data=3136 RW-data=20820 ZI-data=6476  
+Program Size: Code=49392 RO-data=3136 RW-data=20828 ZI-data=6476  
 FromELF: creating hex file...
-"..\OBJ\Template.axf" - 0 Error(s), 32 Warning(s).
+"..\OBJ\Template.axf" - 0 Error(s), 33 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  \\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard
-  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  C:\Users\Atmosphere\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard
+  D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

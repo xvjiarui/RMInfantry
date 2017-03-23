@@ -84,9 +84,11 @@ int main(void)
 				tft_clear();
 				
 				tft_prints(0,2,"Infantry V1.3");
-				tft_prints(0,3,"%d",ticks_msimg);
-				tft_prints(0,4,"Yaw:%f", GMYawEncoder.ecd_angle);
-				tft_prints(0,5,"Debug:%f", debug);
+				tft_prints(0,4,"Debug:%f", GMYawEncoder.ecd_angle - init_yaw_pos);
+				//tft_prints(0,5,"Debug:%f", (YAW_RIGHT_BOUND - (GMYawEncoder.ecd_angle - init_yaw_pos))/YAW_RIGHT_BOUND);
+				tft_prints(0,4,"Debug:%f", (YAW_RIGHT_BOUND - (GMYawEncoder.ecd_angle - init_yaw_pos))/YAW_RIGHT_BOUND);
+				tft_prints(0,5,"Debug:%f", YAW_RIGHT_BOUND/YAW_RIGHT_BOUND);
+				
 				// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
 				// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
 				// tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);

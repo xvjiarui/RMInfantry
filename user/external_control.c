@@ -10,22 +10,36 @@
 #include "buzzer_song.h"
 
 void external_control() {
+	static uint8_t not_first_time_not_connect;
 	if (DBUS_ReceiveData.rc.switch_right == 2)
 	{
 		if (!DBUS_Connected)
 		{
-			Dbus_init();
+			Set_CM_Speed(CAN1, 0, 0, 0, 0);
+			Set_CM_Speed(CAN2, 0, 0, 0, 0);
+			if (!not_first_time_not_connect){ not_first_time_not_connect = 1;
+				Dbus_init();
+			}
 		}
-		else computer_control();
+		else 
+		{
+			not_first_time_not_connect = 0;
+			computer_control();
+		}
 	}
 	else if (DBUS_ReceiveData.rc.switch_right == 3)
 	{
 		if (!DBUS_Connected)
 		{
-			Dbus_init();
+			Set_CM_Speed(CAN1, 0, 0, 0, 0);
+			Set_CM_Speed(CAN2, 0, 0, 0, 0);
+			if (!not_first_time_not_connect){ not_first_time_not_connect = 1;
+				Dbus_init();
+			}
 		}
 		else if (DBUS_ReceiveData.rc.switch_left == 1)
 		{
+			not_first_time_not_connect = 0;
 			remote_control();
 		}
 		else remote_buff_adjust();
@@ -92,10 +106,9 @@ void computer_control() {
 	static int16_t mouse_input[2];
 	static int16_t last_mouse_input[2];
 	static int16_t in_following_flag; //a flag that help
-	int16_t buff_mode = 0;
 	//keyboard part
-	float ratio = 0.75;
-	ratio += 0.25 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
+	float ratio = 1;
+	ratio += 0.5 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
 	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * ratio - last_ch_input[0];
 	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
@@ -135,16 +148,16 @@ void computer_control() {
 		last_mouse_input[1] = 0;
 		DBUS_ReceiveData.mouse.y_position = -mouse_input[1]/2;
 	}
-
-	buff_mode = (DBUS_CheckPush(KEY_V));
-	if (buff_mode)
+	
+	if (DBUS_CheckPush(KEY_V))
 	{
+		// in buff mode
 		control_car(0, 0, 0);
 		buff_switch();
 	}
-	// enter supply deport, open loop control
 	else if (DBUS_CheckPush(KEY_R))
 	{
+	// enter supply deport, open loop control
 		mouse_input[0] = 0;
 		last_mouse_input[0] = 0;
 		mouse_input[1] = 0;
@@ -153,9 +166,9 @@ void computer_control() {
 		control_gimbal_pos(0, 0);
 		control_car_open_loop(ch_input[0], ch_input[1], ch_input[2]);
 	}
-	// enter supply deport, open loop control
 	else if (DBUS_CheckPush(KEY_G))
 	{
+	// enter supply deport, semi-open loop control
 		mouse_input[0] = 0;
 		last_mouse_input[0] = 0;
 		mouse_input[1] = 0;
@@ -164,13 +177,24 @@ void computer_control() {
 		control_gimbal_pos(0, 0);
 		control_car_semi_closed_loop(ch_input[0], ch_input[1], ch_input[2]);
 	}
-	// dancing
 	else if (DBUS_CheckPush(KEY_C))
 	{
+	// dancing
 		static int16_t dir = 1;
-		int16_t target_yaw_filter_rate = 40;
-		// control_gimbal_yaw_speed(dir * target_yaw_filter_rate);
-		control_gimbal(dir * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
+		int16_t target_yaw_filter_rate = 90;
+		static float r;
+		if (GMYawEncoder.ecd_angle - init_yaw_pos < (YAW_RIGHT_BOUND * 2 / 3))
+		{
+			r = (((YAW_RIGHT_BOUND) - (GMYawEncoder.ecd_angle - init_yaw_pos)) / (YAW_RIGHT_BOUND * 1 / 3));
+		}
+		else if (GMYawEncoder.ecd_angle - init_yaw_pos > (YAW_LEFT_BOUND * 2 / 3))
+		{
+			r = (((YAW_LEFT_BOUND) - (GMYawEncoder.ecd_angle - init_yaw_pos)) / (YAW_LEFT_BOUND * 1 / 3));
+		}
+		else
+			r = 1;
+		limit_float_range(&r, 1, 0.1);
+		
 		if (gimbal_exceed_left_bound())
 		{
 			dir = -1;
@@ -179,7 +203,8 @@ void computer_control() {
 		{
 			dir = 1;
 		}
-		control_car(0, 0, dir * 220);
+		control_gimbal(dir * r * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
+		control_car(0, 0, dir * r * 660);
 	}
 	else 
 	{

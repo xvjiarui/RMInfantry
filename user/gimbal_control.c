@@ -108,7 +108,7 @@ int16_t pid_gimbal_pitch_pos(int16_t target_pitch_pos) {
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 int16_t gimbal_exceed_right_bound() {
-	if (GMYawEncoder.ecd_angle < init_yaw_pos - 1620 )
+	if (GMYawEncoder.ecd_angle < init_yaw_pos + YAW_RIGHT_BOUND )
 	{
 		return 1;
 	}
@@ -116,7 +116,7 @@ int16_t gimbal_exceed_right_bound() {
 }
 
 int16_t gimbal_exceed_left_bound() {
-	if (GMYawEncoder.ecd_angle > init_yaw_pos + 1620 )
+	if (GMYawEncoder.ecd_angle > init_yaw_pos + YAW_LEFT_BOUND )
 	{
 		return 1;
 	}
@@ -124,7 +124,7 @@ int16_t gimbal_exceed_left_bound() {
 }
 
 int16_t gimbal_exceed_upper_bound() {
-	if (GMPitchEncoder.ecd_angle > init_pitch_pos + 19 * 45 )
+	if (GMPitchEncoder.ecd_angle > init_pitch_pos + PITCH_UPPER_BOUND )
 	{
 		return 1;
 	}

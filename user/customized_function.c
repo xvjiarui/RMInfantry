@@ -14,6 +14,14 @@ void limit_int_range(int16_t* num, int16_t upper_bound, int16_t lower_bound){
 		*num = lower_bound;
 }
 
+void limit_float_range(float* num, float upper_bound, float lower_bound)
+{
+	if (*num > upper_bound)
+		*num = upper_bound;
+	else if (*num < lower_bound)
+		*num = lower_bound;
+}
+
 int16_t float_equal(float x, float y, float delta)
 {
     if (x - y < delta && y - x < delta)
@@ -35,6 +43,7 @@ void PID_init_all()
 	PID_init(&gimbal_speed_pid[1], 80, 5, 100, 20000);
 	PID_init(&gimbal_pos_pid[0], 0.15, 0, 0, 20000);
 	PID_init(&gimbal_pos_pid[1], 0.35, 0, 0, 20000);
+	//PID_init(&angle_pid, 4, 0, 40, 660); //4 is best 660 is some limit
 	PID_init(&angle_pid, 4, 0, 40, 660); //4 is best 660 is some limit
 	PID_init(&buffer_pid, 0.02, 0, 0, 60);
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);

@@ -3,6 +3,7 @@
 
 void pause(int ms);
 void limit_int_range(int16_t* num, int16_t upper_bound, int16_t lower_bound);
+void limit_float_range(float* num, float upper_bound, float lower_bound);
 int16_t float_equal(float x, float y, float delta);
 void PID_init_all();
 
