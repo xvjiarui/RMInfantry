@@ -10,7 +10,7 @@ int16_t* control_dir(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float r
     int16_t ch0_temp=ch0;
     int16_t ch1_temp=ch1;
     ch0=ch1_temp*sin_val(theta)+ch0_temp*cos_val(theta);
-    ch1=ch1_temp*cos_val(theta)+ch0_temp*sin_val(theta);
+    ch1=ch1_temp*cos_val(theta)-ch0_temp*sin_val(theta);
     ch0 *= ratio0;
     ch1 *= ratio1;
     ch2 *= ratio2;

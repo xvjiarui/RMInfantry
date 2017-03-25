@@ -101,3 +101,14 @@ float cos_val(int16_t theta)
 	else result = cos_table[3600 - theta];
 	return result;
 }
+
+void input_init_all(){
+	for (int i = 0; i < 4; i++)
+	{
+		last_ch_input[i] = ch_input[i] = 0;
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		last_mouse_input[i] = mouse_input[i] = 0;
+	}
+}

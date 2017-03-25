@@ -57,11 +57,17 @@ uint8_t Gimbal_Connected = 1;
 uint8_t DBUS_Connected = 1;
 int16_t chassis_ch2 = 0;
 const float YAW_SPEED_TO_CHASSIS_CH2 = (float)3 / (float)22;
+//following 4 variable will be init in 
+int16_t last_ch_input[4];
+int16_t ch_input[4];
+int16_t mouse_input[2];
+int16_t last_mouse_input[2];
 
 int main(void)
 {	
 	init();
 	PID_init_all();
+	input_init_all();
 	buffer_remain = 60;
 	init_yaw_pos = GMYawEncoder.ecd_angle;
 	init_pitch_pos = GMPitchEncoder.ecd_angle + 14 * 19;

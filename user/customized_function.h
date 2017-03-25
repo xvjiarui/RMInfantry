@@ -10,5 +10,6 @@ void PID_init_all();
 // input range -3600 to 3600
 float sin_val(int16_t theta);
 float cos_val(int16_t theta);
+void input_init_all();
 
 #endif

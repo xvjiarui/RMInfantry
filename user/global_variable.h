@@ -34,6 +34,10 @@ extern uint8_t Chassis_Connected;
 extern uint8_t Gimbal_Connected;
 extern uint8_t DBUS_Connected;
 extern int16_t chassis_ch2;
+extern int16_t last_ch_input[4];
+extern int16_t ch_input[4];
+extern int16_t mouse_input[2];
+extern int16_t last_mouse_input[2];
 
 extern const float YAW_SPEED_TO_CHASSIS_CH2;
 

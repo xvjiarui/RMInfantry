@@ -18,6 +18,7 @@ void external_control() {
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
 			DBUS_ResetBuffer();
 			PID_init_all();
+			input_init_all();
 		}
 		else
 		{
@@ -32,6 +33,7 @@ void external_control() {
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
 			DBUS_ResetBuffer();
 			PID_init_all();
+			input_init_all();
 		}
 		else if (DBUS_ReceiveData.rc.switch_left == 1)
 		{
@@ -44,14 +46,13 @@ void external_control() {
 		Set_CM_Speed(CAN2, 0, 0, 0, 0);
 		target_angle = current_angle;
 		PID_init_all();
+		input_init_all();
 		DBUS_ReceiveData.mouse.x_position = 0;
 		DBUS_ReceiveData.mouse.y_position = 0;
 	}
 }
 
 void remote_control() {
-	static int16_t last_ch_input[4];
-	static int16_t ch_input[4];
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	ch_changes[0] = DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
 	ch_changes[1] = DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
@@ -93,12 +94,8 @@ void remote_control() {
 }
 
 void computer_control() {
-	static int16_t last_ch_input[4];
-	static int16_t ch_input[4];
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	int16_t mouse_changes[2] = {0, 0};
-	static int16_t mouse_input[2];
-	static int16_t last_mouse_input[2];
 	static int16_t in_following_flag; //a flag that help
 	//keyboard part
 	float ratio = 1;
