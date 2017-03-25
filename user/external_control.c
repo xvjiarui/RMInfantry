@@ -12,13 +12,27 @@
 void external_control() {
 	if (DBUS_ReceiveData.rc.switch_right == 2)
 	{
-		if (!DBUS_Connected)
+		if (!DBUS_Connected || (!Chassis_Connected && !Gimbal_Connected))
 		{
 			Set_CM_Speed(CAN1, 0, 0, 0, 0);
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
 			DBUS_ResetBuffer();
 			PID_init_all();
 			input_init_all();
+		}
+		else if (!Chassis_Connected)
+		{
+			PID_init_chassis();
+			input_init_ch();
+			Set_CM_Speed(CAN2, 0, 0, 0, 0);
+			computer_gimbal_control();
+		}
+		else if (!Gimbal_Connected)
+		{
+			PID_init_gimbal();
+			input_init_mouse();
+			Set_CM_Speed(CAN1, 0, 0, 0, 0);
+			computer_chassis_control();
 		}
 		else
 		{
@@ -232,6 +246,58 @@ void computer_control() {
 		}
 		else control_car(ch_input[0], ch_input[1], ch_input[2]);
 	}
+}
+
+void computer_gimbal_control(void)
+{
+	int16_t mouse_changes[2] = {0, 0};
+	mouse_changes[0] = - 4 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
+	mouse_changes[1] = - 2 * DBUS_ReceiveData.mouse.y_position - last_mouse_input[1];
+	int16_t max_mouse_change = 4;
+	int16_t min_mouse_change = -4;
+	limit_int_range(&mouse_changes[0], max_mouse_change, min_mouse_change);
+	limit_int_range(&mouse_changes[1], max_mouse_change, min_mouse_change);
+	mouse_input[0] += mouse_changes[0];
+	last_mouse_input[0] = mouse_input[0];
+	mouse_input[1] += mouse_changes[1];
+	last_mouse_input[1] = mouse_input[1];
+	if ((mouse_input[0] < 0 && gimbal_exceed_right_bound()) || (mouse_input[0] > 0 && gimbal_exceed_left_bound()))
+	{
+		mouse_input[0] = 0;
+		last_mouse_input[0] = 0;
+	}
+	if ( mouse_input[1] > 19 * 45 && gimbal_exceed_upper_bound() )
+	{
+		mouse_input[1] = 19 * 45;
+		last_mouse_input[1] = 19 * 45;
+		DBUS_ReceiveData.mouse.y_position = -mouse_input[1] / 2;
+	}
+	if (mouse_input[1] < 0 && gimbal_exceed_lower_bound() )
+	{
+		mouse_input[1] = 0;
+		last_mouse_input[1] = 0;
+		DBUS_ReceiveData.mouse.y_position = -mouse_input[1] / 2;
+	}
+	control_gimbal(mouse_input[0], mouse_input[1]);
+}
+
+void computer_chassis_control(void)
+{
+	int16_t ch_changes[4] = {0, 0, 0, 0};
+	float ratio = 1;
+	ratio += 0.5 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
+	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * ratio - last_ch_input[0];
+	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
+	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
+	int16_t max_change = 2;
+	int16_t min_change = -2;
+	for (int i = 0; i < 3; ++i)
+	{
+		limit_int_range(&ch_changes[i], max_change, min_change);
+		ch_input[i] += ch_changes[i];
+		last_ch_input[i] = ch_input[i];
+	}
+	control_car(ch_input[0], ch_input[1], ch_input[2]);
 }
 
 void remote_buff_adjust() {
