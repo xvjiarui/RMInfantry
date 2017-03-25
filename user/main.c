@@ -30,7 +30,9 @@ void init(){
 	GUN_Init();
 }
 
-float debug = 0;
+float float_debug = 0;
+int16_t int_debug = 0;
+int16_t int_debug2 = 0;
 s32 target_angle = 0;
 s32 current_angle = 0;
 int16_t M_wheel_result[4] = {0, 0, 0, 0};
@@ -53,6 +55,8 @@ union u32ANDint16_t manual_buff_pos[18];
 uint8_t Chassis_Connected = 1;
 uint8_t Gimbal_Connected = 1;
 uint8_t DBUS_Connected = 1;
+int16_t chassis_ch2 = 0;
+const float YAW_SPEED_TO_CHASSIS_CH2 = (float)3 / (float)22;
 
 int main(void)
 {	
@@ -84,10 +88,9 @@ int main(void)
 				tft_clear();
 				
 				tft_prints(0,2,"Infantry V1.3");
-				tft_prints(0,4,"Debug:%f", GMYawEncoder.ecd_angle - init_yaw_pos);
 				//tft_prints(0,5,"Debug:%f", (YAW_RIGHT_BOUND - (GMYawEncoder.ecd_angle - init_yaw_pos))/YAW_RIGHT_BOUND);
-				tft_prints(0,4,"Debug:%f", (YAW_RIGHT_BOUND - (GMYawEncoder.ecd_angle - init_yaw_pos))/YAW_RIGHT_BOUND);
-				tft_prints(0,5,"Debug:%f", YAW_RIGHT_BOUND/YAW_RIGHT_BOUND);
+				tft_prints(0,4,"iDebug:%d", int_debug);
+				tft_prints(0,5,"iDebug2:%d", int_debug2);
 				
 				// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
 				// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);

@@ -7,7 +7,9 @@ typedef union u32ANDint16_t{
 	u32 flash;
 	int16_t mem;
 } u32ANDint16_t;
-extern float debug;
+extern int16_t int_debug;
+extern int16_t int_debug2;
+extern float float_debug;
 extern s32 target_angle;
 extern s32 current_angle;
 extern int16_t M_wheel_result[4];
@@ -31,8 +33,8 @@ extern union u32ANDint16_t manual_buff_pos[18];
 extern uint8_t Chassis_Connected;
 extern uint8_t Gimbal_Connected;
 extern uint8_t DBUS_Connected;
+extern int16_t chassis_ch2;
+
+extern const float YAW_SPEED_TO_CHASSIS_CH2;
 
 #endif
-
-
-

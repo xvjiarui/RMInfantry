@@ -27,14 +27,143 @@ Project File Date:  03/16/2017
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'HKUST_RM2017_Mainboard'
-"..\OBJ\Template.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 TFT_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+adc.h(35): warning:  #1295-D: Deprecated declaration get_mcu_temperature - give arg types
+  float get_mcu_temperature();
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(u8 port, u8 state);
+canBusProcess.h(54): warning:  #1-D: last line of file ends without a newline
+  #endif
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+canBusProcess.h(54): warning:  #1-D: last line of file ends without a newline
+  #endif
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+function_list.h(28): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+function_list.h(33): warning:  #1295-D: Deprecated declaration tft_update - give arg types
+  void tft_update();
+function_list.h(34): warning:  #1295-D: Deprecated declaration tft_clear - give arg types
+  void tft_clear();
+function_list.h(54): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+function_list.h(58): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+function_list.h(59): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+gimbal_control.h(20): warning:  #1295-D: Deprecated declaration gimbal_exceed_right_bound - give arg types
+  int16_t gimbal_exceed_right_bound();
+gimbal_control.h(21): warning:  #1295-D: Deprecated declaration gimbal_exceed_left_bound - give arg types
+  int16_t gimbal_exceed_left_bound();
+gimbal_control.h(22): warning:  #1295-D: Deprecated declaration gimbal_exceed_upper_bound - give arg types
+  int16_t gimbal_exceed_upper_bound();
+gimbal_control.h(23): warning:  #1295-D: Deprecated declaration gimbal_exceed_lower_bound - give arg types
+  int16_t gimbal_exceed_lower_bound();
+gimbal_control.h(24): warning:  #1295-D: Deprecated declaration gimbal_yaw_back - give arg types
+  int16_t gimbal_yaw_back();
+gimbal_control.h(25): warning:  #1295-D: Deprecated declaration chassis_follow - give arg types
+  int16_t chassis_follow();
+gimbal_control.h(30): warning:  #1295-D: Deprecated declaration buff_switch - give arg types
+  void buff_switch();
+gimbal_control.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+customized_function.h(8): warning:  #1295-D: Deprecated declaration PID_init_all - give arg types
+  void PID_init_all();
+customized_function.h(14): warning:  #1-D: last line of file ends without a newline
+  #endif
+external_control.h(4): warning:  #1295-D: Deprecated declaration external_control - give arg types
+  void external_control();
+external_control.h(5): warning:  #1295-D: Deprecated declaration remote_control - give arg types
+  void remote_control();
+external_control.h(6): warning:  #1295-D: Deprecated declaration computer_control - give arg types
+  void computer_control();
+external_control.h(7): warning:  #1295-D: Deprecated declaration remote_buff_adjust - give arg types
+  void remote_buff_adjust();
+main.c: 34 warnings, 0 errors
+compiling gimbal_control.c...
+pwm.h(11): warning:  #1-D: last line of file ends without a newline
+  void Friction_wheel_control2(u16 speed);
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+led.h(7): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+1.8 tft_display.h(87): warning:  #1295-D: Deprecated declaration tft_brightness_check_menu - give arg types
+  void tft_brightness_check_menu();
+pneumatic.h(3): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic.h(4): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(u8 port, u8 state);
+canBusProcess.h(54): warning:  #1-D: last line of file ends without a newline
+  #endif
+can.h(4): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+can.h(5): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+canBusProcess.h(54): warning:  #1-D: last line of file ends without a newline
+  #endif
+judge.h(33): warning:  #1-D: last line of file ends without a newline
+  extern InfantryJudge_Struct InfantryJudge;
+function_list.h(28): warning:  #1295-D: Deprecated declaration LED_master_init - give arg types
+  void LED_master_init();
+function_list.h(33): warning:  #1295-D: Deprecated declaration tft_update - give arg types
+  void tft_update();
+function_list.h(34): warning:  #1295-D: Deprecated declaration tft_clear - give arg types
+  void tft_clear();
+function_list.h(54): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+function_list.h(58): warning:  #1295-D: Deprecated declaration CAN1_Configuration - give arg types
+  void CAN1_Configuration();
+function_list.h(59): warning:  #1295-D: Deprecated declaration CAN2_Configuration - give arg types
+  void CAN2_Configuration();
+customized_function.h(8): warning:  #1295-D: Deprecated declaration PID_init_all - give arg types
+  void PID_init_all();
+customized_function.h(14): warning:  #1-D: last line of file ends without a newline
+  #endif
+gimbal_control.h(20): warning:  #1295-D: Deprecated declaration gimbal_exceed_right_bound - give arg types
+  int16_t gimbal_exceed_right_bound();
+gimbal_control.h(21): warning:  #1295-D: Deprecated declaration gimbal_exceed_left_bound - give arg types
+  int16_t gimbal_exceed_left_bound();
+gimbal_control.h(22): warning:  #1295-D: Deprecated declaration gimbal_exceed_upper_bound - give arg types
+  int16_t gimbal_exceed_upper_bound();
+gimbal_control.h(23): warning:  #1295-D: Deprecated declaration gimbal_exceed_lower_bound - give arg types
+  int16_t gimbal_exceed_lower_bound();
+gimbal_control.h(24): warning:  #1295-D: Deprecated declaration gimbal_yaw_back - give arg types
+  int16_t gimbal_yaw_back();
+gimbal_control.h(25): warning:  #1295-D: Deprecated declaration chassis_follow - give arg types
+  int16_t chassis_follow();
+gimbal_control.h(30): warning:  #1295-D: Deprecated declaration buff_switch - give arg types
+  void buff_switch();
+gimbal_control.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+gimbal_control.c: 27 warnings, 0 errors
+linking...
+Program Size: Code=47524 RO-data=2844 RW-data=32128 ZI-data=6480  
+FromELF: creating hex file...
+"..\OBJ\Template.axf" - 0 Error(s), 61 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   \\Mac\Home\Documents\Robomaster\Robotmaster_share\robot\user\RTE\_HKUST_RM2017_Mainboard
   C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

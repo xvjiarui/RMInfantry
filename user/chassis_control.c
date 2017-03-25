@@ -3,9 +3,10 @@
 #include "PID_s.h"
 #include "global_variable.h"
 #include "chassis_control.h"
+#include "customized_function.h"
 
 int16_t* control_dir(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float ratio1, float ratio2) {
-    float theta = -(GMYawEncoder.ecd_angle - init_yaw_pos)*10/27;
+    int16_t theta = -(GMYawEncoder.ecd_angle - init_yaw_pos)*10/27;
     int16_t ch0_temp=ch0;
     int16_t ch1_temp=ch1;
     ch0=ch1_temp*sin_val(theta)+ch0_temp*cos_val(theta);
@@ -27,6 +28,7 @@ int16_t* control_remoter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,flo
         ch2=delta;
     }
     else target_angle=output_angle;
+    chassis_ch2 = ch2;
     ch0 *= ratio0;
     ch1 *= ratio1;
     ch2 *= ratio2;
@@ -118,4 +120,31 @@ void control_car_semi_closed_loop(int16_t ch0, int16_t ch1, int16_t ch2) {
     Set_CM_Speed(CAN2, input[0],input[1], input[2], input[3]);
 }
 
-
+void control_car_along_gun(int16_t ch0, int16_t ch1, int16_t ch2) 
+{
+    current_angle = output_angle;
+    target_angle = current_angle;
+    angle_pid.current=current_angle;
+    buffer_pid.current=buffer_remain;
+    int16_t* target_speed;
+    // should be take care
+    target_speed = control_dir(ch0, ch1, ch2, 0.5, 0.5, 0.5);
+        
+    wheels_speed_pid[0].current=CM1Encoder.filter_rate;
+    wheels_speed_pid[1].current=CM2Encoder.filter_rate;
+    wheels_speed_pid[2].current=CM3Encoder.filter_rate;
+    wheels_speed_pid[3].current=CM4Encoder.filter_rate;
+    int16_t input[4];
+    float ratio=1;
+    if (buffer_remain<60)
+    {
+        ratio = 1 - PID_output(&buffer_pid, 60);
+        ratio= ratio>0? ratio:-ratio;
+    }
+    for (int i = 0; i < 4; i++) {
+       
+        target_speed[i] *= ratio;
+        input[i]=PID_output2(&wheels_speed_pid[i],target_speed[i],660, -660, 100, 15);
+    }
+    Set_CM_Speed(CAN2, input[0],input[1], input[2], input[3]);
+}

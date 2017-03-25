@@ -6,4 +6,5 @@ void buffer_call(void);
 void control_car(int16_t ch0, int16_t ch1, int16_t ch2);
 void control_car_open_loop(int16_t ch0, int16_t ch1, int16_t ch2);
 void control_car_semi_closed_loop(int16_t ch0, int16_t ch1, int16_t ch2);
+void control_car_along_gun(int16_t ch0, int16_t ch1, int16_t ch2);
 

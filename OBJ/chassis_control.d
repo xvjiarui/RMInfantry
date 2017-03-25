@@ -57,3 +57,4 @@
 ..\obj\chassis_control.o: PID_s.h
 ..\obj\chassis_control.o: global_variable.h
 ..\obj\chassis_control.o: chassis_control.h
+..\obj\chassis_control.o: customized_function.h
