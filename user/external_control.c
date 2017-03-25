@@ -196,7 +196,7 @@ void computer_control() {
 			dir = 1;
 		}
 		control_gimbal(dir * r * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
-		control_car(0, 0, dir * r * target_chassis_ch2_speed);
+		control_car_along_gun(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed);
 	}
 	else
 	{
