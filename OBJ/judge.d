@@ -2,7 +2,7 @@
 ..\obj\judge.o: judge.h
 ..\obj\judge.o: stm32f4xx.h
 ..\obj\judge.o: ..\CORE\core_cm4.h
-..\obj\judge.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\judge.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\judge.o: ..\CORE\core_cmInstr.h
 ..\obj\judge.o: ..\CORE\core_cmFunc.h
 ..\obj\judge.o: ..\CORE\core_cmSimd.h
@@ -36,10 +36,10 @@
 ..\obj\judge.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\judge.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
 ..\obj\judge.o: main.h
-..\obj\judge.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\judge.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-..\obj\judge.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-..\obj\judge.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\judge.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\judge.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\judge.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+..\obj\judge.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\judge.o: yaw_gyro.h
 ..\obj\judge.o: ticks.h
 ..\obj\judge.o: gpio.h
@@ -54,7 +54,7 @@
 ..\obj\judge.o: 1.8 TFT_display.h
 ..\obj\judge.o: 1.8 TFT_ascii.h
 ..\obj\judge.o: led.h
-..\obj\judge.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\judge.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\judge.o: ticks.h
 ..\obj\judge.o: encoder.h
 ..\obj\judge.o: data_monitor.h

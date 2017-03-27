@@ -2,7 +2,7 @@
 ..\obj\1.8 tft_display.o: 1.8 TFT_display.h
 ..\obj\1.8 tft_display.o: stm32f4xx.h
 ..\obj\1.8 tft_display.o: ..\CORE\core_cm4.h
-..\obj\1.8 tft_display.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\1.8 tft_display.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\1.8 tft_display.o: ..\CORE\core_cmInstr.h
 ..\obj\1.8 tft_display.o: ..\CORE\core_cmFunc.h
 ..\obj\1.8 tft_display.o: ..\CORE\core_cmSimd.h
@@ -38,10 +38,10 @@
 ..\obj\1.8 tft_display.o: 1.8 TFT_ascii.h
 ..\obj\1.8 tft_display.o: gpio.h
 ..\obj\1.8 tft_display.o: led.h
-..\obj\1.8 tft_display.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\1.8 tft_display.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\1.8 tft_display.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\1.8 tft_display.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\1.8 tft_display.o: ticks.h
 ..\obj\1.8 tft_display.o: ticks.h
-..\obj\1.8 tft_display.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+..\obj\1.8 tft_display.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 ..\obj\1.8 tft_display.o: button.h
-..\obj\1.8 tft_display.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\1.8 tft_display.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

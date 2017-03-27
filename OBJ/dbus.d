@@ -2,7 +2,7 @@
 ..\obj\dbus.o: Dbus.h
 ..\obj\dbus.o: stm32f4xx.h
 ..\obj\dbus.o: ..\CORE\core_cm4.h
-..\obj\dbus.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\dbus.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\dbus.o: ..\CORE\core_cmInstr.h
 ..\obj\dbus.o: ..\CORE\core_cmFunc.h
 ..\obj\dbus.o: ..\CORE\core_cmSimd.h

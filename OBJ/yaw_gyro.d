@@ -3,7 +3,7 @@
 ..\obj\yaw_gyro.o: ticks.h
 ..\obj\yaw_gyro.o: stm32f4xx.h
 ..\obj\yaw_gyro.o: ..\CORE\core_cm4.h
-..\obj\yaw_gyro.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\yaw_gyro.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\yaw_gyro.o: ..\CORE\core_cmInstr.h
 ..\obj\yaw_gyro.o: ..\CORE\core_cmFunc.h
 ..\obj\yaw_gyro.o: ..\CORE\core_cmSimd.h
@@ -40,11 +40,11 @@
 ..\obj\yaw_gyro.o: 1.8 tft_display.h
 ..\obj\yaw_gyro.o: 1.8 TFT_ascii.h
 ..\obj\yaw_gyro.o: led.h
-..\obj\yaw_gyro.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\yaw_gyro.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\yaw_gyro.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\yaw_gyro.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\yaw_gyro.o: ticks.h
 ..\obj\yaw_gyro.o: buzzer_song.h
 ..\obj\yaw_gyro.o: buzzer.h
 ..\obj\yaw_gyro.o: timer.h
-..\obj\yaw_gyro.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\yaw_gyro.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\yaw_gyro.o: Dbus.h
