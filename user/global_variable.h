@@ -38,7 +38,13 @@ extern int16_t last_ch_input[4];
 extern int16_t ch_input[4];
 extern int16_t mouse_input[2];
 extern int16_t last_mouse_input[2];
-
+extern uint8_t gimbal_follow;
+//const area
 extern const float YAW_SPEED_TO_CHASSIS_CH2;
-
+#define YAW_ANGLE_RATIO 27
+#define YAW_LEFT_BOUND (YAW_ANGLE_RATIO * 60)
+#define YAW_RIGHT_BOUND (-YAW_ANGLE_RATIO * 60)
+#define PITCH_ANGLE_RATIO 19
+#define PITCH_UPPER_BOUND (PITCH_ANGLE_RATIO * 45)
+#define GYRO_ANGLE_RATIO 10
 #endif

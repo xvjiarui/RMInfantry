@@ -6,7 +6,7 @@
 #include "customized_function.h"
 
 int16_t* control_dir(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,float ratio1, float ratio2) {
-    int16_t theta = -(GMYawEncoder.ecd_angle - init_yaw_pos)*10/27;
+    int16_t theta = -(GMYawEncoder.ecd_angle - init_yaw_pos) * GYRO_ANGLE_RATIO / YAW_ANGLE_RATIO;
     int16_t ch0_temp=ch0;
     int16_t ch1_temp=ch1;
     ch0=ch1_temp*sin_val(theta)+ch0_temp*cos_val(theta);
@@ -26,8 +26,13 @@ int16_t* control_remoter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0,flo
     //the data from gyro will accumulate and may be overflow?
     if(ch2<1 && ch2>-1) {
         ch2=delta;
+				gimbal_follow = 1;
     }
-    else target_angle=output_angle;
+    else 
+		{
+			target_angle=current_angle;
+			gimbal_follow = 0;
+		}
     chassis_ch2 = ch2;
     ch0 *= ratio0;
     ch1 *= ratio1;
@@ -69,6 +74,7 @@ void control_car_open_loop(int16_t ch0, int16_t ch1, int16_t ch2)
 {
     current_angle = output_angle;
     target_angle = current_angle;
+		gimbal_follow = 0;
     angle_pid.current = current_angle;
     buffer_pid.current=buffer_remain;
     int16_t* target_speed;
@@ -124,6 +130,7 @@ void control_car_along_gun(int16_t ch0, int16_t ch1, int16_t ch2)
 {
     current_angle = output_angle;
     target_angle = current_angle;
+		gimbal_follow = 0;
     angle_pid.current=current_angle;
     buffer_pid.current=buffer_remain;
     int16_t* target_speed;

@@ -66,6 +66,7 @@ void external_control() {
 		}
 	}
 	else {
+		//when the right switch is up
 		Set_CM_Speed(CAN1, 0, 0, 0, 0);
 		Set_CM_Speed(CAN2, 0, 0, 0, 0);
 		target_angle = current_angle;
@@ -108,7 +109,7 @@ void remote_control() {
 		last_ch_input[3] = 0;
 	}
 	if ( !gimbal_yaw_back()) {
-		chassis_follow_with_control(ch_input[2], ch_input[3]);
+		control_gimbal_with_chassis_following(ch_input[2], ch_input[3]);
 	}
 	else
 	{
@@ -162,8 +163,8 @@ void computer_control() {
 		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
 			//following mode
 			//if there is angle difference between the chassis and gimbal, chassis will follow it
-			if (!gimbal_yaw_back()) {
-				chassis_follow_with_control(mouse_input[0], mouse_input[1]);
+			if (!gimbal_yaw_back()) { //the q and e may cause bugs
+				control_gimbal_with_chassis_following(mouse_input[0], mouse_input[1]);
 			}
 			else {
 				control_gimbal(mouse_input[0], mouse_input[1]);
@@ -176,7 +177,7 @@ void computer_control() {
 			}
 			if (in_following_flag) {
 				if (!gimbal_yaw_back()) {
-					chassis_follow_with_control(mouse_input[0], mouse_input[1]);
+					control_gimbal_with_chassis_following(mouse_input[0], mouse_input[1]);
 				}
 				else {
 					in_following_flag = 0;
@@ -231,6 +232,7 @@ void process_keyboard_data(void)
 	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * ratio - last_ch_input[0];
 	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
+
 	int16_t max_change = 2;
 	int16_t min_change = -2;
 	for (int i = 0; i < 3; ++i)
@@ -351,6 +353,7 @@ void dancing_mode(void)
 	{
 		dir = 1;
 	}
+	
 	control_gimbal(dir * r * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
 	control_car_along_gun(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed);
 }

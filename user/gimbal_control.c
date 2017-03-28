@@ -40,12 +40,16 @@ void send_to_gimbal(int16_t pid_yaw, int16_t pid_pitch) {
 	Set_CM_Speed(CAN1, pid_yaw, pid_pitch, 0, 0);
 }
 
-void chassis_follow_with_control(int16_t input_yaw_speed, int16_t input_pitch_pos)
+void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t input_pitch_pos)
 {
  gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
  float step = PID_output(&gimbal_reset_pid, 0);
  target_angle = current_angle + 10 * step;
- control_gimbal(chassis_ch2 * YAW_SPEED_TO_CHASSIS_CH2 + input_yaw_speed, input_pitch_pos);
+ if (gimbal_follow)
+ {
+	 input_yaw_speed += chassis_ch2 * YAW_SPEED_TO_CHASSIS_CH2;
+ }
+	control_gimbal(input_yaw_speed, input_pitch_pos);
 }
 
 void chassis_follow_with_control_old(int16_t input_yaw_speed, int16_t input_pitch_pos)

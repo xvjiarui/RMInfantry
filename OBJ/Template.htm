@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Mar 27 15:38:58 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Tue Mar 28 21:34:38 2017
 <BR><P>
 <H3>Maximum Stack Usage =        416 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -520,7 +520,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c0]"></a>remote_control</STRONG> (Thumb, 342 bytes, Stack size 24 bytes, external_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = remote_control &rArr; chassis_follow_with_control &rArr; control_gimbal &rArr; pid_gimbal_pitch_pos &rArr; pid_gimbal_pitch_speed &rArr; PID_output2 &rArr; __aeabi_f2d
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = remote_control &rArr; control_gimbal_with_chassis_following &rArr; control_gimbal &rArr; pid_gimbal_pitch_pos &rArr; pid_gimbal_pitch_speed &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_yaw_back
@@ -528,14 +528,14 @@ Global Symbols
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_right_bound
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_lower_bound
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_left_bound
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_with_chassis_following
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
-<P><STRONG><a name="[ca]"></a>dancing_mode</STRONG> (Thumb, 362 bytes, Stack size 16 bytes, external_control.o(.text))
+<P><STRONG><a name="[ca]"></a>dancing_mode</STRONG> (Thumb, 356 bytes, Stack size 16 bytes, external_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = dancing_mode &rArr; control_gimbal &rArr; pid_gimbal_pitch_pos &rArr; pid_gimbal_pitch_speed &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_float_range
@@ -560,7 +560,7 @@ Global Symbols
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
-<P><STRONG><a name="[ce]"></a>process_keyboard_data</STRONG> (Thumb, 424 bytes, Stack size 72 bytes, external_control.o(.text))
+<P><STRONG><a name="[ce]"></a>process_keyboard_data</STRONG> (Thumb, 420 bytes, Stack size 72 bytes, external_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = process_keyboard_data &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;limit_int_range
@@ -575,19 +575,18 @@ Global Symbols
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
-<P><STRONG><a name="[d5]"></a>computer_control</STRONG> (Thumb, 362 bytes, Stack size 8 bytes, external_control.o(.text))
+<P><STRONG><a name="[d5]"></a>computer_control</STRONG> (Thumb, 336 bytes, Stack size 8 bytes, external_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = computer_control &rArr; buff_switch &rArr; buff_mode_gimbal_pos &rArr; control_gimbal_pos &rArr; pid_gimbal_yaw_pos &rArr; pid_gimbal_yaw_pos_with_speed &rArr; pid_gimbal_yaw_speed &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_yaw_back
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_right_bound
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_exceed_left_bound
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_with_chassis_following
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car_semi_closed_loop
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car_open_loop
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car_along_gun
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buff_switch
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBUS_CheckPush
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_keyboard_data
@@ -598,7 +597,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ba]"></a>external_control</STRONG> (Thumb, 322 bytes, Stack size 8 bytes, external_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = external_control &rArr; remote_control &rArr; chassis_follow_with_control &rArr; control_gimbal &rArr; pid_gimbal_pitch_pos &rArr; pid_gimbal_pitch_speed &rArr; PID_output2 &rArr; __aeabi_f2d
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = external_control &rArr; remote_control &rArr; control_gimbal_with_chassis_following &rArr; control_gimbal &rArr; pid_gimbal_pitch_pos &rArr; pid_gimbal_pitch_speed &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;input_init_mouse
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;input_init_ch
@@ -670,7 +669,7 @@ Global Symbols
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid_gimbal_yaw_speed
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid_gimbal_pitch_pos
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_with_chassis_following
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dancing_mode
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control
@@ -732,8 +731,8 @@ Global Symbols
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control_old
 </UL>
 
-<P><STRONG><a name="[c7]"></a>chassis_follow_with_control</STRONG> (Thumb, 126 bytes, Stack size 24 bytes, gimbal_control.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = chassis_follow_with_control &rArr; control_gimbal &rArr; pid_gimbal_pitch_pos &rArr; pid_gimbal_pitch_speed &rArr; PID_output2 &rArr; __aeabi_f2d
+<P><STRONG><a name="[c7]"></a>control_gimbal_with_chassis_following</STRONG> (Thumb, 134 bytes, Stack size 24 bytes, gimbal_control.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = control_gimbal_with_chassis_following &rArr; control_gimbal &rArr; pid_gimbal_pitch_pos &rArr; pid_gimbal_pitch_speed &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal
@@ -752,7 +751,7 @@ Global Symbols
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_pos_with_speed
 </UL>
 
-<P><STRONG><a name="[c2]"></a>gimbal_exceed_right_bound</STRONG> (Thumb, 110 bytes, Stack size 0 bytes, gimbal_control.o(.text))
+<P><STRONG><a name="[c2]"></a>gimbal_exceed_right_bound</STRONG> (Thumb, 114 bytes, Stack size 0 bytes, gimbal_control.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_mouse_data
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dancing_mode
@@ -811,11 +810,11 @@ Global Symbols
 <P><STRONG><a name="[ea]"></a>PID_output</STRONG> (Thumb, 182 bytes, Stack size 0 bytes, pid_s.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_gimbal_relative_angle_with_control
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control_old
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_gimbal_with_chassis_following
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car_semi_closed_loop
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car_open_loop
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car_along_gun
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_follow_with_control
 </UL>
 
 <P><STRONG><a name="[e0]"></a>PID_output2</STRONG> (Thumb, 934 bytes, Stack size 40 bytes, pid_s.o(.text))
@@ -845,7 +844,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car_along_gun
 </UL>
 
-<P><STRONG><a name="[f3]"></a>control_remoter</STRONG> (Thumb, 132 bytes, Stack size 12 bytes, chassis_control.o(.text))
+<P><STRONG><a name="[f3]"></a>control_remoter</STRONG> (Thumb, 144 bytes, Stack size 12 bytes, chassis_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = control_remoter
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_car_semi_closed_loop
@@ -866,7 +865,7 @@ Global Symbols
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;external_control
 </UL>
 
-<P><STRONG><a name="[d8]"></a>control_car_open_loop</STRONG> (Thumb, 508 bytes, Stack size 48 bytes, chassis_control.o(.text))
+<P><STRONG><a name="[d8]"></a>control_car_open_loop</STRONG> (Thumb, 520 bytes, Stack size 48 bytes, chassis_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = control_car_open_loop &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_remoter
@@ -888,7 +887,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
 </UL>
 
-<P><STRONG><a name="[cc]"></a>control_car_along_gun</STRONG> (Thumb, 370 bytes, Stack size 48 bytes, chassis_control.o(.text))
+<P><STRONG><a name="[cc]"></a>control_car_along_gun</STRONG> (Thumb, 376 bytes, Stack size 48 bytes, chassis_control.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = control_car_along_gun &rArr; PID_output2 &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_dir
@@ -896,8 +895,7 @@ Global Symbols
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_output
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_CM_Speed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_control
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dancing_mode
+<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dancing_mode
 </UL>
 
 <P><STRONG><a name="[f4]"></a>pause</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, customized_function.o(.text), UNUSED)
