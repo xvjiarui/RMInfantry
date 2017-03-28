@@ -14,9 +14,12 @@
 #endif
 
 ENCODER_EXT int32_t ENCODER_Data;
+extern float GUN_PokeErr;
 
 void ENCODER_BSP_Init(void);
 void ENCODER_Init(void);
 void ENCODER_Update(void);
+uint8_t ENCODER_CheckConnection(void);
 
 #endif
+		

@@ -33,6 +33,7 @@ extern union u32ANDint16_t manual_buff_pos[18];
 extern uint8_t Chassis_Connected;
 extern uint8_t Gimbal_Connected;
 extern uint8_t DBUS_Connected;
+extern uint8_t GUN_ENCODER_Connected;
 extern int16_t chassis_ch2;
 extern int16_t last_ch_input[4];
 extern int16_t ch_input[4];

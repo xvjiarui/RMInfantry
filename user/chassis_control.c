@@ -45,7 +45,7 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2) {
     buffer_pid.current=buffer_remain;
     int16_t* target_speed;
     // should be take care
-    target_speed = control_remoter(ch0,ch1,ch2,0.5,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
+    target_speed = control_remoter(ch0,ch1,ch2,0.7,1,0.5,PID_output2(&angle_pid,target_angle,800,-800,30,-30));
         
     wheels_speed_pid[0].current=CM1Encoder.filter_rate;
     wheels_speed_pid[1].current=CM2Encoder.filter_rate;

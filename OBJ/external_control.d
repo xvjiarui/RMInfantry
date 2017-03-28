@@ -65,3 +65,4 @@
 ..\obj\external_control.o: buzzer_song.h
 ..\obj\external_control.o: buzzer.h
 ..\obj\external_control.o: timer.h
+..\obj\external_control.o: Driver_Gun.h

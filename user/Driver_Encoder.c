@@ -33,3 +33,35 @@ void ENCODER_Update(void) {
     if (ENCODER_DIR)
         ENCODER_Data = -ENCODER_Data;
 }
+
+uint8_t ENCODER_CheckConnection(void)
+{
+    uint8_t timeout = 5;
+    static uint8_t disconnection_time = 0;
+    static uint8_t connection_time = 0;
+    if (ENCODER_Data == 0 && GUN_PokeErr > 500 )
+    {
+        if (++disconnection_time > timeout)
+        {
+            connection_time = 0;
+            disconnection_time = timeout;
+            return 0;
+        }
+        else return 1;
+    }
+    else 
+    {
+        if (++connection_time > timeout)
+        {
+            disconnection_time = 0;
+            connection_time = timeout;
+            return 1;
+        }
+        else return 0;
+    }
+    // if (ENCODER_Data == 0 && GUN_PokeErr > 700)
+    // {
+    //     return 0;
+    // }
+    // else return 1;
+}

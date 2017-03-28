@@ -21,6 +21,8 @@ int16_t gimbal_exceed_right_bound();
 int16_t gimbal_exceed_left_bound();
 int16_t gimbal_exceed_upper_bound();
 int16_t gimbal_exceed_lower_bound();
+int16_t gimbal_approach_right_bound();
+int16_t gimbal_approach_left_bound();
 int16_t gimbal_yaw_back();
 int16_t chassis_follow();
 void chassis_follow_with_control(int16_t input_yaw_speed, int16_t input_pitch_pos);

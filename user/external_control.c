@@ -8,6 +8,7 @@
 #include "global_variable.h"
 #include "flash.h"
 #include "buzzer_song.h"
+#include "Driver_Gun.h"
 
 void external_control() {
 	if (DBUS_ReceiveData.rc.switch_right == 2)
@@ -154,6 +155,15 @@ void computer_control() {
 		DBUS_ReceiveData.mouse.y_position = -mouse_input[1] / 2;
 	}
 
+	if (!GUN_ENCODER_Connected)
+	{
+		if (DBUS_ReceiveData.mouse.press_left)
+		{
+			POKE_SET_PWM(5000);
+		}
+		else POKE_SET_PWM(0);
+	}
+
 	if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
@@ -217,6 +227,8 @@ void computer_control() {
 		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
 			//following mode
 			//if there is angle difference between the chassis and gimbal, chassis will follow it
+
+			// get a smooth motion at boundary
 			if ( !gimbal_yaw_back()) {
 				chassis_follow_with_control(mouse_input[0], mouse_input[1]);
 			}

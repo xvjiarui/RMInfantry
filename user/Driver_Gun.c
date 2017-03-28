@@ -6,6 +6,7 @@
 
 #include <string.h>
 
+float GUN_PokeErr = 0;
 static PID_Controller PokeSpeedController;
 static PID_Controller PokeAngleController;
 
@@ -159,6 +160,7 @@ void GUN_ShootOne(void) {
 void GUN_PokeControl(void) {
     GUN_Data.pokeTargetSpeed = PID_Update(&PokeAngleController,
         GUN_Data.pokeTargetAngle, GUN_Data.pokeAngle);
+    GUN_PokeErr = PokeAngleController.err[kNOW];
     GUN_PokeSpeedControl();
 }
 

@@ -55,6 +55,7 @@ union u32ANDint16_t manual_buff_pos[18];
 uint8_t Chassis_Connected = 1;
 uint8_t Gimbal_Connected = 1;
 uint8_t DBUS_Connected = 1;
+uint8_t GUN_ENCODER_Connected = 1;
 int16_t chassis_ch2 = 0;
 const float YAW_SPEED_TO_CHASSIS_CH2 = (float)3 / (float)22;
 //following 4 variable will be init in 
@@ -82,10 +83,16 @@ int main(void)
 			ticks_msimg = get_ms_ticks();  //maximum 1000000	
 			if (ticks_msimg % 20 == 0)
 			{
-				GUN_PokeControl();
 				Chassis_Connected = CanCheckConnection_for_Chassis();
 				Gimbal_Connected = CanCheckConnection_for_Gimbal();
 				DBUS_Connected = DBUS_CheckConnection();
+				GUN_ENCODER_Connected = ENCODER_CheckConnection();
+
+				if (!GUN_ENCODER_Connected)
+				{
+					GUN_SetFree();
+				}
+				else GUN_PokeControl();
 			}
 
 			//TODO: nothing:-)
@@ -96,8 +103,7 @@ int main(void)
 				tft_prints(0,2,"Infantry V1.3");
 				//tft_prints(0,5,"Debug:%f", (YAW_RIGHT_BOUND - (GMYawEncoder.ecd_angle - init_yaw_pos))/YAW_RIGHT_BOUND);
 				tft_prints(0,4,"iDebug:%d", int_debug);
-				tft_prints(0,5,"iDebug2:%d", int_debug2);
-				tft_prints(0, 9, "pl %d", DBUS_ReceiveData.mouse.press_left);
+				tft_prints(0,5,"ENCODER_Data:%d", ENCODER_Data);
 				tft_prints(0, 10, "out %d", GUN_Data.pokeOutput);
 				tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
 				// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
@@ -107,6 +113,7 @@ int main(void)
 				tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
 				tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
 				tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
+				tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
 				//tft_prints(0,10,"Cur:%d",current_angle);
 				// tft_prints(0,11,"Tar:%d",target_angle);
 				// tft_prints(0,12,"Out:%d",output_angle);
