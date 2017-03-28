@@ -107,7 +107,7 @@ I (PID_s.h)(0x58D3A2C9)
 I (power_control.h)(0x58CCDD8A)
 I (chassis_control.h)(0x58D674D0)
 I (gimbal_control.h)(0x58D8CF6F)
-I (global_variable.h)(0x58DA65E6)
+I (global_variable.h)(0x58DA6CB8)
 I (customized_function.h)(0x58D72F8E)
 I (external_control.h)(0x58D8C18C)
 I (flash.h)(0x58D10499)
@@ -147,7 +147,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x58CCDD89)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x58CCDD89)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x58CCDD89)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x58CCDD89)
-F (.\external_control.c)(0x58DA6375)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-IC:\Users\Atmosphere\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\external_control.o --omf_browse ..\obj\external_control.crf --depend ..\obj\external_control.d)
+F (.\external_control.c)(0x58DA6CA8)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-IC:\Users\Atmosphere\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\external_control.o --omf_browse ..\obj\external_control.crf --depend ..\obj\external_control.d)
 I (function_list.h)(0x58CCDD8A)
 I (pwm.h)(0x58CCDD8A)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x58CCDD89)
@@ -203,7 +203,7 @@ I (PID_s.h)(0x58D3A2C9)
 I (power_control.h)(0x58CCDD8A)
 I (chassis_control.h)(0x58D674D0)
 I (gimbal_control.h)(0x58D8CF6F)
-I (global_variable.h)(0x58DA65E6)
+I (global_variable.h)(0x58DA6CB8)
 I (customized_function.h)(0x58D72F8E)
 I (flash.h)(0x58D10499)
 I (buzzer_song.h)(0x58CCDD89)
@@ -261,7 +261,7 @@ I (can.h)(0x58CCDD89)
 I (Dbus.h)(0x58D48C65)
 I (judge.h)(0x58CCDD8A)
 I (PID_s.h)(0x58D3A2C9)
-I (global_variable.h)(0x58DA65E6)
+I (global_variable.h)(0x58DA6CB8)
 I (customized_function.h)(0x58D72F8E)
 I (gimbal_control.h)(0x58D8CF6F)
 F (.\PID_s.c)(0x58D3A2C9)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-IC:\Users\Atmosphere\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\pid_s.o --omf_browse ..\obj\pid_s.crf --depend ..\obj\pid_s.d)
@@ -318,9 +318,9 @@ I (can.h)(0x58CCDD89)
 I (Dbus.h)(0x58D48C65)
 I (judge.h)(0x58CCDD8A)
 I (PID_s.h)(0x58D3A2C9)
-I (global_variable.h)(0x58DA65E6)
+I (global_variable.h)(0x58DA6CB8)
 I (power_control.h)(0x58CCDD8A)
-F (.\chassis_control.c)(0x58DA663E)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-IC:\Users\Atmosphere\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\chassis_control.o --omf_browse ..\obj\chassis_control.crf --depend ..\obj\chassis_control.d)
+F (.\chassis_control.c)(0x58DA68EF)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-IC:\Users\Atmosphere\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\chassis_control.o --omf_browse ..\obj\chassis_control.crf --depend ..\obj\chassis_control.d)
 I (function_list.h)(0x58CCDD8A)
 I (pwm.h)(0x58CCDD8A)
 I (..\FWLIB\inc\stm32f4xx_tim.h)(0x58CCDD89)
@@ -372,7 +372,7 @@ I (can.h)(0x58CCDD89)
 I (Dbus.h)(0x58D48C65)
 I (judge.h)(0x58CCDD8A)
 I (PID_s.h)(0x58D3A2C9)
-I (global_variable.h)(0x58DA65E6)
+I (global_variable.h)(0x58DA6CB8)
 I (chassis_control.h)(0x58D674D0)
 I (customized_function.h)(0x58D72F8E)
 F (.\customized_function.c)(0x58D7312A)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\FWLIB\inc-IC:\Users\Atmosphere\Dropbox\robot\robot\user\RTE\_HKUST_RM2017_Mainboard-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Device\Include-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\customized_function.o --omf_browse ..\obj\customized_function.crf --depend ..\obj\customized_function.d)
@@ -426,12 +426,12 @@ I (canBusProcess.h)(0x58D48C65)
 I (can.h)(0x58CCDD89)
 I (Dbus.h)(0x58D48C65)
 I (judge.h)(0x58CCDD8A)
-I (global_variable.h)(0x58DA65E6)
+I (global_variable.h)(0x58DA6CB8)
 I (PID_s.h)(0x58D3A2C9)
 I (customized_function.h)(0x58D72F8E)
 F (.\power_control.h)(0x58CCDD8A)()
 F (.\gimbal_control.h)(0x58D8CF6F)()
-F (.\global_variable.h)(0x58DA65E6)()
+F (.\global_variable.h)(0x58DA6CB8)()
 F (.\customized_function.h)(0x58D72F8E)()
 F (.\external_control.h)(0x58D8C18C)()
 F (.\PID_s.h)(0x58D3A2C9)()

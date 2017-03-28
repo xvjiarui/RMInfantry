@@ -329,7 +329,7 @@ void dancing_mode(void)
 {
 	static int16_t dir = 1;
 	float r;
-	int16_t target_chassis_ch2_speed = 660;
+	int16_t target_chassis_ch2_speed = 900;
 	int16_t target_yaw_filter_rate = target_chassis_ch2_speed * YAW_SPEED_TO_CHASSIS_CH2;
 	if (GMYawEncoder.ecd_angle - init_yaw_pos < (YAW_RIGHT_BOUND * 2 / 3))
 	{
