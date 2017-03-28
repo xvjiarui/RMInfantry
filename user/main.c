@@ -57,12 +57,13 @@ uint8_t Gimbal_Connected = 1;
 uint8_t DBUS_Connected = 1;
 uint8_t GUN_ENCODER_Connected = 1;
 int16_t chassis_ch2 = 0;
-const float YAW_SPEED_TO_CHASSIS_CH2 = (float)3 / (float)22;
+const float YAW_SPEED_TO_CHASSIS_CH2 = (float)31 / (float)220;
 //following 4 variable will be init in 
 int16_t last_ch_input[4];
 int16_t ch_input[4];
 int16_t mouse_input[2];
 int16_t last_mouse_input[2];
+uint8_t gimbal_follow = 1;
 
 int main(void)
 {	

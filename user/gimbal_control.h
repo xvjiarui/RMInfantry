@@ -25,16 +25,10 @@ int16_t gimbal_approach_right_bound();
 int16_t gimbal_approach_left_bound();
 int16_t gimbal_yaw_back();
 int16_t chassis_follow();
-void chassis_follow_with_control(int16_t input_yaw_speed, int16_t input_pitch_pos);
+void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t input_pitch_pos);
 void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t input_yaw_speed, int16_t input_pitch_pos);
 void chassis_follow_pos(int16_t input_yaw_pos, int16_t input_pitch_pos);
 void buff_mode_gimbal_pos(int16_t index);
 void buff_switch();
 
-//const area
-#define YAW_ANGLE_RATIO 27
-#define YAW_LEFT_BOUND (YAW_ANGLE_RATIO * 60)
-#define YAW_RIGHT_BOUND (-YAW_ANGLE_RATIO * 60)
-#define PITCH_ANGLE_RATIO 19
-#define PITCH_UPPER_BOUND (PITCH_ANGLE_RATIO * 45)
 #endif

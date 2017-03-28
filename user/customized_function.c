@@ -1,7 +1,8 @@
 #include "function_list.h"
 #include "global_variable.h"
+#include "customized_function.h"
 
-void pause(u32 ms) {
+void pause(int ms) {
 	u32 ticks = get_ms_ticks();
 	while (get_ms_ticks() == ticks);
 	while ((get_ms_ticks() - ticks) % ms != 0);
@@ -126,14 +127,8 @@ float cos_val(int16_t theta)
 
 void input_init_all(void) 
 {
-	for (int i = 0; i < 4; i++)
-	{
-		last_ch_input[i] = ch_input[i] = 0;
-	}
-	for (int i = 0; i < 2; i++)
-	{
-		last_mouse_input[i] = mouse_input[i] = 0;
-	}
+	input_init_ch();
+	input_init_mouse();
 }
 
 void input_init_ch(void)
