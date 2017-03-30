@@ -36,10 +36,10 @@ void ENCODER_Update(void) {
 
 uint8_t ENCODER_CheckConnection(void)
 {
-    uint8_t timeout = 5;
+    uint8_t timeout = 2;
     static uint8_t disconnection_time = 0;
     static uint8_t connection_time = 0;
-    if (ENCODER_Data == 0 && GUN_PokeErr > 500 )
+    if (ENCODER_Data == 0 && (GUN_PokeErr > 1000 || GUN_PokeErr < -1000) )
     {
         if (++disconnection_time > timeout)
         {

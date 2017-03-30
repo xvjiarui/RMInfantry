@@ -157,6 +157,14 @@ void GUN_ShootOne(void) {
 #endif
 }
 
+void GUN_EncoderUpdate(void) {
+    ENCODER_Update();
+    GUN_Data.pokeAngle += ENCODER_Data;
+    if (GUN_Data.pokeAngle > 16777216) {
+        GUN_Data.pokeAngle = GUN_Data.pokeTargetAngle = 0;
+    }
+}
+
 void GUN_PokeControl(void) {
     GUN_Data.pokeTargetSpeed = PID_Update(&PokeAngleController,
         GUN_Data.pokeTargetAngle, GUN_Data.pokeAngle);
@@ -165,11 +173,6 @@ void GUN_PokeControl(void) {
 }
 
 void GUN_PokeSpeedControl(void) {
-    ENCODER_Update();
-    GUN_Data.pokeAngle += ENCODER_Data;
-    if (GUN_Data.pokeAngle > 16777216) {
-        GUN_Data.pokeAngle = GUN_Data.pokeTargetAngle = 0;
-    }
     GUN_Data.pokeOutput = PID_Update(&PokeSpeedController,
         GUN_Data.pokeTargetSpeed, ENCODER_Data);
 
