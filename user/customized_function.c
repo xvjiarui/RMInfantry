@@ -50,6 +50,7 @@ void PID_init_chassis(void)
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
 	PID_init(&gimbal_relative_angle_pid, 0.02, 0, 0, 50);
 	target_angle = current_angle;
+	gimbal_follow = 0;
 }
 
 void PID_init_gimbal(void)

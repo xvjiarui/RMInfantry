@@ -17,15 +17,6 @@ void external_control() {
 	}
 	switch (DBUS_ReceiveData.rc.switch_right)
 	{
-		case 1:
-			Set_CM_Speed(CAN1, 0, 0, 0, 0);
-			Set_CM_Speed(CAN2, 0, 0, 0, 0);
-			target_angle = current_angle;
-			PID_init_all();
-			input_init_all();
-			DBUS_ReceiveData.mouse.x_position = 0;
-			DBUS_ReceiveData.mouse.y_position = 0;
-			break;
 		case 3:
 			if (!DBUS_Connected)
 			{
@@ -66,6 +57,15 @@ void external_control() {
 				//when everything goes normal
 				computer_control();
 			}
+			break;
+		default:
+			Set_CM_Speed(CAN1, 0, 0, 0, 0);
+			Set_CM_Speed(CAN2, 0, 0, 0, 0);
+			target_angle = current_angle;
+			PID_init_all();
+			input_init_all();
+			DBUS_ReceiveData.mouse.x_position = 0;
+			DBUS_ReceiveData.mouse.y_position = 0;
 			break;
 	}
 }
