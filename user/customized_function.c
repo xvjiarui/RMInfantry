@@ -49,6 +49,7 @@ void PID_init_all(void)
 	PID_init(&buffer_pid, 0.02, 0, 0, 60);
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
 	PID_init(&gimbal_relative_angle_pid, 0.02, 0, 0, 50);
+	target_angle = current_angle;
 }
 
 void PID_init_chassis(void)
@@ -63,6 +64,7 @@ void PID_init_chassis(void)
 	PID_init(&buffer_pid, 0.02, 0, 0, 60);
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
 	PID_init(&gimbal_relative_angle_pid, 0.02, 0, 0, 50);
+	target_angle = current_angle;
 }
 
 void PID_init_gimbal(void)

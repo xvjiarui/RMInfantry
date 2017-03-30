@@ -13,7 +13,7 @@
 void external_control() {
 	if (DBUS_ReceiveData.rc.switch_right == 2)
 	{
-		if (!DBUS_Connected || (!Chassis_Connected && !Gimbal_Connected))
+		if (!DBUS_Connected || ((!Chassis_Connected) && (!Gimbal_Connected)))
 		{
 			Set_CM_Speed(CAN1, 0, 0, 0, 0);
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);

@@ -88,6 +88,7 @@ int main(void)
 				Gimbal_Connected = CanCheckConnection_for_Gimbal();
 				DBUS_Connected = DBUS_CheckConnection();
 				GUN_ENCODER_Connected = ENCODER_CheckConnection();
+				GUN_EncoderUpdate();
 
 				if (!GUN_ENCODER_Connected)
 				{
