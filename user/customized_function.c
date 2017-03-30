@@ -34,27 +34,13 @@ int16_t float_equal(float x, float y, float delta)
 
 void PID_init_all(void)
 {
-	for (int i = 0; i < 4; i++) {
-		//PID_init(&wheels_pos_pid[i],130, 0.004, 0, 5000);//30 0.001 5 65 0.001 5
-		PID_init(&wheels_pos_pid[i], 0.15, 0, 0, 20000);
-		PID_init(&wheels_speed_pid[i], 80, 5, 100, 20000); //0.00001
-		PID_init(&wheels_speed_semi_closed_pid[i], 80, 0, 0, 20000);
-	}
-	PID_init(&gimbal_speed_pid[0], 80, 5, 100, 20000);
-	PID_init(&gimbal_speed_pid[1], 80, 5, 100, 20000);
-	PID_init(&gimbal_pos_pid[0], 0.15, 0, 0, 20000);
-	PID_init(&gimbal_pos_pid[1], 0.35, 0, 0, 20000);
-	//PID_init(&angle_pid, 4, 0, 40, 660); //4 is best 660 is some limit
-	PID_init(&angle_pid, 4, 0, 40, 660); //4 is best 660 is some limit
-	PID_init(&buffer_pid, 0.02, 0, 0, 60);
-	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
-	PID_init(&gimbal_relative_angle_pid, 0.02, 0, 0, 50);
+	PID_init_chassis();
+	PID_init_gimbal();
 }
 
 void PID_init_chassis(void)
 {
 	for (int i = 0; i < 4; i++) {
-		//PID_init(&wheels_pos_pid[i],130, 0.004, 0, 5000);//30 0.001 5 65 0.001 5
 		PID_init(&wheels_pos_pid[i], 0.15, 0, 0, 20000);
 		PID_init(&wheels_speed_pid[i], 80, 5, 100, 20000); //0.00001
 		PID_init(&wheels_speed_semi_closed_pid[i], 80, 0, 0, 20000);

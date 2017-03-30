@@ -17,7 +17,6 @@ extern PID wheels_pos_pid[4];
 extern PID wheels_speed_pid[4];
 extern PID wheels_speed_semi_closed_pid[4];
 extern PID angle_pid;
-
 extern PID buffer_pid;
 extern PID gimbal_speed_pid[2];
 extern PID gimbal_pos_pid[2];
@@ -40,6 +39,7 @@ extern int16_t ch_input[4];
 extern int16_t mouse_input[2];
 extern int16_t last_mouse_input[2];
 extern uint8_t gimbal_follow;
+extern uint8_t chassis_disconnect_init_flag;
 //const area
 extern const float YAW_SPEED_TO_CHASSIS_CH2;
 #define YAW_ANGLE_RATIO 27

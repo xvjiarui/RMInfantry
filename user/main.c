@@ -64,6 +64,7 @@ int16_t ch_input[4];
 int16_t mouse_input[2];
 int16_t last_mouse_input[2];
 uint8_t gimbal_follow = 1;
+uint8_t chassis_disconnect_init_flag = 0;
 
 int main(void)
 {	

@@ -11,70 +11,62 @@
 #include "Driver_Gun.h"
 
 void external_control() {
-	if (DBUS_ReceiveData.rc.switch_right == 2)
+	if (DBUS_Connected)
 	{
-		if (!DBUS_Connected || (!Chassis_Connected && !Gimbal_Connected))
-		{
-			Set_CM_Speed(CAN1, 0, 0, 0, 0);
-			Set_CM_Speed(CAN2, 0, 0, 0, 0);
-			DBUS_ResetBuffer();
-			PID_init_all();
-			input_init_all();
-		}
-		else if (!Chassis_Connected)
-		{
-			PID_init_chassis();
-			input_init_ch();
-			Set_CM_Speed(CAN2, 0, 0, 0, 0);
-			process_mouse_data();
-			control_gimbal(mouse_input[0], mouse_input[1]);
-		}
-		else if (!Gimbal_Connected)
-		{
-			PID_init_gimbal();
-			input_init_mouse();
-			Set_CM_Speed(CAN1, 0, 0, 0, 0);
-			process_keyboard_data();
-			control_car(ch_input[0], ch_input[1], ch_input[2]);
-		}
-		else
-		{
-			//when everything goes normal
-			computer_control();
-		}
+		chassis_disconnect_init_flag = 0;
 	}
-	else if (DBUS_ReceiveData.rc.switch_right == 3)
+	switch (DBUS_ReceiveData.rc.switch_right)
 	{
-		if (!DBUS_Connected)
-		{
+		case 1:
 			Set_CM_Speed(CAN1, 0, 0, 0, 0);
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
-			DBUS_ResetBuffer();
+			target_angle = current_angle;
 			PID_init_all();
 			input_init_all();
-		}
-		else 
-		{
-			// when everything goes normal
-			if (DBUS_ReceiveData.rc.switch_left == 1)
+			DBUS_ReceiveData.mouse.x_position = 0;
+			DBUS_ReceiveData.mouse.y_position = 0;
+			break;
+		case 3:
+			if (!DBUS_Connected)
 			{
-				remote_control();
+				DBUS_disconnect_handler();
+			}
+			else 
+			{
+				switch (DBUS_ReceiveData.rc.switch_left)
+				{
+					case 1:
+						remote_control();
+						break;
+					default:
+						remote_buff_adjust();
+						break;
+				}
+			}
+			break;
+		case 2:
+			if (!DBUS_Connected || (!Chassis_Connected && !Gimbal_Connected))
+			{
+				DBUS_disconnect_handler();
+			}
+			else if (!Chassis_Connected)
+			{
+				chassis_disconnect_handler();
+				process_mouse_data();
+				control_gimbal(mouse_input[0], mouse_input[1]);
+			}
+			else if (!Gimbal_Connected)
+			{
+				gimbal_disconnect_handler();
+				process_keyboard_data();
+				control_car(ch_input[0], ch_input[1], ch_input[2]);
 			}
 			else
 			{
-				remote_buff_adjust();
+				//when everything goes normal
+				computer_control();
 			}
-		}
-	}
-	else {
-		//when the right switch is up
-		Set_CM_Speed(CAN1, 0, 0, 0, 0);
-		Set_CM_Speed(CAN2, 0, 0, 0, 0);
-		target_angle = current_angle;
-		PID_init_all();
-		input_init_all();
-		DBUS_ReceiveData.mouse.x_position = 0;
-		DBUS_ReceiveData.mouse.y_position = 0;
+			break;
 	}
 }
 
@@ -367,4 +359,39 @@ void dancing_mode(void)
 	
 	control_gimbal(dir * r * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
 	control_car_along_gun(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed);
+}
+
+void chassis_disconnect_handler(void)
+{
+	input_init_ch();
+	if (chassis_disconnect_init_flag == 0)
+	{
+		if (CM1Encoder.filter_rate != 0 || CM2Encoder.filter_rate != 0 || CM3Encoder.filter_rate != 0 || CM4Encoder.filter_rate != 0)
+		{
+			control_car(0, 0, 0);
+		}
+		else
+		{
+			chassis_disconnect_init_flag = 1;
+		}
+	}
+	else
+	{
+		Set_CM_Speed(CAN2, 0, 0, 0, 0);
+		PID_init_chassis();
+	}
+}
+
+void gimbal_disconnect_handler(void)
+{
+	PID_init_gimbal();
+	input_init_mouse();
+	Set_CM_Speed(CAN1, 0, 0, 0, 0);
+}
+
+void DBUS_disconnect_handler(void)
+{
+	DBUS_ResetBuffer();
+	chassis_disconnect_handler();
+	gimbal_disconnect_handler();
 }

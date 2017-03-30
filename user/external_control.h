@@ -10,4 +10,8 @@ void process_keyboard_data();
 
 void dancing_mode();
 
+void DBUS_disconnect_handler();
+void gimbal_disconnect_handler();
+void chassis_disconnect_handler();
+
 #endif
