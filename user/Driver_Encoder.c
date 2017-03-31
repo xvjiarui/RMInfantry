@@ -1,6 +1,7 @@
 #define ENCODER_FILE
 
 #include "Driver_Encoder.h"
+#include "global_variable.h"
 
 void ENCODER_BSP_Init(void) {
     // Encoder1
@@ -37,9 +38,10 @@ void ENCODER_Update(void) {
 uint8_t ENCODER_CheckConnection(void)
 {
     uint8_t timeout = 2;
+    float_debug = GUN_PokeErr;
     static uint8_t disconnection_time = 0;
     static uint8_t connection_time = 0;
-    if (ENCODER_Data == 0 && (GUN_PokeErr > 1000 || GUN_PokeErr < -1000) )
+    if (ENCODER_Data == 0 && (GUN_PokeErr > 500 || GUN_PokeErr < -500) )
     {
         if (++disconnection_time > timeout)
         {
