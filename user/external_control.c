@@ -18,6 +18,7 @@ void external_control() {
 	switch (DBUS_ReceiveData.rc.switch_right)
 	{
 		case 3:
+			int_debug = 1;
 			if (!DBUS_Connected)
 			{
 				DBUS_disconnect_handler();
@@ -36,6 +37,7 @@ void external_control() {
 			}
 			break;
 		case 2:
+			int_debug = 1;
 			if (!DBUS_Connected || (!Chassis_Connected && !Gimbal_Connected))
 			{
 				DBUS_disconnect_handler();
@@ -54,14 +56,15 @@ void external_control() {
 			}
 			else
 			{
-				//when everything goes normal
 				computer_control();
 			}
 			break;
 		default:
+			int_debug = 999;
 			Set_CM_Speed(CAN1, 0, 0, 0, 0);
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
 			target_angle = current_angle;
+			gimbal_follow = 0;
 			PID_init_all();
 			input_init_all();
 			DBUS_ReceiveData.mouse.x_position = 0;
