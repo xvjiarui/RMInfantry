@@ -18,26 +18,24 @@ void external_control() {
 	switch (DBUS_ReceiveData.rc.switch_right)
 	{
 		case 3:
-			int_debug = 1;
 			if (!DBUS_Connected)
 			{
 				DBUS_disconnect_handler();
 			}
-			else 
+			else
 			{
 				switch (DBUS_ReceiveData.rc.switch_left)
 				{
-					case 1:
-						remote_control();
-						break;
-					default:
-						remote_buff_adjust();
-						break;
+				case 1:
+					remote_control();
+					break;
+				default:
+					remote_buff_adjust();
+					break;
 				}
 			}
 			break;
 		case 2:
-			int_debug = 1;
 			if (!DBUS_Connected || (!Chassis_Connected && !Gimbal_Connected))
 			{
 				DBUS_disconnect_handler();
@@ -52,19 +50,19 @@ void external_control() {
 			{
 				gimbal_disconnect_handler();
 				process_keyboard_data();
-				control_car(ch_input[0], ch_input[1], ch_input[2]);
+				// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
+				control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
 			}
 			else
 			{
+				//when everything goes normal
 				computer_control();
 			}
 			break;
 		default:
-			int_debug = 999;
 			Set_CM_Speed(CAN1, 0, 0, 0, 0);
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
 			target_angle = current_angle;
-			gimbal_follow = 0;
 			PID_init_all();
 			input_init_all();
 			DBUS_ReceiveData.mouse.x_position = 0;
@@ -88,7 +86,7 @@ void remote_control() {
 		last_ch_input[i] = ch_input[i];
 	}
 	// ch_input[2] = DBUS_ReceiveData.rc.ch2;
-	// control_car(ch_input[0], ch_input[1], ch_input[2]);
+	// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
 	if ((ch_input[2] < 0 && gimbal_exceed_right_bound()) || (ch_input[2] > 0 && gimbal_exceed_left_bound()))
 	{
 		ch_input[2] = 0;
@@ -111,7 +109,8 @@ void remote_control() {
 	{
 		control_gimbal(ch_input[2], ch_input[3]);
 	}
-	control_car(ch_input[0], ch_input[1], 0);
+	// control_car_speed(ch_input[0], ch_input[1], 0);
+	control_car(ch_input[0], ch_input[1], 0, NORMAL);
 }
 
 void computer_control() {
@@ -133,7 +132,8 @@ void computer_control() {
 	if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
-		control_car(0, 0, 0);
+		// control_car_speed(0, 0, 0);
+		control_car(0, 0, 0, NORMAL);
 		buff_switch();
 	}
 	else if (DBUS_CheckPush(KEY_R))
@@ -145,7 +145,8 @@ void computer_control() {
 		last_mouse_input[1] = 0;
 		DBUS_ReceiveData.mouse.y_position = 0;
 		control_gimbal_pos(0, 0);
-		control_car_open_loop(ch_input[0], ch_input[1], ch_input[2]);
+		// control_car_speed_open_loop(ch_input[0], ch_input[1], ch_input[2]);
+		control_car(ch_input[0], ch_input[1], ch_input[2], OPEN_LOOP);
 	}
 	else if (DBUS_CheckPush(KEY_G))
 	{
@@ -156,7 +157,8 @@ void computer_control() {
 		last_mouse_input[1] = 0;
 		DBUS_ReceiveData.mouse.y_position = 0;
 		control_gimbal_pos(0, 0);
-		control_car_semi_closed_loop(ch_input[0], ch_input[1], ch_input[2]);
+		// control_car_speed_semi_closed_loop(ch_input[0], ch_input[1], ch_input[2]);
+		control_car(ch_input[0], ch_input[1], ch_input[2], SEMI_CLOSED_LOOP);
 	}
 	else if (DBUS_CheckPush(KEY_C))
 	{
@@ -194,7 +196,8 @@ void computer_control() {
 				control_gimbal(mouse_input[0], mouse_input[1]);
 			}
 		}
-		control_car(ch_input[0], ch_input[1], ch_input[2]);
+		// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
+		control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
 	}
 }
 void process_mouse_data(void)
@@ -359,9 +362,10 @@ void dancing_mode(void)
 	{
 		dir = 1;
 	}
-	
+
 	control_gimbal(dir * r * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
-	control_car_along_gun(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed);
+	// control_car_speed_dancing(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed);
+	control_car(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed, DANCING);
 }
 
 void chassis_disconnect_handler(void)
@@ -371,7 +375,8 @@ void chassis_disconnect_handler(void)
 	{
 		if (CM1Encoder.filter_rate != 0 || CM2Encoder.filter_rate != 0 || CM3Encoder.filter_rate != 0 || CM4Encoder.filter_rate != 0)
 		{
-			control_car(0, 0, 0);
+			// control_car_speed(0, 0, 0);
+			control_car(0, 0, 0, NORMAL);
 		}
 		else
 		{

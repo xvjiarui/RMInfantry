@@ -2,11 +2,8 @@
 #define GLOBAL_VARIABLE_H
 
 #include "PID_s.h"
+#include "customized_type.h"
 
-typedef union u32ANDint16_t{
-	u32 flash;
-	int16_t mem;
-} u32ANDint16_t;
 extern int16_t int_debug;
 extern int16_t int_debug2;
 extern float float_debug;

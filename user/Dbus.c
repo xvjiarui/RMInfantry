@@ -153,6 +153,7 @@ void DBUS_ResetBuffer(void)
 	{
 		DBUSBuffer[i] = 0;
 	}
+	DBUS_DataDecoding();
 }
 
 //用于清空串口标志位的临时变量

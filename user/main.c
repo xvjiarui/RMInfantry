@@ -105,7 +105,8 @@ int main(void)
 				
 				tft_prints(0,2,"Infantry V1.3");
 				//tft_prints(0,5,"Debug:%f", (YAW_RIGHT_BOUND - (GMYawEncoder.ecd_angle - init_yaw_pos))/YAW_RIGHT_BOUND);
-				tft_prints(0,4,"iDebug:%d", int_debug);
+				tft_prints(0,3,"right:%d", DBUS_ReceiveData.rc.switch_right);
+				tft_prints(0,4,"fDebug:%f", float_debug);
 				tft_prints(0,5,"ENCODER_Data:%d", ENCODER_Data);
 				tft_prints(0, 10, "out %d", GUN_Data.pokeOutput);
 				tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
