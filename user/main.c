@@ -7,6 +7,7 @@
 #include "customized_function.h"
 #include "external_control.h"
 #include "flash.h"
+#include "BSP_TIM.h"
 
 volatile u32 ticks_msimg = (u32)-1;
 
@@ -28,6 +29,7 @@ void init(){
 	DataMonitor_Init();
 	ENCODER_Init();
 	GUN_Init();
+	BSP_TIM_InitConfig();
 }
 
 float float_debug = 0;
@@ -87,6 +89,7 @@ int main(void)
 	{
 		manual_buff_pos[i].flash = readFlash(i);
 	}
+	BSP_TIM_Start();
 	while (1)  {	
 
 		if (ticks_msimg != get_ms_ticks()) 
@@ -94,17 +97,17 @@ int main(void)
 			ticks_msimg = get_ms_ticks();  //maximum 1000000	
 			if (ticks_msimg % 20 == 0)
 			{
-				Chassis_Connected = CanCheckConnection_for_Chassis();
-				Gimbal_Connected = CanCheckConnection_for_Gimbal();
-				DBUS_Connected = DBUS_CheckConnection();
-				GUN_ENCODER_Connected = ENCODER_CheckConnection();
-				GUN_EncoderUpdate();
+				// Chassis_Connected = CanCheckConnection_for_Chassis();
+				// Gimbal_Connected = CanCheckConnection_for_Gimbal();
+				// DBUS_Connected = DBUS_CheckConnection();
+				// GUN_ENCODER_Connected = ENCODER_CheckConnection();
+				// GUN_EncoderUpdate();
 
-				if (!GUN_ENCODER_Connected)
-				{
-					GUN_SetFree();
-				}
-				else GUN_PokeControl();
+				// if (!GUN_ENCODER_Connected)
+				// {
+				// 	GUN_SetFree();
+				// }
+				// else GUN_PokeControl();
 			}
 
 			//TODO: nothing:-)
@@ -161,9 +164,8 @@ int main(void)
 				}
 				
 				tft_update();
-				LED_blink(LED1);
+				// LED_blink(LED1);
 			}
-			external_control();
 		}
 	}	
 }	
