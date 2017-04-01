@@ -185,12 +185,10 @@ void buff_mode_gimbal_pos(int16_t index)
 	target_angle = current_angle;
 	if (index != -1)
 	{
-		int16_t input_yaw_pos = -27 * manual_buff_pos[index].mem;
-		int16_t input_pitch_pos = 19 * manual_buff_pos[index + 9].mem;
-		input_yaw_pos = (input_yaw_pos > 1620) ? 1620 : input_yaw_pos;
-		input_yaw_pos = (input_yaw_pos < -1620) ? -1620 : input_yaw_pos;
-		input_pitch_pos = (input_pitch_pos > 855) ? 855 : input_pitch_pos;
-		input_pitch_pos = (input_pitch_pos < 0) ? 0 : input_pitch_pos;
+		float input_yaw_pos = manual_buff_pos[index].mem;
+		float input_pitch_pos = manual_buff_pos[index + 9].mem;
+		limit_float_range(&input_yaw_pos, YAW_LEFT_BOUND, YAW_RIGHT_BOUND);
+		limit_float_range(&input_pitch_pos, PITCH_UPPER_BOUND, 0);
 		control_gimbal_pos(input_yaw_pos, input_pitch_pos);
 	}
 	else
@@ -201,43 +199,44 @@ void buff_mode_gimbal_pos(int16_t index)
 
 void buff_switch()
 {
+	static int16_t Last_Status = -1;
 	if (DBUS_CheckPush(KEY_Q))
 	{
-		buff_mode_gimbal_pos(0);
+		Last_Status = 0;
 	}
 	else if (DBUS_CheckPush(KEY_W))
 	{
-		buff_mode_gimbal_pos(1);
+		Last_Status = 1;
 	}
 	else if (DBUS_CheckPush(KEY_E))
 	{
-		buff_mode_gimbal_pos(2);
+		Last_Status = 2;
 	}
 	else if (DBUS_CheckPush(KEY_A))
 	{
-		buff_mode_gimbal_pos(3);
+		Last_Status = 3;
 	}
 	else if (DBUS_CheckPush(KEY_S))
 	{
-		buff_mode_gimbal_pos(4);
+		Last_Status = 4;
 	}
 	else if (DBUS_CheckPush(KEY_D))
 	{
-		buff_mode_gimbal_pos(5);
+		Last_Status = 5;
 	}
 	else if (DBUS_CheckPush(KEY_Z))
 	{
-		buff_mode_gimbal_pos(6);
+		Last_Status = 6;
 	}
 	else if (DBUS_CheckPush(KEY_X))
 	{
-		buff_mode_gimbal_pos(7);
+		Last_Status = 7;
 	}
 	else if (DBUS_CheckPush(KEY_C))
 	{
-		buff_mode_gimbal_pos(8);
+		Last_Status = 8;
 	}
-	else buff_mode_gimbal_pos(-1);
+	buff_mode_gimbal_pos(Last_Status);
 }
 
 

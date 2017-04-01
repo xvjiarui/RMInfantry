@@ -15,6 +15,10 @@ void external_control() {
 	{
 		chassis_disconnect_init_flag = 0;
 	}
+	if (!(DBUS_ReceiveData.rc.switch_left ==3 && DBUS_ReceiveData.rc.switch_right == 3))
+	{
+		buff_mode = 0;
+	}
 	switch (DBUS_ReceiveData.rc.switch_right)
 	{
 		case 3:
@@ -30,6 +34,7 @@ void external_control() {
 					remote_control();
 					break;
 				default:
+					buff_mode = 1;
 					remote_buff_adjust();
 					break;
 				}
@@ -129,11 +134,9 @@ void computer_control() {
 		else POKE_SET_PWM(0);
 		GUN_SetFree();
 	}
-
 	if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
-		// control_car_speed(0, 0, 0);
 		control_car(0, 0, 0, NORMAL);
 		buff_switch();
 	}
@@ -163,7 +166,6 @@ void computer_control() {
 	}
 	else if (DBUS_CheckPush(KEY_C))
 	{
-		// dancing
 		dancing_mode();
 	}
 	else
@@ -262,58 +264,63 @@ void remote_buff_adjust() {
 	static uint8_t is_writing_flash = 0;
 	if (ch_input[2] > 600 )
 	{
+		float yaw_pos = (GMYawEncoder.ecd_angle - init_yaw_pos);
+		float pitch_pos = (GMPitchEncoder.ecd_angle - init_pitch_pos);
+		limit_float_range(&yaw_pos, YAW_LEFT_BOUND, YAW_RIGHT_BOUND);
+		limit_float_range(&pitch_pos, PITCH_UPPER_BOUND, 0);
+		
 		if (ch_input[0] < -220)
 		{
 			if (ch_input[1] > 220)
 			{
-				manual_buff_pos[0].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[9].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[0].mem = yaw_pos;
+				manual_buff_pos[9].mem = pitch_pos;
 			}
 			else if (ch_input[1] < -220)
 			{
-				manual_buff_pos[6].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[15].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[6].mem = yaw_pos;
+				manual_buff_pos[15].mem = pitch_pos;
 			}
 			else
 			{
-				manual_buff_pos[3].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[12].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[3].mem = yaw_pos;
+				manual_buff_pos[12].mem = pitch_pos;
 			}
 		}
 		else if (ch_input[0] > 220)
 		{
 			if (ch_input[1] > 220)
 			{
-				manual_buff_pos[2].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[11].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[2].mem = yaw_pos;
+				manual_buff_pos[11].mem = pitch_pos;
 			}
 			else if (ch_input[1] < -220)
 			{
-				manual_buff_pos[8].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[17].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[8].mem = yaw_pos;
+				manual_buff_pos[17].mem = pitch_pos;
 			}
 			else
 			{
-				manual_buff_pos[5].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[14].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[5].mem = yaw_pos;
+				manual_buff_pos[14].mem = pitch_pos;
 			}
 		}
 		else
 		{
 			if (ch_input[1] > 220)
 			{
-				manual_buff_pos[1].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[10].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[1].mem = yaw_pos;
+				manual_buff_pos[10].mem = pitch_pos;
 			}
 			else if (ch_input[1] < -220)
 			{
-				manual_buff_pos[7].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[16].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[7].mem = yaw_pos;
+				manual_buff_pos[16].mem = pitch_pos;
 			}
 			else
 			{
-				manual_buff_pos[4].mem = -(GMYawEncoder.ecd_angle - init_yaw_pos) / 27;
-				manual_buff_pos[13].mem = (GMPitchEncoder.ecd_angle - init_pitch_pos) / 19;
+				manual_buff_pos[4].mem = yaw_pos;
+				manual_buff_pos[13].mem = pitch_pos;
 			}
 		}
 	}

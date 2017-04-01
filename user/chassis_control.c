@@ -92,7 +92,7 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
         target_angle = current_angle;
         gimbal_follow = 0;
     }
-
+		//ch2=0.5 的时候玄学参数非常完美
     if (mode == DANCING)
     {
         M_wheel_analysis_dancing(ch0, ch1, ch2, 0.5, 0.5, 0.5);

@@ -33,7 +33,7 @@ void writeFlash(u32 *data, u8 num) //address_num should start from 0 up to 255
 
 u32 readFlash(u16 address_num)
  {
- return *(int16_t *)(startAddress+address_num*4);
+ return *(u32 *)(startAddress+address_num*4);
 	
  }
 
