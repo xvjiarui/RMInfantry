@@ -48,10 +48,10 @@ PID gimbal_relative_angle_pid;
 u8 str[256];
 float buffer_remain;
 float init_yaw_pos;
+//const float init_pitch_pos;
 float init_pitch_pos;
-int16_t buff_yaw_pos[3] = {-15, 0, 15};
-int16_t buff_pitch_pos[3] = {18, 10, 3};
 union u32ANDint16_t manual_buff_pos[18];
+int16_t read_buff_pos[18];
 uint8_t Chassis_Connected = 1;
 uint8_t Gimbal_Connected = 1;
 uint8_t DBUS_Connected = 1;
@@ -65,6 +65,16 @@ int16_t mouse_input[2];
 int16_t last_mouse_input[2];
 uint8_t gimbal_follow = 1;
 uint8_t chassis_disconnect_init_flag = 0;
+uint8_t buff_mode = 0;
+const float YAW_ANGLE_RATIO = 27;
+const float YAW_LEFT_BOUND_REAL_ANGLE = 65;
+const float YAW_RIGHT_BOUND_REAL_ANGLE = -65;
+const float YAW_LEFT_BOUND = (YAW_ANGLE_RATIO * YAW_LEFT_BOUND_REAL_ANGLE);
+const float YAW_RIGHT_BOUND = (YAW_ANGLE_RATIO * YAW_RIGHT_BOUND_REAL_ANGLE);
+const float PITCH_ANGLE_RATIO = 19;
+const float PITCH_UPPER_BOUND_REAL_ANGLE = 45;
+const float PITCH_UPPER_BOUND = (PITCH_ANGLE_RATIO * PITCH_UPPER_BOUND_REAL_ANGLE);
+const float GYRO_ANGLE_RATIO = 10;
 
 int main(void)
 {	
@@ -72,8 +82,8 @@ int main(void)
 	PID_init_all();
 	input_init_all();
 	buffer_remain = 60;
-	init_yaw_pos = GMYawEncoder.ecd_angle;
-	init_pitch_pos = GMPitchEncoder.ecd_angle + 14 * 19;
+	*(float*)(&init_yaw_pos) = GMYawEncoder.ecd_angle;
+	*(float*)(&init_pitch_pos) = GMPitchEncoder.ecd_angle + 14 * PITCH_ANGLE_RATIO;
 	for (int i = 0; i < 18; ++i)
 	{
 		manual_buff_pos[i].flash = readFlash(i);
@@ -104,30 +114,52 @@ int main(void)
 				tft_clear();
 				
 				tft_prints(0,2,"Infantry V1.3");
-				//tft_prints(0,5,"Debug:%f", (YAW_RIGHT_BOUND - (GMYawEncoder.ecd_angle - init_yaw_pos))/YAW_RIGHT_BOUND);
-				tft_prints(0,3,"right:%d", DBUS_ReceiveData.rc.switch_right);
-				tft_prints(0,4,"fDebug:%f", float_debug);
-				tft_prints(0,5,"ENCODER_Data:%d", ENCODER_Data);
-				tft_prints(0, 10, "out %d", GUN_Data.pokeOutput);
-				tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
-				// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
-				// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
-				// tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
-				// tft_prints(0,9,"Y_p:%d", DBUS_ReceiveData.mouse.y_position);
-				tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
-				tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
-				tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
-				tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
-				//tft_prints(0,10,"Cur:%d",current_angle);
-				// tft_prints(0,11,"Tar:%d",target_angle);
-				// tft_prints(0,12,"Out:%d",output_angle);
-				// tft_prints(0,4,"Q:%d W:%d E:%d", manual_buff_pos[0].mem, manual_buff_pos[1].mem, manual_buff_pos[2].mem);
-				// tft_prints(0,5,"Q:%d W:%d E:%d", manual_buff_pos[9].mem, manual_buff_pos[10].mem, manual_buff_pos[11].mem);
-				// tft_prints(0,6,"A:%d S:%d D:%d", manual_buff_pos[3].mem, manual_buff_pos[4].mem, manual_buff_pos[5].mem);
-				// tft_prints(0,7,"A:%d S:%d D:%d", manual_buff_pos[12].mem, manual_buff_pos[13].mem, manual_buff_pos[14].mem);
-				// tft_prints(0,8,"Z:%d X:%d C:%d", manual_buff_pos[6].mem, manual_buff_pos[7].mem, manual_buff_pos[8].mem);
-				// tft_prints(0,9,"Z:%d X:%d C:%d", manual_buff_pos[15].mem, manual_buff_pos[16].mem, manual_buff_pos[17].mem);
-
+				if (!buff_mode)
+				{
+					tft_prints(0,3,"right:%d", DBUS_ReceiveData.rc.switch_right);
+					
+					tft_prints(0,4,"fDebug:%f", float_debug);
+					tft_prints(0,5,"ENCODER_Data:%d", ENCODER_Data);
+					tft_prints(0, 10, "out %d", GUN_Data.pokeOutput);
+					tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
+					// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
+					// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
+					// tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
+					// tft_prints(0,9,"Y_p:%d", DBUS_ReceiveData.mouse.y_position);
+					tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
+					tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
+					tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
+					tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
+					//tft_prints(0,10,"Cur:%d",current_angle);
+					// tft_prints(0,11,"Tar:%d",target_angle);
+					// tft_prints(0,12,"Out:%d",output_angle);
+					tft_prints(0,4,"initp:%f", init_pitch_pos);
+					tft_prints(0,5,"targetY:%f", manual_buff_pos[0].mem);
+					tft_prints(0,6,"targetP:%f", manual_buff_pos[9].mem);
+					tft_prints(0,7,"currentY:%f", GMYawEncoder.ecd_angle - init_yaw_pos);
+					tft_prints(0,8,"currentP:%f", GMPitchEncoder.ecd_angle - init_pitch_pos);
+				}
+				else
+				{
+					for (int i = 0; i < 9; ++i)
+					{
+						read_buff_pos[i] = -manual_buff_pos[i].mem / YAW_ANGLE_RATIO;
+					}
+					for (int i = 9; i < 18; ++i)
+					{
+						read_buff_pos[i] = manual_buff_pos[i].mem / PITCH_ANGLE_RATIO;
+					}
+					tft_prints(0, 4, "Q(%d,%d) W(%d,%d)", read_buff_pos[0], read_buff_pos[9], read_buff_pos[1], read_buff_pos[10]);
+					
+					/*
+					tft_prints(0,4,"Q:%d W:%d E:%d", read_buff_pos[0], read_buff_pos[1], read_buff_pos[2]);
+					tft_prints(0,5,"Q:%d W:%d E:%d", read_buff_pos[9], read_buff_pos[10], read_buff_pos[11]);
+					tft_prints(0,6,"A:%d S:%d D:%d", read_buff_pos[3], read_buff_pos[4], read_buff_pos[5]);
+					tft_prints(0,7,"A:%d S:%d D:%d", read_buff_pos[12], read_buff_pos[13], read_buff_pos[14]);
+					tft_prints(0,8,"Z:%d X:%d C:%d", read_buff_pos[6], read_buff_pos[7], read_buff_pos[8]);
+					tft_prints(0,9,"Z:%d X:%d C:%d", read_buff_pos[15], read_buff_pos[16], read_buff_pos[17]);
+					*/
+				}
 				
 				tft_update();
 				LED_blink(LED1);
