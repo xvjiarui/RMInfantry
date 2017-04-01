@@ -134,7 +134,7 @@ void computer_control() {
 		else POKE_SET_PWM(0);
 		GUN_SetFree();
 	}
-	if (DBUS_CheckPush(KEY_V))
+	if (DBUS_CheckPush(KEY_V) && DBUS_ReceiveData.rc.switch_left == 3)
 	{
 		// in buff mode
 		control_car(0, 0, 0, NORMAL);

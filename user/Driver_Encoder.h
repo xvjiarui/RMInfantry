@@ -23,4 +23,3 @@ void ENCODER_Update(void);
 uint8_t ENCODER_CheckConnection(void);
 
 #endif
-		

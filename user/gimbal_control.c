@@ -3,6 +3,7 @@
 #include "global_variable.h"
 #include "customized_function.h"
 #include "gimbal_control.h"
+#include "Driver_Gun.h"
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -200,41 +201,55 @@ void buff_mode_gimbal_pos(int16_t index)
 void buff_switch()
 {
 	static int16_t Last_Status = -1;
+	uint8_t pressing = 0;
 	if (DBUS_CheckPush(KEY_Q))
 	{
 		Last_Status = 0;
+		pressing = 1;
 	}
 	else if (DBUS_CheckPush(KEY_W))
 	{
 		Last_Status = 1;
+		pressing = 1;
 	}
 	else if (DBUS_CheckPush(KEY_E))
 	{
 		Last_Status = 2;
+		pressing = 1;
 	}
 	else if (DBUS_CheckPush(KEY_A))
 	{
 		Last_Status = 3;
+		pressing = 1;
 	}
 	else if (DBUS_CheckPush(KEY_S))
 	{
 		Last_Status = 4;
+		pressing = 1;
 	}
 	else if (DBUS_CheckPush(KEY_D))
 	{
 		Last_Status = 5;
+		pressing = 1;
 	}
 	else if (DBUS_CheckPush(KEY_Z))
 	{
 		Last_Status = 6;
+		pressing = 1;
 	}
 	else if (DBUS_CheckPush(KEY_X))
 	{
 		Last_Status = 7;
+		pressing = 1;
 	}
 	else if (DBUS_CheckPush(KEY_C))
 	{
 		Last_Status = 8;
+		pressing = 1;
+	}
+	if (pressing)
+	{
+		GUN_ShootOne();
 	}
 	buff_mode_gimbal_pos(Last_Status);
 }

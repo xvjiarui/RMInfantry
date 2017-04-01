@@ -48,7 +48,6 @@ PID gimbal_relative_angle_pid;
 u8 str[256];
 float buffer_remain;
 float init_yaw_pos;
-//const float init_pitch_pos;
 float init_pitch_pos;
 union u32ANDint16_t manual_buff_pos[18];
 int16_t read_buff_pos[18];
@@ -82,8 +81,8 @@ int main(void)
 	PID_init_all();
 	input_init_all();
 	buffer_remain = 60;
-	*(float*)(&init_yaw_pos) = GMYawEncoder.ecd_angle;
-	*(float*)(&init_pitch_pos) = GMPitchEncoder.ecd_angle + 14 * PITCH_ANGLE_RATIO;
+	init_yaw_pos = GMYawEncoder.ecd_angle;
+	init_pitch_pos = GMPitchEncoder.ecd_angle + 14 * PITCH_ANGLE_RATIO;
 	for (int i = 0; i < 18; ++i)
 	{
 		manual_buff_pos[i].flash = readFlash(i);
