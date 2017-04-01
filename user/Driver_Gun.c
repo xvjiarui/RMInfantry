@@ -7,6 +7,7 @@
 #include <string.h>
 
 float GUN_PokeErr = 0;
+int32_t GUN_PokeOutput = 0;
 static PID_Controller PokeSpeedController;
 static PID_Controller PokeAngleController;
 
@@ -175,6 +176,7 @@ void GUN_PokeControl(void) {
 void GUN_PokeSpeedControl(void) {
     GUN_Data.pokeOutput = PID_Update(&PokeSpeedController,
         GUN_Data.pokeTargetSpeed, ENCODER_Data);
+    GUN_PokeOutput= GUN_Data.pokeOutput;
 
 #if POKE_DIR == 0
     if (GUN_Data.pokeOutput >= 0) {

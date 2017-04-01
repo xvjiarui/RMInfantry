@@ -15,7 +15,8 @@
 
 ENCODER_EXT int32_t ENCODER_Data;
 extern float GUN_PokeErr;
-
+extern int32_t GUN_PokeOutput;
+		
 void ENCODER_BSP_Init(void);
 void ENCODER_Init(void);
 void ENCODER_Update(void);

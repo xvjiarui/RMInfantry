@@ -113,7 +113,7 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
         switch (mode)
         {
             case OPEN_LOOP:
-                PID_output2(&wheels_speed_pid[i], target_speed[i], 660, -660, 100, 15);
+                PID_output2(&wheels_speed_pid[i], wheels_speed_pid[i].current, 660, -660, 100, 15);
                 input[i] = target_speed[i] * 3;
                 break;
             case SEMI_CLOSED_LOOP:

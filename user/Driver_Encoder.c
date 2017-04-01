@@ -41,7 +41,7 @@ uint8_t ENCODER_CheckConnection(void)
     float_debug = GUN_PokeErr;
     static uint8_t disconnection_time = 0;
     static uint8_t connection_time = 0;
-    if (ENCODER_Data == 0 && (GUN_PokeErr > 500 || GUN_PokeErr < -500) )
+    if (ENCODER_Data == 0 && (GUN_PokeErr > 500 || GUN_PokeErr < -500 || GUN_PokeOutput <-10000 || GUN_PokeOutput > 10000) )
     {
         if (++disconnection_time > timeout)
         {

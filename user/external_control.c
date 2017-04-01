@@ -127,6 +127,7 @@ void computer_control() {
 			POKE_SET_PWM(5000);
 		}
 		else POKE_SET_PWM(0);
+		GUN_SetFree();
 	}
 
 	if (DBUS_CheckPush(KEY_V))
