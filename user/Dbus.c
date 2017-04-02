@@ -115,6 +115,7 @@ void DBUS_DataDecoding(void)
    *          V    C    X	  Z    G    F    R   E   Q  CTRL  SHIFT  D   A   S   W
 ************************************************************************************/
     GUN_SetMotion();
+    // GUN_SetMotionOnKey();
 }
 
 
@@ -128,6 +129,30 @@ void DBUS_DataDecoding(void)
 uint8_t DBUS_CheckPush(uint16_t Key)
 {
     if((DBUS_ReceiveData.keyBoard.key_code & Key) || (LASTDBUS_ReceiveData.keyBoard.key_code & Key))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+uint8_t DBUS_CheckPushNow(uint16_t Key)
+{
+    if(DBUS_ReceiveData.keyBoard.key_code & Key)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+uint8_t DBUS_CheckPushLast(uint16_t Key)
+{
+    if(LASTDBUS_ReceiveData.keyBoard.key_code & Key)
     {
         return 1;
     }

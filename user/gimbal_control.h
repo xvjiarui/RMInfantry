@@ -30,5 +30,8 @@ void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t 
 void chassis_follow_pos(int16_t input_yaw_pos, int16_t input_pitch_pos);
 void buff_mode_gimbal_pos(int16_t index);
 void buff_switch();
+uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed);
+uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos);
+
 
 #endif

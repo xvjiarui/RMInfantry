@@ -3,6 +3,7 @@
 #include "Dbus.h"
 #include "Driver_Encoder.h"
 #include "Driver_Gun.h"
+#include "global_variable.h"
 
 #include <string.h>
 
@@ -120,6 +121,7 @@ void GUN_SetMotion(void) {
     static char jumpPress = 0, jumpRelease = 0;
     static int32_t lastTick = 0;
     static int32_t pressCount = 0;
+    static uint8_t hasPending = 0;
 
     // friction wheel
     if (DBUS_ReceiveData.rc.switch_right != 1) {
@@ -131,11 +133,21 @@ void GUN_SetMotion(void) {
         FRIC_SET_THRUST_R(0);
     }
 
+    uint8_t KeyNow = DBUS_CheckPushNow(KEY_V) && (DBUS_CheckPushNow(KEY_Q) || DBUS_CheckPushNow(KEY_W) || DBUS_CheckPushNow(KEY_E) || DBUS_CheckPushNow(KEY_A) || DBUS_CheckPushNow(KEY_S) || DBUS_CheckPushNow(KEY_D) || DBUS_CheckPushNow(KEY_Z) || DBUS_CheckPushNow(KEY_X) || DBUS_CheckPushNow(KEY_C));
+    uint8_t KeyLast = DBUS_CheckPushLast(KEY_V) && (DBUS_CheckPushLast(KEY_Q) || DBUS_CheckPushLast(KEY_W) || DBUS_CheckPushLast(KEY_E) || DBUS_CheckPushLast(KEY_A) || DBUS_CheckPushLast(KEY_S) || DBUS_CheckPushLast(KEY_D) || DBUS_CheckPushLast(KEY_Z) || DBUS_CheckPushLast(KEY_X) || DBUS_CheckPushLast(KEY_C));
+
+    uint8_t keyJumpPress = KeyNow && !KeyLast;
+    uint8_t keyJumpRelease = !KeyNow && KeyLast;
+
     // poke motor
     jumpPress = DBUS_ReceiveData.mouse.press_left &&
         !LASTDBUS_ReceiveData.mouse.press_left;
     jumpRelease = !DBUS_ReceiveData.mouse.press_left &&
         LASTDBUS_ReceiveData.mouse.press_left;
+
+    jumpPress = jumpPress || keyJumpPress;
+    jumpRelease = jumpRelease || keyJumpRelease;
+
     if (jumpRelease) pressCount = 0;
     if (DBUS_ReceiveData.mouse.press_left) {
         ++pressCount;
@@ -144,7 +156,61 @@ void GUN_SetMotion(void) {
     shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
     shoot = shoot && (ticks_msimg - lastTick > 220);
-    if (shoot) {
+    if (shoot && !hasPending) {
+        if (keyJumpPress)
+        {
+            hasPending = 1;
+        }
+    }
+    if (hasPending) 
+    {
+        if (gimbal_in_buff_pos) {
+            GUN_ShootOne();
+            hasPending = 0;
+            lastTick = ticks_msimg;
+            buff_pressed = 0;
+        }
+    }
+    else if (shoot)
+    {
+        GUN_ShootOne();
+        lastTick = ticks_msimg;
+    }
+}
+
+void GUN_SetMotionOnKey(void) 
+{
+    static char shoot = 0;
+    static char jumpPress = 0, jumpRelease = 0;
+    static int32_t lastTick = 0;
+    static int32_t pressCount = 0;
+    static uint8_t hasPending = 0;
+
+
+    uint8_t KeyNow = DBUS_CheckPushNow(KEY_V) && (DBUS_CheckPushNow(KEY_Q) || DBUS_CheckPushNow(KEY_W) || DBUS_CheckPushNow(KEY_E) || DBUS_CheckPushNow(KEY_A) || DBUS_CheckPushNow(KEY_S) || DBUS_CheckPushNow(KEY_D) || DBUS_CheckPushNow(KEY_Z) || DBUS_CheckPushNow(KEY_X) || DBUS_CheckPushNow(KEY_C));
+    uint8_t KeyLast = DBUS_CheckPushLast(KEY_V) && (DBUS_CheckPushLast(KEY_Q) || DBUS_CheckPushLast(KEY_W) || DBUS_CheckPushLast(KEY_E) || DBUS_CheckPushLast(KEY_A) || DBUS_CheckPushLast(KEY_S) || DBUS_CheckPushLast(KEY_D) || DBUS_CheckPushLast(KEY_Z) || DBUS_CheckPushLast(KEY_X) || DBUS_CheckPushLast(KEY_C));
+    // poke motor
+    jumpPress = KeyNow && !KeyLast;
+    jumpRelease = !KeyNow && KeyLast;
+    if (jumpRelease) pressCount = 0;
+    if (KeyNow) {
+        ++pressCount;
+    }
+
+    shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
+    shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
+    shoot = shoot && (ticks_msimg - lastTick > 220);
+    if (shoot && !hasPending) {
+        // GUN_ShootOne();
+        hasPending = 1;
+        // lastTick = ticks_msimg;
+    }
+    if (hasPending) {
+        // if (gimbal ready) {
+        //     GUN_ShootOne();
+        //     hasPending = 0;
+        //     lastTick = ticks_msimg;
+        // }
         GUN_ShootOne();
         lastTick = ticks_msimg;
     }

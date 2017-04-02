@@ -125,6 +125,8 @@ void computer_control() {
 	//mouse part
 	process_mouse_data();
 
+	gimbal_in_buff_pos = 0;
+
 	if (!GUN_ENCODER_Connected)
 	{
 		if (DBUS_ReceiveData.mouse.press_left)
@@ -134,11 +136,14 @@ void computer_control() {
 		else POKE_SET_PWM(0);
 		GUN_SetFree();
 	}
-	if (DBUS_CheckPush(KEY_V) && DBUS_ReceiveData.rc.switch_left == 3)
+	if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
 		control_car(0, 0, 0, NORMAL);
-		buff_switch();
+		if (DBUS_ReceiveData.rc.switch_left == 3)
+		{
+			buff_switch();
+		}
 	}
 	else if (DBUS_CheckPush(KEY_R))
 	{

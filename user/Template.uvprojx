@@ -454,6 +454,16 @@
               <FileType>5</FileType>
               <FilePath>.\PID_s.h</FilePath>
             </File>
+            <File>
+              <FileName>BSP_TIM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP_TIM.c</FilePath>
+            </File>
+            <File>
+              <FileName>TIM_handler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\TIM_handler.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

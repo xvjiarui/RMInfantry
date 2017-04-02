@@ -67,6 +67,8 @@ int16_t last_mouse_input[2];
 uint8_t gimbal_follow = 1;
 uint8_t chassis_disconnect_init_flag = 0;
 uint8_t buff_mode = 0;
+uint8_t gimbal_in_buff_pos = 0;
+uint8_t buff_pressed =0;
 const float YAW_ANGLE_RATIO = 27;
 const float YAW_LEFT_BOUND_REAL_ANGLE = 65;
 const float YAW_RIGHT_BOUND_REAL_ANGLE = -65;
@@ -118,9 +120,10 @@ int main(void)
 				tft_prints(0,2,"Infantry V1.3");
 				if (!buff_mode)
 				{
-					tft_prints(0,3,"right:%d", DBUS_ReceiveData.rc.switch_right);
+					tft_prints(0,3,"Ip:%d", gimbal_in_buff_pos);
 					
-					tft_prints(0,4,"fDebug:%f", float_debug);
+					// tft_prints(0,4,"fDebug:%f", float_debug);
+					tft_prints(0,4,"iDebug:%d", int_debug);
 					tft_prints(0,5,"ENCODER_Data:%d", ENCODER_Data);
 					tft_prints(0, 10, "out %d", GUN_Data.pokeOutput);
 					tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);

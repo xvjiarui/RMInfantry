@@ -201,57 +201,69 @@ void buff_mode_gimbal_pos(int16_t index)
 void buff_switch()
 {
 	static int16_t Last_Status = -1;
-	uint8_t pressing = 0;
+	
 	if (DBUS_CheckPush(KEY_Q))
 	{
 		Last_Status = 0;
-		pressing = 1;
+		buff_pressed = 1;
 	}
 	else if (DBUS_CheckPush(KEY_W))
 	{
 		Last_Status = 1;
-		pressing = 1;
+		buff_pressed = 1;
 	}
 	else if (DBUS_CheckPush(KEY_E))
 	{
 		Last_Status = 2;
-		pressing = 1;
+		buff_pressed = 1;
 	}
 	else if (DBUS_CheckPush(KEY_A))
 	{
 		Last_Status = 3;
-		pressing = 1;
+		buff_pressed = 1;
 	}
 	else if (DBUS_CheckPush(KEY_S))
 	{
 		Last_Status = 4;
-		pressing = 1;
+		buff_pressed = 1;
 	}
 	else if (DBUS_CheckPush(KEY_D))
 	{
 		Last_Status = 5;
-		pressing = 1;
+		buff_pressed = 1;
 	}
 	else if (DBUS_CheckPush(KEY_Z))
 	{
 		Last_Status = 6;
-		pressing = 1;
+		buff_pressed = 1;
 	}
 	else if (DBUS_CheckPush(KEY_X))
 	{
 		Last_Status = 7;
-		pressing = 1;
+		buff_pressed = 1;
 	}
 	else if (DBUS_CheckPush(KEY_C))
 	{
 		Last_Status = 8;
-		pressing = 1;
-	}
-	if (pressing)
-	{
-		GUN_ShootOne();
+		buff_pressed = 1;
 	}
 	buff_mode_gimbal_pos(Last_Status);
+	gimbal_in_buff_pos = gimbal_check_in_buff_pos(Last_Status, buff_pressed);
 }
 
+uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed)
+{
+	if (status == -1 || !pressed)
+	{
+		return 0;
+	}
+	return gimbal_check_pos(manual_buff_pos[status].mem, manual_buff_pos[status + 9].mem);
+}
+
+uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos)
+{
+	uint8_t check_yaw = float_equal((GMYawEncoder.ecd_angle - init_yaw_pos), target_yaw_pos, 27);
+	uint8_t check_pitch = float_equal((GMPitchEncoder.ecd_angle - init_pitch_pos), target_pitch_pos, 19);
+	return check_yaw && check_pitch;
+}
 
