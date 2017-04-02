@@ -139,14 +139,21 @@ void GUN_SetMotion(void) {
     uint8_t keyJumpPress = KeyNow && !KeyLast;
     uint8_t keyJumpRelease = !KeyNow && KeyLast;
 
+    uint8_t adjustNow = (DBUS_ReceiveData.rc.ch2 < -500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1:0;
+    uint8_t adjustLast = (LASTDBUS_ReceiveData.rc.ch2 < -500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1:0;
+
+    uint8_t adjustJumpPress = adjustNow && !adjustLast;
+    uint8_t adjustJumpRelease = !adjustNow && adjustLast;
+
     // poke motor
     jumpPress = DBUS_ReceiveData.mouse.press_left &&
         !LASTDBUS_ReceiveData.mouse.press_left;
     jumpRelease = !DBUS_ReceiveData.mouse.press_left &&
         LASTDBUS_ReceiveData.mouse.press_left;
 
-    jumpPress = jumpPress || keyJumpPress;
-    jumpRelease = jumpRelease || keyJumpRelease;
+    jumpPress = jumpPress || keyJumpPress || adjustJumpPress;
+    jumpRelease = jumpRelease || keyJumpRelease || adjustJumpRelease;
+
 
     if (jumpRelease) pressCount = 0;
     if (DBUS_ReceiveData.mouse.press_left) {

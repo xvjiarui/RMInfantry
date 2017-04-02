@@ -120,7 +120,8 @@ int main(void)
 				tft_prints(0,2,"Infantry V1.3");
 				if (!buff_mode)
 				{
-					tft_prints(0,3,"Ip:%d", gimbal_in_buff_pos);
+					// tft_prints(0,3,"Ip:%d", gimbal_in_buff_pos);
+					tft_prints(0,3,"r:%d", DBUS_ReceiveData.rc.switch_right);
 					
 					// tft_prints(0,4,"fDebug:%f", float_debug);
 					tft_prints(0,4,"iDebug:%d", int_debug);
@@ -138,11 +139,11 @@ int main(void)
 					//tft_prints(0,10,"Cur:%d",current_angle);
 					// tft_prints(0,11,"Tar:%d",target_angle);
 					// tft_prints(0,12,"Out:%d",output_angle);
-					tft_prints(0,4,"initp:%f", init_pitch_pos);
-					tft_prints(0,5,"targetY:%f", manual_buff_pos[0].mem);
-					tft_prints(0,6,"targetP:%f", manual_buff_pos[9].mem);
-					tft_prints(0,7,"currentY:%f", GMYawEncoder.ecd_angle - init_yaw_pos);
-					tft_prints(0,8,"currentP:%f", GMPitchEncoder.ecd_angle - init_pitch_pos);
+					// tft_prints(0,4,"initp:%f", init_pitch_pos);
+					// tft_prints(0,5,"targetY:%f", manual_buff_pos[0].mem);
+					// tft_prints(0,6,"targetP:%f", manual_buff_pos[9].mem);
+					// tft_prints(0,7,"currentY:%f", GMYawEncoder.ecd_angle - init_yaw_pos);
+					// tft_prints(0,8,"currentP:%f", GMPitchEncoder.ecd_angle - init_pitch_pos);
 				}
 				else
 				{
@@ -154,16 +155,16 @@ int main(void)
 					{
 						read_buff_pos[i] = manual_buff_pos[i].mem / PITCH_ANGLE_RATIO;
 					}
-					tft_prints(0, 4, "Q(%d,%d) W(%d,%d)", read_buff_pos[0], read_buff_pos[9], read_buff_pos[1], read_buff_pos[10]);
+					// tft_prints(0, 4, "Q(%d,%d) W(%d,%d)", read_buff_pos[0], read_buff_pos[9], read_buff_pos[1], read_buff_pos[10]);
 					
-					/*
+					tft_prints(0,3,"r:%d", DBUS_ReceiveData.rc.switch_right);
 					tft_prints(0,4,"Q:%d W:%d E:%d", read_buff_pos[0], read_buff_pos[1], read_buff_pos[2]);
 					tft_prints(0,5,"Q:%d W:%d E:%d", read_buff_pos[9], read_buff_pos[10], read_buff_pos[11]);
 					tft_prints(0,6,"A:%d S:%d D:%d", read_buff_pos[3], read_buff_pos[4], read_buff_pos[5]);
 					tft_prints(0,7,"A:%d S:%d D:%d", read_buff_pos[12], read_buff_pos[13], read_buff_pos[14]);
 					tft_prints(0,8,"Z:%d X:%d C:%d", read_buff_pos[6], read_buff_pos[7], read_buff_pos[8]);
 					tft_prints(0,9,"Z:%d X:%d C:%d", read_buff_pos[15], read_buff_pos[16], read_buff_pos[17]);
-					*/
+					
 				}
 				
 				tft_update();
