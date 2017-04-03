@@ -80,7 +80,7 @@ void remote_control() {
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	ch_changes[0] = DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
 	ch_changes[1] = DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
-	ch_changes[2] = -DBUS_ReceiveData.rc.ch2 / 4 - last_ch_input[2];
+	ch_changes[2] = -DBUS_ReceiveData.rc.ch2 / 8 - last_ch_input[2];
 	ch_changes[3] = DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
 	int16_t max_change = 2;
 	int16_t min_change = -2;

@@ -157,13 +157,16 @@ int main(void)
 					}
 					// tft_prints(0, 4, "Q(%d,%d) W(%d,%d)", read_buff_pos[0], read_buff_pos[9], read_buff_pos[1], read_buff_pos[10]);
 					
-					tft_prints(0,3,"r:%d", DBUS_ReceiveData.rc.switch_right);
-					tft_prints(0,4,"Q:%d W:%d E:%d", read_buff_pos[0], read_buff_pos[1], read_buff_pos[2]);
-					tft_prints(0,5,"Q:%d W:%d E:%d", read_buff_pos[9], read_buff_pos[10], read_buff_pos[11]);
-					tft_prints(0,6,"A:%d S:%d D:%d", read_buff_pos[3], read_buff_pos[4], read_buff_pos[5]);
-					tft_prints(0,7,"A:%d S:%d D:%d", read_buff_pos[12], read_buff_pos[13], read_buff_pos[14]);
-					tft_prints(0,8,"Z:%d X:%d C:%d", read_buff_pos[6], read_buff_pos[7], read_buff_pos[8]);
-					tft_prints(0,9,"Z:%d X:%d C:%d", read_buff_pos[15], read_buff_pos[16], read_buff_pos[17]);
+					tft_prints(0,2,"Buff Mode:%d", DBUS_ReceiveData.rc.switch_left);
+					tft_prints(0,3,"Q:(%d,%d)", read_buff_pos[0], read_buff_pos[9]);
+					tft_prints(0,4,"W:(%d,%d)", read_buff_pos[1], read_buff_pos[10]);
+					tft_prints(0,5,"E:(%d,%d)", read_buff_pos[2], read_buff_pos[11]);
+					tft_prints(0,6,"A:(%d,%d)", read_buff_pos[3], read_buff_pos[12]);
+					tft_prints(0,7,"S:(%d,%d)", read_buff_pos[4], read_buff_pos[13]);
+					tft_prints(0,8,"D:(%d,%d)", read_buff_pos[5], read_buff_pos[14]);
+					tft_prints(0,9,"Z:(%d,%d)", read_buff_pos[6], read_buff_pos[15]);
+					tft_prints(0,10,"X:(%d,%d)", read_buff_pos[7], read_buff_pos[16]);
+					tft_prints(0,11,"C:(%d,%d)", read_buff_pos[8], read_buff_pos[17]);
 					
 				}
 				

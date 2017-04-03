@@ -89,6 +89,10 @@ void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t 
 
 int16_t pid_gimbal_yaw_speed(int16_t target_yaw_speed) {
 	gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;
+	if ((gimbal_exceed_left_bound() && target_yaw_speed > 0) || (gimbal_exceed_right_bound() && target_yaw_speed < 0))
+	{
+		target_yaw_speed = 0;
+	}
 	return PID_output2(&gimbal_speed_pid[0], target_yaw_speed, 660, -660, 100, 15);;
 }
 
