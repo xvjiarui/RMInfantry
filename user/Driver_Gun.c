@@ -156,7 +156,7 @@ void GUN_SetMotion(void) {
 
 
     if (jumpRelease) pressCount = 0;
-    if (DBUS_ReceiveData.mouse.press_left || (DBUS_ReceiveData.rc.ch3 > 600 && DBUS_ReceiveData.rc.switch_left == 3 && DBUS_ReceiveData.rc.switch_right == 3)) {
+    if (DBUS_ReceiveData.mouse.press_left) {
         ++pressCount;
     }
 

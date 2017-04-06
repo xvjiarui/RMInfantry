@@ -29,7 +29,7 @@ void TIM7_IRQHandler(void) {
         GUN_ENCODER_Connected = ENCODER_CheckConnection();
         GUN_EncoderUpdate();
 
-        if (!GUN_ENCODER_Connected)
+        if (!GUN_ENCODER_Connected || clearing_ammo)
         {
             GUN_SetFree();
         }

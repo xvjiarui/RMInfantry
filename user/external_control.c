@@ -156,6 +156,12 @@ void computer_control(void) {
 			buff_switch();
 		}
 	}
+	// calibrate buff pos
+	else if (DBUS_CheckPush(KEY_G))
+	{
+		buff_mode_gimbal_pos(4);
+		control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
+	}
 	else if (DBUS_CheckPush(KEY_R))
 	{
 		// enter supply deport, open loop control
@@ -168,22 +174,11 @@ void computer_control(void) {
 		// control_car_speed_open_loop(ch_input[0], ch_input[1], ch_input[2]);
 		control_car(ch_input[0], ch_input[1], ch_input[2], OPEN_LOOP);
 	}
-	else if (DBUS_CheckPush(KEY_G))
-	{
-		// enter supply deport, semi-open loop control
-		mouse_input[0] = 0;
-		last_mouse_input[0] = 0;
-		mouse_input[1] = 0;
-		last_mouse_input[1] = 0;
-		DBUS_ReceiveData.mouse.y_position = 0;
-		control_gimbal_pos(0, 0);
-		// control_car_speed_semi_closed_loop(ch_input[0], ch_input[1], ch_input[2]);
-		control_car(ch_input[0], ch_input[1], ch_input[2], SEMI_CLOSED_LOOP);
-	}
 	else if (DBUS_CheckPush(KEY_C))
 	{
 		dancing_mode();
 	}
+	// following logic
 	else
 	{
 		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
@@ -286,6 +281,23 @@ void remote_buff_adjust(void) {
 			POKE_SET_PWM(8000);
 		}
 		else POKE_SET_PWM(0);
+		GUN_SetFree();
+	}
+	if (ch_input[3] > 600)
+	{
+		clearing_ammo = 1;
+	}
+	if (clearing_ammo)
+	{
+		if (ch_input[3] > 600)
+		{
+			POKE_SET_PWM(12000);
+		}
+		else
+		{
+			POKE_SET_PWM(0);
+			clearing_ammo = 0;
+		}
 		GUN_SetFree();
 	}
 	if (ch_input[3] < -600)

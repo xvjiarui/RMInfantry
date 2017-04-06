@@ -69,6 +69,7 @@ uint8_t chassis_already_auto_stop = 0;
 uint8_t buff_mode = 0;
 uint8_t gimbal_in_buff_pos = 0;
 uint8_t buff_pressed =0;
+uint8_t clearing_ammo = 0;
 const float YAW_ANGLE_RATIO = 27;
 const float YAW_LEFT_BOUND_REAL_ANGLE = 65;
 const float YAW_RIGHT_BOUND_REAL_ANGLE = -65;
@@ -127,7 +128,7 @@ int main(void)
 					// tft_prints(0,4,"iDebug:%d", int_debug);
 					tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
 					tft_prints(0, 4,"Buffer:%f", buffer_remain);
-					tft_prints(0,5,"ED:%d, P:%d err:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
+					tft_prints(0,5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
 					// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
 					// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
 					// tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
