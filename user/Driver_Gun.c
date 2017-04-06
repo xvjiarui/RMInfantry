@@ -156,7 +156,7 @@ void GUN_SetMotion(void) {
 
 
     if (jumpRelease) pressCount = 0;
-    if (DBUS_ReceiveData.mouse.press_left) {
+    if (DBUS_ReceiveData.mouse.press_left || (DBUS_ReceiveData.rc.ch3 > 600 && DBUS_ReceiveData.rc.switch_left == 3 && DBUS_ReceiveData.rc.switch_right == 3)) {
         ++pressCount;
     }
 
@@ -186,8 +186,8 @@ void GUN_SetMotion(void) {
 }
 
 void GUN_ShootOne(void) {
-    int16_t index = 1;
-    if (GUN_PokeErr > 10000 || GUN_PokeErr < -10000)
+    static int16_t index = 1;
+    if (GUN_PokeErr > 2000 || GUN_PokeErr < -2000)
     {
         index = -1;
     }

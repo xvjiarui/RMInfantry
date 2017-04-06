@@ -10,10 +10,10 @@
 #include "buzzer_song.h"
 #include "Driver_Gun.h"
 
-void external_control() {
+void external_control(void) {
 	if (DBUS_Connected)
 	{
-		chassis_disconnect_init_flag = 0;
+		chassis_already_auto_stop = 0;
 	}
 	if (!(DBUS_ReceiveData.rc.switch_left ==3 && DBUS_ReceiveData.rc.switch_right == 3))
 	{
@@ -41,9 +41,14 @@ void external_control() {
 			}
 			break;
 		case 2:
-			if (!DBUS_Connected || (!Chassis_Connected && !Gimbal_Connected))
+			if (!DBUS_Connected)
 			{
 				DBUS_disconnect_handler();
+			}
+			else if (!Chassis_Connected && !Gimbal_Connected)
+			{
+				chassis_disconnect_handler();
+				gimbal_disconnect_handler();
 			}
 			else if (!Chassis_Connected)
 			{
@@ -76,7 +81,7 @@ void external_control() {
 	}
 }
 
-void remote_control() {
+void remote_control(void) {
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	ch_changes[0] = DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
 	ch_changes[1] = DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
@@ -118,7 +123,7 @@ void remote_control() {
 	control_car(ch_input[0], ch_input[1], 0, NORMAL);
 }
 
-void computer_control() {
+void computer_control(void) {
 	static int16_t in_following_flag; //a flag that help
 	//keyboard part
 	process_keyboard_data();
@@ -141,7 +146,7 @@ void computer_control() {
 	{
 		GUN_SetStop();
 	}
-	
+
 	if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
@@ -266,7 +271,7 @@ void process_keyboard_data(void)
 	}
 }
 
-void remote_buff_adjust() {
+void remote_buff_adjust(void) {
 	Set_CM_Speed(CAN1, 0, 0, 0, 0);
 	static int16_t ch_input[4];
 	ch_input[0] = DBUS_ReceiveData.rc.ch0;
@@ -283,11 +288,7 @@ void remote_buff_adjust() {
 		else POKE_SET_PWM(0);
 		GUN_SetFree();
 	}
-	if (ch_input[3] > 650)
-	{
-		GUN_ShootOne();
-	}
-	if (ch_input[3] < -650)
+	if (ch_input[3] < -600)
 	{
 		GUN_SetStop();
 	}
@@ -408,23 +409,8 @@ void dancing_mode(void)
 void chassis_disconnect_handler(void)
 {
 	input_init_ch();
-	if (chassis_disconnect_init_flag == 0)
-	{
-		if (CM1Encoder.filter_rate != 0 || CM2Encoder.filter_rate != 0 || CM3Encoder.filter_rate != 0 || CM4Encoder.filter_rate != 0)
-		{
-			// control_car_speed(0, 0, 0);
-			control_car(0, 0, 0, NORMAL);
-		}
-		else
-		{
-			chassis_disconnect_init_flag = 1;
-		}
-	}
-	else
-	{
-		Set_CM_Speed(CAN2, 0, 0, 0, 0);
-		PID_init_chassis();
-	}
+	Set_CM_Speed(CAN2, 0, 0, 0, 0);
+	PID_init_chassis();
 }
 
 void gimbal_disconnect_handler(void)
@@ -436,7 +422,27 @@ void gimbal_disconnect_handler(void)
 
 void DBUS_disconnect_handler(void)
 {
-	DBUS_ResetBuffer();
-	chassis_disconnect_handler();
 	gimbal_disconnect_handler();
+	input_init_ch();
+	chassis_auto_stop();
+}
+
+void chassis_auto_stop(void)
+{
+	if (!chassis_already_auto_stop)
+	{
+		if (CM1Encoder.filter_rate != 0 || CM2Encoder.filter_rate != 0 || CM3Encoder.filter_rate != 0 || CM4Encoder.filter_rate != 0)
+		{
+			control_car(0, 0, 0, NORMAL);
+		}
+		else
+		{
+			chassis_already_auto_stop = 1;
+		}
+	}
+	else
+	{
+		chassis_disconnect_handler();
+		DBUS_ResetBuffer();
+	}
 }

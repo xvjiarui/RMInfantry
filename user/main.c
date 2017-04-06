@@ -65,7 +65,7 @@ int16_t ch_input[4];
 int16_t mouse_input[2];
 int16_t last_mouse_input[2];
 uint8_t gimbal_follow = 1;
-uint8_t chassis_disconnect_init_flag = 0;
+uint8_t chassis_already_auto_stop = 0;
 uint8_t buff_mode = 0;
 uint8_t gimbal_in_buff_pos = 0;
 uint8_t buff_pressed =0;
@@ -127,7 +127,7 @@ int main(void)
 					// tft_prints(0,4,"iDebug:%d", int_debug);
 					tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
 					tft_prints(0, 4,"Buffer:%f", buffer_remain);
-					tft_prints(0,5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
+					tft_prints(0,5,"ED:%d, P:%d err:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
 					// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
 					// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
 					// tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);

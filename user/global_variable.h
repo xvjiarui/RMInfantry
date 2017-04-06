@@ -37,7 +37,7 @@ extern int16_t ch_input[4];
 extern int16_t mouse_input[2];
 extern int16_t last_mouse_input[2];
 extern uint8_t gimbal_follow;
-extern uint8_t chassis_disconnect_init_flag;
+extern uint8_t chassis_already_auto_stop;
 extern uint8_t buff_mode;
 extern uint8_t gimbal_in_buff_pos;
 extern uint8_t buff_pressed;
