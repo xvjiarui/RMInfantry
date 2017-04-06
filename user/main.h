@@ -28,6 +28,5 @@
 #include "Driver_Gun.h"
 #include "Driver_Encoder.h"
 
-#define USE_SIMULATED_JUDGE
 
 #endif /* __MAIN_H */

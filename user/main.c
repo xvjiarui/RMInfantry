@@ -86,7 +86,7 @@ int main(void)
 	input_init_all();
 	buffer_remain = 60;
 	init_yaw_pos = GMYawEncoder.ecd_angle;
-	init_pitch_pos = GMPitchEncoder.ecd_angle + 14 * PITCH_ANGLE_RATIO;
+	init_pitch_pos = GMPitchEncoder.ecd_angle + 5 * PITCH_ANGLE_RATIO;
 	for (int i = 0; i < 18; ++i)
 	{
 		manual_buff_pos[i].flash = readFlash(i);
@@ -117,17 +117,17 @@ int main(void)
 			{
 				tft_clear();
 				
-				tft_prints(0,2,"Infantry V1.3");
+				// tft_prints(0,2,"Infantry V1.3");
 				if (!buff_mode)
 				{
 					// tft_prints(0,3,"Ip:%d", gimbal_in_buff_pos);
-					tft_prints(0,3,"r:%d", DBUS_ReceiveData.rc.switch_right);
+					tft_prints(0,2,"r:%d", DBUS_ReceiveData.rc.switch_right);
 					
 					// tft_prints(0,4,"fDebug:%f", float_debug);
-					tft_prints(0,4,"iDebug:%d", int_debug);
-					tft_prints(0,5,"ENCODER_Data:%d", ENCODER_Data);
-					tft_prints(0, 10, "out %d", GUN_Data.pokeOutput);
-					tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
+					// tft_prints(0,4,"iDebug:%d", int_debug);
+					tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
+					tft_prints(0, 4,"Buffer:%f", buffer_remain);
+					tft_prints(0,5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
 					// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
 					// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
 					// tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
@@ -136,6 +136,8 @@ int main(void)
 					tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
 					tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
 					tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
+					tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
+					tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
 					//tft_prints(0,10,"Cur:%d",current_angle);
 					// tft_prints(0,11,"Tar:%d",target_angle);
 					// tft_prints(0,12,"Out:%d",output_angle);

@@ -27,11 +27,11 @@ GUN_EXT volatile GUN_DataTypeDef GUN_Data;
 
 void GUN_Init(void);
 void GUN_SetMotion(void);
-void GUN_SetMotionOnKey(void);
 void GUN_PokeControl(void);
 void GUN_EncoderUpdate(void);
 void GUN_PokeSpeedControl(void);
 void GUN_SetFree(void);
+void GUN_SetStop(void);
 
 void GUN_ShootOne(void);
 

@@ -3,6 +3,7 @@
 #include "stm32f4xx.h"
 #include "global_variable.h"
 #include "external_control.h"
+#include "power_control.h"
 
 void TIM7_IRQHandler(void) {
     static uint32_t tick = 0;
@@ -21,6 +22,7 @@ void TIM7_IRQHandler(void) {
 
     if (tick % 20 == 0)
     {
+        buffer_call();
         Chassis_Connected = CanCheckConnection_for_Chassis();
         Gimbal_Connected = CanCheckConnection_for_Gimbal();
         DBUS_Connected = DBUS_CheckConnection();

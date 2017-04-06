@@ -131,11 +131,17 @@ void computer_control() {
 	{
 		if (DBUS_ReceiveData.mouse.press_left)
 		{
-			POKE_SET_PWM(5000);
+			POKE_SET_PWM(8000);
 		}
 		else POKE_SET_PWM(0);
 		GUN_SetFree();
 	}
+
+	if (DBUS_ReceiveData.mouse.press_right)
+	{
+		GUN_SetStop();
+	}
+	
 	if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
@@ -262,11 +268,29 @@ void process_keyboard_data(void)
 
 void remote_buff_adjust() {
 	Set_CM_Speed(CAN1, 0, 0, 0, 0);
-	static int16_t ch_input[3];
+	static int16_t ch_input[4];
 	ch_input[0] = DBUS_ReceiveData.rc.ch0;
 	ch_input[1] = DBUS_ReceiveData.rc.ch1;
 	ch_input[2] = DBUS_ReceiveData.rc.ch2;
+	ch_input[3] = DBUS_ReceiveData.rc.ch3;
 	static uint8_t is_writing_flash = 0;
+	if (!GUN_ENCODER_Connected)
+	{
+		if (ch_input[2] < -500)
+		{
+			POKE_SET_PWM(8000);
+		}
+		else POKE_SET_PWM(0);
+		GUN_SetFree();
+	}
+	if (ch_input[3] > 650)
+	{
+		GUN_ShootOne();
+	}
+	if (ch_input[3] < -650)
+	{
+		GUN_SetStop();
+	}
 	if (ch_input[2] > 600 )
 	{
 		float yaw_pos = (GMYawEncoder.ecd_angle - init_yaw_pos);
