@@ -259,27 +259,28 @@ void USART3_IRQHandler(void)
     
 #ifndef USE_SIMULATED_JUDGE
 		//???????????????????????
-    if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1) && 
-        (Verify_CRC16_Check_Sum(JudgeDataBuffer, 38 + 8) == 1) &&
-        (JudgeDataBuffer[4] == 1))
+//    if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1) && 
+//        (Verify_CRC16_Check_Sum(JudgeDataBuffer, 38 + 8) == 1) &&
+//        (JudgeDataBuffer[4] == 1))
+	if (DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1)
     {
 
         //??????
-        FT.U[3] = JudgeDataBuffer[15];
-        FT.U[2] = JudgeDataBuffer[14];
-        FT.U[1] = JudgeDataBuffer[13];
-        FT.U[0] = JudgeDataBuffer[12];
+        FT.U[3] = JudgeDataBuffer[16];
+        FT.U[2] = JudgeDataBuffer[15];
+        FT.U[1] = JudgeDataBuffer[14];
+        FT.U[0] = JudgeDataBuffer[13];
         InfantryJudge.RealVoltage = FT.F;
         
         //???????
-        FT.U[3] = JudgeDataBuffer[19];
-        FT.U[2] = JudgeDataBuffer[18];
-        FT.U[1] = JudgeDataBuffer[17];
-        FT.U[0] = JudgeDataBuffer[16];
+        FT.U[3] = JudgeDataBuffer[20];
+        FT.U[2] = JudgeDataBuffer[19];
+        FT.U[1] = JudgeDataBuffer[18];
+        FT.U[0] = JudgeDataBuffer[17];
         InfantryJudge.RealCurrent = FT.F;
         
         //??????
-        InfantryJudge.LastBlood = ((int16_t)JudgeDataBuffer[11] << 8) | JudgeDataBuffer[10];
+        InfantryJudge.LastBlood = ((int16_t)JudgeDataBuffer[12] << 8) | JudgeDataBuffer[11];
         
 		}
     //?????????

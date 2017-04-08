@@ -1,9 +1,13 @@
 #include "stm32f4xx.h"
 
-#define JudgeBufferLength       150
-#define JudgeFrameLength_1      46
-#define JudgeFrameLength_2      11
-#define JudgeFrameLength_3      24
+//#define JudgeBufferLength       150
+//#define JudgeFrameLength_1      46
+//#define JudgeFrameLength_2      11
+//#define JudgeFrameLength_3      24
+#define JudgeBufferLength       200
+#define JudgeFrameLength_1      44
+#define JudgeFrameLength_2      12
+#define JudgeFrameLength_3      25
 
 #define JudgeFrameHeader        0xA5        //֡ͷ 
 
