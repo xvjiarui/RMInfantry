@@ -125,8 +125,8 @@ void GUN_SetMotion(void) {
 
     // friction wheel
     if (DBUS_ReceiveData.rc.switch_right != 1) {
-        FRIC_SET_THRUST_L(730);
-        FRIC_SET_THRUST_R(730);
+        FRIC_SET_THRUST_L(700);
+        FRIC_SET_THRUST_R(700);
     }
     else {
         FRIC_SET_THRUST_L(0);
@@ -186,15 +186,15 @@ void GUN_SetMotion(void) {
 }
 
 void GUN_ShootOne(void) {
-    static int16_t index = 1;
-    if (GUN_PokeErr > 2000 || GUN_PokeErr < -2000)
-    {
-        index = -1;
-    }
+    // static int16_t index = 1;
+    // if (GUN_PokeErr > 2000 || GUN_PokeErr < -2000)
+    // {
+    //     index = -1;
+    // }
 #if ENCODER_DIR == 1
-    GUN_Data.pokeTargetAngle += 660 * index;
+    GUN_Data.pokeTargetAngle += 660;
 #else
-    GUN_Data.pokeTargetAngle -= 660 * index;
+    GUN_Data.pokeTargetAngle -= 660;
 #endif
 }
 
