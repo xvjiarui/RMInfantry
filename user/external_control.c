@@ -144,7 +144,7 @@ void computer_control(void) {
 
 	if (DBUS_ReceiveData.mouse.press_right)
 	{
-		GUN_SetStop();
+		GUN_SetFree();
 	}
 
 	if (DBUS_CheckPush(KEY_V))
@@ -256,8 +256,8 @@ void process_keyboard_data(void)
 	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
 
-	int16_t max_change = 2;
-	int16_t min_change = -2;
+	int16_t max_change = 1;
+	int16_t min_change = -1;
 	for (int i = 0; i < 3; ++i)
 	{
 		limit_int_range(&ch_changes[i], max_change, min_change);
