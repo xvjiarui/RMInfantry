@@ -20,7 +20,6 @@ extern PID gimbal_pos_pid[2];
 extern PID gimbal_reset_pid;
 extern PID gimbal_relative_angle_pid;
 extern u8 str[256];
-extern float buffer_remain;
 extern float init_yaw_pos;
 extern float init_pitch_pos;//extern const float init_pitch_pos;
 extern int16_t buff_yaw_pos[3];

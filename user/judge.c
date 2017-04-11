@@ -242,6 +242,8 @@ void Judge_InitConfig(void)
     InfantryJudge.RealCurrent = 0;
     InfantryJudge.LastBlood = 1500;
     InfantryJudge.LastShotSpeed = 23.5;
+    InfantryJudge.RemainBuffer = 60.0;
+    InfantryJudge.LastHartID = 0;
 
 }
 
@@ -279,6 +281,12 @@ void USART3_IRQHandler(void)
         FT.U[0] = JudgeDataBuffer[17];
         InfantryJudge.RealCurrent = FT.F;
         
+        FT.U[3] = JudgeDataBuffer[41];
+        FT.U[2] = JudgeDataBuffer[40];
+        FT.U[1] = JudgeDataBuffer[39];
+        FT.U[0] = JudgeDataBuffer[38];
+        InfantryJudge.RemainBuffer = FT.F;
+
         //??????
         InfantryJudge.LastBlood = ((int16_t)JudgeDataBuffer[12] << 8) | JudgeDataBuffer[11];
         

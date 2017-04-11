@@ -1,7 +1,6 @@
 #include "function_list.h"
 #include "external_control.h"
 #include "PID_s.h"
-#include "power_control.h"
 #include "chassis_control.h"
 #include "gimbal_control.h"
 #include "customized_function.h"

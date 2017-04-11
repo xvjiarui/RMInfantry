@@ -50,7 +50,7 @@ void update_wheel_pid()
 {
     current_angle = output_angle;
     angle_pid.current = current_angle;
-    buffer_pid.current = buffer_remain;
+    buffer_pid.current = InfantryJudge.RemainBuffer;
     wheels_speed_pid[0].current = CM1Encoder.filter_rate;
     wheels_speed_pid[1].current = CM2Encoder.filter_rate;
     wheels_speed_pid[2].current = CM3Encoder.filter_rate;
@@ -61,7 +61,7 @@ void update_wheel_pid_semi_closed_loop()
 {
     current_angle = output_angle;
     angle_pid.current = current_angle;
-    buffer_pid.current = buffer_remain;
+    buffer_pid.current = InfantryJudge.RemainBuffer;
     wheels_speed_semi_closed_pid[0].current = CM1Encoder.filter_rate;
     wheels_speed_semi_closed_pid[1].current = CM2Encoder.filter_rate;
     wheels_speed_semi_closed_pid[2].current = CM3Encoder.filter_rate;
@@ -70,12 +70,10 @@ void update_wheel_pid_semi_closed_loop()
 
 float buffer_decay()
 {
-    float ratio = 1;
-    if (buffer_remain < 60)
-    {
-        ratio = 1 - PID_output(&buffer_pid, 60);
-        ratio = ratio > 0 ? ratio : -ratio;
-    }
+    float ratio = 0;
+    ratio = PID_output3(&buffer_pid, 60, 100, -100, 100, -100, 0.7);
+    ratio = ratio > 0 ? ratio : 0;
+    ratio = 1- ratio;
     return ratio;
 }
 

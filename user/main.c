@@ -1,7 +1,6 @@
 #include "main.h"
 #include "function_list.h"
 #include "PID_s.h"
-#include "power_control.h"
 #include "chassis_control.h"
 #include "gimbal_control.h"
 #include "customized_function.h"
@@ -48,7 +47,6 @@ PID gimbal_pos_pid[2];
 PID gimbal_reset_pid;
 PID gimbal_relative_angle_pid;
 u8 str[256];
-float buffer_remain;
 float init_yaw_pos;
 float init_pitch_pos;
 union u32ANDint16_t manual_buff_pos[18];
@@ -85,7 +83,6 @@ int main(void)
 	init();
 	PID_init_all();
 	input_init_all();
-	buffer_remain = 60;
 	init_yaw_pos = GMYawEncoder.ecd_angle;
 	init_pitch_pos = GMPitchEncoder.ecd_angle + 5 * PITCH_ANGLE_RATIO;
 	for (int i = 0; i < 18; ++i)
@@ -125,9 +122,10 @@ int main(void)
 					tft_prints(0,2,"r:%d", DBUS_ReceiveData.rc.switch_right);
 					
 					// tft_prints(0,4,"fDebug:%f", float_debug);
-					// tft_prints(0,4,"iDebug:%d", int_debug);
+					// tft_prints(0,5,"iDebug:%d", int_debug);
 					tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
-					tft_prints(0, 4,"Buffer:%f", buffer_remain);
+					tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
+					// tft_prints(0, 5,"Buffer:%f", InfantryJudge.RemainBuffer);
 					tft_prints(0,5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
 					// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
 					// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);

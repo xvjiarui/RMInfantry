@@ -74,10 +74,12 @@ float PID_output2(PID* pid, float target_val, float umax, float umin, float emax
 	pid->output = pid->output<(-pid->limit)? -pid->limit:pid->output;
 	return pid->output;
 }
-float PID_output3(PID* pid, float target_val, float imax, float imin, float decay_factor)
+float PID_output3(PID* pid, float target_val, float pmax, float pmin, float imax, float imin, float decay_factor)
 {
 	pid->target=target_val;
 	pid->p=pid->target - pid->current;
+	pid->p = (pid->p > pmax)? pmax:pid->p;
+	pid->p = (pid->p < pmin)? pmin:pid->p;
 	pid->i = pid->i*decay_factor + pid->p;
 	pid->i = (pid->i > imax)? imax:pid->i;
 	pid->i = (pid->i < imin)? imin:pid->i;
