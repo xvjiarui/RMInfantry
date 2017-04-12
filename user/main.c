@@ -68,6 +68,7 @@ uint8_t buff_mode = 0;
 uint8_t gimbal_in_buff_pos = 0;
 uint8_t buff_pressed =0;
 uint8_t clearing_ammo = 0;
+uint8_t fast_turning = 0;
 const float YAW_ANGLE_RATIO = 27;
 const float YAW_LEFT_BOUND_REAL_ANGLE = 65;
 const float YAW_RIGHT_BOUND_REAL_ANGLE = -65;
@@ -118,27 +119,31 @@ int main(void)
 				// tft_prints(0,2,"Infantry V1.3");
 				if (!buff_mode)
 				{
-					// tft_prints(0,3,"Ip:%d", gimbal_in_buff_pos);
-					tft_prints(0,2,"r:%d", DBUS_ReceiveData.rc.switch_right);
-					
+					// tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
+					// tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
+					// tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
+					// tft_prints(0, 5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
+					// tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
+					// tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
+					// tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
+					// tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
+					// tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
+					// tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
+
 					// tft_prints(0,4,"fDebug:%f", float_debug);
 					// tft_prints(0,5,"iDebug:%d", int_debug);
+					tft_prints(0, 2, "HART:%d", InfantryJudge.LastHartID);
 					tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
 					tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
-					// tft_prints(0, 5,"Buffer:%f", InfantryJudge.RemainBuffer);
-					tft_prints(0,5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
+					tft_prints(0, 5, "ShotSpeed:%f", InfantryJudge.LastShotSpeed);
+					tft_prints(0, 6, "ShotFreq:%f", InfantryJudge.LastShotFreq);
+					tft_prints(0, 7, "HP:%d", InfantryJudge.LastBlood);
 					// tft_prints(0,6,"X_s:%d", DBUS_ReceiveData.mouse.x);
 					// tft_prints(0,7,"Y_s:%d", DBUS_ReceiveData.mouse.y);
 					// tft_prints(0,8,"X_p:%d", DBUS_ReceiveData.mouse.x_position);
 					// tft_prints(0,9,"Y_p:%d", DBUS_ReceiveData.mouse.y_position);
-					tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
-					tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
-					tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
-					tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
-					tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
-					tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
-					//tft_prints(0,10,"Cur:%d",current_angle);
-					// tft_prints(0,11,"Tar:%d",target_angle);
+					tft_prints(0,10,"Cur:%d E:",current_angle, DBUS_CheckPushNow(KEY_E));
+					tft_prints(0,11,"Tar:%d Q:",target_angle, DBUS_CheckPushNow(KEY_Q));
 					// tft_prints(0,12,"Out:%d",output_angle);
 					// tft_prints(0,4,"initp:%f", init_pitch_pos);
 					// tft_prints(0,5,"targetY:%f", manual_buff_pos[0].mem);

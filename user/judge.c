@@ -242,6 +242,7 @@ void Judge_InitConfig(void)
     InfantryJudge.RealCurrent = 0;
     InfantryJudge.LastBlood = 1500;
     InfantryJudge.LastShotSpeed = 23.5;
+    InfantryJudge.LastShotFreq = 1.0;
     InfantryJudge.RemainBuffer = 60.0;
     InfantryJudge.LastHartID = 0;
 
@@ -260,11 +261,9 @@ void USART3_IRQHandler(void)
     DMA_Cmd(DMA1_Stream1, DISABLE);
     
 #ifndef USE_SIMULATED_JUDGE
-		//???????????????????????
-//    if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1) && 
-//        (Verify_CRC16_Check_Sum(JudgeDataBuffer, 38 + 8) == 1) &&
-//        (JudgeDataBuffer[4] == 1))
-	if (DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1)
+	if ((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1) 
+        && Verify_CRC16_Check_Sum(JudgeDataBuffer, JudgeFrameLength_1) 
+        && JudgeDataBuffer[5] == 1) 
     {
 
         //??????
@@ -291,32 +290,37 @@ void USART3_IRQHandler(void)
         InfantryJudge.LastBlood = ((int16_t)JudgeDataBuffer[12] << 8) | JudgeDataBuffer[11];
         
 		}
-    //?????????
-    else if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_2) && 
-        (Verify_CRC16_Check_Sum(JudgeDataBuffer, 3 + 8) == 1) &&
-        (JudgeDataBuffer[4] == 2))
+    // Package 2
+    else if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_2) 
+        && Verify_CRC16_Check_Sum(JudgeDataBuffer, JudgeFrameLength_2)
+        && JudgeDataBuffer[5] == 2)
+     // && (Verify_CRC16_Check_Sum(JudgeDataBuffer, 3 + 8) == 1) && (JudgeDataBuffer[4] == 2))
     {
 
-        //???????
-        if(!(JudgeDataBuffer[6] >> 4))
+        // conditon verify, amour is hit
+        if(!(JudgeDataBuffer[7] >> 4))
         {
-            //????????ID
-            InfantryJudge.LastHartID = JudgeDataBuffer[6] & 0x0F;
+            InfantryJudge.LastHartID = JudgeDataBuffer[7] & 0x0F;
 
         }
     }
-    //???????
-    else if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_3) && 
-        (Verify_CRC16_Check_Sum(JudgeDataBuffer, 16 + 8) == 1) &&
-        (JudgeDataBuffer[4] == 3))
+    // Package 3
+    else if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_3) 
+        && (Verify_CRC16_Check_Sum(JudgeDataBuffer, JudgeFrameLength_3)) 
+        && (JudgeDataBuffer[5] == 3))
     {
         
-        //???????
-        FT.U[3] = JudgeDataBuffer[9];
-        FT.U[2] = JudgeDataBuffer[8];
-        FT.U[1] = JudgeDataBuffer[7];
-        FT.U[0] = JudgeDataBuffer[6];
+        FT.U[3] = JudgeDataBuffer[10];
+        FT.U[2] = JudgeDataBuffer[9];
+        FT.U[1] = JudgeDataBuffer[8];
+        FT.U[0] = JudgeDataBuffer[7];
         InfantryJudge.LastShotSpeed = FT.F;
+
+        FT.U[3] = JudgeDataBuffer[14];
+        FT.U[2] = JudgeDataBuffer[13];
+        FT.U[1] = JudgeDataBuffer[12];
+        FT.U[0] = JudgeDataBuffer[11];
+        InfantryJudge.LastShotFreq = FT.F;
         
     }
 #else // USE_SIMULATED_JUDGE

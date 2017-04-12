@@ -115,6 +115,7 @@ void DBUS_DataDecoding(void)
    *          V    C    X	  Z    G    F    R   E   Q  CTRL  SHIFT  D   A   S   W
 ************************************************************************************/
     GUN_SetMotion();
+    chassis_SetMotion();
     // GUN_SetMotionOnKey();
 }
 

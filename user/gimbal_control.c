@@ -45,12 +45,19 @@ void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t inpu
 {
  gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
  float step = PID_output(&gimbal_reset_pid, 0);
- target_angle = current_angle + 10 * step;
+ if (!fast_turning)
+ {
+ 	target_angle = current_angle + 10 * step;
+ }
  if (gimbal_follow)
  {
 	 input_yaw_speed += chassis_ch2 * YAW_SPEED_TO_CHASSIS_CH2;
  }
-	control_gimbal(input_yaw_speed, input_pitch_pos);
+ if (fast_turning)
+ {
+ 	control_gimbal(0, init_pitch_pos);
+ }	
+ else control_gimbal(input_yaw_speed, input_pitch_pos);
 }
 
 void chassis_follow_with_control_old(int16_t input_yaw_speed, int16_t input_pitch_pos)

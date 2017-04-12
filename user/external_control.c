@@ -254,7 +254,7 @@ void process_keyboard_data(void)
 	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * ratio - last_ch_input[0];
 	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
-
+	ch_changes[2] = 0;
 	int16_t max_change = 1;
 	int16_t min_change = -1;
 	for (int i = 0; i < 3; ++i)

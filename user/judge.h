@@ -21,6 +21,7 @@ typedef struct
     int16_t LastBlood;                  //剩余血量
     uint8_t LastHartID;                 //上次收到伤害的装甲板ID号
     float LastShotSpeed;                //上次射击速度
+    float LastShotFreq;
     float RemainBuffer;
 
 }InfantryJudge_Struct;

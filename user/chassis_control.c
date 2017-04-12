@@ -126,3 +126,69 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
     send_to_chassis(input[0], input[1], input[2], input[3]);
 
 }
+
+extern volatile u32 ticks_msimg;
+void chassis_SetMotion(void)
+{
+    // uint8_t rotateRight = 0
+    // uint8_t rotateLeft = 0;
+    // uint8_t rotateRightPress = 0;
+    // uint8_t rotateLeftPress = 0;
+    static int32_t rightLastTick = 0;
+    static int32_t leftLastTick = 0;
+    static int32_t hartLastTick = 0;
+    int32_t time_interval = 500;
+    int16_t rotateAngle = 900;
+
+    uint8_t rightNow = DBUS_CheckPushNow(KEY_E);
+    uint8_t rightLast = DBUS_CheckPushLast(KEY_E);
+    uint8_t rotateRightPress = rightNow && !rightLast;
+    uint8_t rotateRight = rotateRightPress && (ticks_msimg - rightLastTick > time_interval);
+
+    uint8_t leftNow = DBUS_CheckPushNow(KEY_Q);
+    uint8_t leftLast = DBUS_CheckPushLast(KEY_Q);
+    uint8_t rotateLeftPress = leftNow && !leftLast;
+    uint8_t rotateLeft = rotateLeftPress && (ticks_msimg - leftLastTick > time_interval);
+
+    uint8_t hartNow = DBUS_CheckPushNow(KEY_X);
+    uint8_t hartLast = DBUS_CheckPushLast(KEY_X);
+    uint8_t rotateHartPress = hartNow && !hartLast;
+    uint8_t rotateHart = rotateHartPress && (ticks_msimg - hartLastTick > time_interval);
+
+    if (rotateHart)
+    {
+        switch (InfantryJudge.LastHartID)
+        {
+            case 1:
+                target_angle -= rotateAngle;
+                break;
+            case 2: 
+                target_angle -= 2 * rotateAngle;
+                break;
+            case 3: 
+                target_angle += rotateAngle;
+                break;
+        }
+        hartLastTick = ticks_msimg;
+        fast_turning = 1;
+    }
+
+    if (rotateRight)
+    {
+        target_angle += rotateAngle;
+        rightLastTick = ticks_msimg;
+        fast_turning = 1;
+    }
+
+    if (rotateLeft)
+    {
+        target_angle -= rotateAngle;
+        leftLastTick = ticks_msimg;
+        fast_turning = 1;
+    }
+
+    if (!rotateRight && !rotateLeft && !rotateHart && (ticks_msimg - rightLastTick > time_interval) && (ticks_msimg - leftLastTick > time_interval) && (ticks_msimg - hartLastTick > time_interval))
+    {
+        fast_turning = 0;
+    }
+}

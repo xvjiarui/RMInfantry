@@ -41,6 +41,7 @@ extern uint8_t buff_mode;
 extern uint8_t gimbal_in_buff_pos;
 extern uint8_t buff_pressed;
 extern uint8_t clearing_ammo;
+extern uint8_t fast_turning;
 //const area
 extern const float YAW_SPEED_TO_CHASSIS_CH2;
 extern const float YAW_ANGLE_RATIO;

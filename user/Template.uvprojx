@@ -410,11 +410,6 @@
               <FilePath>.\PID_s.c</FilePath>
             </File>
             <File>
-              <FileName>power_control.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\power_control.c</FilePath>
-            </File>
-            <File>
               <FileName>chassis_control.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\chassis_control.c</FilePath>
@@ -423,11 +418,6 @@
               <FileName>customized_function.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\customized_function.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_control.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\power_control.h</FilePath>
             </File>
             <File>
               <FileName>gimbal_control.h</FileName>
