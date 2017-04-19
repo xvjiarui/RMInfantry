@@ -8,7 +8,8 @@
 #define JudgeFrameLength_1      44
 #define JudgeFrameLength_2      12
 #define JudgeFrameLength_3      25
-
+#define JudgeHeaderLength        7
+#define JudgeCommandIDIndex     5
 #define JudgeFrameHeader        0xA5        //帧头 
 
 void judging_system_init(void);
@@ -23,6 +24,11 @@ typedef struct
     float LastShotSpeed;                //上次射击速度
     float LastShotFreq;
     float RemainBuffer;
+		int16_t ArmorDecrease;
+    int16_t OverShootSpeedDecrease;
+    int16_t OverShootFreqDecrease;
+    int16_t OverPowerDecrease;
+    int16_t ModuleOfflineDecrease;
 
 }InfantryJudge_Struct;
 
@@ -33,7 +39,6 @@ typedef union
     float F;
     int I;
 }FormatTrans;
-
 
 //the data will be stored in the following struct
 extern InfantryJudge_Struct InfantryJudge;

@@ -71,7 +71,8 @@ void update_wheel_pid_semi_closed_loop()
 float buffer_decay()
 {
     float ratio = 0;
-    ratio = PID_output3(&buffer_pid, 60, 100, -100, 100, -100, 0.7);
+    // ratio = PID_output3(&buffer_pid, 60, 100, -100, 100, -100, 0.65);
+    ratio = PID_output4(&buffer_pid, 60);
     ratio = ratio > 0 ? ratio : 0;
     ratio = 1- ratio;
     return ratio;
@@ -95,9 +96,13 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
     {
         M_wheel_analysis_dancing(ch0, ch1, ch2, 0.5, 0.5, 0.5);
     }
-    else M_wheel_analysis(ch0, ch1, ch2, 0.7, 1, 0.5, PID_output2(&angle_pid, target_angle, 800, -800, 30, -30));
+    else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_output2(&angle_pid, target_angle, 800, -800, 30, -30));
 
-    float ratio = buffer_decay();
+    static float ratio = 1;
+    if (buffer_updated)
+    {
+        ratio = buffer_decay();
+    }
     int16_t input[4] = {0, 0, 0, 0};
     int16_t target_speed[4] = {0, 0, 0, 0};
     for (int i = 0; i < 4; ++i)
@@ -111,14 +116,14 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
         switch (mode)
         {
             case OPEN_LOOP:
-                PID_output2(&wheels_speed_pid[i], wheels_speed_pid[i].current, 660, -660, 100, 15);
+                PID_output2(&wheels_speed_pid[i], wheels_speed_pid[i].current, 990, -990, 100, 15);
                 input[i] = target_speed[i] * 3;
                 break;
             case SEMI_CLOSED_LOOP:
-                input[i] = PID_output2(&wheels_speed_semi_closed_pid[i], target_speed[i], 660, -660, 100, 15);
+                input[i] = PID_output2(&wheels_speed_semi_closed_pid[i], target_speed[i], 990, -990, 100, 15);
                 break;
             default :
-                input[i] = PID_output2(&wheels_speed_pid[i], target_speed[i], 660, -660, 100, 15);
+                input[i] = PID_output2(&wheels_speed_pid[i], target_speed[i], 990, -990, 100, 15);
                 break;
         }
         

@@ -45,8 +45,9 @@ void PID_init_chassis(void)
 		PID_init(&wheels_speed_pid[i], 80, 5, 100, 20000); //0.00001
 		PID_init(&wheels_speed_semi_closed_pid[i], 80, 0, 0, 20000);
 	}
-	PID_init(&angle_pid, 4, 0, 40, 660); //4 is best 660 is some limit
-	PID_init(&buffer_pid, 0.005, 0.006, 0, 0.7);
+	PID_init(&angle_pid, 4, 0, 40, 990); //4 is best 660 is some limit
+	// PID_init(&buffer_pid, 0.005, 0.0035, 0, 0.7);
+	PID_init(&buffer_pid, 0.006, 0.0005, 0, 0.7);
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50);
 	PID_init(&gimbal_relative_angle_pid, 0.02, 0, 0, 50);
 	target_angle = current_angle;

@@ -100,7 +100,7 @@ void GUN_Init(void) {
     PokeSpeedController.Kd = 0.00f;
     PokeSpeedController.MAX_Pout = 12000;
     PokeSpeedController.MAX_Integral = 100000;
-    PokeSpeedController.MAX_PIDout = 12000;
+    PokeSpeedController.MAX_PIDout = 8000;
     PokeSpeedController.MIN_PIDout = 0;
     PokeSpeedController.mode = kPositional;
 
@@ -125,8 +125,8 @@ void GUN_SetMotion(void) {
 
     // friction wheel
     if (DBUS_ReceiveData.rc.switch_right != 1) {
-        FRIC_SET_THRUST_L(600);
-        FRIC_SET_THRUST_R(600);
+        FRIC_SET_THRUST_L(650);
+        FRIC_SET_THRUST_R(650);
     }
     else {
         FRIC_SET_THRUST_L(0);

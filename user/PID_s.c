@@ -11,7 +11,8 @@ void PID_init(PID* pid, float Kp_val, float Ki_val, float Kd_val, float limit){
 	pid->p=0;
 	pid->i=0;
 	pid->d=0;
-
+	memset(pid->err_array, 0, sizeof(pid->err_array));
+	pid->err_index = 0;
 }
 float PID_output(PID* pid, float target_val){
 	pid->target=target_val;
@@ -83,6 +84,26 @@ float PID_output3(PID* pid, float target_val, float pmax, float pmin, float imax
 	pid->i = pid->i*decay_factor + pid->p;
 	pid->i = (pid->i > imax)? imax:pid->i;
 	pid->i = (pid->i < imin)? imin:pid->i;
+	pid->d=pid->p - pid->last_err;
+	pid->last_err=pid->p;
+	pid->output=pid->Kp * pid->p + pid->Ki * pid->i + pid->Kd * pid->d;
+	pid->output = pid->output>pid->limit? pid->limit:pid->output;
+	pid->output = pid->output<(-pid->limit)? -pid->limit:pid->output;
+	return pid->output;
+}
+
+float PID_output4(PID* pid, float target_val)
+{
+	pid->target=target_val;
+	pid->p=pid->target - pid->current;
+	pid->err_array[pid->err_index]=pid->p;
+	pid->err_index++;
+	pid->err_index%=10;
+	pid->i=0;
+	for (int index = 0; index < 10; ++index)
+	{
+		pid->i+=pid->err_array[index];
+	}
 	pid->d=pid->p - pid->last_err;
 	pid->last_err=pid->p;
 	pid->output=pid->Kp * pid->p + pid->Ki * pid->i + pid->Kd * pid->d;

@@ -32,7 +32,9 @@ void TIM7_IRQHandler(void) {
             GUN_SetFree();
         }
         else GUN_PokeControl();
+        buffer_updated = 1;
     }
+    else buffer_updated = 0;
     current_angle = output_angle;
     external_control();
 }

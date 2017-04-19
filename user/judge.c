@@ -4,6 +4,7 @@
 InfantryJudge_Struct InfantryJudge;
 
 uint8_t JudgeDataBuffer[JudgeBufferLength];
+uint32_t JudgeDataFrameLength[3] = {JudgeFrameLength_1, JudgeFrameLength_2, JudgeFrameLength_3};
 
 //HKUST RM2017 mainboad judge : USART3
 
@@ -245,14 +246,150 @@ void Judge_InitConfig(void)
     InfantryJudge.LastShotFreq = 1.0;
     InfantryJudge.RemainBuffer = 60.0;
     InfantryJudge.LastHartID = 0;
-
+    InfantryJudge.ArmorDecrease = 0;
+    InfantryJudge.OverShootSpeedDecrease = 0;
+    InfantryJudge.OverShootFreqDecrease = 0;
+    InfantryJudge.OverPowerDecrease = 0;
+    InfantryJudge.ModuleOfflineDecrease = 0;
 }
-
-
-
 
 u8 UARTtemp1;
 FormatTrans FT;
+
+void Judge_DecodePackage1(uint16_t head)
+{
+    // Read Voltage
+    // FT.U[3] = JudgeDataBuffer[16];
+    // FT.U[2] = JudgeDataBuffer[15];
+    // FT.U[1] = JudgeDataBuffer[14];
+    // FT.U[0] = JudgeDataBuffer[13];
+    
+    // Read Current
+    // FT.U[3] = JudgeDataBuffer[20];
+    // FT.U[2] = JudgeDataBuffer[19];
+    // FT.U[1] = JudgeDataBuffer[18];
+    // FT.U[0] = JudgeDataBuffer[17];
+    
+    // Read RemainBuffer
+    // FT.U[3] = JudgeDataBuffer[41];
+    // FT.U[2] = JudgeDataBuffer[40];
+    // FT.U[1] = JudgeDataBuffer[39];
+    // FT.U[0] = JudgeDataBuffer[38];
+
+    for (uint8_t i = 0; i < 4; ++i)
+    {
+        FT.U[i] = JudgeDataBuffer[head + JudgeHeaderLength + 6 + i];
+    }
+    InfantryJudge.RealVoltage = FT.F;
+
+    for (uint8_t i = 0; i < 4; ++i)
+    {
+        FT.U[i] = JudgeDataBuffer[head + JudgeHeaderLength + 10 + i];
+    }
+    InfantryJudge.RealCurrent = FT.F;
+    
+    
+    for (uint8_t i = 0; i < 4; ++i)
+    {
+        FT.U[i] = JudgeDataBuffer[head + JudgeHeaderLength + 31 + i];
+    }
+    InfantryJudge.RemainBuffer = FT.F;
+
+    // Read LastBlood
+    InfantryJudge.LastBlood = ((int16_t)JudgeDataBuffer[head + JudgeHeaderLength + 5] << 8) | JudgeDataBuffer[head + JudgeHeaderLength + 4];
+}
+
+void Judge_DecodePackage2(uint8_t head)
+{
+    // if(!(JudgeDataBuffer[7] >> 4))
+    // {
+    //     InfantryJudge.LastHartID = JudgeDataBuffer[7] & 0x0F;
+    //     InfantryJudge.ArmorDecrease += ((int16_t)JudgeDataBuffer[9] << 8) | JudgeDataBuffer[8];
+
+    // }
+    // else if ((JudgeDataBuffer[7] >> 4) == 1)
+    // {
+    //     InfantryJudge.OverShootSpeedDecrease += ((int16_t)JudgeDataBuffer[9] << 8) | JudgeDataBuffer[8];
+    // }
+    // else if ((JudgeDataBuffer[7] >> 4) == 2)
+    // {
+    //     InfantryJudge.OverShootFreqDecrease += ((int16_t)JudgeDataBuffer[9] << 8) | JudgeDataBuffer[8];
+    // }
+    // else if ((JudgeDataBuffer[7] >> 4) == 3)
+    // {
+    //     InfantryJudge.OverPowerDecrease += ((int16_t)JudgeDataBuffer[9] << 8) | JudgeDataBuffer[8];
+    // }
+    // else if ((JudgeDataBuffer[7] >> 4) == 4)
+    // {
+    //     InfantryJudge.ModuleOfflineDecrease += ((int16_t)JudgeDataBuffer[9] << 8) | JudgeDataBuffer[8];
+    // }
+
+    uint8_t way = (JudgeDataBuffer[head + JudgeHeaderLength] >> 4);
+    uint16_t value = ((int16_t)JudgeDataBuffer[head + JudgeHeaderLength + 2] << 8) | JudgeDataBuffer[head + JudgeHeaderLength + 1];
+    switch (way)
+    {
+        case 0:
+            InfantryJudge.LastHartID = JudgeDataBuffer[head + JudgeHeaderLength] & 0x0F;
+            InfantryJudge.ArmorDecrease += value;
+            break;
+        case 1:
+            InfantryJudge.OverShootSpeedDecrease += value;
+            break;
+        case 2:
+            InfantryJudge.OverShootFreqDecrease += value;
+            break;
+        case 3:
+            InfantryJudge.OverPowerDecrease += value;
+            break;
+        case 4:
+            InfantryJudge.ModuleOfflineDecrease += value;
+            break;
+    }
+}
+
+void Judge_DecodePackage3(uint8_t head)
+{
+    // FT.U[3] = JudgeDataBuffer[10];
+    // FT.U[2] = JudgeDataBuffer[9];
+    // FT.U[1] = JudgeDataBuffer[8];
+    // FT.U[0] = JudgeDataBuffer[7];
+    // InfantryJudge.LastShotSpeed = FT.F;
+
+    // FT.U[3] = JudgeDataBuffer[14];
+    // FT.U[2] = JudgeDataBuffer[13];
+    // FT.U[1] = JudgeDataBuffer[12];
+    // FT.U[0] = JudgeDataBuffer[11];
+    // InfantryJudge.LastShotFreq = FT.F;
+    for (uint8_t i = 0; i < 4; ++i)
+    {
+        FT.U[i] = JudgeDataBuffer[JudgeHeaderLength + head + i];
+    }
+    InfantryJudge.LastShotSpeed = FT.F;
+
+    for (int i = 0; i < 4; ++i)
+    {
+        FT.U[i] = JudgeDataBuffer[JudgeHeaderLength + 4 + head + i];
+    }
+    InfantryJudge.LastShotFreq = FT.F;
+
+}
+
+void Judge_DecodePackage(uint8_t packageIndex, uint8_t head)
+{
+    switch(packageIndex)
+    {
+        case 1:
+            Judge_DecodePackage1(head);
+            break;
+        case 2:
+            Judge_DecodePackage2(head);
+            break;
+        case 3:
+            Judge_DecodePackage3(head);
+            break;
+    }
+}
+
 void USART3_IRQHandler(void)
 {
     UARTtemp1 = USART3->DR;
@@ -263,65 +400,57 @@ void USART3_IRQHandler(void)
 #ifndef USE_SIMULATED_JUDGE
 	if ((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1) 
         && Verify_CRC16_Check_Sum(JudgeDataBuffer, JudgeFrameLength_1) 
-        && JudgeDataBuffer[5] == 1) 
+        && JudgeDataBuffer[JudgeCommandIDIndex] == 1) 
     {
-
-        //??????
-        FT.U[3] = JudgeDataBuffer[16];
-        FT.U[2] = JudgeDataBuffer[15];
-        FT.U[1] = JudgeDataBuffer[14];
-        FT.U[0] = JudgeDataBuffer[13];
-        InfantryJudge.RealVoltage = FT.F;
-        
-        //???????
-        FT.U[3] = JudgeDataBuffer[20];
-        FT.U[2] = JudgeDataBuffer[19];
-        FT.U[1] = JudgeDataBuffer[18];
-        FT.U[0] = JudgeDataBuffer[17];
-        InfantryJudge.RealCurrent = FT.F;
-        
-        FT.U[3] = JudgeDataBuffer[41];
-        FT.U[2] = JudgeDataBuffer[40];
-        FT.U[1] = JudgeDataBuffer[39];
-        FT.U[0] = JudgeDataBuffer[38];
-        InfantryJudge.RemainBuffer = FT.F;
-
-        //??????
-        InfantryJudge.LastBlood = ((int16_t)JudgeDataBuffer[12] << 8) | JudgeDataBuffer[11];
-        
-		}
+        Judge_DecodePackage1(0);
+	}
+    else if (DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_2
+        && Verify_CRC16_Check_Sum(JudgeDataBuffer, JudgeFrameLength_2) 
+        && JudgeDataBuffer[JudgeCommandIDIndex] == 2) {
+        Judge_DecodePackage2(0);
+    }
     // Package 2
-    else if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_2) 
-        && Verify_CRC16_Check_Sum(JudgeDataBuffer, JudgeFrameLength_2)
-        && JudgeDataBuffer[5] == 2)
-     // && (Verify_CRC16_Check_Sum(JudgeDataBuffer, 3 + 8) == 1) && (JudgeDataBuffer[4] == 2))
+    else if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_2) )
     {
-
-        // conditon verify, amour is hit
-        if(!(JudgeDataBuffer[7] >> 4))
+        uint8_t offset = 0;
+        for (uint8_t i = 0; i < 2; ++i)
         {
-            InfantryJudge.LastHartID = JudgeDataBuffer[7] & 0x0F;
-
+            uint8_t type = JudgeDataBuffer[JudgeCommandIDIndex + offset];
+            uint32_t length = JudgeDataFrameLength[type - 1];
+            if (Verify_CRC16_Check_Sum(JudgeDataBuffer + offset, length))
+            {
+                Judge_DecodePackage(type, offset);
+            }
+            offset += length;
         }
     }
-    // Package 3
-    else if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_3) 
-        && (Verify_CRC16_Check_Sum(JudgeDataBuffer, JudgeFrameLength_3)) 
-        && (JudgeDataBuffer[5] == 3))
+    else if((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_3))
     {
-        
-        FT.U[3] = JudgeDataBuffer[10];
-        FT.U[2] = JudgeDataBuffer[9];
-        FT.U[1] = JudgeDataBuffer[8];
-        FT.U[0] = JudgeDataBuffer[7];
-        InfantryJudge.LastShotSpeed = FT.F;
-
-        FT.U[3] = JudgeDataBuffer[14];
-        FT.U[2] = JudgeDataBuffer[13];
-        FT.U[1] = JudgeDataBuffer[12];
-        FT.U[0] = JudgeDataBuffer[11];
-        InfantryJudge.LastShotFreq = FT.F;
-        
+        uint8_t offset = 0;
+        for (uint8_t i = 0; i < 2; ++i)
+        {
+            uint8_t type = JudgeDataBuffer[JudgeCommandIDIndex + offset];
+            uint32_t length = JudgeDataFrameLength[type - 1];
+            if (Verify_CRC16_Check_Sum(JudgeDataBuffer + offset, length))
+            {
+                Judge_DecodePackage(type, offset);
+            }
+            offset += length;
+        }
+    }
+    else if ((DMA1_Stream1->NDTR == JudgeBufferLength - JudgeFrameLength_1 - JudgeFrameLength_2 - JudgeFrameLength_3))
+    {
+        uint8_t offset = 0;
+        for (uint8_t i = 0; i < 3; ++i)
+        {
+            uint8_t type = JudgeDataBuffer[JudgeCommandIDIndex + offset];
+            uint32_t length = JudgeDataFrameLength[type - 1];
+            if (Verify_CRC16_Check_Sum(JudgeDataBuffer + offset, length))
+            {
+                Judge_DecodePackage(type, offset);
+            }
+            offset += length;
+        }
     }
 #else // USE_SIMULATED_JUDGE
     if (DMA1_Stream1->NDTR == JudgeBufferLength-10) {
