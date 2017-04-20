@@ -1,39 +1,53 @@
+#ifndef JUDGE_H
+#define JUDGE_H
+
 #include "stm32f4xx.h"
 
-//#define JudgeBufferLength       150
-//#define JudgeFrameLength_1      46
-//#define JudgeFrameLength_2      11
-//#define JudgeFrameLength_3      24
-#define JudgeBufferLength       200
-#define JudgeFrameLength_1      44
-#define JudgeFrameLength_2      12
-#define JudgeFrameLength_3      25
-#define JudgeHeaderLength        7
-#define JudgeCommandIDIndex     5
-#define JudgeFrameHeader        0xA5        //帧头 
+#define JUDGE_BUFFER_LENGTH           256
+#define JUDGE_INFO_FRAME_LENGTH       ((uint8_t)44)
+#define JUDGE_BLOOD_FRAME_LENGTH      ((uint8_t)12)
+#define JUDGE_SHOOT_FRAME_LENGTH      ((uint8_t)25)
+#define JUDGE_FRAME_HEADER_LENGTH     ((uint8_t)5)
+#define JUDGE_EXTRA_LENGTH            ((uint8_t)9)
+
+#define JUDGE_FRAME_HEADER            0xA5
+
+#ifndef JUDGE_FILE
+    #define JUDGE_EXT extern
+#else
+    #define JUDGE_EXT
+#endif
+
+#define UNUSED(x) ((void)(x))
+
+JUDGE_EXT volatile uint32_t JUDGE_FrameCounter;
+JUDGE_EXT volatile uint8_t JUDGE_Started, JUDGE_RemainByte, JUDGE_NextDecodeOffset;
 
 void judging_system_init(void);
 
-//裁判系统结构体
+void JUDGE_Decode(uint32_t length);
+void JUDGE_DecodeFrame(uint8_t type);
+uint8_t GetCRC8(uint8_t idx, uint8_t len, uint8_t ucCRC8);
+unsigned int VerifyCRC8(uint8_t idx, uint8_t len);
+
 typedef struct
 {
-    float RealVoltage;                  //实时电压
-    float RealCurrent;                  //实时电流
-    int16_t LastBlood;                  //剩余血量
-    uint8_t LastHartID;                 //上次收到伤害的装甲板ID号
-    float LastShotSpeed;                //上次射击速度
+    float RealVoltage;
+    float RealCurrent;
+    int16_t LastBlood;
+    uint8_t LastHartID;
+    float LastShotSpeed;
     float LastShotFreq;
     float RemainBuffer;
-		int16_t ArmorDecrease;
+	int16_t ArmorDecrease;
     int16_t OverShootSpeedDecrease;
     int16_t OverShootFreqDecrease;
     int16_t OverPowerDecrease;
     int16_t ModuleOfflineDecrease;
     uint8_t Updated;
-
 }InfantryJudge_Struct;
 
-//格式转换联合体
+// format transformation union
 typedef union
 {
     uint8_t U[4];
@@ -43,3 +57,5 @@ typedef union
 
 //the data will be stored in the following struct
 extern InfantryJudge_Struct InfantryJudge;
+
+#endif
