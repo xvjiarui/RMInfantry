@@ -29,6 +29,7 @@ typedef struct
     int16_t OverShootFreqDecrease;
     int16_t OverPowerDecrease;
     int16_t ModuleOfflineDecrease;
+    uint8_t Updated;
 
 }InfantryJudge_Struct;
 

@@ -57,22 +57,32 @@ void update_wheel_pid()
     wheels_speed_pid[3].current = CM4Encoder.filter_rate;
 }
 
-void update_wheel_pid_semi_closed_loop()
+int16_t get_wheel_filter_rate(uint8_t index)
 {
-    current_angle = output_angle;
-    angle_pid.current = current_angle;
-    buffer_pid.current = InfantryJudge.RemainBuffer;
-    wheels_speed_semi_closed_pid[0].current = CM1Encoder.filter_rate;
-    wheels_speed_semi_closed_pid[1].current = CM2Encoder.filter_rate;
-    wheels_speed_semi_closed_pid[2].current = CM3Encoder.filter_rate;
-    wheels_speed_semi_closed_pid[3].current = CM4Encoder.filter_rate;
+    switch(index)
+    {
+        case 0:
+            return CM1Encoder.filter_rate;
+        break;
+        case 1:
+            return CM2Encoder.filter_rate;
+        break;
+        case 2:
+            return CM3Encoder.filter_rate;
+        break;
+        case 3:
+            return CM4Encoder.filter_rate;
+        break;
+    }
 }
+
 
 float buffer_decay()
 {
     float ratio = 0;
     // ratio = PID_output3(&buffer_pid, 60, 100, -100, 100, -100, 0.65);
-    ratio = PID_output4(&buffer_pid, 60);
+    // ratio = PID_output4(&buffer_pid, 60);
+    ratio = PID_UpdateValue(&buffer_pid, 60, InfantryJudge.RemainBuffer);
     ratio = ratio > 0 ? ratio : 0;
     ratio = 1- ratio;
     return ratio;
@@ -80,11 +90,6 @@ float buffer_decay()
 
 void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
 {
-    if (mode == SEMI_CLOSED_LOOP)
-    {
-        update_wheel_pid_semi_closed_loop();
-    }
-    else update_wheel_pid();
 
     if (mode != NORMAL)
     {
@@ -96,12 +101,14 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
     {
         M_wheel_analysis_dancing(ch0, ch1, ch2, 0.5, 0.5, 0.5);
     }
-    else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_output2(&angle_pid, target_angle, 800, -800, 30, -30));
+    // else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_output2(&angle_pid, target_angle, 800, -800, 30, -30));
+    else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, target_angle, current_angle));
 
     static float ratio = 1;
-    if (buffer_updated)
+    if (InfantryJudge.Updated)
     {
         ratio = buffer_decay();
+        InfantryJudge.Updated = 0;
     }
     int16_t input[4] = {0, 0, 0, 0};
     int16_t target_speed[4] = {0, 0, 0, 0};
@@ -116,14 +123,12 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
         switch (mode)
         {
             case OPEN_LOOP:
-                PID_output2(&wheels_speed_pid[i], wheels_speed_pid[i].current, 990, -990, 100, 15);
+                PID_UpdateValue(&wheels_speed_pid[i], wheels_speed_pid[i].current, get_wheel_filter_rate(i));
                 input[i] = target_speed[i] * 3;
                 break;
-            case SEMI_CLOSED_LOOP:
-                input[i] = PID_output2(&wheels_speed_semi_closed_pid[i], target_speed[i], 990, -990, 100, 15);
-                break;
             default :
-                input[i] = PID_output2(&wheels_speed_pid[i], target_speed[i], 990, -990, 100, 15);
+                // input[i] = PID_output2(&wheels_speed_pid[i], target_speed[i], 990, -990, 100, 15);
+                input[i] = PID_UpdateValue(&wheels_speed_pid[i], target_speed[i], get_wheel_filter_rate(i));
                 break;
         }
         

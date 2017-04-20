@@ -43,8 +43,9 @@ void send_to_gimbal(int16_t pid_yaw, int16_t pid_pitch) {
 
 void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t input_pitch_pos)
 {
- gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
- float step = PID_output(&gimbal_reset_pid, 0);
+ // gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
+ // float step = PID_output(&gimbal_reset_pid, 0);
+	float step = PID_UpdateValue(&gimbal_reset_pid, 0, (GMYawEncoder.ecd_angle - init_yaw_pos));
  if (!fast_turning)
  {
  	target_angle = current_angle + 10 * step;
@@ -62,8 +63,9 @@ void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t inpu
 
 void chassis_follow_with_control_old(int16_t input_yaw_speed, int16_t input_pitch_pos)
 {
-	gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
-	float step = PID_output(&gimbal_reset_pid, 0);
+	// gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
+	// float step = PID_output(&gimbal_reset_pid, 0);
+	float step = PID_UpdateValue(&gimbal_reset_pid, 0, (GMYawEncoder.ecd_angle - init_yaw_pos));
 	target_angle = current_angle + 10 * step;
 	control_gimbal_pos_with_speed((GMYawEncoder.ecd_angle - init_yaw_pos + step * 27), input_pitch_pos, input_yaw_speed);
 }
@@ -80,13 +82,13 @@ void chassis_follow_with_control_old(int16_t input_yaw_speed, int16_t input_pitc
 // 	// control_gimbal_pos(input_yaw_pos + difference * 27, input_pitch_pos);
 // }
 
-void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t input_yaw_speed, int16_t input_pitch_pos)
-{
-	gimbal_relative_angle_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
-	float step = PID_output(&gimbal_relative_angle_pid, relative_angle);
-	target_angle = current_angle + 10 * step;
-	control_gimbal_pos_with_speed((GMYawEncoder.ecd_angle - init_yaw_pos + step * 20), input_pitch_pos, input_yaw_speed);
-}
+// void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t input_yaw_speed, int16_t input_pitch_pos)
+// {
+// 	gimbal_relative_angle_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
+// 	float step = PID_output(&gimbal_relative_angle_pid, relative_angle);
+// 	target_angle = current_angle + 10 * step;
+// 	control_gimbal_pos_with_speed((GMYawEncoder.ecd_angle - init_yaw_pos + step * 20), input_pitch_pos, input_yaw_speed);
+// }
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -95,12 +97,13 @@ void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t 
 //////////////////////////////////////////////////
 
 int16_t pid_gimbal_yaw_speed(int16_t target_yaw_speed) {
-	gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;
+	// gimbal_speed_pid[0].current = GMYawEncoder.filter_rate;
 	if ((gimbal_exceed_left_bound() && target_yaw_speed > 0) || (gimbal_exceed_right_bound() && target_yaw_speed < 0))
 	{
 		target_yaw_speed = 0;
 	}
-	return PID_output2(&gimbal_speed_pid[0], target_yaw_speed, 660, -660, 100, 15);;
+	// return PID_output2(&gimbal_speed_pid[0], target_yaw_speed, 660, -660, 100, 15);;
+	return PID_UpdateValue(&gimbal_speed_pid[0], target_yaw_speed, GMYawEncoder.filter_rate);
 }
 
 int16_t pid_gimbal_yaw_pos(int16_t target_yaw_pos) {
@@ -109,20 +112,23 @@ int16_t pid_gimbal_yaw_pos(int16_t target_yaw_pos) {
 
 int16_t pid_gimbal_yaw_pos_with_speed(int16_t target_yaw_pos, int16_t yaw_speed) {
 	target_yaw_pos += init_yaw_pos;
-	gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle;
-	int16_t target_yaw_speed = yaw_speed + PID_output2(&gimbal_pos_pid[0], target_yaw_pos, init_yaw_pos + 660, init_yaw_pos - 660, 100, 30);
+	// gimbal_pos_pid[0].current = GMYawEncoder.ecd_angle;
+	// int16_t target_yaw_speed = yaw_speed + PID_output2(&gimbal_pos_pid[0], target_yaw_pos, init_yaw_pos + 660, init_yaw_pos - 660, 100, 30);
+	int16_t target_yaw_speed = yaw_speed + PID_UpdateValue(&gimbal_pos_pid[0], target_yaw_pos, GMYawEncoder.ecd_angle);
 	return pid_gimbal_yaw_speed(target_yaw_speed);
 }
 
 int16_t pid_gimbal_pitch_speed(int16_t target_pitch_speed) {
-	gimbal_speed_pid[1].current = GMPitchEncoder.filter_rate;
-	return PID_output2(&gimbal_speed_pid[1], target_pitch_speed, 660, -660, 100, 15);
+	// gimbal_speed_pid[1].current = GMPitchEncoder.filter_rate;
+	// return PID_output2(&gimbal_speed_pid[1], target_pitch_speed, 660, -660, 100, 15);
+	return PID_UpdateValue(&gimbal_speed_pid[1], target_pitch_speed, GMPitchEncoder.filter_rate);
 }
 
 int16_t pid_gimbal_pitch_pos(int16_t target_pitch_pos) {
 	target_pitch_pos += init_pitch_pos;
-	gimbal_pos_pid[1].current = GMPitchEncoder.ecd_angle;
-	int16_t target_pitch_speed = PID_output2(&gimbal_pos_pid[1], target_pitch_pos, init_pitch_pos + 660, init_pitch_pos - 660, 100, 30);
+	// gimbal_pos_pid[1].current = GMPitchEncoder.ecd_angle;
+	// int16_t target_pitch_speed = PID_output2(&gimbal_pos_pid[1], target_pitch_pos, init_pitch_pos + 660, init_pitch_pos - 660, 100, 30);
+	int16_t target_pitch_speed = PID_UpdateValue(&gimbal_pos_pid[1], target_pitch_pos, GMPitchEncoder.ecd_angle);
 	return pid_gimbal_pitch_speed(target_pitch_speed);
 }
 

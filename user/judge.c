@@ -251,6 +251,7 @@ void Judge_InitConfig(void)
     InfantryJudge.OverShootFreqDecrease = 0;
     InfantryJudge.OverPowerDecrease = 0;
     InfantryJudge.ModuleOfflineDecrease = 0;
+    InfantryJudge.Updated = 0;
 }
 
 u8 UARTtemp1;
@@ -294,6 +295,7 @@ void Judge_DecodePackage1(uint16_t head)
         FT.U[i] = JudgeDataBuffer[head + JudgeHeaderLength + 31 + i];
     }
     InfantryJudge.RemainBuffer = FT.F;
+    InfantryJudge.Updated = 1;
 
     // Read LastBlood
     InfantryJudge.LastBlood = ((int16_t)JudgeDataBuffer[head + JudgeHeaderLength + 5] << 8) | JudgeDataBuffer[head + JudgeHeaderLength + 4];

@@ -72,7 +72,7 @@ void external_control(void) {
 			Set_CM_Speed(CAN1, 0, 0, 0, 0);
 			Set_CM_Speed(CAN2, 0, 0, 0, 0);
 			target_angle = current_angle;
-			PID_init_all();
+			PID_Reset_all();
 			input_init_all();
 			DBUS_ReceiveData.mouse.x_position = 0;
 			DBUS_ReceiveData.mouse.y_position = 0;
@@ -82,7 +82,7 @@ void external_control(void) {
 
 void remote_control(void) {
 	int16_t ch_changes[4] = {0, 0, 0, 0};
-	ch_changes[0] = 1.5 * DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
+	ch_changes[0] = 1.25 * DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
 	ch_changes[1] = 1.5 * DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
 	ch_changes[2] = -DBUS_ReceiveData.rc.ch2 / 8 - last_ch_input[2];
 	ch_changes[3] = DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
@@ -251,7 +251,7 @@ void process_keyboard_data(void)
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	float ratio = 1;
 	ratio += 0.5 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
-	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * ratio - last_ch_input[0];
+	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 550 * ratio - last_ch_input[0];
 	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
 	ch_changes[2] = 0;
@@ -424,12 +424,12 @@ void chassis_disconnect_handler(void)
 {
 	input_init_ch();
 	Set_CM_Speed(CAN2, 0, 0, 0, 0);
-	PID_init_chassis();
+	PID_Reset_chassis();
 }
 
 void gimbal_disconnect_handler(void)
 {
-	PID_init_gimbal();
+	PID_Reset_gimbal();
 	input_init_mouse();
 	Set_CM_Speed(CAN1, 0, 0, 0, 0);
 }
