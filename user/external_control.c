@@ -8,6 +8,7 @@
 #include "flash.h"
 #include "buzzer_song.h"
 #include "Driver_Gun.h"
+#include "param.h"
 
 void external_control(void) {
 	if (DBUS_Connected)
@@ -82,12 +83,12 @@ void external_control(void) {
 
 void remote_control(void) {
 	int16_t ch_changes[4] = {0, 0, 0, 0};
-	ch_changes[0] = 1.25 * DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
-	ch_changes[1] = 1.5 * DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
-	ch_changes[2] = -DBUS_ReceiveData.rc.ch2 / 8 - last_ch_input[2];
-	ch_changes[3] = DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
-	int16_t max_change = 2;
-	int16_t min_change = -2;
+	ch_changes[0] = CONTROLLER_RWLW_RATIO * DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
+	ch_changes[1] = CONTROLLER_FWBW_RATIO * DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
+	ch_changes[2] = -CONTROLLER_YAW_RATIO * DBUS_ReceiveData.rc.ch2- last_ch_input[2];
+	ch_changes[3] = CONTROLLER_PITCH_RATIO * DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
+	int16_t max_change = RWLW_ACCELERATION;
+	int16_t min_change = -RWLW_ACCELERATION;
 	for (int i = 0; i < 4; ++i)
 	{
 		limit_int_range(&ch_changes[i], max_change, min_change);
@@ -216,12 +217,12 @@ void computer_control(void) {
 void process_mouse_data(void)
 {
 	int16_t mouse_changes[2] = {0, 0};
-	mouse_changes[0] = - 5 * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
-	mouse_changes[1] = - 1 * DBUS_ReceiveData.mouse.y_position - last_mouse_input[1];
+	mouse_changes[0] = - MOUSE_YAW_RATIO * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
+	mouse_changes[1] = - MOUSE_PITCH_RATIO * DBUS_ReceiveData.mouse.y_position - last_mouse_input[1];
 	int16_t max_mouse_change = 4;
 	int16_t min_mouse_change = -4;
-	limit_int_range(&mouse_changes[0], max_mouse_change, min_mouse_change);
-	limit_int_range(&mouse_changes[1], max_mouse_change, min_mouse_change);
+	limit_int_range(&mouse_changes[0], YAW_ACCELERATION, -YAW_ACCELERATION);
+	limit_int_range(&mouse_changes[1], PITCH_ACCELERATION, -PITCH_ACCELERATION);
 	mouse_input[0] += mouse_changes[0];
 	last_mouse_input[0] = mouse_input[0];
 	mouse_input[1] += mouse_changes[1];
@@ -251,14 +252,14 @@ void process_keyboard_data(void)
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	float ratio = 1;
 	ratio += 0.5 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
-	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 550 * ratio - last_ch_input[0];
-	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * ratio - last_ch_input[1];
+	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * KEYBOARD_RWLW_RATIO * ratio - last_ch_input[0];
+	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * KEYBOARD_FWBW_RATIO * ratio - last_ch_input[1];
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
 	ch_changes[2] = 0;
 	int16_t max_change = 1;
 	int16_t min_change = -1;
-	limit_int_range(&ch_changes[0], max_change*2, min_change*2);
-	limit_int_range(&ch_changes[1], max_change, min_change);
+	limit_int_range(&ch_changes[0], RWLW_ACCELERATION, -RWLW_ACCELERATION);
+	limit_int_range(&ch_changes[1], FWBW_ACCELERATION, -FWBW_ACCELERATION);
 	limit_int_range(&ch_changes[2], max_change, min_change);
 	for (int i = 0; i < 3; ++i)
 	{

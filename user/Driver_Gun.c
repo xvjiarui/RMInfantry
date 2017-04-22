@@ -4,6 +4,7 @@
 #include "Driver_Encoder.h"
 #include "Driver_Gun.h"
 #include "global_variable.h"
+#include "param.h"
 
 #include <string.h>
 
@@ -125,8 +126,8 @@ void GUN_SetMotion(void) {
 
     // friction wheel
     if (DBUS_ReceiveData.rc.switch_right != 1) {
-        FRIC_SET_THRUST_L(650);
-        FRIC_SET_THRUST_R(650);
+        FRIC_SET_THRUST_L(FRICTION_WHEEL_PWM);
+        FRIC_SET_THRUST_R(FRICTION_WHEEL_PWM);
     }
     else {
         FRIC_SET_THRUST_L(0);
