@@ -10,7 +10,8 @@ typedef enum CarMode
     NORMAL,
     OPEN_LOOP,
     SEMI_CLOSED_LOOP,
-    DANCING
+    DANCING,
+		COUNTER
 } CarMode;
 
 #endif
