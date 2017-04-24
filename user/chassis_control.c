@@ -4,6 +4,7 @@
 #include "global_variable.h"
 #include "chassis_control.h"
 #include "customized_function.h"
+#include "param.h"
 
 void send_to_chassis(int16_t wheel_speed_0, int16_t wheel_speed_1, int16_t wheel_speed_2, int16_t wheel_speed_3) {
     Set_CM_Speed(CAN2, wheel_speed_0, wheel_speed_1, wheel_speed_2, wheel_speed_3);
@@ -102,8 +103,14 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
         M_wheel_analysis_dancing(ch0, ch1, ch2, 0.5, 0.5, 0.5);
     }
     // else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_output2(&angle_pid, target_angle, 800, -800, 30, -30));
-    else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, target_angle, current_angle));
-
+    else
+		{	
+			s32 angle_change = 0;
+			angle_change = target_angle - last_angle;
+			limit_s32_range(&angle_change, ROTATION_ACCELERATION, -ROTATION_ACCELERATION);
+			M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, current_angle + angle_change, current_angle));
+			last_angle = current_angle + angle_change;
+		}
     static float ratio = 1;
     if (InfantryJudge.Updated)
     {

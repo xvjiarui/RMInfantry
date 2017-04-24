@@ -36,6 +36,7 @@ int16_t int_debug = 0;
 int16_t int_debug2 = 0;
 s32 target_angle = 0;
 s32 current_angle = 0;
+s32 last_angle = 0;
 int16_t M_wheel_result[4] = {0, 0, 0, 0};
 PID wheels_pos_pid[4];
 PID wheels_speed_pid[4];
@@ -119,6 +120,7 @@ int main(void)
 				{
 					if (DBUS_ReceiveData.rc.switch_left != 2)
 					{
+						/*
 						tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
 						tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
 						tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
@@ -129,6 +131,9 @@ int main(void)
 						tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
 						tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
 						tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
+						*/
+						tft_prints(0, 8, "pid:%f", float_debug);
+						tft_prints(0,9, "yaw_speed:%d", int_debug);
 					}
 					else
 					{

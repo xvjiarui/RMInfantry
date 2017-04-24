@@ -22,5 +22,6 @@
 #define RWLW_ACCELERATION				2
 
 #define FRICTION_WHEEL_PWM				800
+#define ROTATION_ACCELERATION 	100
 
 #endif
