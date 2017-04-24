@@ -68,6 +68,7 @@ typedef struct {
 
 void PID_Reset(PID_Controller *pid);
 float PID_Update(PID_Controller *pid, float target, float measure);
+uint16_t Friction_Wheel_PWM(void);
 
 
 #endif

@@ -126,8 +126,9 @@ void GUN_SetMotion(void) {
 
     // friction wheel
     if (DBUS_ReceiveData.rc.switch_right != 1) {
-        FRIC_SET_THRUST_L(FRICTION_WHEEL_PWM);
-        FRIC_SET_THRUST_R(FRICTION_WHEEL_PWM);
+        uint16_t friction_wheel_pwm = Friction_Wheel_PWM();
+        FRIC_SET_THRUST_L(friction_wheel_pwm);
+        FRIC_SET_THRUST_R(friction_wheel_pwm);
     }
     else {
         FRIC_SET_THRUST_L(0);
@@ -336,3 +337,37 @@ float PID_Update(PID_Controller *pid, float target, float measure) {
     return ret;
 }
 
+uint16_t Friction_Wheel_PWM(void)
+{
+    uint16_t result = 0;
+    if (InfantryJudge.RealVoltage > 24.5)
+    {
+        result = 650;
+    }
+    else if (InfantryJudge.RealVoltage > 24)
+    {
+        result = 670;
+    }
+    else if (InfantryJudge.RealVoltage > 23.5)
+    {
+        result = 690;
+    }
+    else if (InfantryJudge.RealVoltage > 23)
+    {
+        result = 700;
+    }
+    else if (InfantryJudge.RealVoltage > 22.5)
+    {
+        result = 715;
+    }
+    else if (InfantryJudge.RealVoltage > 22)
+    {
+        result = 730;
+    }
+    else if (InfantryJudge.RealVoltage > 21.5)
+    {
+        result = 745;
+    }
+    else result = 750;
+    return result;
+}

@@ -168,7 +168,7 @@ int main(void)
 					}
 					// tft_prints(0, 4, "Q(%d,%d) W(%d,%d)", read_buff_pos[0], read_buff_pos[9], read_buff_pos[1], read_buff_pos[10]);
 					
-					tft_prints(0,2,"Buff Mode:%d", DBUS_ReceiveData.rc.switch_left);
+					tft_prints(0,2,"Buff Mode:%d %f", DBUS_ReceiveData.rc.switch_left, InfantryJudge.RealVoltage);
 					tft_prints(0,3,"Q:(%d,%d)", read_buff_pos[0], read_buff_pos[9]);
 					tft_prints(0,4,"W:(%d,%d)", read_buff_pos[1], read_buff_pos[10]);
 					tft_prints(0,5,"E:(%d,%d)", read_buff_pos[2], read_buff_pos[11]);
