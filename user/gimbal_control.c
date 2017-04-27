@@ -43,9 +43,14 @@ void send_to_gimbal(int16_t pid_yaw, int16_t pid_pitch) {
 
 void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t input_pitch_pos)
 {
+	control_gimbal_with_chassis_following_angle(input_yaw_speed, input_pitch_pos, 0);
+}
+
+void control_gimbal_with_chassis_following_angle(int16_t input_yaw_speed, int16_t input_pitch_pos, float angle)
+{
  // gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
  // float step = PID_output(&gimbal_reset_pid, 0);
-	float step = PID_UpdateValue(&gimbal_reset_pid, 0, (GMYawEncoder.ecd_angle - init_yaw_pos));
+	float step = PID_UpdateValue(&gimbal_reset_pid, angle, (GMYawEncoder.ecd_angle - init_yaw_pos));
  if (!fast_turning)
  {
  	target_angle = current_angle + 10 * step;
@@ -58,9 +63,14 @@ void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t inpu
  {
  	control_gimbal(0, init_pitch_pos);
  }	
- else control_gimbal(input_yaw_speed, input_pitch_pos);
+ else
+ {
+	 control_gimbal(input_yaw_speed, input_pitch_pos);
+ }
+ 
+	float_debug = step;
+	int_debug = (int)input_yaw_speed;
 }
-
 void chassis_follow_with_control_old(int16_t input_yaw_speed, int16_t input_pitch_pos)
 {
 	// gimbal_reset_pid.current = (GMYawEncoder.ecd_angle - init_yaw_pos);
@@ -191,6 +201,10 @@ int16_t gimbal_exceed_lower_bound() {
 
 int16_t gimbal_yaw_back(){
 	return float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 27);
+}
+
+int16_t gimbal_yaw_back_angle(float angle){
+	return float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, angle, 27);
 }
 
 //////////////////////////////////////////////////

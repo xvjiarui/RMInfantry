@@ -4,6 +4,7 @@
 #include "global_variable.h"
 #include "chassis_control.h"
 #include "customized_function.h"
+#include "param.h"
 
 void send_to_chassis(int16_t wheel_speed_0, int16_t wheel_speed_1, int16_t wheel_speed_2, int16_t wheel_speed_3) {
     Set_CM_Speed(CAN2, wheel_speed_0, wheel_speed_1, wheel_speed_2, wheel_speed_3);
@@ -32,6 +33,31 @@ void M_wheel_analysis(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0, float
 }
 
 void M_wheel_analysis_dancing(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0, float ratio1, float ratio2) {
+    int16_t theta = -(GMYawEncoder.ecd_angle - init_yaw_pos) * GYRO_ANGLE_RATIO / YAW_ANGLE_RATIO;
+    int16_t ch0_temp = ch0;
+    int16_t ch1_temp = ch1;
+    ch0 = ch1_temp * sin_val(theta) + ch0_temp * cos_val(theta);
+    ch1 = ch1_temp * cos_val(theta) - ch0_temp * sin_val(theta);
+    ch0 *= ratio0;
+    ch1 *= ratio1;
+    ch2 *= ratio2;
+    M_wheel_result[0] = ch1 + ch0 + ch2;
+    M_wheel_result[1] = -(ch1 - ch0 - ch2);
+    M_wheel_result[2] = -(ch1 + ch0 - ch2);
+    M_wheel_result[3] = ch1 - ch0 + ch2;
+}
+
+void M_wheel_analysis_counter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0, float ratio1, float ratio2, int16_t delta) {
+		if (ch2 < 1 && ch2 > -1) {
+        ch2 = delta;
+        gimbal_follow = 1;
+    }
+    else
+    {
+        target_angle = current_angle;
+        gimbal_follow = 0;
+    }
+		chassis_ch2 = ch2;
     int16_t theta = -(GMYawEncoder.ecd_angle - init_yaw_pos) * GYRO_ANGLE_RATIO / YAW_ANGLE_RATIO;
     int16_t ch0_temp = ch0;
     int16_t ch1_temp = ch1;
@@ -91,7 +117,7 @@ float buffer_decay()
 void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
 {
 
-    if (mode != NORMAL)
+    if (mode != NORMAL && mode != COUNTER)
     {
         target_angle = current_angle;
         gimbal_follow = 0;
@@ -102,8 +128,18 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
         M_wheel_analysis_dancing(ch0, ch1, ch2, 0.5, 0.5, 0.5);
     }
     // else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_output2(&angle_pid, target_angle, 800, -800, 30, -30));
-    else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, target_angle, current_angle));
-
+		else if (mode == COUNTER)
+		{
+			M_wheel_analysis_counter(ch0, ch1, ch2, 0.5, 0.5, 0.5, PID_UpdateValue(&angle_pid, target_angle, current_angle));
+		}
+    else
+		{	
+			s32 angle_change = 0;
+			angle_change = target_angle - last_angle;
+			limit_s32_range(&angle_change, ROTATION_ACCELERATION, -ROTATION_ACCELERATION);
+			M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, current_angle + angle_change, current_angle));
+			last_angle = current_angle + angle_change;
+		}
     static float ratio = 1;
     if (InfantryJudge.Updated)
     {

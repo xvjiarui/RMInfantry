@@ -15,6 +15,13 @@ void limit_int_range(int16_t* num, int16_t upper_bound, int16_t lower_bound) {
 		*num = lower_bound;
 }
 
+void limit_s32_range(s32* num, s32 upper_bound, s32 lower_bound) {
+	if (*num > upper_bound)
+		*num = upper_bound;
+	else if (*num < lower_bound)
+		*num = lower_bound;
+}
+
 void limit_float_range(float* num, float upper_bound, float lower_bound)
 {
 	if (*num > upper_bound)
