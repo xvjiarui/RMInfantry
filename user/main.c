@@ -45,6 +45,8 @@ PID buffer_pid;
 PID gimbal_speed_pid[2];
 PID gimbal_pos_pid[2];
 PID gimbal_reset_pid;
+PID driver_speed_pid;
+PID driver_pos_pid;
 u8 str[256];
 float init_yaw_pos;
 float init_pitch_pos;
@@ -120,20 +122,21 @@ int main(void)
 				{
 					if (DBUS_ReceiveData.rc.switch_left != 2)
 					{
-						/*
-						tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
-						tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
-						tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
-						tft_prints(0, 5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
-						tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
-						tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
-						tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
-						tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
-						tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
-						tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
-						*/
-						tft_prints(0, 8, "pid:%f", float_debug);
-						tft_prints(0,9, "yaw_speed:%d", int_debug);
+						
+						// tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
+						// tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
+						// tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
+						// tft_prints(0, 5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
+						// tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
+						// tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
+						// tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
+						// tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
+						// tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
+						// tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
+						
+						tft_prints(0, 2, "s:%d", GMxEncoder.filter_rate);
+						// tft_prints(0, 8, "pid:%f", float_debug);
+						// tft_prints(0,9, "yaw_speed:%d", int_debug);
 					}
 					else
 					{

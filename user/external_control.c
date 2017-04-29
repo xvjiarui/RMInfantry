@@ -77,6 +77,12 @@ void external_control(void) {
 			input_init_all();
 			DBUS_ReceiveData.mouse.x_position = 0;
 			DBUS_ReceiveData.mouse.y_position = 0;
+		// Testing Driver
+
+		int16_t input = PID_UpdateValue(&wheels_speed_pid[2], 1500, GMxEncoder.filter_rate);
+		Set_CM_Speed(CAN1, 0, 0, input, 0);
+
+		// 
 			break;
 	}
 }

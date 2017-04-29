@@ -21,8 +21,15 @@
 #define FWBW_ACCELERATION				1
 #define RWLW_ACCELERATION				2
 
-#define FRICTION_WHEEL_PWM				800
+#define ROTATION_ACCELERATION 			500
 
-#define ROTATION_ACCELERATION 			100
+
+#ifdef GOGOGO
+#define FRICTION_WHEEL_PWM				1.0
+#elif defined RUNRUNRUN
+#define FRICTION_WHEEL_PWM				1.0
+#else 
+#define FRICTION_WHEEL_PWM				1.0
+#endif
 
 #endif

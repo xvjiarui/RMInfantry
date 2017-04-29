@@ -58,12 +58,12 @@ void EncoderProcess(volatile Encoder *v, CanRxMsg * msg)
 	v->diff = v->raw_value - v->last_raw_value;
 	v->velocity_from_ESC = (msg->Data[2]<<8)|msg->Data[3];
 	//for detecting the speed with last sample
-	if(v->diff < -7000)    //两次编码器的反馈值差别太大，表示圈数发生了改变
+	if(v->diff < -6000)    //两次编码器的反馈值差别太大，表示圈数发生了改变
 	{
 		v->round_cnt++;
 		v->ecd_raw_rate = v->diff + 8192;
 	}
-	else if(v->diff>7000)   //bug
+	else if(v->diff>6000)   //bug
 	{
 		v->round_cnt--;
 		v->ecd_raw_rate = v->diff- 8192;
@@ -147,7 +147,13 @@ void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg)
 				case CAN_BUS2_MOTOR2_FEEDBACK_MSG_ID:
 				{
 					(can_count<=50) ? GetEncoderBias(&GMPitchEncoder,msg):EncoderProcess(&GMPitchEncoder,msg);
-				}break;				
+				}break;
+
+				case CAN_BUS2_MOTOR3_FEEDBACK_MSG_ID:
+				{
+					(can_count<=50) ? GetEncoderBias(&GMxEncoder ,msg):EncoderProcess(&GMxEncoder ,msg);   
+				}break;		
+
 		}
  
 }
