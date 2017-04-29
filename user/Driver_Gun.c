@@ -6,6 +6,7 @@
 #include "global_variable.h"
 #include "param.h"
 #include "customized_function.h"
+#include "gimbal_control.h"
 
 #include <string.h>
 

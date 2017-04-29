@@ -1,6 +1,24 @@
 #ifndef EXTERNAL_CONTROL_H
 #define EXTERNAL_CONTROL_H
 
+#ifndef EXTERNAL_CONTROL_FILE
+	#define EXTERNAL_CONTROL_EXT extern
+#else 
+	#define EXTERNAL_CONTROL_EXT
+#endif
+
+EXTERNAL_CONTROL_EXT uint8_t Chassis_Connected;
+EXTERNAL_CONTROL_EXT uint8_t Gimbal_Connected;
+EXTERNAL_CONTROL_EXT uint8_t DBUS_Connected;
+EXTERNAL_CONTROL_EXT uint8_t GUN_ENCODER_Connected;
+EXTERNAL_CONTROL_EXT int16_t chassis_ch2;
+EXTERNAL_CONTROL_EXT int16_t last_ch_input[4];
+EXTERNAL_CONTROL_EXT int16_t ch_input[4];
+EXTERNAL_CONTROL_EXT int16_t mouse_input[2];
+EXTERNAL_CONTROL_EXT int16_t last_mouse_input[2];
+
+void external_control_init(void);
+
 void external_control(void);
 void remote_control(void);
 void computer_control(void);

@@ -3,6 +3,8 @@
 #include "stm32f4xx.h"
 #include "global_variable.h"
 #include "external_control.h"
+#include "chassis_control.h"
+#include "gimbal_control.h"
 
 void TIM7_IRQHandler(void) {
     static uint32_t tick = 0;

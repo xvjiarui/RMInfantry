@@ -1,10 +1,24 @@
+#define CHASSIS_CONTROL_FILE
 
 #include "function_list.h"
 #include "PID_s.h"
 #include "global_variable.h"
 #include "chassis_control.h"
+#include "gimbal_control.h"
 #include "customized_function.h"
+#include "external_control.h"
 #include "param.h"
+#include "const.h"
+
+void chassis_control_init(void)
+{
+    target_angle = 0;
+    current_angle = 0;
+    last_angle = 0;
+    memset(M_wheel_result, 0, sizeof(M_wheel_result));
+    fast_turning = 0;
+    chassis_already_auto_stop = 0;
+}
 
 void send_to_chassis(int16_t wheel_speed_0, int16_t wheel_speed_1, int16_t wheel_speed_2, int16_t wheel_speed_3) {
     Set_CM_Speed(CAN2, wheel_speed_0, wheel_speed_1, wheel_speed_2, wheel_speed_3);

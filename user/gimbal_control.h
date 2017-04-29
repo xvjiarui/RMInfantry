@@ -2,6 +2,29 @@
 #define GIMBAL_CONTROL
 
 #include "global_variable.h"
+#include "PID_s.h"
+#include "customized_type.h"
+
+#ifndef GIMBAL_CONTROL_FILE
+ 	#define GIMBAL_CONTROL_EXT extern
+ #else 
+	#define GIMBAL_CONTROL_EXT 
+#endif
+
+GIMBAL_CONTROL_EXT PID gimbal_speed_pid[2];
+GIMBAL_CONTROL_EXT PID gimbal_pos_pid[2];
+GIMBAL_CONTROL_EXT PID gimbal_reset_pid;
+GIMBAL_CONTROL_EXT PID driver_speed_pid;
+GIMBAL_CONTROL_EXT PID driver_pos_pid;
+GIMBAL_CONTROL_EXT float init_yaw_pos;
+GIMBAL_CONTROL_EXT float init_pitch_pos;//extern const float init_pitch_pos;
+GIMBAL_CONTROL_EXT uint8_t gimbal_follow;
+GIMBAL_CONTROL_EXT uint8_t buff_mode;
+GIMBAL_CONTROL_EXT uint8_t gimbal_in_buff_pos;
+GIMBAL_CONTROL_EXT uint8_t buff_pressed;
+GIMBAL_CONTROL_EXT uint8_t clearing_ammo;
+
+void gimbal_control_init(void);
 
 int16_t pid_gimbal_yaw_pos(int16_t target_yaw_pos);
 int16_t pid_gimbal_yaw_speed(int16_t target_yaw_speed);

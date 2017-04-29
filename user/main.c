@@ -7,7 +7,7 @@
 #include "external_control.h"
 #include "flash.h"
 #include "BSP_TIM.h"
-
+#include "const.h"
 volatile u32 ticks_msimg = (u32)-1;
 
 void init(){
@@ -29,64 +29,22 @@ void init(){
 	ENCODER_Init();
 	GUN_Init();
 	BSP_TIM_InitConfig();
+	PID_init_all();
+	input_init_all();
+	chassis_control_init();
+	gimbal_control_init();
 }
 
-float float_debug = 0;
-int16_t int_debug = 0;
-int16_t int_debug2 = 0;
-s32 target_angle = 0;
-s32 current_angle = 0;
-s32 last_angle = 0;
-int16_t M_wheel_result[4] = {0, 0, 0, 0};
-PID wheels_pos_pid[4];
-PID wheels_speed_pid[4];
-PID angle_pid;
-PID buffer_pid;
-PID gimbal_speed_pid[2];
-PID gimbal_pos_pid[2];
-PID gimbal_reset_pid;
-PID driver_speed_pid;
-PID driver_pos_pid;
-u8 str[256];
-float init_yaw_pos;
-float init_pitch_pos;
+int16_t int_debug;
+int16_t int_debug2;
+float float_debug;
 union u32ANDint16_t manual_buff_pos[18];
 int16_t read_buff_pos[18];
-uint8_t Chassis_Connected = 1;
-uint8_t Gimbal_Connected = 1;
-uint8_t DBUS_Connected = 1;
-uint8_t GUN_ENCODER_Connected = 1;
-int16_t chassis_ch2 = 0;
-const float YAW_SPEED_TO_CHASSIS_CH2 = (float)31 / (float)220;
-//following 4 variable will be init in 
-int16_t last_ch_input[4];
-int16_t ch_input[4];
-int16_t mouse_input[2];
-int16_t last_mouse_input[2];
-uint8_t gimbal_follow = 1;
-uint8_t chassis_already_auto_stop = 0;
-uint8_t buff_mode = 0;
-uint8_t gimbal_in_buff_pos = 0;
-uint8_t buff_pressed =0;
-uint8_t clearing_ammo = 0;
-uint8_t fast_turning = 0;
-const float YAW_ANGLE_RATIO = 27;
-const float YAW_LEFT_BOUND_REAL_ANGLE = 65;
-const float YAW_RIGHT_BOUND_REAL_ANGLE = -65;
-const float YAW_LEFT_BOUND = (YAW_ANGLE_RATIO * YAW_LEFT_BOUND_REAL_ANGLE);
-const float YAW_RIGHT_BOUND = (YAW_ANGLE_RATIO * YAW_RIGHT_BOUND_REAL_ANGLE);
-const float PITCH_ANGLE_RATIO = 19;
-const float PITCH_UPPER_BOUND_REAL_ANGLE = 45;
-const float PITCH_UPPER_BOUND = (PITCH_ANGLE_RATIO * PITCH_UPPER_BOUND_REAL_ANGLE);
-const float GYRO_ANGLE_RATIO = 10;
+
 
 int main(void)
 {	
 	init();
-	PID_init_all();
-	input_init_all();
-	init_yaw_pos = GMYawEncoder.ecd_angle;
-	init_pitch_pos = GMPitchEncoder.ecd_angle + 5 * PITCH_ANGLE_RATIO;
 	for (int i = 0; i < 18; ++i)
 	{
 		manual_buff_pos[i].flash = readFlash(i);
@@ -123,18 +81,18 @@ int main(void)
 					if (DBUS_ReceiveData.rc.switch_left != 2)
 					{
 						
-						// tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
-						// tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
-						// tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
-						// tft_prints(0, 5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
-						// tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
-						// tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
-						// tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
-						// tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
-						// tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
-						// tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
+						tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
+						tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
+						tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
+						tft_prints(0, 5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
+						tft_prints(0, 6,"Chassis:%d", Chassis_Connected);
+						tft_prints(0, 7,"Gimbal:%d", Gimbal_Connected);
+						tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
+						tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
+						tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
+						tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);
 						
-						tft_prints(0, 2, "s:%d", GMxEncoder.filter_rate);
+						// tft_prints(0, 2, "s:%d", GMxEncoder.filter_rate);
 						// tft_prints(0, 8, "pid:%f", float_debug);
 						// tft_prints(0,9, "yaw_speed:%d", int_debug);
 					}

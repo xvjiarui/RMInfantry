@@ -1,6 +1,9 @@
 #include "function_list.h"
 #include "global_variable.h"
 #include "customized_function.h"
+#include "external_control.h"
+#include "chassis_control.h"
+#include "gimbal_control.h"
 
 void pause(int ms) {
 	u32 ticks = get_ms_ticks();

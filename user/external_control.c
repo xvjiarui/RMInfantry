@@ -1,3 +1,4 @@
+#define EXTERNAL_CONTROL_FILE
 #include "function_list.h"
 #include "external_control.h"
 #include "PID_s.h"
@@ -9,6 +10,21 @@
 #include "buzzer_song.h"
 #include "Driver_Gun.h"
 #include "param.h"
+#include "const.h"
+
+void external_control_init(void)
+{
+	Chassis_Connected = 1;
+	Gimbal_Connected = 1;
+	DBUS_Connected = 1;
+	GUN_ENCODER_Connected = 1;
+	chassis_ch2 = 0;
+	memset(last_ch_input, 0, sizeof(last_ch_input));
+	memset(ch_input, 0, sizeof(ch_input));
+	memset(mouse_input, 0 ,sizeof(mouse_input));
+	memset(last_ch_input, 0, sizeof(last_ch_input));
+
+}
 
 void external_control(void) {
 	if (DBUS_Connected)
@@ -77,12 +93,12 @@ void external_control(void) {
 			input_init_all();
 			DBUS_ReceiveData.mouse.x_position = 0;
 			DBUS_ReceiveData.mouse.y_position = 0;
-		// Testing Driver
+		// // Testing Driver
 
-		int16_t input = PID_UpdateValue(&wheels_speed_pid[2], 1500, GMxEncoder.filter_rate);
-		Set_CM_Speed(CAN1, 0, 0, input, 0);
+		// int16_t input = PID_UpdateValue(&wheels_speed_pid[2], 1500, GMxEncoder.filter_rate);
+		// Set_CM_Speed(CAN1, 0, 0, input, 0);
 
-		// 
+		// // 
 			break;
 	}
 }
