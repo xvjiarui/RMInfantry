@@ -78,6 +78,9 @@ void PID_init_driver(void)
 {
 	PID_init(&driver_speed_pid, 100, 20, 0, 12000, Positional);
 	PID_init(&driver_pos_pid, 0.3, 0, 0, 80, Positional);
+	PID_init(&new_driver_speed_pid, 80, 5, 100, 20000, IntegralResist);
+	PID_SetIntegral(&new_driver_speed_pid, 2000, -2000, 100, 15, 0, 0, 0);
+	PID_init(&new_driver_pos_pid, 0.1, 0, 0, 5000, Positional);
 }
 
 void PID_Reset_all(void)

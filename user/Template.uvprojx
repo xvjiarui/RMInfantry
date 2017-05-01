@@ -454,6 +454,11 @@
               <FileType>1</FileType>
               <FilePath>.\TIM_handler.c</FilePath>
             </File>
+            <File>
+              <FileName>const.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\const.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

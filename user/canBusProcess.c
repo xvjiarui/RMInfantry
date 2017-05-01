@@ -14,10 +14,12 @@ volatile Encoder GMYawEncoder = {0,0,0,0,0,0,0,0,0};//205
 volatile Encoder GMPitchEncoder = {0,0,0,0,0,0,0,0,0};//206
 volatile Encoder GMxEncoder = {0,0,0,0,0,0,0,0,0};//207
 
-uint32_t can_chassis_count = 0;
-uint32_t can_chassis_last_count = 0;
-uint32_t can_gimbal_count = 0;
-uint32_t can_gimbal_last_count = 0;
+uint32_t can_chassis_count[4] = {0, 0, 0, 0};
+uint32_t can_chassis_last_count[4] = {0, 0, 0, 0};
+uint32_t can_gimbal_count[2] = {0, 0};
+uint32_t can_gimbal_last_count[2] = {0, 0};
+uint8_t  can_chassis_connected[4] = {1, 1, 1, 1};
+uint8_t  can_gimbal_connected[2] = {1, 1};
 /*
 ***********************************************************************************************
 *Name          :GetEncoderBias
@@ -109,24 +111,27 @@ void EncoderProcess(volatile Encoder *v, CanRxMsg * msg)
 void CanReceiveMsgProcess_for_chassis(CanRxMsg * msg)
 {     
     can_count++;
-    can_chassis_count++;
 		switch(msg->StdId)
 		{
 				case CAN_BUS2_MOTOR1_FEEDBACK_MSG_ID:
 				{
+					can_chassis_count[0]++;
 					(can_count<=50) ? GetEncoderBias(&CM1Encoder ,msg):EncoderProcess(&CM1Encoder ,msg);       //获取到编码器的初始偏差值            
                     
 				}break;
 				case CAN_BUS2_MOTOR2_FEEDBACK_MSG_ID:
 				{
+					can_chassis_count[1]++;
 					(can_count<=50) ? GetEncoderBias(&CM2Encoder ,msg):EncoderProcess(&CM2Encoder ,msg);
 				}break;
 				case CAN_BUS2_MOTOR3_FEEDBACK_MSG_ID:
 				{
+					can_chassis_count[2]++;
 					(can_count<=50) ? GetEncoderBias(&CM3Encoder ,msg):EncoderProcess(&CM3Encoder ,msg);   
 				}break;
 				case CAN_BUS2_MOTOR4_FEEDBACK_MSG_ID:
 				{
+					can_chassis_count[3]++;
 					(can_count<=50) ? GetEncoderBias(&CM4Encoder ,msg):EncoderProcess(&CM4Encoder ,msg);
 				}break;
 				
@@ -137,15 +142,16 @@ void CanReceiveMsgProcess_for_chassis(CanRxMsg * msg)
 void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg)
 {     
     can_count++;
-    can_gimbal_count++;
 		switch(msg->StdId)
 		{
 				case CAN_BUS2_MOTOR1_FEEDBACK_MSG_ID:
 				{
+					can_gimbal_count[0]++;			
 					(can_count<=50) ? GetEncoderBias(&GMYawEncoder,msg):  EncoderProcess(&GMYawEncoder,msg);       //获取到编码器的初始偏差值                 
 				}break;
 				case CAN_BUS2_MOTOR2_FEEDBACK_MSG_ID:
 				{
+					can_gimbal_count[1]++;
 					(can_count<=50) ? GetEncoderBias(&GMPitchEncoder,msg):EncoderProcess(&GMPitchEncoder,msg);
 				}break;
 
@@ -158,24 +164,30 @@ void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg)
  
 }
 
-uint8_t CanCheckConnection_for_Chassis(void)
+void CanCheckConnection_for_Chassis(void)
 {
-	if (can_chassis_count != can_chassis_last_count)
+	for (uint8_t i = 0; i < 4; ++i)
 	{
-		can_chassis_last_count = can_chassis_count;
-		return 1;
+		if (can_chassis_count[i] != can_chassis_last_count[i])
+		{
+			can_chassis_last_count[i] = can_chassis_count[i];
+			can_chassis_connected[i] = 1;
+		}
+		else can_chassis_connected[i] = 0;
 	}
-	else return 0;
 }
 
-uint8_t CanCheckConnection_for_Gimbal(void)
+void CanCheckConnection_for_Gimbal(void)
 {
-	if (can_gimbal_count != can_gimbal_last_count)
+	for (uint8_t i = 0; i < 2; ++i)
 	{
-		can_gimbal_last_count = can_gimbal_count;
-		return 1;
+		if (can_gimbal_count[i] != can_gimbal_last_count[i])
+		{
+			can_gimbal_last_count[i] = can_gimbal_count[i];
+			can_gimbal_connected[i] = 1;
+		}
+		else can_gimbal_connected[i] = 0;
 	}
-	else return 0;
 }
 
 

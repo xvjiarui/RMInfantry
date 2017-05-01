@@ -16,6 +16,8 @@ GIMBAL_CONTROL_EXT PID gimbal_pos_pid[2];
 GIMBAL_CONTROL_EXT PID gimbal_reset_pid;
 GIMBAL_CONTROL_EXT PID driver_speed_pid;
 GIMBAL_CONTROL_EXT PID driver_pos_pid;
+GIMBAL_CONTROL_EXT PID new_driver_speed_pid;
+GIMBAL_CONTROL_EXT PID new_driver_pos_pid;
 GIMBAL_CONTROL_EXT float init_yaw_pos;
 GIMBAL_CONTROL_EXT float init_pitch_pos;//extern const float init_pitch_pos;
 GIMBAL_CONTROL_EXT uint8_t gimbal_follow;
@@ -23,6 +25,8 @@ GIMBAL_CONTROL_EXT uint8_t buff_mode;
 GIMBAL_CONTROL_EXT uint8_t gimbal_in_buff_pos;
 GIMBAL_CONTROL_EXT uint8_t buff_pressed;
 GIMBAL_CONTROL_EXT uint8_t clearing_ammo;
+GIMBAL_CONTROL_EXT union u32ANDint16_t manual_buff_pos[18];
+GIMBAL_CONTROL_EXT int16_t read_buff_pos[18];
 
 void gimbal_control_init(void);
 

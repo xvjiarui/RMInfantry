@@ -7,6 +7,7 @@
 #include "param.h"
 #include "customized_function.h"
 #include "gimbal_control.h"
+#include "judge.h"
 
 #include <string.h>
 
@@ -113,6 +114,13 @@ void GUN_SetMotion(void) {
     if (DBUS_ReceiveData.rc.switch_right != 1) {
         uint16_t friction_wheel_pwm = Friction_Wheel_PWM();
         friction_wheel_pwm *= FRICTION_WHEEL_PWM;
+        static float ratio = 1;
+        if (InfantryJudge.OverShootSpeedLastTime)
+        {
+            ratio *= 0.90;
+            InfantryJudge.OverShootSpeedLastTime = 0;
+        }
+        friction_wheel_pwm *= ratio;
         FRIC_SET_THRUST_L(friction_wheel_pwm);
         FRIC_SET_THRUST_R(friction_wheel_pwm);
     }
@@ -150,7 +158,8 @@ void GUN_SetMotion(void) {
 
     shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
-    shoot = shoot && (ticks_msimg - lastTick > 220);
+    // shoot = shoot && (ticks_msimg - lastTick > 220);
+    shoot = shoot && (ticks_msimg - lastTick > 300);
     if (shoot && !hasPending) {
         if (keyJumpPress)
         {
@@ -217,25 +226,35 @@ void GUN_PokeSpeedControl(void) {
         GUN_SetFree();
         GUN_Direction = - GUN_Direction;
     }
-#if POKE_DIR == 0
-    if (GUN_Data.pokeOutput >= 0) {
+
+    if (InfantryJudge.OverShootFreqLastTime)
+    {
         GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(GUN_Data.pokeOutput);
+        POKE_SET_PWM(0);
+        InfantryJudge.OverShootFreqLastTime = 0;
     }
-    else {
-        GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(-GUN_Data.pokeOutput);
+    else
+    {
+    #if POKE_DIR == 0
+        if (GUN_Data.pokeOutput >= 0) {
+            GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
+            POKE_SET_PWM(GUN_Data.pokeOutput);
+        }
+        else {
+            GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
+            POKE_SET_PWM(-GUN_Data.pokeOutput);
+        }
+    #else
+        if (GUN_Data.pokeOutput >= 0) {
+            GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
+            POKE_SET_PWM(GUN_Data.pokeOutput);
+        }
+        else {
+            GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
+            POKE_SET_PWM(-GUN_Data.pokeOutput);
+        }
+    #endif
     }
-#else
-    if (GUN_Data.pokeOutput >= 0) {
-        GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(GUN_Data.pokeOutput);
-    }
-    else {
-        GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(-GUN_Data.pokeOutput);
-    }
-#endif
 }
 
 void GUN_SetFree(void) {

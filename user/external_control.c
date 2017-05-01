@@ -12,6 +12,8 @@
 #include "param.h"
 #include "const.h"
 
+extern volatile u32 ticks_msimg;
+
 void external_control_init(void)
 {
 	Chassis_Connected = 1;
@@ -93,12 +95,19 @@ void external_control(void) {
 			input_init_all();
 			DBUS_ReceiveData.mouse.x_position = 0;
 			DBUS_ReceiveData.mouse.y_position = 0;
-		// // Testing Driver
-
-		// int16_t input = PID_UpdateValue(&wheels_speed_pid[2], 1500, GMxEncoder.filter_rate);
+		// Testing Driver
+		// static float target_new_driver_pos = 0;
+		// float_debug = target_new_driver_pos;
+		// if (ticks_msimg % 10000 == 0)
+		// {
+		// 	target_new_driver_pos += 36 * 60;
+		// }
+		// int16_t input = PID_UpdateValue(&new_driver_speed_pid, PID_UpdateValue(&new_driver_pos_pid, target_new_driver_pos, GMxEncoder.ecd_angle), GMxEncoder.filter_rate);
+		// Set_CM_Speed(CAN1, 0, 0, input, 0);
+		// int16_t input = PID_UpdateValue(&new_driver_speed_pid, 100, GMxEncoder.filter_rate);
 		// Set_CM_Speed(CAN1, 0, 0, input, 0);
 
-		// // 
+		// 
 			break;
 	}
 }
@@ -167,16 +176,17 @@ void computer_control(void) {
 	if (DBUS_ReceiveData.mouse.press_right)
 	{
 		GUN_SetFree();
+		POKE_SET_PWM(0);
 	}
-
+	// disabale buff mode for now
 	if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
-		control_car(0, 0, 0, NORMAL);
-		if (DBUS_ReceiveData.rc.switch_left == 3)
-		{
-			buff_switch();
-		}
+		// control_car(0, 0, 0, NORMAL);
+		// if (DBUS_ReceiveData.rc.switch_left == 3)
+		// {
+		// 	buff_switch();
+		// }
 	}
 	// calibrate buff pos
 	else if (DBUS_CheckPush(KEY_G))
@@ -213,7 +223,9 @@ void computer_control(void) {
 	// following logic
 	else
 	{
-		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
+		if (1) { 
+			// disabble semi-auto follow mode
+			//left switch up
 			//following mode
 			//if there is angle difference between the chassis and gimbal, chassis will follow it
 
