@@ -173,11 +173,6 @@ void computer_control(void) {
 		GUN_SetFree();
 	}
 
-	if (DBUS_ReceiveData.mouse.press_right)
-	{
-		GUN_SetFree();
-		POKE_SET_PWM(0);
-	}
 	// disabale buff mode for now
 	if (DBUS_CheckPush(KEY_V))
 	{

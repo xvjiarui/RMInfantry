@@ -219,12 +219,17 @@ void GUN_PokeSpeedControl(void) {
         GUN_Data.pokeTargetSpeed, ENCODER_Data);
     GUN_PokeOutput= GUN_Data.pokeOutput;
 
-    if (GUN_PokeIntegral > 100000 || GUN_PokeIntegral < -100000)
+    if (GUN_PokeIntegral > 100000 || GUN_PokeIntegral < -100000 || DBUS_ReceiveData.mouse.press_right)
     {
         // get stucked
 
         GUN_SetFree();
-        GUN_Direction = - GUN_Direction;
+        if (!DBUS_ReceiveData.mouse.press_right)
+        {
+            GUN_Direction = - GUN_Direction;
+        }
+        POKE_SET_PWM(0);
+        return;
     }
 
     if (InfantryJudge.OverShootFreqLastTime)
