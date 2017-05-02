@@ -310,6 +310,7 @@ uint16_t Friction_Wheel_PWM(void)
         result = 745;
     }
     else result = 750;
-    return result;
+    uint16_t function_result = 27349 + InfantryJudge.RealVoltage * (-3465.9 + InfantryJudge.RealVoltage * (151.43 + -2.2222* InfantryJudge.RealVoltage));
+    return (result > function_result)? function_result:result;
 }
 
