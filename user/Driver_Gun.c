@@ -8,6 +8,7 @@
 #include "customized_function.h"
 #include "gimbal_control.h"
 #include "judge.h"
+#include "external_control.h"
 
 #include <string.h>
 
@@ -111,7 +112,7 @@ void GUN_SetMotion(void) {
     static uint8_t hasPending = 0;
 
     // friction wheel
-    if (DBUS_ReceiveData.rc.switch_right != 1) {
+    if (DBUS_ReceiveData.rc.switch_right != 1 && DBUS_Connected) {
         uint16_t friction_wheel_pwm = Friction_Wheel_PWM();
         friction_wheel_pwm *= FRICTION_WHEEL_PWM;
         static float ratio = 1;

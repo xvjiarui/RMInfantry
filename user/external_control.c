@@ -498,5 +498,6 @@ void chassis_auto_stop(void)
 	{
 		chassis_disconnect_handler();
 		DBUS_ResetBuffer();
+		PID_Reset_all();
 	}
 }
