@@ -219,7 +219,7 @@ void GUN_PokeSpeedControl(void) {
         GUN_Data.pokeTargetSpeed, ENCODER_Data);
     GUN_PokeOutput= GUN_Data.pokeOutput;
 
-    if (GUN_PokeIntegral > 100000 || GUN_PokeIntegral < -100000 || DBUS_ReceiveData.mouse.press_right)
+    if (GUN_PokeIntegral > 10000 || GUN_PokeIntegral < -10000 || DBUS_ReceiveData.mouse.press_right)
     {
         // get stucked
 

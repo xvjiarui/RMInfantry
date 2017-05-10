@@ -72,6 +72,7 @@ void PID_init_gimbal(void)
 	PID_SetIntegral(&gimbal_speed_pid[1], 660, -660, 100, 15, 0, 0, 0);
 	PID_init(&gimbal_pos_pid[0], 0.18, 0, 0, 20000, Positional);
 	PID_init(&gimbal_pos_pid[1], 0.35, 0, 0, 20000, Positional);
+	PID_init(&mouse_input_pid, 0.00185, 0, 0, 1, Positional);
 }
 
 void PID_init_driver(void)

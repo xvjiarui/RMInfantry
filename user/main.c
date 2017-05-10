@@ -87,7 +87,7 @@ int main(void)
 						tft_prints(0, 3,"Buffer:%f", InfantryJudge.RemainBuffer);
 						tft_prints(0, 4, "ShotSpeed:%f", InfantryJudge.LastShotSpeed);
 						tft_prints(0, 5, "ShotFreq:%f", InfantryJudge.LastShotFreq);
-						tft_prints(0, 6, "HP:%d", InfantryJudge.LastBlood);
+						tft_prints(0, 6, "HP:%d SN:%d", InfantryJudge.LastBlood, InfantryJudge.ShootNum);
 						tft_prints(0, 7, "Armor:%d %f", InfantryJudge.ArmorDecrease, InfantryJudge.ArmorDecrease/(1500.0f - InfantryJudge.LastBlood));
 						tft_prints(0, 8, "Crash:%d %f", InfantryJudge.CrashDecrease,  InfantryJudge.CrashDecrease/(1500.0f - InfantryJudge.LastBlood));
 						tft_prints(0, 9, "OS:%d %f", InfantryJudge.OverShootSpeedDecrease, InfantryJudge.OverShootSpeedDecrease/(1500.0f - InfantryJudge.LastBlood));

@@ -18,6 +18,7 @@ GIMBAL_CONTROL_EXT PID driver_speed_pid;
 GIMBAL_CONTROL_EXT PID driver_pos_pid;
 GIMBAL_CONTROL_EXT PID new_driver_speed_pid;
 GIMBAL_CONTROL_EXT PID new_driver_pos_pid;
+GIMBAL_CONTROL_EXT PID mouse_input_pid;
 GIMBAL_CONTROL_EXT float init_yaw_pos;
 GIMBAL_CONTROL_EXT float init_pitch_pos;//extern const float init_pitch_pos;
 GIMBAL_CONTROL_EXT uint8_t gimbal_follow;

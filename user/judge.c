@@ -272,6 +272,7 @@ void Judge_InitConfig(void)
     InfantryJudge.Updated = 0;
     InfantryJudge.OverShootFreqLastTime = 0;
     InfantryJudge.OverShootSpeedLastTime = 0;
+    InfantryJudge.ShootNum = 0;
 }
 
 /**
@@ -284,7 +285,10 @@ void USART3_IRQHandler(void) {
     dum = USART3->DR;
     dum = USART3->SR;
 
-    JUDGE_Decode(DMA1_Stream1->NDTR); 
+    if (InfantryJudge.LastBlood != 0)
+    {
+        JUDGE_Decode(DMA1_Stream1->NDTR); 
+    }
 
     UNUSED(dum);
 }
@@ -394,5 +398,6 @@ void JUDGE_DecodeFrame(uint8_t type) {
     FT.U[2] = GET_BUFFER(13);
     FT.U[3] = GET_BUFFER(14);
     InfantryJudge.LastShotFreq = FT.F;
+    InfantryJudge.ShootNum++;
   }
 }
