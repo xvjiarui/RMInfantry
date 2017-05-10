@@ -157,6 +157,7 @@ void remote_control(void) {
 void computer_control(void) {
 	static int16_t in_following_flag; //a flag that help
 	static uint8_t in_countering_flag = 0; //marking COUNTER mode
+	static uint8_t pushed_Z_this_time = 0;
 	//keyboard part
 	process_keyboard_data();
 	//mouse part
@@ -174,11 +175,22 @@ void computer_control(void) {
 		GUN_SetFree();
 	}
 
+	if (!DBUS_CheckPush(KEY_Z))
+	{
+		pushed_Z_this_time = 0;
+	}
+	
 	if (DBUS_CheckPush(KEY_Z) || in_countering_flag == 1)
 	{
 		in_countering_flag = 1;
-		if (!gimbal_yaw_back_angle(YAW_ANGLE_RATIO * 45)){
-			control_gimbal_with_chassis_following_angle(mouse_input[0], mouse_input[1], YAW_ANGLE_RATIO * 45);
+		static float dir = -1;
+		if (DBUS_CheckPush(KEY_Z) && pushed_Z_this_time == 0)
+		{
+			dir = -dir;
+			pushed_Z_this_time = 1;
+		}
+		if (!gimbal_yaw_back_angle(YAW_ANGLE_RATIO * 45 * dir)){
+			control_gimbal_with_chassis_following_angle(mouse_input[0], mouse_input[1], YAW_ANGLE_RATIO * 45 * dir);
 		}
 		else {
 			control_gimbal(mouse_input[0], mouse_input[1]);
