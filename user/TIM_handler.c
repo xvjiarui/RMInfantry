@@ -3,6 +3,8 @@
 #include "stm32f4xx.h"
 #include "global_variable.h"
 #include "external_control.h"
+#include "chassis_control.h"
+#include "gimbal_control.h"
 
 void TIM7_IRQHandler(void) {
     static uint32_t tick = 0;
@@ -21,8 +23,10 @@ void TIM7_IRQHandler(void) {
 
     if (tick % 20 == 0)
     {
-        Chassis_Connected = CanCheckConnection_for_Chassis();
-        Gimbal_Connected = CanCheckConnection_for_Gimbal();
+        CanCheckConnection_for_Chassis();
+        CanCheckConnection_for_Gimbal();
+        Chassis_Connected = can_chassis_connected[0] & can_chassis_connected[1] & can_chassis_connected[2] & can_chassis_connected[3];
+        Gimbal_Connected = can_gimbal_connected[0] & can_gimbal_connected[1];
         DBUS_Connected = DBUS_CheckConnection();
         GUN_ENCODER_Connected = ENCODER_CheckConnection();
         GUN_EncoderUpdate();

@@ -24,6 +24,7 @@ typedef struct {
 } GUN_DataTypeDef;
 
 GUN_EXT volatile GUN_DataTypeDef GUN_Data;
+GUN_EXT volatile uint8_t GUN_Direction;
 
 void GUN_Init(void);
 void GUN_SetMotion(void);
@@ -35,39 +36,6 @@ void GUN_SetStop(void);
 
 void GUN_ShootOne(void);
 
-typedef enum {
-    kLLAST = 0,
-    kLAST,
-    kNOW,
-
-    kIndexCnt
-} PID_IndexTypeDef;
-
-typedef enum {
-    kIncremental,
-    kPositional,
-    kIntegralDecay
-} PID_ModeTypeDef;
-
-// should be negative
-#define PID_NO_LIMIT -1.0f
-
-typedef struct {
-    /* set by user */
-    float Kp, Ki, Kd;
-    float IDecayFactor;
-    float MAX_Integral, MAX_Pout, MAX_PIDout, MIN_PIDout;
-    PID_ModeTypeDef mode;
-
-    /* updated by calling PID_Update */
-    float set[kIndexCnt];
-    float real[kIndexCnt];
-    float err[kIndexCnt], errIntegral;
-    float output;
-} PID_Controller;
-
-void PID_Reset(PID_Controller *pid);
-float PID_Update(PID_Controller *pid, float target, float measure);
-
-
+uint16_t Friction_Wheel_PWM(void);
+	
 #endif

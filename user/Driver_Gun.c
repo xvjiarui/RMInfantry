@@ -5,13 +5,17 @@
 #include "Driver_Gun.h"
 #include "global_variable.h"
 #include "param.h"
+#include "customized_function.h"
+#include "gimbal_control.h"
+#include "judge.h"
 
 #include <string.h>
 
 float GUN_PokeErr = 0;
 int32_t GUN_PokeOutput = 0;
-static PID_Controller PokeSpeedController;
-static PID_Controller PokeAngleController;
+float GUN_PokeIntegral = 0;
+// static PID_Controller PokeSpeedController;
+// static PID_Controller PokeAngleController;
 
 void GUN_BSP_Init(void) {
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
@@ -94,26 +98,8 @@ void GUN_Init(void) {
     GUN_BSP_Init();
 
     memset((char*)&GUN_Data, 0, sizeof(GUN_Data));
+    GUN_Direction = 1;
 
-    PID_Reset(&PokeSpeedController);
-    PokeSpeedController.Kp = 100.0f;
-    PokeSpeedController.Ki = 20.00f;
-    PokeSpeedController.Kd = 0.00f;
-    PokeSpeedController.MAX_Pout = 12000;
-    PokeSpeedController.MAX_Integral = 100000;
-    PokeSpeedController.MAX_PIDout = 8000;
-    PokeSpeedController.MIN_PIDout = 0;
-    PokeSpeedController.mode = kPositional;
-
-    PID_Reset(&PokeAngleController);
-    PokeAngleController.Kp = 0.30f;
-    PokeAngleController.Ki = 0.00f;
-    PokeAngleController.Kd = 0.00f;
-    PokeAngleController.MAX_Pout = 12000;
-    PokeAngleController.MAX_Integral = 100000;
-    PokeAngleController.MAX_PIDout = 80;
-    PokeAngleController.MIN_PIDout = 0;
-    PokeAngleController.mode = kPositional;
 }
 
 extern volatile u32 ticks_msimg;
@@ -126,8 +112,17 @@ void GUN_SetMotion(void) {
 
     // friction wheel
     if (DBUS_ReceiveData.rc.switch_right != 1) {
-        FRIC_SET_THRUST_L(FRICTION_WHEEL_PWM);
-        FRIC_SET_THRUST_R(FRICTION_WHEEL_PWM);
+        uint16_t friction_wheel_pwm = Friction_Wheel_PWM();
+        friction_wheel_pwm *= FRICTION_WHEEL_PWM;
+        static float ratio = 1;
+        if (InfantryJudge.OverShootSpeedLastTime)
+        {
+            ratio *= 0.90;
+            InfantryJudge.OverShootSpeedLastTime = 0;
+        }
+        friction_wheel_pwm *= ratio;
+        FRIC_SET_THRUST_L(friction_wheel_pwm);
+        FRIC_SET_THRUST_R(friction_wheel_pwm);
     }
     else {
         FRIC_SET_THRUST_L(0);
@@ -163,7 +158,8 @@ void GUN_SetMotion(void) {
 
     shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
-    shoot = shoot && (ticks_msimg - lastTick > 220);
+    // shoot = shoot && (ticks_msimg - lastTick > 220);
+    shoot = shoot && (ticks_msimg - lastTick > 300);
     if (shoot && !hasPending) {
         if (keyJumpPress)
         {
@@ -192,11 +188,14 @@ void GUN_ShootOne(void) {
     // {
     //     index = -1;
     // }
-#if ENCODER_DIR == 1
-    GUN_Data.pokeTargetAngle += 660;
-#else
-    GUN_Data.pokeTargetAngle -= 660;
-#endif
+// #if ENCODER_DIR == 1
+    if (GUN_Direction == 1)
+    {
+        GUN_Data.pokeTargetAngle += 660;
+    }
+// #else
+    else GUN_Data.pokeTargetAngle -= 660;
+// #endif
 }
 
 void GUN_EncoderUpdate(void) {
@@ -208,46 +207,70 @@ void GUN_EncoderUpdate(void) {
 }
 
 void GUN_PokeControl(void) {
-    GUN_Data.pokeTargetSpeed = PID_Update(&PokeAngleController,
+    GUN_Data.pokeTargetSpeed = PID_UpdateValue(&driver_pos_pid,
         GUN_Data.pokeTargetAngle, GUN_Data.pokeAngle);
-    GUN_PokeErr = PokeAngleController.err[kNOW];
+    GUN_PokeErr = driver_pos_pid.p;
+    GUN_PokeIntegral = driver_pos_pid.i;
     GUN_PokeSpeedControl();
 }
 
 void GUN_PokeSpeedControl(void) {
-    GUN_Data.pokeOutput = PID_Update(&PokeSpeedController,
+    GUN_Data.pokeOutput = PID_UpdateValue(&driver_speed_pid,
         GUN_Data.pokeTargetSpeed, ENCODER_Data);
     GUN_PokeOutput= GUN_Data.pokeOutput;
 
-#if POKE_DIR == 0
-    if (GUN_Data.pokeOutput >= 0) {
+    if (GUN_PokeIntegral > 10000 || GUN_PokeIntegral < -10000 || DBUS_ReceiveData.mouse.press_right)
+    {
+        // get stucked
+
+        GUN_SetFree();
+        if (!DBUS_ReceiveData.mouse.press_right)
+        {
+            GUN_Direction = - GUN_Direction;
+        }
+        POKE_SET_PWM(0);
+        return;
+    }
+
+    if (InfantryJudge.OverShootFreqLastTime)
+    {
         GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(GUN_Data.pokeOutput);
+        POKE_SET_PWM(0);
+        InfantryJudge.OverShootFreqLastTime = 0;
     }
-    else {
-        GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(-GUN_Data.pokeOutput);
+    else
+    {
+    #if POKE_DIR == 0
+        if (GUN_Data.pokeOutput >= 0) {
+            GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
+            POKE_SET_PWM(GUN_Data.pokeOutput);
+        }
+        else {
+            GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
+            POKE_SET_PWM(-GUN_Data.pokeOutput);
+        }
+    #else
+        if (GUN_Data.pokeOutput >= 0) {
+            GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
+            POKE_SET_PWM(GUN_Data.pokeOutput);
+        }
+        else {
+            GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
+            POKE_SET_PWM(-GUN_Data.pokeOutput);
+        }
+    #endif
     }
-#else
-    if (GUN_Data.pokeOutput >= 0) {
-        GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(GUN_Data.pokeOutput);
-    }
-    else {
-        GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(-GUN_Data.pokeOutput);
-    }
-#endif
 }
 
 void GUN_SetFree(void) {
-    PID_Reset(&PokeSpeedController);
-    PID_Reset(&PokeAngleController);
-
+    PID_Reset_driver();
     GUN_Data.pokeOutput = 0;
     GUN_Data.pokeTargetSpeed = 0;
     GUN_Data.pokeTargetAngle = 0;
     GUN_Data.pokeAngle = 0;
+    GUN_PokeErr = 0;
+    GUN_PokeIntegral = 0;
+    GUN_PokeOutput = 0;
 }
 
 void GUN_SetStop(void)
@@ -255,84 +278,39 @@ void GUN_SetStop(void)
     GUN_Data.pokeTargetAngle = GUN_Data.pokeAngle;
 }
 
-#include <string.h>
-
-/*
-    Trim val to [-lim, lim]
-*/
-static float PID_Trim(float val, float lim) {
-    if (lim < 0.0f) return val;
-    if (val < -lim) val = -lim;
-    if (val > lim) val = lim;
-    return val;
-}
-
-/*
-    Restore to initial state
-*/
-void PID_Reset(PID_Controller *pid) {
-    memset(pid->set, 0, sizeof(pid->set));
-    memset(pid->real, 0, sizeof(pid->real));
-    memset(pid->err, 0, sizeof(pid->err));
-    pid->errIntegral = 0.0f;
-    pid->output = 0.0f;
-}
-
-/*
-    Update PID controller and return output
-*/
-float PID_Update(PID_Controller *pid, float target, float measure) {
-    // update error
-    pid->set[kNOW] = target;
-    pid->real[kNOW] = measure;
-    pid->err[kNOW] = target - measure;
-
-    float Pout, Iout, Dout;
-    if (pid->mode == kIncremental) {
-        Pout = pid->Kp * (pid->err[kNOW] - pid->err[kLAST]);
-        Iout = pid->Ki * pid->err[kNOW];
-        Dout = pid->Kd * (pid->err[kNOW] - 2*pid->err[kLAST] + pid->err[kLLAST]);
-
-        Iout = PID_Trim(Iout, pid->MAX_Integral * pid->Ki);
-        pid->output += (Pout + Iout + Dout);
-        pid->output = PID_Trim(pid->output, pid->MAX_PIDout);
+uint16_t Friction_Wheel_PWM(void)
+{
+    uint16_t result = 0;
+    if (InfantryJudge.RealVoltage > 24.5)
+    {
+        result = 650;
     }
-    else if (pid->mode == kPositional) {
-        pid->errIntegral += pid->err[kNOW];
-        pid->errIntegral = PID_Trim(pid->errIntegral, pid->MAX_Integral);
-
-        Pout = pid->Kp * pid->err[kNOW];
-        Iout = pid->Ki * pid->errIntegral;
-        Dout = pid->Kd * (pid->err[kNOW] - pid->err[kLAST]);
-
-        Pout = PID_Trim(Pout, pid->MAX_Pout);
-        pid->output = Pout + Iout + Dout;
-        pid->output = PID_Trim(pid->output, pid->MAX_PIDout);
+    else if (InfantryJudge.RealVoltage > 24)
+    {
+        result = 670;
     }
-    else if (pid->mode == kIntegralDecay) {
-        pid->errIntegral = pid->errIntegral * pid->IDecayFactor + pid->err[kNOW];
-        pid->errIntegral = PID_Trim(pid->errIntegral, pid->MAX_Integral);
-
-        Pout = pid->Kp * pid->err[kNOW];
-        Iout = pid->Ki * pid->errIntegral;
-        Dout = pid->Kd * (pid->err[kNOW] - pid->err[kLAST]);
-
-        Pout = PID_Trim(Pout, pid->MAX_Pout);
-        pid->output = Pout + Iout + Dout;
-        pid->output = PID_Trim(pid->output, pid->MAX_PIDout);
+    else if (InfantryJudge.RealVoltage > 23.5)
+    {
+        result = 690;
     }
-
-    pid->set[kLLAST] = pid->set[kLAST];
-    pid->set[kLAST] = pid->set[kNOW];
-    pid->real[kLLAST] = pid->real[kLAST];
-    pid->real[kLAST] = pid->real[kNOW];
-    pid->err[kLLAST] = pid->err[kLAST];
-    pid->err[kLAST] = pid->err[kNOW];
-
-    float ret = pid->output;
-    float abs_ret = ret;
-    if (abs_ret < 0.0f) abs_ret = -abs_ret;
-    if (abs_ret < pid->MIN_PIDout) ret = 0.0f;
-    return ret;
+    else if (InfantryJudge.RealVoltage > 23)
+    {
+        result = 700;
+    }
+    else if (InfantryJudge.RealVoltage > 22.5)
+    {
+        result = 715;
+    }
+    else if (InfantryJudge.RealVoltage > 22)
+    {
+        result = 730;
+    }
+    else if (InfantryJudge.RealVoltage > 21.5)
+    {
+        result = 745;
+    }
+    else result = 750;
+    uint16_t function_result = 27349 + InfantryJudge.RealVoltage * (-3465.9 + InfantryJudge.RealVoltage * (151.43 + -2.2222* InfantryJudge.RealVoltage));
+    return (result > function_result)? function_result:result;
 }
 

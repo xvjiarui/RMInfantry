@@ -1,10 +1,30 @@
+#define GIMBAL_CONTROL_FILE
+
 #include "function_list.h"
 #include "PID_s.h"
 #include "global_variable.h"
 #include "customized_function.h"
 #include "gimbal_control.h"
+#include "chassis_control.h"
+#include "external_control.h"
 #include "Driver_Gun.h"
+#include "const.h"
+#include "flash.h"
 
+void gimbal_control_init(void)
+{
+	init_yaw_pos = GMYawEncoder.ecd_angle;
+	init_pitch_pos = GMPitchEncoder.ecd_angle + 5 * PITCH_ANGLE_RATIO;
+	gimbal_follow = 0;
+	buff_mode = 0;
+	gimbal_in_buff_pos = 0;
+	buff_pressed = 0;
+	clearing_ammo = 0;
+	for (int i = 0; i < 18; ++i)
+	{
+		manual_buff_pos[i].flash = readFlash(i);
+	}
+}
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 ////////////////////////CONTROL PART

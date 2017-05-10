@@ -37,10 +37,11 @@ void ENCODER_Update(void) {
 
 uint8_t ENCODER_CheckConnection(void)
 {
-    uint8_t timeout = 2;
+    uint8_t timeout = 5;
     static uint8_t disconnection_time = 0;
     static uint8_t connection_time = 0;
-    if ((ENCODER_Data == 0 || ENCODER_Data == -1 || ENCODER_Data == 1 )&& DBUS_ReceiveData.mouse.press_left && (GUN_PokeErr > 500 || GUN_PokeErr < -500 || GUN_PokeOutput <-10000 || GUN_PokeOutput > 10000) )
+    if ((ENCODER_Data == 0 || ENCODER_Data == -1 || ENCODER_Data == 1 ) 
+        && ((GUN_PokeErr > 500 || GUN_PokeErr < -500 || GUN_PokeOutput <-10000 || GUN_PokeOutput > 10000)))
     {
         if (++disconnection_time > timeout)
         {

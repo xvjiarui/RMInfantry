@@ -40,11 +40,15 @@ typedef struct
     float LastShotFreq;
     float RemainBuffer;
 	int16_t ArmorDecrease;
+    int16_t CrashDecrease;
     int16_t OverShootSpeedDecrease;
     int16_t OverShootFreqDecrease;
     int16_t OverPowerDecrease;
     int16_t ModuleOfflineDecrease;
     uint8_t Updated;
+    uint8_t OverShootFreqLastTime;
+    uint8_t OverShootSpeedLastTime;
+    int ShootNum;
 }InfantryJudge_Struct;
 
 // format transformation union

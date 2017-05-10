@@ -1,3 +1,4 @@
+#define EXTERNAL_CONTROL_FILE
 #include "function_list.h"
 #include "external_control.h"
 #include "PID_s.h"
@@ -9,6 +10,23 @@
 #include "buzzer_song.h"
 #include "Driver_Gun.h"
 #include "param.h"
+#include "const.h"
+
+extern volatile u32 ticks_msimg;
+
+void external_control_init(void)
+{
+	Chassis_Connected = 1;
+	Gimbal_Connected = 1;
+	DBUS_Connected = 1;
+	GUN_ENCODER_Connected = 1;
+	chassis_ch2 = 0;
+	memset(last_ch_input, 0, sizeof(last_ch_input));
+	memset(ch_input, 0, sizeof(ch_input));
+	memset(mouse_input, 0 ,sizeof(mouse_input));
+	memset(last_ch_input, 0, sizeof(last_ch_input));
+
+}
 
 void external_control(void) {
 	if (DBUS_Connected)
@@ -22,7 +40,7 @@ void external_control(void) {
 	switch (DBUS_ReceiveData.rc.switch_right)
 	{
 		case 3:
-			if (!DBUS_Connected)
+			if (!DBUS_Connected || InfantryJudge.LastBlood == 0)
 			{
 				DBUS_disconnect_handler();
 			}
@@ -41,7 +59,7 @@ void external_control(void) {
 			}
 			break;
 		case 2:
-			if (!DBUS_Connected)
+			if (!DBUS_Connected || InfantryJudge.LastBlood == 0)
 			{
 				DBUS_disconnect_handler();
 			}
@@ -77,6 +95,19 @@ void external_control(void) {
 			input_init_all();
 			DBUS_ReceiveData.mouse.x_position = 0;
 			DBUS_ReceiveData.mouse.y_position = 0;
+		// Testing Driver
+		// static float target_new_driver_pos = 0;
+		// float_debug = target_new_driver_pos;
+		// if (ticks_msimg % 10000 == 0)
+		// {
+		// 	target_new_driver_pos += 36 * 60;
+		// }
+		// int16_t input = PID_UpdateValue(&new_driver_speed_pid, PID_UpdateValue(&new_driver_pos_pid, target_new_driver_pos, GMxEncoder.ecd_angle), GMxEncoder.filter_rate);
+		// Set_CM_Speed(CAN1, 0, 0, input, 0);
+		// int16_t input = PID_UpdateValue(&new_driver_speed_pid, 100, GMxEncoder.filter_rate);
+		// Set_CM_Speed(CAN1, 0, 0, input, 0);
+
+		// 
 			break;
 	}
 }
@@ -163,11 +194,11 @@ void computer_control(void) {
 	else if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
-		control_car(0, 0, 0, NORMAL);
-		if (DBUS_ReceiveData.rc.switch_left == 3)
-		{
-			buff_switch();
-		}
+		// control_car(0, 0, 0, NORMAL);
+		// if (DBUS_ReceiveData.rc.switch_left == 3)
+		// {
+		// 	buff_switch();
+		// }
 	}
 	// calibrate buff pos
 	else if (DBUS_CheckPush(KEY_G))
@@ -194,7 +225,9 @@ void computer_control(void) {
 	// following logic
 	else
 	{
-		if (DBUS_ReceiveData.rc.switch_left == 1) { //left switch up
+		if (1) { 
+			// disabble semi-auto follow mode
+			//left switch up
 			//following mode
 			//if there is angle difference between the chassis and gimbal, chassis will follow it
 
@@ -232,14 +265,14 @@ void process_mouse_data(void)
 	int16_t mouse_changes[2] = {0, 0};
 	mouse_changes[0] = - MOUSE_YAW_RATIO * DBUS_ReceiveData.mouse.x - last_mouse_input[0];
 	mouse_changes[1] = - MOUSE_PITCH_RATIO * DBUS_ReceiveData.mouse.y_position - last_mouse_input[1];
-	int16_t max_mouse_change = 4;
-	int16_t min_mouse_change = -4;
 	limit_int_range(&mouse_changes[0], YAW_ACCELERATION, -YAW_ACCELERATION);
 	limit_int_range(&mouse_changes[1], PITCH_ACCELERATION, -PITCH_ACCELERATION);
 	mouse_input[0] += mouse_changes[0];
 	last_mouse_input[0] = mouse_input[0];
 	mouse_input[1] += mouse_changes[1];
 	last_mouse_input[1] = mouse_input[1];
+	float ratio = PID_UpdateValue(&mouse_input_pid, 1755, fabs(GMYawEncoder.ecd_angle));
+	mouse_input[0] *= ratio;
 	if ((mouse_input[0] < 0 && gimbal_exceed_right_bound()) || (mouse_input[0] > 0 && gimbal_exceed_left_bound()))
 	{
 		mouse_input[0] = 0;
@@ -249,13 +282,13 @@ void process_mouse_data(void)
 	{
 		mouse_input[1] = 19 * 45;
 		last_mouse_input[1] = 19 * 45;
-		DBUS_ReceiveData.mouse.y_position = -mouse_input[1] / 2;
+		DBUS_ReceiveData.mouse.y_position = -mouse_input[1] / MOUSE_PITCH_RATIO;
 	}
 	if (mouse_input[1] < 0 && gimbal_exceed_lower_bound() )
 	{
 		mouse_input[1] = 0;
 		last_mouse_input[1] = 0;
-		DBUS_ReceiveData.mouse.y_position = -mouse_input[1] / 2;
+		DBUS_ReceiveData.mouse.y_position = -mouse_input[1] / MOUSE_PITCH_RATIO;
 	}
 }
 

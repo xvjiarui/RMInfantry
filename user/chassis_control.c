@@ -1,10 +1,24 @@
+#define CHASSIS_CONTROL_FILE
 
 #include "function_list.h"
 #include "PID_s.h"
 #include "global_variable.h"
 #include "chassis_control.h"
+#include "gimbal_control.h"
 #include "customized_function.h"
+#include "external_control.h"
 #include "param.h"
+#include "const.h"
+
+void chassis_control_init(void)
+{
+    target_angle = 0;
+    current_angle = 0;
+    last_angle = 0;
+    memset(M_wheel_result, 0, sizeof(M_wheel_result));
+    fast_turning = 0;
+    chassis_already_auto_stop = 0;
+}
 
 void send_to_chassis(int16_t wheel_speed_0, int16_t wheel_speed_1, int16_t wheel_speed_2, int16_t wheel_speed_3) {
     Set_CM_Speed(CAN2, wheel_speed_0, wheel_speed_1, wheel_speed_2, wheel_speed_3);
@@ -128,18 +142,18 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
         M_wheel_analysis_dancing(ch0, ch1, ch2, 0.5, 0.5, 0.5);
     }
     // else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_output2(&angle_pid, target_angle, 800, -800, 30, -30));
-		else if (mode == COUNTER)
-		{
-			M_wheel_analysis_counter(ch0, ch1, ch2, 0.5, 0.5, 0.5, PID_UpdateValue(&angle_pid, target_angle, current_angle));
-		}
+	else if (mode == COUNTER)
+	{
+		M_wheel_analysis_counter(ch0, ch1, ch2, 0.5, 0.5, 0.5, PID_UpdateValue(&angle_pid, target_angle, current_angle));
+	}
     else
-		{	
-			s32 angle_change = 0;
-			angle_change = target_angle - last_angle;
-			limit_s32_range(&angle_change, ROTATION_ACCELERATION, -ROTATION_ACCELERATION);
-			M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, current_angle + angle_change, current_angle));
-			last_angle = current_angle + angle_change;
-		}
+	{	
+		s32 angle_change = target_angle - current_angle;
+		limit_s32_range(&angle_change, ROTATION_ACCELERATION, -ROTATION_ACCELERATION);
+        s32 input_angle = current_angle + angle_change;
+		M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, input_angle, current_angle));
+		// last_angle = input_angle;
+	}
     static float ratio = 1;
     if (InfantryJudge.Updated)
     {

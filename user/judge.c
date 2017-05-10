@@ -264,11 +264,15 @@ void Judge_InitConfig(void)
     InfantryJudge.RemainBuffer = 60.0;
     InfantryJudge.LastHartID = 0;
     InfantryJudge.ArmorDecrease = 0;
+    InfantryJudge.CrashDecrease = 0;
     InfantryJudge.OverShootSpeedDecrease = 0;
     InfantryJudge.OverShootFreqDecrease = 0;
     InfantryJudge.OverPowerDecrease = 0;
     InfantryJudge.ModuleOfflineDecrease = 0;
     InfantryJudge.Updated = 0;
+    InfantryJudge.OverShootFreqLastTime = 0;
+    InfantryJudge.OverShootSpeedLastTime = 0;
+    InfantryJudge.ShootNum = 0;
 }
 
 /**
@@ -281,7 +285,10 @@ void USART3_IRQHandler(void) {
     dum = USART3->DR;
     dum = USART3->SR;
 
-    JUDGE_Decode(DMA1_Stream1->NDTR); 
+    if (InfantryJudge.LastBlood != 0)
+    {
+        JUDGE_Decode(DMA1_Stream1->NDTR); 
+    }
 
     UNUSED(dum);
 }
@@ -354,13 +361,19 @@ void JUDGE_DecodeFrame(uint8_t type) {
     switch (way) {
       case 0: // armor damage
         InfantryJudge.LastHartID = GET_BUFFER(7)&0x0F;
-        InfantryJudge.ArmorDecrease += delta;
+        if (delta == 50 || delta == 500)
+        {
+            InfantryJudge.ArmorDecrease += delta;
+        }
+        else InfantryJudge.CrashDecrease += delta;
         break;
       case 1: // over speed
         InfantryJudge.OverShootSpeedDecrease += delta;
+        InfantryJudge.OverShootSpeedLastTime = 1;
         break;
       case 2: // over frequency
         InfantryJudge.OverShootFreqDecrease += delta;
+        InfantryJudge.OverShootFreqLastTime = 1;
         break;
       case 3: // over power
         InfantryJudge.OverPowerDecrease += delta;
@@ -385,5 +398,6 @@ void JUDGE_DecodeFrame(uint8_t type) {
     FT.U[2] = GET_BUFFER(13);
     FT.U[3] = GET_BUFFER(14);
     InfantryJudge.LastShotFreq = FT.F;
+    InfantryJudge.ShootNum++;
   }
 }
