@@ -125,6 +125,7 @@ void remote_control(void) {
 
 void computer_control(void) {
 	static int16_t in_following_flag; //a flag that help
+	static uint8_t in_countering_flag = 0; //marking COUNTER mode
 	//keyboard part
 	process_keyboard_data();
 	//mouse part
@@ -147,7 +148,19 @@ void computer_control(void) {
 		GUN_SetFree();
 	}
 
-	if (DBUS_CheckPush(KEY_V))
+	if (DBUS_CheckPush(KEY_Z) || in_countering_flag == 1)
+	{
+		in_countering_flag = 1;
+		if (!gimbal_yaw_back_angle(YAW_ANGLE_RATIO * 45)){
+			control_gimbal_with_chassis_following_angle(mouse_input[0], mouse_input[1], YAW_ANGLE_RATIO * 45);
+		}
+		else {
+			control_gimbal(mouse_input[0], mouse_input[1]);
+		}
+		control_car(ch_input[0], ch_input[1], ch_input[2], COUNTER);
+		if (DBUS_CheckPush(KEY_F)) in_countering_flag = 0;
+	}
+	else if (DBUS_CheckPush(KEY_V))
 	{
 		// in buff mode
 		control_car(0, 0, 0, NORMAL);
@@ -177,16 +190,6 @@ void computer_control(void) {
 	else if (DBUS_CheckPush(KEY_C))
 	{
 		dancing_mode();
-	}
-	else if (DBUS_CheckPush(KEY_Z))
-	{
-		if (!gimbal_yaw_back_angle(YAW_ANGLE_RATIO * 45)){
-			control_gimbal_with_chassis_following_angle(mouse_input[0], mouse_input[1], YAW_ANGLE_RATIO * 45);
-		}
-		else {
-			control_gimbal(mouse_input[0], mouse_input[1]);
-		}
-		control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
 	}
 	// following logic
 	else
