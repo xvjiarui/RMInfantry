@@ -174,11 +174,6 @@ void computer_control(void) {
 		GUN_SetFree();
 	}
 
-	if (DBUS_ReceiveData.mouse.press_right)
-	{
-		GUN_SetFree();
-	}
-
 	if (DBUS_CheckPush(KEY_Z) || in_countering_flag == 1)
 	{
 		in_countering_flag = 1;
