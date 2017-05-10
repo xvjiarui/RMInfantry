@@ -112,7 +112,7 @@ void GUN_SetMotion(void) {
     static uint8_t hasPending = 0;
 
     // friction wheel
-    if (DBUS_ReceiveData.rc.switch_right != 1 && DBUS_Connected) {
+    if (DBUS_ReceiveData.rc.switch_right != 1 && DBUS_Connected && InfantryJudge.LastBlood != 0) {
         uint16_t friction_wheel_pwm = Friction_Wheel_PWM();
         friction_wheel_pwm *= FRICTION_WHEEL_PWM;
         static float ratio = 1;
