@@ -17,6 +17,7 @@ void init(){
 	gyro_init();
 	ADC1_init();
 	judging_system_init(); //usart3
+	Judge_InitConfig();
 	gyro_init();
 	pneumatic_init();
 	CAN1_Configuration();
