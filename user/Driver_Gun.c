@@ -211,7 +211,7 @@ void GUN_PokeControl(void) {
     GUN_Data.pokeTargetSpeed = PID_UpdateValue(&driver_pos_pid,
         GUN_Data.pokeTargetAngle, GUN_Data.pokeAngle);
     GUN_PokeErr = driver_pos_pid.p;
-    GUN_PokeIntegral = driver_pos_pid.i;
+    GUN_PokeIntegral = driver_speed_pid.Ki * driver_speed_pid.i;
     GUN_PokeSpeedControl();
 }
 
@@ -220,7 +220,8 @@ void GUN_PokeSpeedControl(void) {
         GUN_Data.pokeTargetSpeed, ENCODER_Data);
     GUN_PokeOutput= GUN_Data.pokeOutput;
 
-    if (GUN_PokeIntegral > 10000 || GUN_PokeIntegral < -10000 || DBUS_ReceiveData.mouse.press_right)
+    // if (GUN_PokeIntegral > 10000 || GUN_PokeIntegral < -10000 || DBUS_ReceiveData.mouse.press_right)
+    if ( DBUS_ReceiveData.mouse.press_right)
     {
         // get stucked
 

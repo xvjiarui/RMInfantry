@@ -72,7 +72,7 @@ int main(void)
 						tft_prints(0, 5,"ED:%d, P:%d", ENCODER_Data, DBUS_ReceiveData.mouse.press_left);
 						tft_prints(0, 6,"Chassis:%d %d %d %d %d", Chassis_Connected, can_chassis_connected[0], can_chassis_connected[1], can_chassis_connected[2], can_chassis_connected[3]);
 						tft_prints(0, 7,"Gimbal:%d %d %d", Gimbal_Connected, can_gimbal_connected[0], can_gimbal_connected[1]);
-						tft_prints(0, 8,"DBUS:%d", DBUS_Connected);
+						tft_prints(0, 8,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
 						tft_prints(0, 9, "GUN %d", GUN_ENCODER_Connected);
 						tft_prints(0, 10, "out:%d err:%d", GUN_Data.pokeOutput, GUN_PokeErr);
 						tft_prints(0, 11, "ang %d", GUN_Data.pokeAngle);

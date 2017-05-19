@@ -37,6 +37,10 @@ void TIM7_IRQHandler(void) {
         }
         else GUN_PokeControl();
     }
+    if (tick % 50 == 0)
+    {
+        Judge_Connected = Judge_UART_CheckConnection();
+    }
     current_angle = output_angle;
     external_control();
 }

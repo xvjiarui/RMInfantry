@@ -29,6 +29,7 @@ void JUDGE_Decode(uint32_t length);
 void JUDGE_DecodeFrame(uint8_t type);
 uint8_t GetCRC8(uint8_t idx, uint8_t len, uint8_t ucCRC8);
 unsigned int VerifyCRC8(uint8_t idx, uint8_t len);
+uint8_t Judge_UART_CheckConnection();
 
 typedef struct
 {

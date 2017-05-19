@@ -9,6 +9,9 @@ InfantryJudge_Struct InfantryJudge;
 
 uint8_t JUDGE_DataBuffer[JUDGE_BUFFER_LENGTH];
 
+uint32_t Judge_UART_counter = 0;
+uint32_t Judge_UART_last_counter = 0;
+
 //HKUST RM2017 mainboad judge : USART3
 
 void judging_system_init(void){ 
@@ -318,6 +321,7 @@ void JUDGE_Decode(uint32_t length) {
         judgeFrameTotalLength = judgeFrameDataLength + JUDGE_EXTRA_LENGTH;
         if (JUDGE_RemainByte >= judgeFrameTotalLength) {
           ++JUDGE_FrameCounter;
+          Judge_UART_counter++;
 
           /* Decode */
           JUDGE_DecodeFrame(GET_BUFFER(5));
@@ -400,4 +404,14 @@ void JUDGE_DecodeFrame(uint8_t type) {
     InfantryJudge.LastShotFreq = FT.F;
     InfantryJudge.ShootNum++;
   }
+}
+
+uint8_t Judge_UART_CheckConnection()
+{
+    if (Judge_UART_last_counter != Judge_UART_counter)
+    {
+        Judge_UART_last_counter = Judge_UART_counter;
+        return 1;
+    }
+    else return 0;
 }

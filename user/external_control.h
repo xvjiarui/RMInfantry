@@ -11,6 +11,7 @@ EXTERNAL_CONTROL_EXT uint8_t Chassis_Connected;
 EXTERNAL_CONTROL_EXT uint8_t Gimbal_Connected;
 EXTERNAL_CONTROL_EXT uint8_t DBUS_Connected;
 EXTERNAL_CONTROL_EXT uint8_t GUN_ENCODER_Connected;
+EXTERNAL_CONTROL_EXT uint8_t Judge_Connected;
 EXTERNAL_CONTROL_EXT int16_t chassis_ch2;
 EXTERNAL_CONTROL_EXT int16_t last_ch_input[4];
 EXTERNAL_CONTROL_EXT int16_t ch_input[4];

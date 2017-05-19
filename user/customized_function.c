@@ -56,7 +56,7 @@ void PID_init_chassis(void)
 		PID_init(&wheels_speed_pid[i], 80, 5, 100, 20000, IntegralResist); //0.00001
 		PID_SetIntegral(&wheels_speed_pid[i], 990, -990, 100, 15, 0, 0, 0);
 	}
-	PID_init(&angle_pid, 4, 0, 40, 770, Positional); //4 is best 660 is some limit
+	PID_init(&angle_pid, 4, 0, 40, 990, Positional); //4 is best 660 is some limit
 	// PID_init(&buffer_pid, 0.005, 0.0035, 0, 0.7);
 	PID_init(&buffer_pid, 0.006, 0.00055, 0, 0.7, IntegralSegment);
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50, Positional);

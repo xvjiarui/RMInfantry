@@ -20,6 +20,7 @@ void external_control_init(void)
 	Gimbal_Connected = 1;
 	DBUS_Connected = 1;
 	GUN_ENCODER_Connected = 1;
+	Judge_Connected = 0;
 	chassis_ch2 = 0;
 	memset(last_ch_input, 0, sizeof(last_ch_input));
 	memset(ch_input, 0, sizeof(ch_input));
