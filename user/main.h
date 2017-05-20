@@ -26,7 +26,6 @@
 #include "core_cm4.h"
 #include "core_cmFunc.h"
 #include "Driver_Gun.h"
-#include "Driver_Encoder.h"
 
 
 #endif /* __MAIN_H */

@@ -1,14 +1,13 @@
 #define GUN_FILE
 
 #include "Dbus.h"
-#include "Driver_Encoder.h"
-#include "Driver_Gun.h"
 #include "global_variable.h"
 #include "param.h"
 #include "customized_function.h"
 #include "gimbal_control.h"
 #include "judge.h"
 #include "external_control.h"
+#include "Driver_Gun.h"
 
 #include <string.h>
 
@@ -22,38 +21,21 @@ void GUN_BSP_Init(void) {
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
     GPIO_InitTypeDef GPIO_InitStructure;
 
-    // Brush Motor
-    GPIO_InitStructure.GPIO_Mode   =   GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_OType  =   GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_Pin    =   GPIO_Pin_0;
-    GPIO_InitStructure.GPIO_PuPd   =   GPIO_PuPd_NOPULL;
-    GPIO_InitStructure.GPIO_Speed  =   GPIO_Speed_100MHz;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
-    GPIO_PinAFConfig(GPIOA, GPIO_PinSource0, GPIO_AF_TIM2);
-
-    GPIO_InitStructure.GPIO_Mode   =   GPIO_Mode_OUT;
-    GPIO_InitStructure.GPIO_OType  =   GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_Pin    =   GPIO_Pin_1;
-    GPIO_InitStructure.GPIO_PuPd   =   GPIO_PuPd_UP;
-    GPIO_InitStructure.GPIO_Speed  =   GPIO_Speed_2MHz;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
-    GPIO_ResetBits(GPIOA, GPIO_Pin_1);
-
     // Friction Wheel
     GPIO_InitStructure.GPIO_Mode   =   GPIO_Mode_AF;
     GPIO_InitStructure.GPIO_OType  =   GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_Pin    =   GPIO_Pin_8 | GPIO_Pin_9;
+    GPIO_InitStructure.GPIO_Pin    =   GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10;
     GPIO_InitStructure.GPIO_PuPd   =   GPIO_PuPd_NOPULL;
     GPIO_InitStructure.GPIO_Speed  =   GPIO_Speed_100MHz;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
     GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_TIM1);
     GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_TIM1);
+    GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_TIM1);
 
     TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
     TIM_OCInitTypeDef TIM_OCInitStructure;
     
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
 
     // TIM1 (friction wheel, 400Hz)
     TIM_TimeBaseInitStructure.TIM_ClockDivision =   TIM_CKD_DIV1;
@@ -74,25 +56,12 @@ void GUN_BSP_Init(void) {
     TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
     TIM_OC2Init(TIM1, &TIM_OCInitStructure);
     TIM_OC2PreloadConfig(TIM1, TIM_OCPreload_Enable);
+    TIM_OC3Init(TIM1, &TIM_OCInitStructure);
+    TIM_OC3PreloadConfig(TIM1, TIM_OCPreload_Enable);
     TIM_ARRPreloadConfig(TIM1, ENABLE);
     TIM_CtrlPWMOutputs(TIM1, ENABLE);
     TIM_Cmd(TIM1, ENABLE);
 
-    // TIM2 (brush motor, 1kHz)
-    TIM_TimeBaseInitStructure.TIM_ClockDivision =   TIM_CKD_DIV1;
-    TIM_TimeBaseInitStructure.TIM_CounterMode   =   TIM_CounterMode_Up;
-    TIM_TimeBaseInitStructure.TIM_Period        =   12000-1;
-    TIM_TimeBaseInitStructure.TIM_Prescaler     =   (uint32_t) (((SystemCoreClock / 2) / 12000000)-1); // 12MHz clock
-    TIM_TimeBaseInit(TIM2, &TIM_TimeBaseInitStructure);
-
-    TIM_OCInitStructure.TIM_OCMode       =   TIM_OCMode_PWM2;
-    TIM_OCInitStructure.TIM_Pulse        =   0;
-    TIM_OCInitStructure.TIM_OutputState  =   TIM_OutputState_Enable;
-    TIM_OCInitStructure.TIM_OCPolarity   =   TIM_OCPolarity_High;
-    TIM_OC1Init(TIM2, &TIM_OCInitStructure);
-    TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Enable);
-    TIM_ARRPreloadConfig(TIM2, ENABLE);
-    TIM_Cmd(TIM2, ENABLE);
 }
 
 void GUN_Init(void) {
@@ -124,10 +93,12 @@ void GUN_SetMotion(void) {
         friction_wheel_pwm *= ratio;
         FRIC_SET_THRUST_L(friction_wheel_pwm);
         FRIC_SET_THRUST_R(friction_wheel_pwm);
+        FRIC_SET_THRUST_M(friction_wheel_pwm);
     }
     else {
         FRIC_SET_THRUST_L(0);
         FRIC_SET_THRUST_R(0);
+        FRIC_SET_THRUST_M(0);
     }
 
     uint8_t KeyNow = DBUS_CheckPushNow(KEY_V) && (DBUS_CheckPushNow(KEY_Q) || DBUS_CheckPushNow(KEY_W) || DBUS_CheckPushNow(KEY_E) || DBUS_CheckPushNow(KEY_A) || DBUS_CheckPushNow(KEY_S) || DBUS_CheckPushNow(KEY_D) || DBUS_CheckPushNow(KEY_Z) || DBUS_CheckPushNow(KEY_X) || DBUS_CheckPushNow(KEY_C));
@@ -160,7 +131,7 @@ void GUN_SetMotion(void) {
     shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
     // shoot = shoot && (ticks_msimg - lastTick > 220);
-    shoot = shoot && (ticks_msimg - lastTick > 300);
+    shoot = shoot && (ticks_msimg - lastTick > 200);
     if (shoot && !hasPending) {
         if (keyJumpPress)
         {
@@ -183,101 +154,33 @@ void GUN_SetMotion(void) {
     }
 }
 
-void GUN_ShootOne(void) {
-    // static int16_t index = 1;
-    // if (GUN_PokeErr > 2000 || GUN_PokeErr < -2000)
-    // {
-    //     index = -1;
-    // }
-// #if ENCODER_DIR == 1
+void GUN_ShootOne(void)
+{
+    if (fabs(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 3000)
+    {
+        GUN_Direction *= -1;
+        GUN_SetFree();
+    }
     if (GUN_Direction == 1)
     {
-        GUN_Data.pokeTargetAngle += 660;
+        GUN_TargetPos += 36 * 60;
     }
-// #else
-    else GUN_Data.pokeTargetAngle -= 660;
-// #endif
+    else GUN_TargetPos -= 36 * 60;
+
 }
 
-void GUN_EncoderUpdate(void) {
-    ENCODER_Update();
-    GUN_Data.pokeAngle += ENCODER_Data;
-    if (GUN_Data.pokeAngle > 16777216) {
-        GUN_Data.pokeAngle = GUN_Data.pokeTargetAngle = 0;
-    }
-}
-
-void GUN_PokeControl(void) {
-    GUN_Data.pokeTargetSpeed = PID_UpdateValue(&driver_pos_pid,
-        GUN_Data.pokeTargetAngle, GUN_Data.pokeAngle);
-    GUN_PokeErr = driver_pos_pid.p;
-    GUN_PokeIntegral = driver_speed_pid.Ki * driver_speed_pid.i;
-    GUN_PokeSpeedControl();
-}
-
-void GUN_PokeSpeedControl(void) {
-    GUN_Data.pokeOutput = PID_UpdateValue(&driver_speed_pid,
-        GUN_Data.pokeTargetSpeed, ENCODER_Data);
-    GUN_PokeOutput= GUN_Data.pokeOutput;
-
-    // if (GUN_PokeIntegral > 10000 || GUN_PokeIntegral < -10000 || DBUS_ReceiveData.mouse.press_right)
-    if ( DBUS_ReceiveData.mouse.press_right)
-    {
-        // get stucked
-
-        GUN_SetFree();
-        if (!DBUS_ReceiveData.mouse.press_right)
-        {
-            GUN_Direction = - GUN_Direction;
-        }
-        POKE_SET_PWM(0);
-        return;
-    }
-
-    if (InfantryJudge.OverShootFreqLastTime)
-    {
-        GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-        POKE_SET_PWM(0);
-        InfantryJudge.OverShootFreqLastTime = 0;
-    }
-    else
-    {
-    #if POKE_DIR == 0
-        if (GUN_Data.pokeOutput >= 0) {
-            GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-            POKE_SET_PWM(GUN_Data.pokeOutput);
-        }
-        else {
-            GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-            POKE_SET_PWM(-GUN_Data.pokeOutput);
-        }
-    #else
-        if (GUN_Data.pokeOutput >= 0) {
-            GPIO_ResetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-            POKE_SET_PWM(GUN_Data.pokeOutput);
-        }
-        else {
-            GPIO_SetBits(POKE_DIR_PORT, POKE_DIR_PIN);
-            POKE_SET_PWM(-GUN_Data.pokeOutput);
-        }
-    #endif
-    }
-}
-
-void GUN_SetFree(void) {
-    PID_Reset_driver();
-    GUN_Data.pokeOutput = 0;
-    GUN_Data.pokeTargetSpeed = 0;
-    GUN_Data.pokeTargetAngle = 0;
-    GUN_Data.pokeAngle = 0;
-    GUN_PokeErr = 0;
-    GUN_PokeIntegral = 0;
-    GUN_PokeOutput = 0;
-}
-
-void GUN_SetStop(void)
+void GUN_SetFree(void)
 {
-    GUN_Data.pokeTargetAngle = GUN_Data.pokeAngle;
+    PID_Reset_driver();
+}
+
+void GUN_Update(void)
+{
+    gun_driver_input = PID_UpdateValue(&gun_driver_speed_pid, 
+                                        PID_UpdateValue(&gun_driver_pos_pid, 
+                                            GUN_TargetPos, 
+                                            GMxEncoder.ecd_angle), 
+                                        GMxEncoder.filter_rate);
 }
 
 uint16_t Friction_Wheel_PWM(void)

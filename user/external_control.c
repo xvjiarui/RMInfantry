@@ -19,7 +19,6 @@ void external_control_init(void)
 	Chassis_Connected = 1;
 	Gimbal_Connected = 1;
 	DBUS_Connected = 1;
-	GUN_ENCODER_Connected = 1;
 	Judge_Connected = 0;
 	chassis_ch2 = 0;
 	memset(last_ch_input, 0, sizeof(last_ch_input));
@@ -103,7 +102,7 @@ void external_control(void) {
 		// {
 		// 	target_new_driver_pos += 36 * 60;
 		// }
-		// int16_t input = PID_UpdateValue(&new_driver_speed_pid, PID_UpdateValue(&new_driver_pos_pid, target_new_driver_pos, GMxEncoder.ecd_angle), GMxEncoder.filter_rate);
+		// int16_t input = PID_UpdateValue(&gun_driver_speed_pid, PID_UpdateValue(&gun_driver_pos_pid, target_new_driver_pos, GMxEncoder.ecd_angle), GMxEncoder.filter_rate);
 		// Set_CM_Speed(CAN1, 0, 0, input, 0);
 		// int16_t input = PID_UpdateValue(&new_driver_speed_pid, 100, GMxEncoder.filter_rate);
 		// Set_CM_Speed(CAN1, 0, 0, input, 0);
@@ -152,6 +151,7 @@ void remote_control(void) {
 		control_gimbal(ch_input[2], ch_input[3]);
 	}
 	// control_car_speed(ch_input[0], ch_input[1], 0);
+	GUN_Update();
 	control_car(ch_input[0], ch_input[1], 0, NORMAL);
 }
 
@@ -165,16 +165,6 @@ void computer_control(void) {
 	process_mouse_data();
 
 	gimbal_in_buff_pos = 0;
-
-	if (!GUN_ENCODER_Connected)
-	{
-		if (DBUS_ReceiveData.mouse.press_left)
-		{
-			POKE_SET_PWM(8000);
-		}
-		else POKE_SET_PWM(0);
-		GUN_SetFree();
-	}
 
 	if (!DBUS_CheckPush(KEY_Z))
 	{
@@ -265,6 +255,7 @@ void computer_control(void) {
 			}
 		}
 		// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
+		GUN_Update();
 		control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
 	}
 }
@@ -324,22 +315,14 @@ void process_keyboard_data(void)
 }
 
 void remote_buff_adjust(void) {
-	Set_CM_Speed(CAN1, 0, 0, 0, 0);
+	Set_CM_Speed(CAN1, 0, 0, gun_driver_input, 0);
+	GUN_Update();
 	static int16_t ch_input[4];
 	ch_input[0] = DBUS_ReceiveData.rc.ch0;
 	ch_input[1] = DBUS_ReceiveData.rc.ch1;
 	ch_input[2] = DBUS_ReceiveData.rc.ch2;
 	ch_input[3] = DBUS_ReceiveData.rc.ch3;
 	static uint8_t is_writing_flash = 0;
-	if (!GUN_ENCODER_Connected)
-	{
-		if (ch_input[2] < -500)
-		{
-			POKE_SET_PWM(8000);
-		}
-		else POKE_SET_PWM(0);
-		GUN_SetFree();
-	}
 	if (ch_input[3] > 600)
 	{
 		clearing_ammo = 1;
@@ -348,18 +331,18 @@ void remote_buff_adjust(void) {
 	{
 		if (ch_input[3] > 600)
 		{
-			POKE_SET_PWM(12000);
+			gun_driver_input = 500;
 		}
 		else
 		{
-			POKE_SET_PWM(0);
+			gun_driver_input = 0;
 			clearing_ammo = 0;
+			PID_Reset_driver();
 		}
-		GUN_SetFree();
 	}
 	if (ch_input[3] < -600)
 	{
-		GUN_SetStop();
+		gun_driver_input = 0;
 	}
 	if (ch_input[2] > 600 )
 	{

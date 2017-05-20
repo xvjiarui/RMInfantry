@@ -1,5 +1,5 @@
 #ifndef CONSTANT_H
-#define CONSTANT_H
+#define CONSTANT_H 
 
 #define	YAW_SPEED_TO_CHASSIS_CH2 	 	0.14090909f
 #define YAW_ANGLE_RATIO 			 	27.0f

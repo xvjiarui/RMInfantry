@@ -43,7 +43,7 @@ extern volatile Encoder GMPitchEncoder;
 extern volatile Encoder GMxEncoder;
 
 extern uint8_t can_chassis_connected[4];
-extern uint8_t can_gimbal_connected[2];
+extern uint8_t can_gimbal_connected[3];
 
 void GetEncoderBias(volatile Encoder *v, CanRxMsg * msg);
 void EncoderProcess(volatile Encoder *v, CanRxMsg * msg);

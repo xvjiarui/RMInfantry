@@ -24,6 +24,8 @@ void gimbal_control_init(void)
 	{
 		manual_buff_pos[i].flash = readFlash(i);
 	}
+	gun_driver_input = 0;
+	GUN_TargetPos = GMxEncoder.ecd_angle;
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -58,7 +60,7 @@ void control_gimbal_pos_with_speed(int16_t target_yaw_pos, int16_t target_pitch_
 }
 
 void send_to_gimbal(int16_t pid_yaw, int16_t pid_pitch) {
-	Set_CM_Speed(CAN1, pid_yaw, pid_pitch, 0, 0);
+	Set_CM_Speed(CAN1, pid_yaw, pid_pitch, gun_driver_input, 0);
 }
 
 void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t input_pitch_pos)

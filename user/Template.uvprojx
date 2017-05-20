@@ -670,11 +670,6 @@
               <FilePath>.\data_monitor.c</FilePath>
             </File>
             <File>
-              <FileName>Driver_Encoder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Driver_Encoder.c</FilePath>
-            </File>
-            <File>
               <FileName>Driver_Gun.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Driver_Gun.c</FilePath>

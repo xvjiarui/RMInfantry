@@ -16,10 +16,10 @@ volatile Encoder GMxEncoder = {0,0,0,0,0,0,0,0,0};//207
 
 uint32_t can_chassis_count[4] = {0, 0, 0, 0};
 uint32_t can_chassis_last_count[4] = {0, 0, 0, 0};
-uint32_t can_gimbal_count[2] = {0, 0};
-uint32_t can_gimbal_last_count[2] = {0, 0};
+uint32_t can_gimbal_count[3] = {0, 0, 0};
+uint32_t can_gimbal_last_count[3] = {0, 0, 0};
 uint8_t  can_chassis_connected[4] = {1, 1, 1, 1};
-uint8_t  can_gimbal_connected[2] = {1, 1};
+uint8_t  can_gimbal_connected[3] = {1, 1, 1};
 /*
 ***********************************************************************************************
 *Name          :GetEncoderBias
@@ -157,6 +157,7 @@ void CanReceiveMsgProcess_for_gimbal(CanRxMsg * msg)
 
 				case CAN_BUS2_MOTOR3_FEEDBACK_MSG_ID:
 				{
+					can_gimbal_count[2]++;
 					(can_count<=50) ? GetEncoderBias(&GMxEncoder ,msg):EncoderProcess(&GMxEncoder ,msg);   
 				}break;		
 
@@ -179,7 +180,7 @@ void CanCheckConnection_for_Chassis(void)
 
 void CanCheckConnection_for_Gimbal(void)
 {
-	for (uint8_t i = 0; i < 2; ++i)
+	for (uint8_t i = 0; i < 3; ++i)
 	{
 		if (can_gimbal_count[i] != can_gimbal_last_count[i])
 		{

@@ -26,17 +26,10 @@ void TIM7_IRQHandler(void) {
         CanCheckConnection_for_Chassis();
         CanCheckConnection_for_Gimbal();
         Chassis_Connected = can_chassis_connected[0] & can_chassis_connected[1] & can_chassis_connected[2] & can_chassis_connected[3];
-        Gimbal_Connected = can_gimbal_connected[0] & can_gimbal_connected[1];
+        Gimbal_Connected = can_gimbal_connected[0] & can_gimbal_connected[1] & can_gimbal_connected[2];
         DBUS_Connected = DBUS_CheckConnection();
-        GUN_ENCODER_Connected = ENCODER_CheckConnection();
-        GUN_EncoderUpdate();
-
-        if (!GUN_ENCODER_Connected || clearing_ammo)
-        {
-            GUN_SetFree();
-        }
-        else GUN_PokeControl();
     }
+    
     if (tick % 50 == 0)
     {
         Judge_Connected = Judge_UART_CheckConnection();
