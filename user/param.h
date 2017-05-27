@@ -23,6 +23,7 @@
 
 #define ROTATION_ACCELERATION 			150
 
+#define DANCING_SPEED					900
 
 #ifdef GOGOGO
 #define FRICTION_WHEEL_PWM				1.0

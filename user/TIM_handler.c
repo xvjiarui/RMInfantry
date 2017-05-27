@@ -28,6 +28,10 @@ void TIM7_IRQHandler(void) {
         Chassis_Connected = can_chassis_connected[0] & can_chassis_connected[1] & can_chassis_connected[2] & can_chassis_connected[3];
         Gimbal_Connected = can_gimbal_connected[0] & can_gimbal_connected[1] & can_gimbal_connected[2];
         DBUS_Connected = DBUS_CheckConnection();
+        if (!Chassis_Connected)
+        {
+            FAIL_MUSIC;
+        }
     }
     
     if (tick % 50 == 0)
@@ -35,5 +39,6 @@ void TIM7_IRQHandler(void) {
         Judge_Connected = Judge_UART_CheckConnection();
     }
     current_angle = output_angle;
+    buzzer_check();
     external_control();
 }

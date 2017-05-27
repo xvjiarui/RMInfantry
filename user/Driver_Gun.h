@@ -24,7 +24,6 @@ typedef struct {
 } GUN_DataTypeDef;
 
 GUN_EXT volatile GUN_DataTypeDef GUN_Data;
-GUN_EXT volatile uint8_t GUN_Direction;
 
 void GUN_Init(void);
 void GUN_SetMotion(void);

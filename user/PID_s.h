@@ -1,6 +1,9 @@
 #ifndef PID_S_H
 #define PID_S_H
 
+
+#define ABS(x) (((x)>0)?(x):(-(x)))
+
 typedef enum {
     Positional,
     IntegralResist,

@@ -32,11 +32,13 @@ void init(){
 	input_init_all();
 	chassis_control_init();
 	gimbal_control_init();
+	buzzer_init();
 }
 
 int16_t int_debug;
 int16_t int_debug2;
 float float_debug;
+
 
 
 int main(void)
@@ -68,12 +70,14 @@ int main(void)
 						tft_prints(0, 2, "p_F%d %f", GMPitchEncoder.filter_rate, GMPitchEncoder.ecd_angle);
 						tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
 						tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
-						tft_prints(0, 5,"P:%d", DBUS_ReceiveData.mouse.press_left);
+						tft_prints(0, 5,"L:%d R:%d", DBUS_ReceiveData.mouse.press_left, DBUS_ReceiveData.mouse.press_right);
 						tft_prints(0, 6,"Chassis:%d %d %d %d %d", Chassis_Connected, can_chassis_connected[0], can_chassis_connected[1], can_chassis_connected[2], can_chassis_connected[3]);
 						tft_prints(0, 7,"Gimbal:%d %d %d %d", Gimbal_Connected, can_gimbal_connected[0], can_gimbal_connected[1], can_gimbal_connected[2]);
-						tft_prints(0, 8,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
-						tft_prints(0, 9, "input%d", gun_driver_input);
-						tft_prints(0, 10,"GMxecd:%f", GMxEncoder.ecd_angle);
+						// tft_prints(0, 8,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
+						tft_prints(0, 8, "d:%d input:%d", GUN_Direction, GUN_DriverInput);
+						tft_prints(0, 9, "f_d %f", float_debug);
+						tft_prints(0, 10, "f_da %f", ABS(float_debug));
+						// tft_prints(0, 10,"Tar:%f GMxecd:%f",GUN_TargetPos, GMxEncoder.ecd_angle);
 						tft_prints(0, 11, "GMxfr:%d", GMxEncoder.filter_rate);
 						// tft_prints(0, 2, "s:%d", GMxEncoder.filter_rate);
 						// tft_prints(0, 3, "p:%f", GMxEncoder.ecd_angle);

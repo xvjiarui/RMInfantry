@@ -26,8 +26,9 @@ GIMBAL_CONTROL_EXT uint8_t buff_pressed;
 GIMBAL_CONTROL_EXT uint8_t clearing_ammo;
 GIMBAL_CONTROL_EXT union u32ANDint16_t manual_buff_pos[18];
 GIMBAL_CONTROL_EXT int16_t read_buff_pos[18];
-GIMBAL_CONTROL_EXT int16_t gun_driver_input;
+GIMBAL_CONTROL_EXT int16_t GUN_DriverInput;
 GIMBAL_CONTROL_EXT float GUN_TargetPos;
+GIMBAL_CONTROL_EXT int16_t GUN_Direction;
 
 void gimbal_control_init(void);
 

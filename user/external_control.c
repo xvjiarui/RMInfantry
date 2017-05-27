@@ -126,8 +126,6 @@ void remote_control(void) {
 		ch_input[i] += ch_changes[i];
 		last_ch_input[i] = ch_input[i];
 	}
-	// ch_input[2] = DBUS_ReceiveData.rc.ch2;
-	// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
 	if ((ch_input[2] < 0 && gimbal_exceed_right_bound()) || (ch_input[2] > 0 && gimbal_exceed_left_bound()))
 	{
 		ch_input[2] = 0;
@@ -150,9 +148,8 @@ void remote_control(void) {
 	{
 		control_gimbal(ch_input[2], ch_input[3]);
 	}
-	// control_car_speed(ch_input[0], ch_input[1], 0);
-	GUN_Update();
 	control_car(ch_input[0], ch_input[1], 0, NORMAL);
+	int_debug = ch_input[2];
 }
 
 void computer_control(void) {
@@ -255,7 +252,6 @@ void computer_control(void) {
 			}
 		}
 		// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
-		GUN_Update();
 		control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
 	}
 }
@@ -315,8 +311,7 @@ void process_keyboard_data(void)
 }
 
 void remote_buff_adjust(void) {
-	Set_CM_Speed(CAN1, 0, 0, gun_driver_input, 0);
-	GUN_Update();
+	Set_CM_Speed(CAN1, 0, 0, GUN_DriverInput, 0);
 	static int16_t ch_input[4];
 	ch_input[0] = DBUS_ReceiveData.rc.ch0;
 	ch_input[1] = DBUS_ReceiveData.rc.ch1;
@@ -331,18 +326,18 @@ void remote_buff_adjust(void) {
 	{
 		if (ch_input[3] > 600)
 		{
-			gun_driver_input = 500;
+			GUN_DriverInput = 500;
 		}
 		else
 		{
-			gun_driver_input = 0;
+			GUN_DriverInput = 0;
 			clearing_ammo = 0;
 			PID_Reset_driver();
 		}
 	}
 	if (ch_input[3] < -600)
 	{
-		gun_driver_input = 0;
+		GUN_DriverInput = 0;
 	}
 	if (ch_input[2] > 600 )
 	{
@@ -426,36 +421,53 @@ void remote_buff_adjust(void) {
 
 void dancing_mode(void)
 {
-	static int16_t dir = 1;
-	float r;
-	int16_t target_chassis_ch2_speed = 900;
-	int16_t target_yaw_filter_rate = target_chassis_ch2_speed * YAW_SPEED_TO_CHASSIS_CH2;
-	if (GMYawEncoder.ecd_angle - init_yaw_pos < (YAW_RIGHT_BOUND * 2 / 3))
-	{
-		r = (((YAW_RIGHT_BOUND) - (GMYawEncoder.ecd_angle - init_yaw_pos)) / (YAW_RIGHT_BOUND * 1 / 3));
-	}
-	else if (GMYawEncoder.ecd_angle - init_yaw_pos > (YAW_LEFT_BOUND * 2 / 3))
-	{
-		r = (((YAW_LEFT_BOUND) - (GMYawEncoder.ecd_angle - init_yaw_pos)) / (YAW_LEFT_BOUND * 1 / 3));
-	}
-	else
-	{
-		r = 1;
-	}
-	limit_float_range(&r, 1, 0.1);
+	// static int16_t dir = 1;
+	// float r;
+	// int16_t target_chassis_ch2_speed = 900;
+	// int16_t target_yaw_filter_rate = target_chassis_ch2_speed * YAW_SPEED_TO_CHASSIS_CH2;
+	// if (GMYawEncoder.ecd_angle - init_yaw_pos < (YAW_RIGHT_BOUND * 2 / 3))
+	// {
+	// 	r = (((YAW_RIGHT_BOUND) - (GMYawEncoder.ecd_angle - init_yaw_pos)) / (YAW_RIGHT_BOUND * 1 / 3));
+	// }
+	// else if (GMYawEncoder.ecd_angle - init_yaw_pos > (YAW_LEFT_BOUND * 2 / 3))
+	// {
+	// 	r = (((YAW_LEFT_BOUND) - (GMYawEncoder.ecd_angle - init_yaw_pos)) / (YAW_LEFT_BOUND * 1 / 3));
+	// }
+	// else
+	// {
+	// 	r = 1;
+	// }
+	// limit_float_range(&r, 1, 0.1);
 
-	if (gimbal_exceed_left_bound())
+	// if (gimbal_exceed_left_bound())
+	// {
+	// 	dir = -1;
+	// }
+	// else if (gimbal_exceed_right_bound())
+	// {
+	// 	dir = 1;
+	// }
+
+	// control_gimbal(dir * r * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
+	// control_car(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed, DANCING);
+	static int16_t dir = 1;
+	if (gimbal_approach_left_bound())
 	{
 		dir = -1;
 	}
-	else if (gimbal_exceed_right_bound())
+	else if (gimbal_approach_right_bound())
 	{
 		dir = 1;
 	}
+	int16_t chassis_ch2_target = DANCING_SPEED * dir;
+	static int16_t chassis_ch2_input = 0;
+	int16_t chassis_ch2_change = chassis_ch2_target - chassis_ch2_input;
+	limit_int_range(&chassis_ch2_change, 5, -5);
+	chassis_ch2_input += chassis_ch2_change;
+	int16_t yaw_filter_rate_input = chassis_ch2_input * YAW_SPEED_TO_CHASSIS_CH2;
+	control_gimbal(yaw_filter_rate_input + mouse_input[0], mouse_input[1]);
+	control_car(ch_input[0], ch_input[1], chassis_ch2_input,DANCING);
 
-	control_gimbal(dir * r * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
-	// control_car_speed_dancing(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed);
-	control_car(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed, DANCING);
 }
 
 void chassis_disconnect_handler(void)

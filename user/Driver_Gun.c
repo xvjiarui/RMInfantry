@@ -132,6 +132,12 @@ void GUN_SetMotion(void) {
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
     // shoot = shoot && (ticks_msimg - lastTick > 220);
     shoot = shoot && (ticks_msimg - lastTick > 200);
+    if (DBUS_ReceiveData.mouse.press_right)
+    {
+        GUN_SetFree();
+        shoot = 0;
+        pressCount = 0;
+    }
     if (shoot && !hasPending) {
         if (keyJumpPress)
         {
@@ -156,16 +162,11 @@ void GUN_SetMotion(void) {
 
 void GUN_ShootOne(void)
 {
-    if (fabs(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 3000)
-    {
-        GUN_Direction *= -1;
-        GUN_SetFree();
-    }
     if (GUN_Direction == 1)
     {
-        GUN_TargetPos += 36 * 60;
+        GUN_TargetPos += 36 * 72;
     }
-    else GUN_TargetPos -= 36 * 60;
+    else GUN_TargetPos -= 36 * 72;
 
 }
 
@@ -176,7 +177,21 @@ void GUN_SetFree(void)
 
 void GUN_Update(void)
 {
-    gun_driver_input = PID_UpdateValue(&gun_driver_speed_pid, 
+    // if (fabs(GMxEncoder.ecd_angle) > 216000 || fabs(GUN_TargetPos) > 216000)
+    // {
+    //     GMxEncoder.ecd_angle = 0;
+    //     GUN_TargetPos = 0;
+    // }
+
+    float_debug = (gun_driver_speed_pid.Ki * gun_driver_speed_pid.i);
+
+    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 1500)
+    {
+        GUN_Direction *= -1;
+        GUN_SetFree();
+    }
+
+    GUN_DriverInput = PID_UpdateValue(&gun_driver_speed_pid, 
                                         PID_UpdateValue(&gun_driver_pos_pid, 
                                             GUN_TargetPos, 
                                             GMxEncoder.ecd_angle), 
