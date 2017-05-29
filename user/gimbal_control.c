@@ -188,7 +188,7 @@ int16_t gimbal_exceed_left_bound()
 
 int16_t gimbal_approach_right_bound()
 {
-	if (GMYawEncoder.ecd_angle < (init_yaw_pos + YAW_RIGHT_BOUND * 0.8))
+	if (GMYawEncoder.ecd_angle < (init_yaw_pos + YAW_RIGHT_BOUND * 0.6))
 	{
 		return 1;
 	}
@@ -197,7 +197,7 @@ int16_t gimbal_approach_right_bound()
 
 int16_t gimbal_approach_left_bound()
 {
-	if (GMYawEncoder.ecd_angle > (init_yaw_pos + YAW_LEFT_BOUND * 0.8))
+	if (GMYawEncoder.ecd_angle > (init_yaw_pos + YAW_LEFT_BOUND * 0.6))
 	{
 		return 1;
 	}

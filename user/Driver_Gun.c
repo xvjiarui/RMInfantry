@@ -185,7 +185,7 @@ void GUN_Update(void)
 
     float_debug = (gun_driver_speed_pid.Ki * gun_driver_speed_pid.i);
 
-    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 1500)
+    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 1200)
     {
         GUN_Direction *= -1;
         GUN_SetFree();

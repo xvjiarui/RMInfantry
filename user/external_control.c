@@ -13,6 +13,7 @@
 #include "const.h"
 
 extern volatile u32 ticks_msimg;
+int16_t chassis_ch2_input = 0;
 
 void external_control_init(void)
 {
@@ -166,6 +167,11 @@ void computer_control(void) {
 	if (!DBUS_CheckPush(KEY_Z))
 	{
 		pushed_Z_this_time = 0;
+	}
+	
+	if (!DBUS_CheckPush(KEY_C))
+	{
+		chassis_ch2_input = 0;
 	}
 	
 	if (DBUS_CheckPush(KEY_Z) || in_countering_flag == 1)
@@ -460,7 +466,6 @@ void dancing_mode(void)
 		dir = 1;
 	}
 	int16_t chassis_ch2_target = DANCING_SPEED * dir;
-	static int16_t chassis_ch2_input = 0;
 	int16_t chassis_ch2_change = chassis_ch2_target - chassis_ch2_input;
 	limit_int_range(&chassis_ch2_change, 5, -5);
 	chassis_ch2_input += chassis_ch2_change;
