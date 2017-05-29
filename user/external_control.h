@@ -16,6 +16,8 @@ EXTERNAL_CONTROL_EXT int16_t last_ch_input[4];
 EXTERNAL_CONTROL_EXT int16_t ch_input[4];
 EXTERNAL_CONTROL_EXT int16_t mouse_input[2];
 EXTERNAL_CONTROL_EXT int16_t last_mouse_input[2];
+EXTERNAL_CONTROL_EXT uint8_t dancing;
+EXTERNAL_CONTROL_EXT int16_t chassis_ch2_dancing_input;
 
 void external_control_init(void);
 

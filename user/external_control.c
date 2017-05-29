@@ -13,7 +13,6 @@
 #include "const.h"
 
 extern volatile u32 ticks_msimg;
-int16_t chassis_ch2_input = 0;
 
 void external_control_init(void)
 {
@@ -26,7 +25,8 @@ void external_control_init(void)
 	memset(ch_input, 0, sizeof(ch_input));
 	memset(mouse_input, 0 ,sizeof(mouse_input));
 	memset(last_ch_input, 0, sizeof(last_ch_input));
-
+	dancing = 0;
+	chassis_ch2_dancing_input = 0;
 }
 
 void external_control(void) {
@@ -169,10 +169,11 @@ void computer_control(void) {
 		pushed_Z_this_time = 0;
 	}
 	
-	if (!DBUS_CheckPush(KEY_C))
+	if (DBUS_CheckPush(KEY_C))
 	{
-		chassis_ch2_input = 0;
+		dancing = 1;
 	}
+	else chassis_ch2_dancing_input = 0;
 	
 	if (DBUS_CheckPush(KEY_Z) || in_countering_flag == 1)
 	{
@@ -219,7 +220,7 @@ void computer_control(void) {
 		// control_car_speed_open_loop(ch_input[0], ch_input[1], ch_input[2]);
 		control_car(ch_input[0], ch_input[1], ch_input[2], OPEN_LOOP);
 	}
-	else if (DBUS_CheckPush(KEY_C))
+	else if (dancing)
 	{
 		dancing_mode();
 	}
@@ -466,12 +467,16 @@ void dancing_mode(void)
 		dir = 1;
 	}
 	int16_t chassis_ch2_target = DANCING_SPEED * dir;
-	int16_t chassis_ch2_change = chassis_ch2_target - chassis_ch2_input;
+	int16_t chassis_ch2_change = chassis_ch2_target - chassis_ch2_dancing_input;
 	limit_int_range(&chassis_ch2_change, 5, -5);
-	chassis_ch2_input += chassis_ch2_change;
-	int16_t yaw_filter_rate_input = chassis_ch2_input * YAW_SPEED_TO_CHASSIS_CH2;
+	chassis_ch2_dancing_input += chassis_ch2_change;
+	int16_t yaw_filter_rate_input = chassis_ch2_dancing_input * YAW_SPEED_TO_CHASSIS_CH2;
 	control_gimbal(yaw_filter_rate_input + mouse_input[0], mouse_input[1]);
-	control_car(ch_input[0], ch_input[1], chassis_ch2_input,DANCING);
+	control_car(ch_input[0], ch_input[1], chassis_ch2_dancing_input,DANCING);
+	if (!DBUS_CheckPush(KEY_Z) && chassis_ch2_dancing_input == 0)
+	{
+		dancing = 0;
+	}
 
 }
 
