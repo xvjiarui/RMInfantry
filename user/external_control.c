@@ -173,7 +173,6 @@ void computer_control(void) {
 	{
 		dancing = 1;
 	}
-	else chassis_ch2_dancing_input = 0;
 	
 	if (DBUS_CheckPush(KEY_Z) || in_countering_flag == 1)
 	{
@@ -473,7 +472,7 @@ void dancing_mode(void)
 	int16_t yaw_filter_rate_input = chassis_ch2_dancing_input * YAW_SPEED_TO_CHASSIS_CH2;
 	control_gimbal(yaw_filter_rate_input + mouse_input[0], mouse_input[1]);
 	control_car(ch_input[0], ch_input[1], chassis_ch2_dancing_input,DANCING);
-	if (!DBUS_CheckPush(KEY_Z) && chassis_ch2_dancing_input == 0)
+	if (!DBUS_CheckPush(KEY_C) && chassis_ch2_dancing_input == 0)
 	{
 		dancing = 0;
 	}

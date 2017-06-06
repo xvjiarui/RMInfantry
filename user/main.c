@@ -76,9 +76,11 @@ int main(void)
 						// tft_prints(0, 8,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
 						tft_prints(0, 8, "d:%d input:%d", GUN_Direction, GUN_DriverInput);
 						tft_prints(0, 9, "f_d %f", float_debug);
-						tft_prints(0, 10, "f_da %f", ABS(float_debug));
+						// tft_prints(0, 10, "f_da %f", ABS(float_debug));
 						// tft_prints(0, 10,"Tar:%f GMxecd:%f",GUN_TargetPos, GMxEncoder.ecd_angle);
-						tft_prints(0, 11, "GMxfr:%d", GMxEncoder.filter_rate);
+						// tft_prints(0, 11, "GMxfr:%d", GMxEncoder.filter_rate);
+						tft_prints(0, 10, "D_S:%d", chassis_ch2_dancing_input);
+						tft_prints(0, 11, "Dancing:%d", dancing);
 						// tft_prints(0, 2, "s:%d", GMxEncoder.filter_rate);
 						// tft_prints(0, 3, "p:%f", GMxEncoder.ecd_angle);
 						// tft_prints(0, 8, "pid:%f", float_debug);
