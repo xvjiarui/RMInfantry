@@ -56,7 +56,7 @@ void PID_init_chassis(void)
 		PID_init(&wheels_speed_pid[i], 80, 5, 100, 20000, IntegralResist); //0.00001
 		PID_SetIntegral(&wheels_speed_pid[i], 990, -990, 100, 15, 0, 0, 0);
 	}
-	PID_init(&angle_pid, 4, 0, 40, 990, Positional); //4 is best 660 is some limit
+	PID_init(&angle_pid, 4, 0, 40, 1500, Positional); //4 is best 660 is some limit
 	// PID_init(&buffer_pid, 0.005, 0.0035, 0, 0.7);
 	PID_init(&buffer_pid, 0.006, 0.00055, 0, 0.7, IntegralSegment);
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50, Positional);
@@ -80,7 +80,7 @@ void PID_init_driver(void)
 	// PID_init(&gun_driver_speed_pid, 80, 5, 100, 8000, IntegralResist);
 	// PID_SetIntegral(&gun_driver_speed_pid, 2000, -2000, 100, 15, 0, 0, 0);
 	PID_init(&gun_driver_speed_pid, 80, 0.5, 100, 8000, IntegralSegment);
-	PID_init(&gun_driver_pos_pid, 0.10, 0, 0, 2000, Positional);
+	PID_init(&gun_driver_pos_pid, 0.7, 0, 0, 1000, Positional);
 }
 
 void PID_Reset_all(void)

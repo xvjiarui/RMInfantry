@@ -182,10 +182,10 @@ void GUN_Update(void)
     //     GMxEncoder.ecd_angle = 0;
     //     GUN_TargetPos = 0;
     // }
+    float temp = ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i);
+    float_debug = float_debug > temp ? float_debug:temp;
 
-    float_debug = (gun_driver_speed_pid.Ki * gun_driver_speed_pid.i);
-
-    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 1200)
+    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000)
     {
         GUN_Direction *= -1;
         GUN_SetFree();

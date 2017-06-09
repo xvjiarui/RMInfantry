@@ -33,11 +33,13 @@ void init(){
 	chassis_control_init();
 	gimbal_control_init();
 	buzzer_init();
+	external_control_init();
 }
 
 int16_t int_debug;
 int16_t int_debug2;
 float float_debug;
+float float_debug2;
 
 
 
@@ -55,63 +57,40 @@ int main(void)
 				
 			}
 
-			//TODO: nothing:-)
 			if(ticks_msimg%50==0)
 			{
 				tft_clear();
 				
-				// tft_prints(0,2,"Infantry V1.3");
 				if (!buff_mode)
 				{
 					if (DBUS_ReceiveData.rc.switch_left != 2)
 					{
 						
-						// tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
-						tft_prints(0, 2, "p_F%d %f", GMPitchEncoder.filter_rate, GMPitchEncoder.ecd_angle);
+						tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
 						tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
 						tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
 						tft_prints(0, 5,"L:%d R:%d", DBUS_ReceiveData.mouse.press_left, DBUS_ReceiveData.mouse.press_right);
 						tft_prints(0, 6,"Chassis:%d %d %d %d %d", Chassis_Connected, can_chassis_connected[0], can_chassis_connected[1], can_chassis_connected[2], can_chassis_connected[3]);
 						tft_prints(0, 7,"Gimbal:%d %d %d %d", Gimbal_Connected, can_gimbal_connected[0], can_gimbal_connected[1], can_gimbal_connected[2]);
-						// tft_prints(0, 8,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
-						tft_prints(0, 8, "d:%d input:%d", GUN_Direction, GUN_DriverInput);
-						tft_prints(0, 9, "f_d %f", float_debug);
-						// tft_prints(0, 10, "f_da %f", ABS(float_debug));
-						// tft_prints(0, 10,"Tar:%f GMxecd:%f",GUN_TargetPos, GMxEncoder.ecd_angle);
-						// tft_prints(0, 11, "GMxfr:%d", GMxEncoder.filter_rate);
-						tft_prints(0, 10, "D_S:%d", chassis_ch2_dancing_input);
-						tft_prints(0, 11, "Dancing:%d", dancing);
-						// tft_prints(0, 2, "s:%d", GMxEncoder.filter_rate);
-						// tft_prints(0, 3, "p:%f", GMxEncoder.ecd_angle);
-						// tft_prints(0, 8, "pid:%f", float_debug);
-						// tft_prints(0,9, "yaw_speed:%d", int_debug);
+						tft_prints(0, 8,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
+						tft_prints(0, 9, "d:%d input:%d", GUN_Direction, GUN_DriverInput);
+						tft_prints(0, 10,"C:%d T:%d", current_angle, target_angle);
+						// tft_prints(0, 11, "f_d:%f", float_debug);
+						tft_prints(0, 11, "i_d:%d", int_debug);
 					}
 					else
 					{
 						tft_prints(0, 2, "HART:%d", InfantryJudge.LastHartID);
-						tft_prints(0, 3,"Buffer:%f", InfantryJudge.RemainBuffer);
-						tft_prints(0, 4, "ShotSpeed:%f", InfantryJudge.LastShotSpeed);
-						tft_prints(0, 5, "ShotFreq:%f", InfantryJudge.LastShotFreq);
-						tft_prints(0, 6, "HP:%d SN:%d", InfantryJudge.LastBlood, InfantryJudge.ShootNum);
-						tft_prints(0, 7, "Armor:%d %f", InfantryJudge.ArmorDecrease, InfantryJudge.ArmorDecrease/(1500.0f - InfantryJudge.LastBlood));
-						tft_prints(0, 8, "Crash:%d %f", InfantryJudge.CrashDecrease,  InfantryJudge.CrashDecrease/(1500.0f - InfantryJudge.LastBlood));
-						tft_prints(0, 9, "OS:%d %f", InfantryJudge.OverShootSpeedDecrease, InfantryJudge.OverShootSpeedDecrease/(1500.0f - InfantryJudge.LastBlood));
-						tft_prints(0, 10, "OF:%d %f", InfantryJudge.OverShootFreqDecrease, InfantryJudge.OverShootFreqDecrease/(1500.0f - InfantryJudge.LastBlood));
-						tft_prints(0, 11, "OP:%d %f", InfantryJudge.OverPowerDecrease, InfantryJudge.OverPowerDecrease/(1500.0f - InfantryJudge.LastBlood));
-						// tft_prints(0, 11, "MO:%d %f", InfantryJudge.ModuleOfflineDecrease, InfantryJudge.ModuleOfflineDecrease/(1500.0f - InfantryJudge.LastBlood));
+						tft_prints(0, 3, "ShotSpeed:%f", InfantryJudge.LastShotSpeed);
+						tft_prints(0, 4, "ShotFreq:%f", InfantryJudge.LastShotFreq);
+						tft_prints(0, 5, "HP:%d SN:%d", InfantryJudge.LastBlood, InfantryJudge.ShootNum);
+						tft_prints(0, 6, "Armor:%d %f", InfantryJudge.ArmorDecrease, InfantryJudge.ArmorDecrease/(1500.0f - InfantryJudge.LastBlood));
+						tft_prints(0, 7, "Crash:%d %f", InfantryJudge.CrashDecrease,  InfantryJudge.CrashDecrease/(1500.0f - InfantryJudge.LastBlood));
+						tft_prints(0, 8, "OS:%d %f", InfantryJudge.OverShootSpeedDecrease, InfantryJudge.OverShootSpeedDecrease/(1500.0f - InfantryJudge.LastBlood));
+						tft_prints(0, 9, "OF:%d %f", InfantryJudge.OverShootFreqDecrease, InfantryJudge.OverShootFreqDecrease/(1500.0f - InfantryJudge.LastBlood));
+						tft_prints(0, 10, "OP:%d %f", InfantryJudge.OverPowerDecrease, InfantryJudge.OverPowerDecrease/(1500.0f - InfantryJudge.LastBlood));
+						tft_prints(0, 11, "MO:%d %f", InfantryJudge.ModuleOfflineDecrease, InfantryJudge.ModuleOfflineDecrease/(1500.0f - InfantryJudge.LastBlood));
 					}
-
-					// tft_prints(0,4,"fDebug:%f", float_debug);
-					// tft_prints(0,5,"iDebug:%d", int_debug);
-					
-					// tft_prints(0,10,"Cur:%d E:",current_angle, DBUS_CheckPushNow(KEY_E));
-					// tft_prints(0,11,"Tar:%d Q:",target_angle, DBUS_CheckPushNow(KEY_Q));
-					// tft_prints(0,12,"Out:%d",output_angle);
-					// tft_prints(0,4,"initp:%f", init_pitch_pos);
-					// tft_prints(0,5,"targetY:%f", manual_buff_pos[0].mem);
-					// tft_prints(0,6,"targetP:%f", manual_buff_pos[9].mem);
-					// tft_prints(0,7,"currentY:%f", GMYawEncoder.ecd_angle - init_yaw_pos);
-					// tft_prints(0,8,"currentP:%f", GMPitchEncoder.ecd_angle - init_pitch_pos);
 				}
 				else
 				{
@@ -123,7 +102,6 @@ int main(void)
 					{
 						read_buff_pos[i] = manual_buff_pos[i].mem / PITCH_ANGLE_RATIO;
 					}
-					// tft_prints(0, 4, "Q(%d,%d) W(%d,%d)", read_buff_pos[0], read_buff_pos[9], read_buff_pos[1], read_buff_pos[10]);
 					
 					tft_prints(0,2,"Buff Mode:%d %f", DBUS_ReceiveData.rc.switch_left, InfantryJudge.RealVoltage);
 					tft_prints(0,3,"Q:(%d,%d)", read_buff_pos[0], read_buff_pos[9]);
@@ -139,7 +117,6 @@ int main(void)
 				}
 				
 				tft_update();
-				// LED_blink(LED1);
 			}
 		}
 	}	

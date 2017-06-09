@@ -27,6 +27,11 @@ void external_control_init(void)
 	memset(last_ch_input, 0, sizeof(last_ch_input));
 	dancing = 0;
 	chassis_ch2_dancing_input = 0;
+
+	int_debug = 0;
+	int_debug2 = 0;
+	float_debug = 0;
+	float_debug2 = 0;
 }
 
 void external_control(void) {
@@ -79,7 +84,6 @@ void external_control(void) {
 			{
 				gimbal_disconnect_handler();
 				process_keyboard_data();
-				// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
 				control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
 			}
 			else
@@ -96,19 +100,6 @@ void external_control(void) {
 			input_init_all();
 			DBUS_ReceiveData.mouse.x_position = 0;
 			DBUS_ReceiveData.mouse.y_position = 0;
-		// Testing Driver
-		// static float target_new_driver_pos = 0;
-		// float_debug = target_new_driver_pos;
-		// if (ticks_msimg % 10000 == 0)
-		// {
-		// 	target_new_driver_pos += 36 * 60;
-		// }
-		// int16_t input = PID_UpdateValue(&gun_driver_speed_pid, PID_UpdateValue(&gun_driver_pos_pid, target_new_driver_pos, GMxEncoder.ecd_angle), GMxEncoder.filter_rate);
-		// Set_CM_Speed(CAN1, 0, 0, input, 0);
-		// int16_t input = PID_UpdateValue(&new_driver_speed_pid, 100, GMxEncoder.filter_rate);
-		// Set_CM_Speed(CAN1, 0, 0, input, 0);
-
-		// 
 			break;
 	}
 }
@@ -260,6 +251,8 @@ void computer_control(void) {
 		// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
 		control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
 	}
+	int16_t temp = ABS(CM1Encoder.filter_rate);
+	int_debug = int_debug > temp ? int_debug : temp;
 }
 void process_mouse_data(void)
 {

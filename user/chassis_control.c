@@ -120,8 +120,6 @@ int16_t get_wheel_filter_rate(uint8_t index)
 float buffer_decay()
 {
     float ratio = 0;
-    // ratio = PID_output3(&buffer_pid, 60, 100, -100, 100, -100, 0.65);
-    // ratio = PID_output4(&buffer_pid, 60);
     ratio = PID_UpdateValue(&buffer_pid, 60, InfantryJudge.RemainBuffer);
     ratio = ratio > 0 ? ratio : 0;
     ratio = 1- ratio;
@@ -141,18 +139,16 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
     {
         M_wheel_analysis_dancing(ch0, ch1, ch2, 0.5, 0.5, 0.5);
     }
-    // else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_output2(&angle_pid, target_angle, 800, -800, 30, -30));
-	else if (mode == COUNTER)
-	{
-		M_wheel_analysis_counter(ch0, ch1, ch2, 0.5, 0.5, 0.5, PID_UpdateValue(&angle_pid, target_angle, current_angle));
-	}
     else
 	{	
 		s32 angle_change = target_angle - current_angle;
 		limit_s32_range(&angle_change, ROTATION_ACCELERATION, -ROTATION_ACCELERATION);
         s32 input_angle = current_angle + angle_change;
-		M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, input_angle, current_angle));
-		// last_angle = input_angle;
+        if (mode == COUNTER)
+        {
+            M_wheel_analysis_counter(ch0, ch1, ch2, 0.5, 0.5, 0.5, PID_UpdateValue(&angle_pid, input_angle, current_angle));
+        }
+		else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, input_angle, current_angle));
 	}
     static float ratio = 1;
     if (InfantryJudge.Updated)
@@ -177,7 +173,6 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
                 input[i] = target_speed[i] * 3;
                 break;
             default :
-                // input[i] = PID_output2(&wheels_speed_pid[i], target_speed[i], 990, -990, 100, 15);
                 input[i] = PID_UpdateValue(&wheels_speed_pid[i], target_speed[i], get_wheel_filter_rate(i));
                 break;
         }

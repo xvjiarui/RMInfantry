@@ -4,5 +4,6 @@
 extern int16_t int_debug;
 extern int16_t int_debug2;
 extern float float_debug;
+extern float float_debug2;
 
 #endif
