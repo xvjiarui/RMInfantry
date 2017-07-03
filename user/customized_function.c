@@ -54,7 +54,7 @@ void PID_init_chassis(void)
 	for (int i = 0; i < 4; i++) {
 		PID_init(&wheels_pos_pid[i], 0.15, 0, 0, 20000, Positional);
 		PID_init(&wheels_speed_pid[i], 80, 5, 100, 20000, IntegralResist); //0.00001
-		PID_SetIntegral(&wheels_speed_pid[i], 990, -990, 100, 15, 0, 0, 0);
+		PID_SetIntegral(&wheels_speed_pid[i], 1100, -1100, 100, 15, 0, 0, 0);
 	}
 	PID_init(&angle_pid, 4, 0, 40, 1500, Positional); //4 is best 660 is some limit
 	// PID_init(&buffer_pid, 0.005, 0.0035, 0, 0.7);

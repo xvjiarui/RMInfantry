@@ -81,7 +81,7 @@ void GUN_SetMotion(void) {
     static uint8_t hasPending = 0;
 
     // friction wheel
-    if (DBUS_ReceiveData.rc.switch_right != 1 && DBUS_Connected && InfantryJudge.LastBlood != 0) {
+    if (DBUS_ReceiveData.rc.switch_right != 1 && DBUS_Connected) {
         uint16_t friction_wheel_pwm = Friction_Wheel_PWM();
         friction_wheel_pwm *= FRICTION_WHEEL_PWM;
         static float ratio = 1;
@@ -124,7 +124,7 @@ void GUN_SetMotion(void) {
 
 
     if (jumpRelease) pressCount = 0;
-    if (DBUS_ReceiveData.mouse.press_left) {
+    if (DBUS_ReceiveData.mouse.press_left || GUN_Data.last_poke_tick > InfantryJudge.LastShotTick) {
         ++pressCount;
     }
 
@@ -167,12 +167,17 @@ void GUN_ShootOne(void)
         GUN_TargetPos += 36 * 72;
     }
     else GUN_TargetPos -= 36 * 72;
+    GUN_Data.last_ecd_angle = GMxEncoder.ecd_angle;
+    GUN_Data.last_poke_tick = ticks_msimg;
 
 }
 
 void GUN_SetFree(void)
 {
     PID_Reset_driver();
+    GUN_Data.last_ecd_angle = GMxEncoder.ecd_angle;
+    GUN_Data.last_poke_tick = ticks_msimg;
+    InfantryJudge.LastShotTick = ticks_msimg;
 }
 
 void GUN_Update(void)
@@ -185,7 +190,8 @@ void GUN_Update(void)
     float temp = ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i);
     float_debug = float_debug > temp ? float_debug:temp;
 
-    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000)
+    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000 
+        || ((ticks_msimg - GUN_Data.last_poke_tick) > 30 && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 36)))
     {
         GUN_Direction *= -1;
         GUN_SetFree();

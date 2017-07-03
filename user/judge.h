@@ -49,8 +49,10 @@ typedef struct
     uint8_t Updated;
     uint8_t OverShootFreqLastTime;
     uint8_t OverShootSpeedLastTime;
+    uint8_t BulletShot;
+    u32 LastShotTick;
     int ShootNum;
-}InfantryJudge_Struct;
+} InfantryJudge_Struct;
 
 // format transformation union
 typedef union

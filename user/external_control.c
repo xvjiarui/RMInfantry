@@ -46,7 +46,7 @@ void external_control(void) {
 	switch (DBUS_ReceiveData.rc.switch_right)
 	{
 		case 3:
-			if (!DBUS_Connected || InfantryJudge.LastBlood == 0)
+			if (!DBUS_Connected)
 			{
 				DBUS_disconnect_handler();
 			}
@@ -65,7 +65,7 @@ void external_control(void) {
 			}
 			break;
 		case 2:
-			if (!DBUS_Connected || InfantryJudge.LastBlood == 0)
+			if (!DBUS_Connected)
 			{
 				DBUS_disconnect_handler();
 			}
@@ -291,7 +291,7 @@ void process_keyboard_data(void)
 {
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	float ratio = 1;
-	ratio += 0.5 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
+	ratio += 0.6666666666 * (DBUS_CheckPush(KEY_SHIFT) - DBUS_CheckPush(KEY_CTRL));
 	ch_changes[0] = (DBUS_CheckPush(KEY_D) - DBUS_CheckPush(KEY_A)) * 660 * KEYBOARD_RWLW_RATIO * ratio - last_ch_input[0];
 	ch_changes[1] = (DBUS_CheckPush(KEY_W) - DBUS_CheckPush(KEY_S)) * 660 * KEYBOARD_FWBW_RATIO * ratio - last_ch_input[1];
 	ch_changes[2] = (DBUS_CheckPush(KEY_E) - DBUS_CheckPush(KEY_Q)) * 660 * ratio - last_ch_input[2];
@@ -310,7 +310,7 @@ void process_keyboard_data(void)
 }
 
 void remote_buff_adjust(void) {
-	Set_CM_Speed(CAN1, 0, 0, GUN_DriverInput, 0);
+	send_to_gimbal(0, 0);
 	static int16_t ch_input[4];
 	ch_input[0] = DBUS_ReceiveData.rc.ch0;
 	ch_input[1] = DBUS_ReceiveData.rc.ch1;

@@ -17,10 +17,9 @@
 #define FRIC_SET_THRUST_M(x)                    TIM_SetCompare3(TIM1, 1000+(x))
 
 typedef struct {
-    int32_t pokeTargetSpeed;
-    int32_t pokeTargetAngle;
-    int32_t pokeOutput;
-    int32_t pokeAngle;
+	float last_ecd_angle;
+	u32 last_poke_tick;
+
 } GUN_DataTypeDef;
 
 GUN_EXT volatile GUN_DataTypeDef GUN_Data;
