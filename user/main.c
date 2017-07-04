@@ -74,10 +74,12 @@ int main(void)
 						tft_prints(0, 7,"Gimbal:%d %d %d %d", Gimbal_Connected, can_gimbal_connected[0], can_gimbal_connected[1], can_gimbal_connected[2]);
 						// tft_prints(0, 8,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
 						tft_prints(0, 8, "d:%d input:%d", GUN_Direction, GUN_DriverInput);
-						tft_prints(0, 9, "C:%f", GMxEncoder.ecd_angle);
-						tft_prints(0, 10, "T:%f", GUN_TargetPos);
+						tft_prints(0, 9, "IT:%d %f", InfantryJudge.LastShotTick, float_debug);
+						tft_prints(0, 10, "GT:%d %d", GUN_Data.last_poke_tick, ticks_msimg);
+						// tft_prints(0, 9, "C:%f", GMxEncoder.ecd_angle);
+						// tft_prints(0, 10, "T:%f", GUN_TargetPos);
 						// tft_prints(0, 10,"C:%d T:%d", current_angle, target_angle);
-						tft_prints(0, 11, "f_d:%f", float_debug);
+						// tft_prints(0, 11, "f_d:%f", float_debug);
 						// tft_prints(0, 11, "i_d:%d", int_debug);
 					}
 					else

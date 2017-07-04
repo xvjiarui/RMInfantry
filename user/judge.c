@@ -2,6 +2,7 @@
 
 #include "judge.h"
 #include "main.h"
+#include "Driver_Gun.h"
 
 #define GET_BUFFER(x) JUDGE_DataBuffer[(uint8_t)(JUDGE_NextDecodeOffset+(x))]
 
@@ -405,6 +406,7 @@ void JUDGE_DecodeFrame(uint8_t type) {
     InfantryJudge.ShootNum++;
     InfantryJudge.BulletShot = 1;
     InfantryJudge.LastShotTick = ticks_msimg;
+    GUN_Data.emptyCount = 0;
   }
 }
 

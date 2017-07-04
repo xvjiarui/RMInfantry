@@ -19,6 +19,8 @@
 typedef struct {
 	float last_ecd_angle;
 	u32 last_poke_tick;
+	uint8_t emptyCount;
+	uint8_t usrShot;
 
 } GUN_DataTypeDef;
 

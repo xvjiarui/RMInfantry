@@ -124,13 +124,29 @@ void GUN_SetMotion(void) {
 
 
     if (jumpRelease) pressCount = 0;
-    if (DBUS_ReceiveData.mouse.press_left || GUN_Data.last_poke_tick > InfantryJudge.LastShotTick) {
+    if (GUN_Data.usrShot && (GUN_Data.last_poke_tick + 220 < ticks_msimg))
+    {
+        if (GUN_Data.last_poke_tick > InfantryJudge.LastShotTick)
+        {
+            ++GUN_Data.emptyCount;
+            if (GUN_Data.emptyCount >= 5)
+            {
+                // No bullet
+                GUN_SetFree();
+            }
+        }
+       GUN_Data.usrShot = 0; 
+    }
+    if (GUN_Data.last_poke_tick <= InfantryJudge.LastShotTick + 220)
+    {
+        GUN_Data.emptyCount = 0;
+    }
+    if (DBUS_ReceiveData.mouse.press_left || GUN_Data.emptyCount) {
         ++pressCount;
     }
 
     shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
-    // shoot = shoot && (ticks_msimg - lastTick > 220);
     shoot = shoot && (ticks_msimg - lastTick > 200);
     if (DBUS_ReceiveData.mouse.press_right)
     {
@@ -169,6 +185,7 @@ void GUN_ShootOne(void)
     else GUN_TargetPos -= 36 * 72;
     GUN_Data.last_ecd_angle = GMxEncoder.ecd_angle;
     GUN_Data.last_poke_tick = ticks_msimg;
+    GUN_Data.usrShot = 1;
 
 }
 
@@ -178,6 +195,8 @@ void GUN_SetFree(void)
     GUN_Data.last_ecd_angle = GMxEncoder.ecd_angle;
     GUN_Data.last_poke_tick = ticks_msimg;
     InfantryJudge.LastShotTick = ticks_msimg;
+    GUN_Data.emptyCount = 0;
+    GUN_Data.usrShot = 0;
 }
 
 void GUN_Update(void)
@@ -191,7 +210,7 @@ void GUN_Update(void)
     float_debug = float_debug > temp ? float_debug:temp;
 
     if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000 
-        || ((ticks_msimg - GUN_Data.last_poke_tick) > 30 && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 36)))
+        || ((ticks_msimg - GUN_Data.last_poke_tick) > 100 && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 36)))
     {
         GUN_Direction *= -1;
         GUN_SetFree();
