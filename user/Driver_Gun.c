@@ -145,7 +145,7 @@ void GUN_SetMotion(void) {
     {
         GUN_Data.emptyCount = 0;
     }
-    if (DBUS_ReceiveData.mouse.press_left || GUN_Data.emptyCount) {
+    if (DBUS_ReceiveData.mouse.press_left || (GUN_Data.emptyCount && GUN_Data.emptyLastTick + 220 < ticks_msimg)) {
         ++pressCount;
     }
 
