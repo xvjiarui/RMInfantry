@@ -21,6 +21,7 @@ typedef struct {
 	u32 last_poke_tick;
 	uint8_t emptyCount;
 	uint8_t usrShot;
+	u32 emptyLastTick;
 
 } GUN_DataTypeDef;
 

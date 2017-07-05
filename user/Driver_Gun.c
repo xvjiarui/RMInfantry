@@ -128,7 +128,11 @@ void GUN_SetMotion(void) {
     {
         if (GUN_Data.last_poke_tick > InfantryJudge.LastShotTick)
         {
-            ++GUN_Data.emptyCount;
+            if (GUN_Data.emptyLastTick + 220 < ticks_msimg)
+            {
+                ++GUN_Data.emptyCount;
+                GUN_Data.emptyLastTick = ticks_msimg;
+            }
             if (GUN_Data.emptyCount >= 5)
             {
                 // No bullet
@@ -147,7 +151,7 @@ void GUN_SetMotion(void) {
 
     shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
-    shoot = shoot && (ticks_msimg - lastTick > 200);
+    shoot = shoot && (ticks_msimg - lastTick > 220);
     if (DBUS_ReceiveData.mouse.press_right)
     {
         GUN_SetFree();
@@ -210,7 +214,7 @@ void GUN_Update(void)
     float_debug = float_debug > temp ? float_debug:temp;
 
     if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000 
-        || ((ticks_msimg - GUN_Data.last_poke_tick) > 100 && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 36)))
+        || ((ticks_msimg - GUN_Data.last_poke_tick) > 220 && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 36)))
     {
         GUN_Direction *= -1;
         GUN_SetFree();

@@ -69,7 +69,7 @@ int main(void)
 						tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
 						tft_prints(0, 3,"Pr:%f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent);
 						tft_prints(0, 4,"Buffer:%f", InfantryJudge.RemainBuffer);
-						tft_prints(0, 5,"L:%d R:%d", DBUS_ReceiveData.mouse.press_left, DBUS_ReceiveData.mouse.press_right);
+						tft_prints(0, 5,"L:%d R:%d U:%d E:%d", DBUS_ReceiveData.mouse.press_left, DBUS_ReceiveData.mouse.press_right, GUN_Data.usrShot, GUN_Data.emptyCount);
 						tft_prints(0, 6,"Chassis:%d %d %d %d %d", Chassis_Connected, can_chassis_connected[0], can_chassis_connected[1], can_chassis_connected[2], can_chassis_connected[3]);
 						tft_prints(0, 7,"Gimbal:%d %d %d %d", Gimbal_Connected, can_gimbal_connected[0], can_gimbal_connected[1], can_gimbal_connected[2]);
 						// tft_prints(0, 8,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
