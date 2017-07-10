@@ -1,7 +1,11 @@
 #include "Driver_Manifold.h"
+#include "Judge.h"
 
-const uint8_t Manifold_Buffer_length = 2;
+const uint8_t Manifold_Buffer_length = 9;
 uint8_t Manifold_Buffer[Manifold_Buffer_length];	
+float rune_angle_x = 0;
+float rune_angle_y = 0;
+uint8_t isNewRuneAngle = 0;
 
 DMA_InitTypeDef     DMA_InitStructure;
 		
@@ -101,7 +105,15 @@ void Manifold_Rune_Select(u8 rune) { // 1 is big, 0 is small,, BORAD loccation :
 	}
 }
 
-
+void Manifold_Decoder()
+{
+  if (Manifold_Buffer[0] == 0xa5)
+  {
+    rune_angle_x = (float*)(Manifold_Buffer + 1)
+    rune_angle_y = (float*)(Manifold_Buffer + 5)
+    isNewRuneAngle = 1;
+  }
+}
 
 u8 clear = 0;
 void UART4_IRQHandler(void)  //BOARD location: LEFT UPPER CORNER , Below DBUS PORT BRUSH_M1 (M1 Dir) beside 5v
@@ -112,9 +124,9 @@ void UART4_IRQHandler(void)  //BOARD location: LEFT UPPER CORNER , Below DBUS PO
 			
 			DMA_Cmd(DMA1_Stream2, DISABLE);
 			
-			if(DMA1_Stream2->NDTR == 1)
+			if(DMA1_Stream2->NDTR == Manifold_Buffer_length)
 			{
-					LED_blink(LED1);
+        Manifold_Decoder();
 			}
 			
 			DMA_ClearFlag(DMA1_Stream2, DMA_FLAG_TCIF2 | DMA_FLAG_HTIF2);
