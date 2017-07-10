@@ -137,6 +137,7 @@ void GUN_SetMotion(void) {
             {
                 // No bullet
                 GUN_SetFree();
+                pressCount = 0;
             }
         }
        GUN_Data.usrShot = 0; 
@@ -145,12 +146,16 @@ void GUN_SetMotion(void) {
     {
         GUN_Data.emptyCount = 0;
     }
-    if (DBUS_ReceiveData.mouse.press_left || (GUN_Data.emptyCount && GUN_Data.emptyLastTick + 220 < ticks_msimg)) {
+    if (DBUS_ReceiveData.mouse.press_left 
+        || (GUN_Data.emptyCount && GUN_Data.emptyLastTick + 220 < ticks_msimg)) 
+    {
         ++pressCount;
     }
 
     shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
+    shoot = shoot || GUN_Data.stucked;
+    GUN_Data.stucked = 0;
     shoot = shoot && (ticks_msimg - lastTick > 220);
     if (DBUS_ReceiveData.mouse.press_right)
     {
@@ -197,10 +202,12 @@ void GUN_SetFree(void)
 {
     PID_Reset_driver();
     GUN_Data.last_ecd_angle = GMxEncoder.ecd_angle;
+    GUN_Data.emptyLastTick = ticks_msimg;
     GUN_Data.last_poke_tick = ticks_msimg;
     InfantryJudge.LastShotTick = ticks_msimg;
     GUN_Data.emptyCount = 0;
     GUN_Data.usrShot = 0;
+    GUN_Data.stucked = 0;
 }
 
 void GUN_Update(void)
@@ -214,10 +221,13 @@ void GUN_Update(void)
     float_debug = float_debug > temp ? float_debug:temp;
 
     if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000 
-        || ((ticks_msimg - GUN_Data.last_poke_tick) > 220 && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 36)))
+        || ((ticks_msimg - GUN_Data.last_poke_tick) > 220 
+            && (ticks_msimg - GUN_Data.last_poke_tick) < 240 
+            && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 10)))
     {
         GUN_Direction *= -1;
         GUN_SetFree();
+        GUN_Data.stucked = 1;
     }
 
     GUN_DriverInput = PID_UpdateValue(&gun_driver_speed_pid, 
@@ -232,34 +242,43 @@ uint16_t Friction_Wheel_PWM(void)
     uint16_t result = 0;
     if (InfantryJudge.RealVoltage > 24.5)
     {
-        result = 650;
+        result = 269; //650
+                result = 650;
     }
     else if (InfantryJudge.RealVoltage > 24)
     {
-        result = 670;
+        result = 272; //670
+                result = 670;
     }
     else if (InfantryJudge.RealVoltage > 23.5)
     {
-        result = 690;
+        result = 278; //690
+                result = 690;
     }
     else if (InfantryJudge.RealVoltage > 23)
     {
-        result = 700;
+        result = 284; //700
+                result = 700;
     }
     else if (InfantryJudge.RealVoltage > 22.5)
     {
-        result = 715;
+        result = 289; //715
+                result = 715;
     }
     else if (InfantryJudge.RealVoltage > 22)
     {
-        result = 730;
+        result = 293; //730
+                result = 730;
     }
     else if (InfantryJudge.RealVoltage > 21.5)
     {
-        result = 745;
+        result = 298; //745
+                result = 745;
     }
-    else result = 750;
-    uint16_t function_result = 27349 + InfantryJudge.RealVoltage * (-3465.9 + InfantryJudge.RealVoltage * (151.43 + -2.2222* InfantryJudge.RealVoltage));
-    return (result > function_result)? function_result:result;
+    else
+    {
+        result = 303; // 750
+        result = 750;
+    }
+    return result;
 }
-

@@ -22,6 +22,7 @@ typedef struct {
 	uint8_t emptyCount;
 	uint8_t usrShot;
 	u32 emptyLastTick;
+	uint8_t stucked;
 
 } GUN_DataTypeDef;
 
