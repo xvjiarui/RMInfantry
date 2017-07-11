@@ -1,13 +1,7 @@
+#define DRIVER_MANIFOLD_FILE
 #include "Driver_Manifold.h"
 #include "Judge.h"
 
-#define Manifold_Buffer_length 9
-uint8_t Manifold_Buffer[Manifold_Buffer_length];
-float rune_angle_x = 0;
-float rune_angle_y = 0;
-uint8_t isNewRuneAngle = 0;
-
-DMA_InitTypeDef     DMA_InitStructure;
 
 void Driver_Manifold_init() {
 
@@ -56,7 +50,7 @@ void Driver_Manifold_init() {
     DMA_InitStructure.DMA_PeripheralBaseAddr =   (uint32_t)(&UART4->DR);
     DMA_InitStructure.DMA_Memory0BaseAddr   =   (uint32_t)(Manifold_Buffer);
     DMA_InitStructure.DMA_DIR               =   DMA_DIR_PeripheralToMemory;
-    DMA_InitStructure.DMA_BufferSize        =   Manifold_Buffer_length;
+    DMA_InitStructure.DMA_BufferSize        =   Manifold_Buffer_Length;
     DMA_InitStructure.DMA_PeripheralInc     =   DMA_PeripheralInc_Disable;
     DMA_InitStructure.DMA_MemoryInc         =   DMA_MemoryInc_Enable;
     DMA_InitStructure.DMA_MemoryDataSize    =   DMA_MemoryDataSize_Byte;
@@ -91,6 +85,10 @@ void Driver_Manifold_init() {
     DMA_Cmd(DMA1_Stream4, DISABLE);
 
     LED_init(&PA2);
+
+    rune_angle_x = 0;
+    rune_angle_y = 0;
+    isNewRuneAngle = 0;
 }
 
 
@@ -109,8 +107,8 @@ void Manifold_Decoder()
 {
     if (Manifold_Buffer[0] == 0xa5)
     {
-        rune_angle_x = (float*)(Manifold_Buffer + 1);
-        rune_angle_y = (float*)(Manifold_Buffer + 5);
+        rune_angle_x = *(float*)(Manifold_Buffer + 1);
+        rune_angle_y = *(float*)(Manifold_Buffer + 5);
         isNewRuneAngle = 1;
     }
 }
@@ -124,7 +122,7 @@ void UART4_IRQHandler(void)  //BOARD location: LEFT UPPER CORNER , Below DBUS PO
 
     DMA_Cmd(DMA1_Stream2, DISABLE);
 
-    if (DMA1_Stream2->NDTR == Manifold_Buffer_length)
+    if (DMA1_Stream2->NDTR == Manifold_Buffer_Length)
     {
         Manifold_Decoder();
     }

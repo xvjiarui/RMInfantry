@@ -10,6 +10,7 @@
 #include "Driver_Gun.h"
 #include "const.h"
 #include "flash.h"
+#include "Driver_Manifold.h"
 
 void gimbal_control_init(void)
 {
