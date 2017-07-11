@@ -87,6 +87,7 @@ void Manifold_Rune_Select(u8 rune) { // 1 is big, 0 is small,, BORAD loccation :
 typedef union {
 	uint8_t u[4];
 	float f;
+	int t;
 } FT_T;
 
 void Manifold_Decoder()
@@ -96,9 +97,6 @@ void Manifold_Decoder()
 	
     if (Manifold_Buffer[0] == 0xa5)
     {
-        
-        //rune_angle_x = *(float*)(Manifold_Buffer + 1);
-        //rune_angle_y = *(float*)(Manifold_Buffer + 5);
 			FT.u[0] = Manifold_Buffer[1];
 			FT.u[1] = Manifold_Buffer[2];
 			FT.u[2] = Manifold_Buffer[3];
@@ -110,7 +108,13 @@ void Manifold_Decoder()
 			FT.u[2] = Manifold_Buffer[7];
 			FT.u[3] = Manifold_Buffer[8];
 			rune_angle_y = FT.f;
-        isNewRuneAngle = 1;
+			
+			FT.u[0] = Manifold_Buffer[9];
+			FT.u[1] = Manifold_Buffer[10];
+			FT.u[2] = Manifold_Buffer[11];
+			FT.u[3] = Manifold_Buffer[12];
+			rune_index = FT.t;
+      isNewRuneAngle = 1;
     }
 }
 

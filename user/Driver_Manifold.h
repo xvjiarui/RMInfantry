@@ -11,12 +11,13 @@
 	#define DRIVER_MANIFOLD_EXT 
 #endif
 
-#define Manifold_Buffer_Length 9
+#define Manifold_Buffer_Length 13
 
 DRIVER_MANIFOLD_EXT DMA_InitTypeDef DMA_InitStructure;
 DRIVER_MANIFOLD_EXT uint8_t Manifold_Buffer[Manifold_Buffer_Length];
 DRIVER_MANIFOLD_EXT float rune_angle_x;
 DRIVER_MANIFOLD_EXT float rune_angle_y;
+DRIVER_MANIFOLD_EXT int rune_index;
 DRIVER_MANIFOLD_EXT uint8_t isNewRuneAngle;
 DRIVER_MANIFOLD_EXT int manifoldCount;
 
