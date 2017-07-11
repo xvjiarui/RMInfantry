@@ -29,6 +29,7 @@ GIMBAL_CONTROL_EXT int16_t read_buff_pos[18];
 GIMBAL_CONTROL_EXT int16_t GUN_DriverInput;
 GIMBAL_CONTROL_EXT float GUN_TargetPos;
 GIMBAL_CONTROL_EXT int16_t GUN_Direction;
+GIMBAL_CONTROL_EXT uint8_t shootRune;
 
 void gimbal_control_init(void);
 
@@ -52,6 +53,8 @@ int16_t gimbal_exceed_upper_bound();
 int16_t gimbal_exceed_lower_bound();
 int16_t gimbal_approach_right_bound();
 int16_t gimbal_approach_left_bound();
+void gimbal_yaw_trim(float& input_yaw_pos);
+void gimbal_pitch_trim(float& input_pitch_pos);
 int16_t gimbal_yaw_back();
 int16_t gimbal_yaw_back_angle(float angle);
 int16_t chassis_follow();
@@ -61,6 +64,7 @@ void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t 
 void chassis_follow_pos(int16_t input_yaw_pos, int16_t input_pitch_pos);
 void buff_mode_gimbal_pos(int16_t index);
 void buff_switch();
+void rune_mode();
 uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed);
 uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos);
 

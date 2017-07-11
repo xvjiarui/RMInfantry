@@ -49,11 +49,15 @@ void control_gimbal_yaw_pos(int16_t target_yaw_pos) {
 }
 
 void control_gimbal_pos(int16_t target_yaw_pos, int16_t target_pitch_pos) {
+	gimbal_yaw_trim(target_yaw_pos);
+	gimbal_pitch_trim(target_pitch_pos);
 	send_to_gimbal(pid_gimbal_yaw_pos(target_yaw_pos), pid_gimbal_pitch_pos(target_pitch_pos));
 }
 
 void control_gimbal_pos_with_speed(int16_t target_yaw_pos, int16_t target_pitch_pos, int16_t input_yaw_speed)
 {
+	gimbal_yaw_trim(target_yaw_pos);
+	gimbal_pitch_trim(target_pitch_pos);
 	int16_t pid_yaw = pid_gimbal_yaw_pos_with_speed(target_yaw_pos, input_yaw_speed);
 	int16_t pid_pitch = pid_gimbal_pitch_pos(target_pitch_pos);
 	send_to_gimbal(pid_yaw, pid_pitch);
@@ -84,7 +88,7 @@ void control_gimbal_with_chassis_following_angle(int16_t input_yaw_speed, int16_
  }
  if (fast_turning)
  {
- 	control_gimbal(0, init_pitch_pos);
+ 	control_gimbal(0, input_pitch_pos);
  }	
  else
  {
@@ -220,6 +224,30 @@ int16_t gimbal_exceed_lower_bound() {
 	else return 0;
 }
 
+void gimbal_yaw_trim(float& input_yaw_pos)
+{
+	if (input_yaw_pos > init_yaw_pos + YAW_LEFT_BOUND)
+	{
+		input_pitch_pos = init_yaw_pos + YAW_LEFT_BOUND;
+	}
+	if (input_yaw_pos < init_yaw_pos + YAW_RIGHT_BOUND)
+	{
+		input_yaw_pos = init_yaw_pos + YAW_RIGHT_BOUND;
+	}
+}
+
+void gimbal_pitch_trim(float& input_pitch_pos)
+{
+	if (input_pitch_pos > init_pitch_pos + PITCH_UPPER_BOUND)
+	{
+		input_pitch_pos = init_pitch_pos + PITCH_UPPER_BOUND;
+	}
+	if (input_pitch_pos < init_pitch_pos)
+	{
+		input_pitch_pos = init_pitch_pos;
+	}
+}
+
 int16_t gimbal_yaw_back(){
 	return float_equal(GMYawEncoder.ecd_angle - init_yaw_pos, 0, 27);
 }
@@ -301,6 +329,16 @@ void buff_switch()
 	}
 	buff_mode_gimbal_pos(Last_Status);
 	gimbal_in_buff_pos = gimbal_check_in_buff_pos(Last_Status, buff_pressed);
+}
+
+void rune_mode()
+{
+	control_gimbal_pos(rune_angle_x, rune_angle_y);
+	if (isNewRuneAngle)
+	{
+		shootRune = 1;
+		isNewRuneAngle = 0;
+	}
 }
 
 uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed)

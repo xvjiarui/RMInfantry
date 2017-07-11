@@ -34,14 +34,14 @@ void GUN_BSP_Init(void) {
 
     TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
     TIM_OCInitTypeDef TIM_OCInitStructure;
-    
+
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 
     // TIM1 (friction wheel, 400Hz)
     TIM_TimeBaseInitStructure.TIM_ClockDivision =   TIM_CKD_DIV1;
     TIM_TimeBaseInitStructure.TIM_CounterMode   =   TIM_CounterMode_Up;
-    TIM_TimeBaseInitStructure.TIM_Period        =   2500-1;
-    TIM_TimeBaseInitStructure.TIM_Prescaler     =   (uint32_t) (((SystemCoreClock / 1) / 1000000)-1); // 1MHz clock
+    TIM_TimeBaseInitStructure.TIM_Period        =   2500 - 1;
+    TIM_TimeBaseInitStructure.TIM_Prescaler     =   (uint32_t) (((SystemCoreClock / 1) / 1000000) - 1); // 1MHz clock
     TIM_TimeBaseInit(TIM1, &TIM_TimeBaseInitStructure);
 
     TIM_OCInitStructure.TIM_OCMode       =   TIM_OCMode_PWM1;
@@ -107,17 +107,17 @@ void GUN_SetMotion(void) {
     uint8_t keyJumpPress = KeyNow && !KeyLast;
     uint8_t keyJumpRelease = !KeyNow && KeyLast;
 
-    uint8_t adjustNow = (DBUS_ReceiveData.rc.ch2 < -500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1:0;
-    uint8_t adjustLast = (LASTDBUS_ReceiveData.rc.ch2 < -500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1:0;
+    uint8_t adjustNow = (DBUS_ReceiveData.rc.ch2 < -500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1 : 0;
+    uint8_t adjustLast = (LASTDBUS_ReceiveData.rc.ch2 < -500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1 : 0;
 
     uint8_t adjustJumpPress = adjustNow && !adjustLast;
     uint8_t adjustJumpRelease = !adjustNow && adjustLast;
 
     // poke motor
     jumpPress = DBUS_ReceiveData.mouse.press_left &&
-        !LASTDBUS_ReceiveData.mouse.press_left;
+                !LASTDBUS_ReceiveData.mouse.press_left;
     jumpRelease = !DBUS_ReceiveData.mouse.press_left &&
-        LASTDBUS_ReceiveData.mouse.press_left;
+                  LASTDBUS_ReceiveData.mouse.press_left;
 
     jumpPress = jumpPress || keyJumpPress || adjustJumpPress;
     jumpRelease = jumpRelease || keyJumpRelease || adjustJumpRelease;
@@ -140,22 +140,24 @@ void GUN_SetMotion(void) {
                 pressCount = 0;
             }
         }
-       GUN_Data.usrShot = 0; 
+        GUN_Data.usrShot = 0;
     }
     if (GUN_Data.last_poke_tick <= InfantryJudge.LastShotTick + 220)
     {
         GUN_Data.emptyCount = 0;
     }
-    if (DBUS_ReceiveData.mouse.press_left 
-        || (GUN_Data.emptyCount && GUN_Data.emptyLastTick + 220 < ticks_msimg)) 
+    if (DBUS_ReceiveData.mouse.press_left
+            || (GUN_Data.emptyCount && GUN_Data.emptyLastTick + 220 < ticks_msimg))
     {
         ++pressCount;
     }
 
-    shoot = jumpPress || (((pressCount & 0x000FU) == 0)&&pressCount);
+    shoot = jumpPress || (((pressCount & 0x000FU) == 0) && pressCount);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
     shoot = shoot || GUN_Data.stucked;
     GUN_Data.stucked = 0;
+    shoot = shoot || shootRune;
+    shootRune = 0;
     shoot = shoot && (ticks_msimg - lastTick > 220);
     if (DBUS_ReceiveData.mouse.press_right)
     {
@@ -169,7 +171,7 @@ void GUN_SetMotion(void) {
             hasPending = 1;
         }
     }
-    if (hasPending) 
+    if (hasPending)
     {
         if (gimbal_in_buff_pos) {
             GUN_ShootOne();
@@ -218,23 +220,23 @@ void GUN_Update(void)
     //     GUN_TargetPos = 0;
     // }
     float temp = ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i);
-    float_debug = float_debug > temp ? float_debug:temp;
+    float_debug = float_debug > temp ? float_debug : temp;
 
-    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000 
-        || ((ticks_msimg - GUN_Data.last_poke_tick) > 220 
-            && (ticks_msimg - GUN_Data.last_poke_tick) < 240 
-            && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 10)))
+    if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000
+            || ((ticks_msimg - GUN_Data.last_poke_tick) > 220
+                && (ticks_msimg - GUN_Data.last_poke_tick) < 240
+                && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 10)))
     {
         GUN_Direction *= -1;
         GUN_SetFree();
         GUN_Data.stucked = 1;
     }
 
-    GUN_DriverInput = PID_UpdateValue(&gun_driver_speed_pid, 
-                                        PID_UpdateValue(&gun_driver_pos_pid, 
-                                            GUN_TargetPos, 
-                                            GMxEncoder.ecd_angle), 
-                                        GMxEncoder.filter_rate);
+    GUN_DriverInput = PID_UpdateValue(&gun_driver_speed_pid,
+                                      PID_UpdateValue(&gun_driver_pos_pid,
+                                              GUN_TargetPos,
+                                              GMxEncoder.ecd_angle),
+                                      GMxEncoder.filter_rate);
 }
 
 uint16_t Friction_Wheel_PWM(void)
@@ -242,42 +244,68 @@ uint16_t Friction_Wheel_PWM(void)
     uint16_t result = 0;
     if (InfantryJudge.RealVoltage > 24.5)
     {
-        result = 269; //650
-                result = 650;
+        result = 265; //650
     }
     else if (InfantryJudge.RealVoltage > 24)
     {
-        result = 272; //670
-                result = 670;
+        result = 268; //670
     }
     else if (InfantryJudge.RealVoltage > 23.5)
     {
-        result = 278; //690
-                result = 690;
+        result = 274; //690
     }
     else if (InfantryJudge.RealVoltage > 23)
     {
-        result = 284; //700
-                result = 700;
+        result = 280; //700
     }
     else if (InfantryJudge.RealVoltage > 22.5)
     {
-        result = 289; //715
-                result = 715;
+        result = 285; //715
     }
     else if (InfantryJudge.RealVoltage > 22)
     {
-        result = 293; //730
-                result = 730;
+        result = 289; //730
     }
     else if (InfantryJudge.RealVoltage > 21.5)
     {
-        result = 298; //745
-                result = 745;
+        result = 294; //745
     }
     else
     {
-        result = 303; // 750
+        result = 299; // 750
+    }
+
+    // Old friction wheel
+    if (InfantryJudge.RealVoltage > 24.5)
+    {
+        result = 650;
+    }
+    else if (InfantryJudge.RealVoltage > 24)
+    {
+        result = 670;
+    }
+    else if (InfantryJudge.RealVoltage > 23.5)
+    {
+        result = 690;
+    }
+    else if (InfantryJudge.RealVoltage > 23)
+    {
+        result = 700;
+    }
+    else if (InfantryJudge.RealVoltage > 22.5)
+    {
+        result = 715;
+    }
+    else if (InfantryJudge.RealVoltage > 22)
+    {
+        result = 730;
+    }
+    else if (InfantryJudge.RealVoltage > 21.5)
+    {
+        result = 745;
+    }
+    else
+    {
         result = 750;
     }
     return result;

@@ -41,6 +41,8 @@ typedef struct
     float LastShotFreq;
     float RemainBuffer;
 	int16_t ArmorDecrease;
+    int16_t BulletDecrease;
+    int16_t GolfDecrease;
     int16_t CrashDecrease;
     int16_t OverShootSpeedDecrease;
     int16_t OverShootFreqDecrease;
