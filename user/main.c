@@ -7,6 +7,7 @@
 #include "external_control.h"
 #include "BSP_TIM.h"
 #include "const.h"
+#include "Driver_Manifold.h"
 volatile u32 ticks_msimg = (u32)-1;
 
 void init(){
@@ -34,6 +35,7 @@ void init(){
 	gimbal_control_init();
 	buzzer_init();
 	external_control_init();
+	Driver_Manifold_init();
 }
 
 int16_t int_debug;
@@ -75,6 +77,7 @@ int main(void)
 						tft_prints(0, 8, "d:%d s:%d i:%d", GUN_Direction, GUN_Data.stucked, GUN_DriverInput);
 						tft_prints(0, 9, "IT:%d %f", InfantryJudge.LastShotTick, float_debug);
 						tft_prints(0, 10, "GT:%d %d", GUN_Data.last_poke_tick, ticks_msimg);
+						tft_prints(0, 11, "X:%.2f Y:%.2f", rune_angle_x, rune_angle_y);
 						// tft_prints(0, 9, "C:%f", GMxEncoder.ecd_angle);
 						// tft_prints(0, 10, "T:%f", GUN_TargetPos);
 						// tft_prints(0, 10,"C:%d T:%d", current_angle, target_angle);

@@ -49,15 +49,15 @@ void control_gimbal_yaw_pos(int16_t target_yaw_pos) {
 }
 
 void control_gimbal_pos(int16_t target_yaw_pos, int16_t target_pitch_pos) {
-	gimbal_yaw_trim(target_yaw_pos);
-	gimbal_pitch_trim(target_pitch_pos);
+	target_yaw_pos = gimbal_yaw_trim(target_yaw_pos);
+	target_pitch_pos = gimbal_pitch_trim(target_pitch_pos);
 	send_to_gimbal(pid_gimbal_yaw_pos(target_yaw_pos), pid_gimbal_pitch_pos(target_pitch_pos));
 }
 
 void control_gimbal_pos_with_speed(int16_t target_yaw_pos, int16_t target_pitch_pos, int16_t input_yaw_speed)
 {
-	gimbal_yaw_trim(target_yaw_pos);
-	gimbal_pitch_trim(target_pitch_pos);
+	target_yaw_pos = gimbal_yaw_trim(target_yaw_pos);
+	target_pitch_pos = gimbal_pitch_trim(target_pitch_pos);
 	int16_t pid_yaw = pid_gimbal_yaw_pos_with_speed(target_yaw_pos, input_yaw_speed);
 	int16_t pid_pitch = pid_gimbal_pitch_pos(target_pitch_pos);
 	send_to_gimbal(pid_yaw, pid_pitch);
@@ -224,19 +224,20 @@ int16_t gimbal_exceed_lower_bound() {
 	else return 0;
 }
 
-void gimbal_yaw_trim(float& input_yaw_pos)
+float gimbal_yaw_trim(float input_yaw_pos)
 {
 	if (input_yaw_pos > init_yaw_pos + YAW_LEFT_BOUND)
 	{
-		input_pitch_pos = init_yaw_pos + YAW_LEFT_BOUND;
+		input_yaw_pos = init_yaw_pos + YAW_LEFT_BOUND;
 	}
 	if (input_yaw_pos < init_yaw_pos + YAW_RIGHT_BOUND)
 	{
 		input_yaw_pos = init_yaw_pos + YAW_RIGHT_BOUND;
 	}
+	return input_yaw_pos;
 }
 
-void gimbal_pitch_trim(float& input_pitch_pos)
+float gimbal_pitch_trim(float input_pitch_pos)
 {
 	if (input_pitch_pos > init_pitch_pos + PITCH_UPPER_BOUND)
 	{
@@ -246,6 +247,7 @@ void gimbal_pitch_trim(float& input_pitch_pos)
 	{
 		input_pitch_pos = init_pitch_pos;
 	}
+	return input_pitch_pos;
 }
 
 int16_t gimbal_yaw_back(){

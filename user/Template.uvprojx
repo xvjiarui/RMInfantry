@@ -459,6 +459,16 @@
               <FileType>5</FileType>
               <FilePath>.\const.h</FilePath>
             </File>
+            <File>
+              <FileName>Driver_Manifold.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Driver_Manifold.c</FilePath>
+            </File>
+            <File>
+              <FileName>Driver_Manifold.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Driver_Manifold.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -1,7 +1,7 @@
 #include "Driver_Manifold.h"
 #include "Judge.h"
 
-#define Manifold_Buffer_length   9;
+#define Manifold_Buffer_length 9
 uint8_t Manifold_Buffer[Manifold_Buffer_length];
 float rune_angle_x = 0;
 float rune_angle_y = 0;
@@ -109,8 +109,8 @@ void Manifold_Decoder()
 {
     if (Manifold_Buffer[0] == 0xa5)
     {
-        rune_angle_x = (float*)(Manifold_Buffer + 1)
-        rune_angle_y = (float*)(Manifold_Buffer + 5)
+        rune_angle_x = (float*)(Manifold_Buffer + 1);
+        rune_angle_y = (float*)(Manifold_Buffer + 5);
         isNewRuneAngle = 1;
     }
 }
