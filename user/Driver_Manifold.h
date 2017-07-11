@@ -11,7 +11,7 @@
 	#define DRIVER_MANIFOLD_EXT 
 #endif
 
-#define Manifold_Buffer_Length 13
+#define Manifold_Buffer_Length 10
 
 DRIVER_MANIFOLD_EXT DMA_InitTypeDef DMA_InitStructure;
 DRIVER_MANIFOLD_EXT uint8_t Manifold_Buffer[Manifold_Buffer_Length];
