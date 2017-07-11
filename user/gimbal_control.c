@@ -50,15 +50,15 @@ void control_gimbal_yaw_pos(int16_t target_yaw_pos) {
 }
 
 void control_gimbal_pos(int16_t target_yaw_pos, int16_t target_pitch_pos) {
-	target_yaw_pos = gimbal_yaw_trim(target_yaw_pos);
-	target_pitch_pos = gimbal_pitch_trim(target_pitch_pos);
+	limit_int_range(&target_yaw_pos, YAW_LEFT_BOUND, YAW_RIGHT_BOUND);
+		limit_int_range(&target_pitch_pos, PITCH_UPPER_BOUND, 0);
 	send_to_gimbal(pid_gimbal_yaw_pos(target_yaw_pos), pid_gimbal_pitch_pos(target_pitch_pos));
 }
 
 void control_gimbal_pos_with_speed(int16_t target_yaw_pos, int16_t target_pitch_pos, int16_t input_yaw_speed)
 {
-	target_yaw_pos = gimbal_yaw_trim(target_yaw_pos);
-	target_pitch_pos = gimbal_pitch_trim(target_pitch_pos);
+	limit_int_range(&target_yaw_pos, YAW_LEFT_BOUND, YAW_RIGHT_BOUND);
+		limit_int_range(&target_pitch_pos, PITCH_UPPER_BOUND, 0);
 	int16_t pid_yaw = pid_gimbal_yaw_pos_with_speed(target_yaw_pos, input_yaw_speed);
 	int16_t pid_pitch = pid_gimbal_pitch_pos(target_pitch_pos);
 	send_to_gimbal(pid_yaw, pid_pitch);
@@ -336,12 +336,15 @@ void buff_switch()
 
 void rune_mode()
 {
-	control_gimbal_pos(rune_angle_x, rune_angle_y);
-	if (isNewRuneAngle)
+	static int last_rune_index = -1;
+	control_gimbal_pos(-rune_angle_x * YAW_ANGLE_RATIO, rune_angle_y * PITCH_ANGLE_RATIO  );
+	if (rune_index != -1 && rune_index != last_rune_index && isNewRuneAngle)
 	{
 		shootRune = 1;
 		isNewRuneAngle = 0;
+		last_rune_index = rune_index;
 	}
+	
 }
 
 uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed)

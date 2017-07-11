@@ -191,6 +191,7 @@ void computer_control(void) {
 		// {
 		// 	buff_switch();
 		// }
+			rune_mode();
 	}
 	// calibrate buff pos
 	else if (DBUS_CheckPush(KEY_G))

@@ -68,6 +68,7 @@ void Driver_Manifold_init() {
 
     rune_angle_x = 0;
     rune_angle_y = 0;
+		rune_index = -1;
     isNewRuneAngle = 0;
     manifoldCount = 0;
 }
