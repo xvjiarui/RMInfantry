@@ -153,11 +153,9 @@ void GUN_SetMotion(void) {
     }
 
     shoot = jumpPress || (((pressCount & 0x000FU) == 0) && pressCount);
-    shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
-    shoot = shoot || GUN_Data.stucked;
+    shoot = shoot || GUN_Data.stucked || shootRune;
     GUN_Data.stucked = 0;
-    shoot = shoot || shootRune;
-    shootRune = 0;
+    shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
     shoot = shoot && (ticks_msimg - lastTick > 220);
     if (DBUS_ReceiveData.mouse.press_right)
     {
@@ -166,9 +164,10 @@ void GUN_SetMotion(void) {
         pressCount = 0;
     }
     if (shoot && !hasPending) {
-        if (keyJumpPress)
+        if (shootRune) //keyJumpPress
         {
             hasPending = 1;
+            shootRune = 0;
         }
     }
     if (hasPending)
@@ -274,39 +273,6 @@ uint16_t Friction_Wheel_PWM(void)
     {
         result = 299; // 750
     }
-
-    // Old friction wheel
-    if (InfantryJudge.RealVoltage > 24.5)
-    {
-        result = 650;
-    }
-    else if (InfantryJudge.RealVoltage > 24)
-    {
-        result = 670;
-    }
-    else if (InfantryJudge.RealVoltage > 23.5)
-    {
-        result = 690;
-    }
-    else if (InfantryJudge.RealVoltage > 23)
-    {
-        result = 700;
-    }
-    else if (InfantryJudge.RealVoltage > 22.5)
-    {
-        result = 715;
-    }
-    else if (InfantryJudge.RealVoltage > 22)
-    {
-        result = 730;
-    }
-    else if (InfantryJudge.RealVoltage > 21.5)
-    {
-        result = 745;
-    }
-    else
-    {
-        result = 750;
-    }
+   
     return result;
 }

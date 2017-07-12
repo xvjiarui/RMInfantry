@@ -9,6 +9,7 @@
 #include "flash.h"
 #include "buzzer_song.h"
 #include "Driver_Gun.h"
+#include "Driver_Manifold.h"
 #include "param.h"
 #include "const.h"
 
@@ -23,9 +24,10 @@ void external_control_init(void)
 	chassis_ch2 = 0;
 	memset(last_ch_input, 0, sizeof(last_ch_input));
 	memset(ch_input, 0, sizeof(ch_input));
-	memset(mouse_input, 0 ,sizeof(mouse_input));
+	memset(mouse_input, 0 , sizeof(mouse_input));
 	memset(last_ch_input, 0, sizeof(last_ch_input));
 	dancing = 0;
+	rune = 0;
 	chassis_ch2_dancing_input = 0;
 
 	int_debug = 0;
@@ -39,68 +41,70 @@ void external_control(void) {
 	{
 		chassis_already_auto_stop = 0;
 	}
-	if (!(DBUS_ReceiveData.rc.switch_left ==3 && DBUS_ReceiveData.rc.switch_right == 3))
+	if (!(DBUS_ReceiveData.rc.switch_left == 3 && DBUS_ReceiveData.rc.switch_right == 3))
 	{
 		buff_mode = 0;
 	}
-	switch (DBUS_ReceiveData.rc.switch_right)
+	uint8_t status = DBUS_ReceiveData.rc.switch_right;
+	status = ticks_msimg > 20000? status : 0;
+	switch (status)
 	{
-		case 3:
-			if (!DBUS_Connected)
+	case 3:
+		if (!DBUS_Connected)
+		{
+			DBUS_disconnect_handler();
+		}
+		else
+		{
+			switch (DBUS_ReceiveData.rc.switch_left)
 			{
-				DBUS_disconnect_handler();
+			case 1:
+				remote_control();
+				break;
+			default:
+				buff_mode = 1;
+				remote_buff_adjust();
+				break;
 			}
-			else
-			{
-				switch (DBUS_ReceiveData.rc.switch_left)
-				{
-				case 1:
-					remote_control();
-					break;
-				default:
-					buff_mode = 1;
-					remote_buff_adjust();
-					break;
-				}
-			}
-			break;
-		case 2:
-			if (!DBUS_Connected)
-			{
-				DBUS_disconnect_handler();
-			}
-			else if (!Chassis_Connected && !Gimbal_Connected)
-			{
-				chassis_disconnect_handler();
-				gimbal_disconnect_handler();
-			}
-			else if (!Chassis_Connected)
-			{
-				chassis_disconnect_handler();
-				process_mouse_data();
-				control_gimbal(mouse_input[0], mouse_input[1]);
-			}
-			else if (!Gimbal_Connected)
-			{
-				gimbal_disconnect_handler();
-				process_keyboard_data();
-				control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
-			}
-			else
-			{
-				//when everything goes normal
-				computer_control();
-			}
-			break;
-		default:
-			Set_CM_Speed(CAN1, 0, 0, 0, 0);
-			Set_CM_Speed(CAN2, 0, 0, 0, 0);
-			target_angle = current_angle;
-			PID_Reset_all();
-			input_init_all();
-			DBUS_ReceiveData.mouse.x_position = 0;
-			DBUS_ReceiveData.mouse.y_position = 0;
-			break;
+		}
+		break;
+	case 2:
+		if (!DBUS_Connected)
+		{
+			DBUS_disconnect_handler();
+		}
+		else if (!Chassis_Connected && !Gimbal_Connected)
+		{
+			chassis_disconnect_handler();
+			gimbal_disconnect_handler();
+		}
+		else if (!Chassis_Connected)
+		{
+			chassis_disconnect_handler();
+			process_mouse_data();
+			control_gimbal(mouse_input[0], mouse_input[1]);
+		}
+		else if (!Gimbal_Connected)
+		{
+			gimbal_disconnect_handler();
+			process_keyboard_data();
+			control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
+		}
+		else
+		{
+			//when everything goes normal
+			computer_control();
+		}
+		break;
+	default:
+		Set_CM_Speed(CAN1, 0, 0, 0, 0);
+		Set_CM_Speed(CAN2, 0, 0, 0, 0);
+		target_angle = current_angle;
+		PID_Reset_all();
+		input_init_all();
+		DBUS_ReceiveData.mouse.x_position = 0;
+		DBUS_ReceiveData.mouse.y_position = 0;
+		break;
 	}
 }
 
@@ -108,7 +112,7 @@ void remote_control(void) {
 	int16_t ch_changes[4] = {0, 0, 0, 0};
 	ch_changes[0] = CONTROLLER_RWLW_RATIO * DBUS_ReceiveData.rc.ch0 - last_ch_input[0];
 	ch_changes[1] = CONTROLLER_FWBW_RATIO * DBUS_ReceiveData.rc.ch1 - last_ch_input[1];
-	ch_changes[2] = -CONTROLLER_YAW_RATIO * DBUS_ReceiveData.rc.ch2- last_ch_input[2];
+	ch_changes[2] = -CONTROLLER_YAW_RATIO * DBUS_ReceiveData.rc.ch2 - last_ch_input[2];
 	ch_changes[3] = CONTROLLER_PITCH_RATIO * DBUS_ReceiveData.rc.ch3 - last_ch_input[3];
 	int16_t max_change = RWLW_ACCELERATION;
 	int16_t min_change = -RWLW_ACCELERATION;
@@ -159,12 +163,17 @@ void computer_control(void) {
 	{
 		pushed_Z_this_time = 0;
 	}
-	
+
 	if (DBUS_CheckPush(KEY_C))
 	{
 		dancing = 1;
 	}
-	
+	if (DBUS_CheckPush(KEY_V) && gimbal_yaw_back())
+	{
+		rune = 1;
+		LED_control(LASER, 0);
+	}
+
 	if (DBUS_CheckPush(KEY_Z) || in_countering_flag == 1)
 	{
 		in_countering_flag = 1;
@@ -174,7 +183,7 @@ void computer_control(void) {
 			dir = -dir;
 			pushed_Z_this_time = 1;
 		}
-		if (!gimbal_yaw_back_angle(YAW_ANGLE_RATIO * 45 * dir)){
+		if (!gimbal_yaw_back_angle(YAW_ANGLE_RATIO * 45 * dir)) {
 			control_gimbal_with_chassis_following_angle(mouse_input[0], mouse_input[1], YAW_ANGLE_RATIO * 45 * dir);
 		}
 		else {
@@ -183,21 +192,9 @@ void computer_control(void) {
 		control_car(ch_input[0], ch_input[1], ch_input[2], COUNTER);
 		if (DBUS_CheckPush(KEY_F)) in_countering_flag = 0;
 	}
-	else if (DBUS_CheckPush(KEY_V))
+	else if (rune)
 	{
-		// in buff mode
-		// control_car(0, 0, 0, NORMAL);
-		// if (DBUS_ReceiveData.rc.switch_left == 3)
-		// {
-		// 	buff_switch();
-		// }
-			rune_mode();
-	}
-	// calibrate buff pos
-	else if (DBUS_CheckPush(KEY_G))
-	{
-		buff_mode_gimbal_pos(4);
-		control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
+		rune_mode();
 	}
 	else if (DBUS_CheckPush(KEY_R))
 	{
@@ -218,7 +215,7 @@ void computer_control(void) {
 	// following logic
 	else
 	{
-		if (1) { 
+		if (1) {
 			// disabble semi-auto follow mode
 			//left switch up
 			//following mode
@@ -345,7 +342,7 @@ void remote_buff_adjust(void) {
 		float pitch_pos = (GMPitchEncoder.ecd_angle - init_pitch_pos);
 		limit_float_range(&yaw_pos, YAW_LEFT_BOUND, YAW_RIGHT_BOUND);
 		limit_float_range(&pitch_pos, PITCH_UPPER_BOUND, 0);
-		
+
 		if (ch_input[0] < -220)
 		{
 			if (ch_input[1] > 220)
@@ -465,12 +462,40 @@ void dancing_mode(void)
 	chassis_ch2_dancing_input += chassis_ch2_change;
 	int16_t yaw_filter_rate_input = chassis_ch2_dancing_input * YAW_SPEED_TO_CHASSIS_CH2;
 	control_gimbal(yaw_filter_rate_input + mouse_input[0], mouse_input[1]);
-	control_car(ch_input[0], ch_input[1], chassis_ch2_dancing_input,DANCING);
+	control_car(ch_input[0], ch_input[1], chassis_ch2_dancing_input, DANCING);
 	if (!DBUS_CheckPush(KEY_C) && chassis_ch2_dancing_input == 0)
 	{
 		dancing = 0;
 	}
 
+}
+
+void rune_mode(void)
+{
+	static int last_rune_index = -1;
+	float target_yaw_pos = -rune_angle_x * YAW_ANGLE_RATIO;
+	float target_pitch_pos = rune_angle_y * PITCH_ANGLE_RATIO + PITCH_HORIZONTAL_OFFSET; 
+	gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos);
+	if (DBUS_CheckPush(KEY_V))
+	{
+		control_gimbal_pos(target_yaw_pos, target_pitch_pos);
+	}
+	else
+	{
+		control_gimbal_pos(0, 0);
+		rune = !gimbal_check_pos(0, 0);
+		if (!rune)
+		{
+			LED_control(LASER, 1);
+		}
+	} 
+	if (rune_index != -1 && rune_index != last_rune_index && isNewRuneAngle)
+	{
+		shootRune = 1;
+		isNewRuneAngle = 0;
+		last_rune_index = rune_index;
+	}
+	control_car(0, 0, 0, NORMAL);
 }
 
 void chassis_disconnect_handler(void)

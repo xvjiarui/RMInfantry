@@ -10,6 +10,7 @@
 #define PITCH_ANGLE_RATIO 			 	19.0f
 #define PITCH_UPPER_BOUND_REAL_ANGLE  	45.0f
 #define PITCH_UPPER_BOUND  				855.0f
+#define PITCH_HORIZONTAL_OFFSET			247.0f
 #define GYRO_ANGLE_RATIO  				10.0f
 
 #endif

@@ -1,6 +1,5 @@
 #define DRIVER_MANIFOLD_FILE
 #include "Driver_Manifold.h"
-#include "Judge.h"
 
 
 void Driver_Manifold_init() {
@@ -68,7 +67,7 @@ void Driver_Manifold_init() {
 
     rune_angle_x = 0;
     rune_angle_y = 0;
-		rune_index = -1;
+    rune_index = -1;
     isNewRuneAngle = 0;
     manifoldCount = 0;
 }
@@ -86,31 +85,31 @@ void Manifold_Rune_Select(u8 rune) { // 1 is big, 0 is small,, BORAD loccation :
 }
 
 typedef union {
-	uint8_t u[4];
-	float f;
+    uint8_t u[4];
+    float f;
 } FT_T;
 
 void Manifold_Decoder()
-{	
-	FT_T FT;
-	//manifoldCount++;
-	
+{
+    FT_T FT;
+    //manifoldCount++;
+
     if (Manifold_Buffer[0] == 0xa5)
     {
-			FT.u[0] = Manifold_Buffer[1];
-			FT.u[1] = Manifold_Buffer[2];
-			FT.u[2] = Manifold_Buffer[3];
-			FT.u[3] = Manifold_Buffer[4];
-			rune_angle_x = FT.f;
-			
-			FT.u[0] = Manifold_Buffer[5];
-			FT.u[1] = Manifold_Buffer[6];
-			FT.u[2] = Manifold_Buffer[7];
-			FT.u[3] = Manifold_Buffer[8];
-			rune_angle_y = FT.f;
-			
-			rune_index = Manifold_Buffer[9];
-      isNewRuneAngle = 1;
+        FT.u[0] = Manifold_Buffer[1];
+        FT.u[1] = Manifold_Buffer[2];
+        FT.u[2] = Manifold_Buffer[3];
+        FT.u[3] = Manifold_Buffer[4];
+        rune_angle_x = FT.f;
+
+        FT.u[0] = Manifold_Buffer[5];
+        FT.u[1] = Manifold_Buffer[6];
+        FT.u[2] = Manifold_Buffer[7];
+        FT.u[3] = Manifold_Buffer[8];
+        rune_angle_y = FT.f;
+
+        rune_index = Manifold_Buffer[9];
+        isNewRuneAngle = 1;
     }
 }
 
@@ -122,8 +121,8 @@ void UART4_IRQHandler(void)  //BOARD location: LEFT UPPER CORNER , Below DBUS PO
     clear = UART4->SR;
 
     DMA_Cmd(DMA1_Stream2, DISABLE);
-	manifoldCount++;
-		
+    manifoldCount++;
+
     if (DMA1_Stream2->NDTR == Manifold_Buffer_Length)
     {
         Manifold_Decoder();

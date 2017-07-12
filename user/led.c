@@ -5,6 +5,7 @@
 void LED_master_init(){
 	
 	LED_init(LED1);
+	LED_init(LASER);
 
 	
 }

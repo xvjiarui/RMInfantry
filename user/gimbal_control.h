@@ -53,8 +53,7 @@ int16_t gimbal_exceed_upper_bound();
 int16_t gimbal_exceed_lower_bound();
 int16_t gimbal_approach_right_bound();
 int16_t gimbal_approach_left_bound();
-float gimbal_yaw_trim(float input_yaw_pos);
-float gimbal_pitch_trim(float input_pitch_pos);
+uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos);
 int16_t gimbal_yaw_back();
 int16_t gimbal_yaw_back_angle(float angle);
 int16_t chassis_follow();
@@ -62,11 +61,9 @@ void control_gimbal_with_chassis_following(int16_t input_yaw_speed, int16_t inpu
 void control_gimbal_with_chassis_following_angle(int16_t input_yaw_speed, int16_t input_pitch_pos, float angle);
 void chassis_gimbal_relative_angle_with_control(int16_t relative_angle, int16_t input_yaw_speed, int16_t input_pitch_pos);
 void chassis_follow_pos(int16_t input_yaw_pos, int16_t input_pitch_pos);
-void buff_mode_gimbal_pos(int16_t index);
-void buff_switch();
-void rune_mode();
-uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed);
-uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos);
+// void buff_mode_gimbal_pos(int16_t index);
+// void buff_switch();
+// uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed);
 
 
 #endif

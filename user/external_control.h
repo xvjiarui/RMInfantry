@@ -17,6 +17,7 @@ EXTERNAL_CONTROL_EXT int16_t ch_input[4];
 EXTERNAL_CONTROL_EXT int16_t mouse_input[2];
 EXTERNAL_CONTROL_EXT int16_t last_mouse_input[2];
 EXTERNAL_CONTROL_EXT uint8_t dancing;
+EXTERNAL_CONTROL_EXT uint8_t rune;
 EXTERNAL_CONTROL_EXT int16_t chassis_ch2_dancing_input;
 
 void external_control_init(void);
@@ -29,6 +30,7 @@ void process_mouse_data(void);
 void process_keyboard_data(void);
 
 void dancing_mode(void);
+void rune_mode(void);
 
 void DBUS_disconnect_handler(void);
 void gimbal_disconnect_handler(void);

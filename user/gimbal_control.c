@@ -10,7 +10,6 @@
 #include "Driver_Gun.h"
 #include "const.h"
 #include "flash.h"
-#include "Driver_Manifold.h"
 
 void gimbal_control_init(void)
 {
@@ -225,30 +224,11 @@ int16_t gimbal_exceed_lower_bound() {
 	else return 0;
 }
 
-float gimbal_yaw_trim(float input_yaw_pos)
+uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos)
 {
-	if (input_yaw_pos > init_yaw_pos + YAW_LEFT_BOUND)
-	{
-		input_yaw_pos = init_yaw_pos + YAW_LEFT_BOUND;
-	}
-	if (input_yaw_pos < init_yaw_pos + YAW_RIGHT_BOUND)
-	{
-		input_yaw_pos = init_yaw_pos + YAW_RIGHT_BOUND;
-	}
-	return input_yaw_pos;
-}
-
-float gimbal_pitch_trim(float input_pitch_pos)
-{
-	if (input_pitch_pos > init_pitch_pos + PITCH_UPPER_BOUND)
-	{
-		input_pitch_pos = init_pitch_pos + PITCH_UPPER_BOUND;
-	}
-	if (input_pitch_pos < init_pitch_pos)
-	{
-		input_pitch_pos = init_pitch_pos;
-	}
-	return input_pitch_pos;
+	uint8_t check_yaw = float_equal((GMYawEncoder.ecd_angle - init_yaw_pos), target_yaw_pos, 27);
+	uint8_t check_pitch = float_equal((GMPitchEncoder.ecd_angle - init_pitch_pos), target_pitch_pos, 19);
+	return check_yaw && check_pitch;
 }
 
 int16_t gimbal_yaw_back(){
@@ -264,102 +244,84 @@ int16_t gimbal_yaw_back_angle(float angle){
 ////////////////////////FUNCTION PART
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
-void buff_mode_gimbal_pos(int16_t index)
-{
-	target_angle = current_angle;
-	if (index != -1)
-	{
-		float input_yaw_pos = manual_buff_pos[index].mem;
-		float input_pitch_pos = manual_buff_pos[index + 9].mem;
-		limit_float_range(&input_yaw_pos, YAW_LEFT_BOUND, YAW_RIGHT_BOUND);
-		limit_float_range(&input_pitch_pos, PITCH_UPPER_BOUND, 0);
-		control_gimbal_pos(input_yaw_pos, input_pitch_pos);
-	}
-	else
-	{
-		control_gimbal_pos(GMYawEncoder.ecd_angle - init_yaw_pos, GMPitchEncoder.ecd_angle - init_pitch_pos);
-	}
-}
+// void buff_mode_gimbal_pos(int16_t index)
+// {
+// 	target_angle = current_angle;
+// 	if (index != -1)
+// 	{
+// 		float input_yaw_pos = manual_buff_pos[index].mem;
+// 		float input_pitch_pos = manual_buff_pos[index + 9].mem;
+// 		limit_float_range(&input_yaw_pos, YAW_LEFT_BOUND, YAW_RIGHT_BOUND);
+// 		limit_float_range(&input_pitch_pos, PITCH_UPPER_BOUND, 0);
+// 		control_gimbal_pos(input_yaw_pos, input_pitch_pos);
+// 	}
+// 	else
+// 	{
+// 		control_gimbal_pos(GMYawEncoder.ecd_angle - init_yaw_pos, GMPitchEncoder.ecd_angle - init_pitch_pos);
+// 	}
+// }
 
-void buff_switch()
-{
-	static int16_t Last_Status = -1;
+// void buff_switch()
+// {
+// 	static int16_t Last_Status = -1;
 	
-	if (DBUS_CheckPush(KEY_Q))
-	{
-		Last_Status = 0;
-		buff_pressed = 1;
-	}
-	else if (DBUS_CheckPush(KEY_W))
-	{
-		Last_Status = 1;
-		buff_pressed = 1;
-	}
-	else if (DBUS_CheckPush(KEY_E))
-	{
-		Last_Status = 2;
-		buff_pressed = 1;
-	}
-	else if (DBUS_CheckPush(KEY_A))
-	{
-		Last_Status = 3;
-		buff_pressed = 1;
-	}
-	else if (DBUS_CheckPush(KEY_S))
-	{
-		Last_Status = 4;
-		buff_pressed = 1;
-	}
-	else if (DBUS_CheckPush(KEY_D))
-	{
-		Last_Status = 5;
-		buff_pressed = 1;
-	}
-	else if (DBUS_CheckPush(KEY_Z))
-	{
-		Last_Status = 6;
-		buff_pressed = 1;
-	}
-	else if (DBUS_CheckPush(KEY_X))
-	{
-		Last_Status = 7;
-		buff_pressed = 1;
-	}
-	else if (DBUS_CheckPush(KEY_C))
-	{
-		Last_Status = 8;
-		buff_pressed = 1;
-	}
-	buff_mode_gimbal_pos(Last_Status);
-	gimbal_in_buff_pos = gimbal_check_in_buff_pos(Last_Status, buff_pressed);
-}
+// 	if (DBUS_CheckPush(KEY_Q))
+// 	{
+// 		Last_Status = 0;
+// 		buff_pressed = 1;
+// 	}
+// 	else if (DBUS_CheckPush(KEY_W))
+// 	{
+// 		Last_Status = 1;
+// 		buff_pressed = 1;
+// 	}
+// 	else if (DBUS_CheckPush(KEY_E))
+// 	{
+// 		Last_Status = 2;
+// 		buff_pressed = 1;
+// 	}
+// 	else if (DBUS_CheckPush(KEY_A))
+// 	{
+// 		Last_Status = 3;
+// 		buff_pressed = 1;
+// 	}
+// 	else if (DBUS_CheckPush(KEY_S))
+// 	{
+// 		Last_Status = 4;
+// 		buff_pressed = 1;
+// 	}
+// 	else if (DBUS_CheckPush(KEY_D))
+// 	{
+// 		Last_Status = 5;
+// 		buff_pressed = 1;
+// 	}
+// 	else if (DBUS_CheckPush(KEY_Z))
+// 	{
+// 		Last_Status = 6;
+// 		buff_pressed = 1;
+// 	}
+// 	else if (DBUS_CheckPush(KEY_X))
+// 	{
+// 		Last_Status = 7;
+// 		buff_pressed = 1;
+// 	}
+// 	else if (DBUS_CheckPush(KEY_C))
+// 	{
+// 		Last_Status = 8;
+// 		buff_pressed = 1;
+// 	}
+// 	buff_mode_gimbal_pos(Last_Status);
+// 	gimbal_in_buff_pos = gimbal_check_in_buff_pos(Last_Status, buff_pressed);
+// }
 
-void rune_mode()
-{
-	static int last_rune_index = -1;
-	control_gimbal_pos(-rune_angle_x * YAW_ANGLE_RATIO, rune_angle_y * PITCH_ANGLE_RATIO  );
-	if (rune_index != -1 && rune_index != last_rune_index && isNewRuneAngle)
-	{
-		shootRune = 1;
-		isNewRuneAngle = 0;
-		last_rune_index = rune_index;
-	}
-	
-}
 
-uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed)
-{
-	if (status == -1 || !pressed)
-	{
-		return 0;
-	}
-	return gimbal_check_pos(manual_buff_pos[status].mem, manual_buff_pos[status + 9].mem);
-}
+// uint8_t gimbal_check_in_buff_pos(int16_t status, uint8_t pressed)
+// {
+// 	if (status == -1 || !pressed)
+// 	{
+// 		return 0;
+// 	}
+// 	return gimbal_check_pos(manual_buff_pos[status].mem, manual_buff_pos[status + 9].mem);
+// }
 
-uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos)
-{
-	uint8_t check_yaw = float_equal((GMYawEncoder.ecd_angle - init_yaw_pos), target_yaw_pos, 27);
-	uint8_t check_pitch = float_equal((GMPitchEncoder.ecd_angle - init_pitch_pos), target_pitch_pos, 19);
-	return check_yaw && check_pitch;
-}
 
