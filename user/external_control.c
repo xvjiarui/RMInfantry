@@ -418,35 +418,6 @@ void remote_buff_adjust(void) {
 
 void dancing_mode(void)
 {
-	// static int16_t dir = 1;
-	// float r;
-	// int16_t target_chassis_ch2_speed = 900;
-	// int16_t target_yaw_filter_rate = target_chassis_ch2_speed * YAW_SPEED_TO_CHASSIS_CH2;
-	// if (GMYawEncoder.ecd_angle - init_yaw_pos < (YAW_RIGHT_BOUND * 2 / 3))
-	// {
-	// 	r = (((YAW_RIGHT_BOUND) - (GMYawEncoder.ecd_angle - init_yaw_pos)) / (YAW_RIGHT_BOUND * 1 / 3));
-	// }
-	// else if (GMYawEncoder.ecd_angle - init_yaw_pos > (YAW_LEFT_BOUND * 2 / 3))
-	// {
-	// 	r = (((YAW_LEFT_BOUND) - (GMYawEncoder.ecd_angle - init_yaw_pos)) / (YAW_LEFT_BOUND * 1 / 3));
-	// }
-	// else
-	// {
-	// 	r = 1;
-	// }
-	// limit_float_range(&r, 1, 0.1);
-
-	// if (gimbal_exceed_left_bound())
-	// {
-	// 	dir = -1;
-	// }
-	// else if (gimbal_exceed_right_bound())
-	// {
-	// 	dir = 1;
-	// }
-
-	// control_gimbal(dir * r * target_yaw_filter_rate + mouse_input[0], mouse_input[1]);
-	// control_car(ch_input[0], ch_input[1], dir * r * target_chassis_ch2_speed, DANCING);
 	static int16_t dir = 1;
 	if (gimbal_approach_left_bound())
 	{
@@ -467,28 +438,49 @@ void dancing_mode(void)
 	{
 		dancing = 0;
 	}
-
 }
 
 void rune_mode(void)
 {
 	static int last_rune_index = -1;
-	float target_yaw_pos = -rune_angle_x * YAW_ANGLE_RATIO;
+	static float input_yaw_pos = 0;
+	static float input_pitch_pos = 0;
+	float target_yaw_pos = rune_angle_x * YAW_ANGLE_RATIO;
 	float target_pitch_pos = rune_angle_y * PITCH_ANGLE_RATIO + PITCH_HORIZONTAL_OFFSET; 
-	gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos);
-	if (DBUS_CheckPush(KEY_V))
+	if (!DBUS_CheckPush(KEY_V))
 	{
-		control_gimbal_pos(target_yaw_pos, target_pitch_pos);
+		target_yaw_pos = 0;
+		target_pitch_pos = 0; 
 	}
-	else
+	float yaw_pos_change = target_yaw_pos - input_yaw_pos;
+	float pitch_pos_change = target_pitch_pos - input_pitch_pos;
+	limit_float_range(&yaw_pos_change, YAW_ACCELERATION, -YAW_ACCELERATION);
+	limit_float_range(&pitch_pos_change, PITCH_ACCELERATION, -PITCH_ACCELERATION);
+	input_yaw_pos += yaw_pos_change;
+	input_pitch_pos += pitch_pos_change;
+	gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos);
+	// if (DBUS_CheckPush(KEY_V))
+	// {
+	// 	control_gimbal_pos(target_yaw_pos, target_pitch_pos);
+	// }
+	// else
+	// {
+	// 	control_gimbal_pos(0, 0);
+	// 	rune = !gimbal_check_pos(0, 0);
+	// 	if (!rune)
+	// 	{
+	// 		LED_control(LASER, 1);
+	// 	}
+	// } 
+	if (!DBUS_CheckPush(KEY_V))
 	{
-		control_gimbal_pos(0, 0);
 		rune = !gimbal_check_pos(0, 0);
 		if (!rune)
 		{
 			LED_control(LASER, 1);
 		}
 	} 
+	control_gimbal_pos(input_yaw_pos, input_pitch_pos);
 	if (rune_index != -1 && rune_index != last_rune_index && isNewRuneAngle)
 	{
 		shootRune = 1;

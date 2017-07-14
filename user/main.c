@@ -78,7 +78,7 @@ int main(void)
 						tft_prints(0, 8, "d:%d s:%d i:%d", GUN_Direction, GUN_Data.stucked, GUN_DriverInput);
 						tft_prints(0, 9, "IT:%d %f", InfantryJudge.LastShotTick, float_debug);
 						// tft_prints(0, 10, "GT:%d %d", GUN_Data.last_poke_tick, ticks_msimg);
-						tft_prints(0, 10, "%.1f %.1f", -GMYawEncoder.ecd_angle/YAW_ANGLE_RATIO, (GMPitchEncoder.ecd_angle - PITCH_HORIZONTAL_OFFSET)/PITCH_ANGLE_RATIO);
+						tft_prints(0, 10, "%.1f %.1f", GMYawEncoder.ecd_angle/YAW_ANGLE_RATIO, (GMPitchEncoder.ecd_angle - PITCH_HORIZONTAL_OFFSET)/PITCH_ANGLE_RATIO);
 						tft_prints(0, 11, "%.1f %.1f %d", rune_angle_x, rune_angle_y, rune_index);
 						// tft_prints(0, 9, "C:%f", GMxEncoder.ecd_angle);
 						// tft_prints(0, 10, "T:%f", GUN_TargetPos);

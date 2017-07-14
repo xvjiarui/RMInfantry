@@ -203,9 +203,8 @@ void GUN_SetFree(void)
 {
     PID_Reset_driver();
     GUN_Data.last_ecd_angle = GMxEncoder.ecd_angle;
-    GUN_Data.emptyLastTick = ticks_msimg;
-    GUN_Data.last_poke_tick = ticks_msimg;
-    InfantryJudge.LastShotTick = ticks_msimg;
+    GUN_Data.emptyLastTick = ticks_msimg + 220;
+    GUN_Data.last_poke_tick = InfantryJudge.LastShotTick - 220;
     GUN_Data.emptyCount = 0;
     GUN_Data.usrShot = 0;
     GUN_Data.stucked = 0;
