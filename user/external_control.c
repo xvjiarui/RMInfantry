@@ -446,7 +446,7 @@ void rune_mode(void)
 	static float input_yaw_pos = 0;
 	static float input_pitch_pos = 0;
 	float target_yaw_pos = rune_angle_x * YAW_ANGLE_RATIO;
-	float target_pitch_pos = rune_angle_y * PITCH_ANGLE_RATIO + PITCH_HORIZONTAL_OFFSET; 
+	float target_pitch_pos = rune_angle_y * PITCH_ANGLE_RATIO + PITCH_HORIZONTAL_OFFSET - 5 * PITCH_ANGLE_RATIO; 
 	if (!DBUS_CheckPush(KEY_V))
 	{
 		target_yaw_pos = 0;

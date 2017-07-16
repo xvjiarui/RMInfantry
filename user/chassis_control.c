@@ -210,7 +210,7 @@ void chassis_SetMotion(void)
     uint8_t rotateHartPress = hartNow && !hartLast;
     uint8_t rotateHart = rotateHartPress && (ticks_msimg - hartLastTick > time_interval);
 
-    if (rotateHart)
+    if (rotateHart && !fast_turning)
     {
         switch (InfantryJudge.LastHartID)
         {
@@ -228,14 +228,14 @@ void chassis_SetMotion(void)
         fast_turning = 1;
     }
 
-    if (rotateRight)
+    if (rotateRight && !fast_turning)
     {
         target_angle += rotateAngle;
         rightLastTick = ticks_msimg;
         fast_turning = 1;
     }
 
-    if (rotateLeft)
+    if (rotateLeft && !fast_turning)
     {
         target_angle -= rotateAngle;
         leftLastTick = ticks_msimg;
