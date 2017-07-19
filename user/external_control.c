@@ -199,14 +199,16 @@ void computer_control(void) {
 	else if (DBUS_CheckPush(KEY_R))
 	{
 		// enter supply deport, open loop control
-		mouse_input[0] = 0;
-		last_mouse_input[0] = 0;
+		control_gimbal_pos(0, 0);
+    control_car(ch_input[0], ch_input[1], -mouse_input[0]*20, OPEN_LOOP);
+
+		/*mouse_input[0] = 0;*/
+		/*last_mouse_input[0] = 0;*/
 		mouse_input[1] = 0;
 		last_mouse_input[1] = 0;
 		DBUS_ReceiveData.mouse.y_position = 0;
-		control_gimbal_pos(0, 0);
 		// control_car_speed_open_loop(ch_input[0], ch_input[1], ch_input[2]);
-		control_car(ch_input[0], ch_input[1], ch_input[2], OPEN_LOOP);
+		/*control_car(ch_input[0], ch_input[1], ch_input[2], OPEN_LOOP);*/
 	}
 	else if (dancing)
 	{
