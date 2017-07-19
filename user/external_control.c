@@ -29,6 +29,7 @@ void external_control_init(void)
 	dancing = 0;
 	rune = 0;
 	chassis_ch2_dancing_input = 0;
+	status = 0;
 
 	int_debug = 0;
 	int_debug2 = 0;
@@ -45,8 +46,7 @@ void external_control(void) {
 	{
 		buff_mode = 0;
 	}
-	uint8_t status = DBUS_ReceiveData.rc.switch_right;
-	status = ticks_msimg > 20000? status : 0;
+	status = ticks_msimg > 26000? DBUS_ReceiveData.rc.switch_right : 1;
 	switch (status)
 	{
 	case 3:
@@ -459,19 +459,6 @@ void rune_mode(void)
 	input_yaw_pos += yaw_pos_change;
 	input_pitch_pos += pitch_pos_change;
 	gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos);
-	// if (DBUS_CheckPush(KEY_V))
-	// {
-	// 	control_gimbal_pos(target_yaw_pos, target_pitch_pos);
-	// }
-	// else
-	// {
-	// 	control_gimbal_pos(0, 0);
-	// 	rune = !gimbal_check_pos(0, 0);
-	// 	if (!rune)
-	// 	{
-	// 		LED_control(LASER, 1);
-	// 	}
-	// } 
 	if (!DBUS_CheckPush(KEY_V))
 	{
 		rune = !gimbal_check_pos(0, 0);
@@ -481,7 +468,7 @@ void rune_mode(void)
 		}
 	} 
 	control_gimbal_pos(input_yaw_pos, input_pitch_pos);
-	if (rune_index != -1 && rune_index != last_rune_index && isNewRuneAngle)
+	if (rune_index != -1 && (rune_index != last_rune_index || isNewRuneAngle))
 	{
 		shootRune = 1;
 		isNewRuneAngle = 0;

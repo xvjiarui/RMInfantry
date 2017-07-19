@@ -1,4 +1,5 @@
 #define GUN_FILE
+// #define ADD_BULLET
 
 #include "Dbus.h"
 #include "global_variable.h"
@@ -81,16 +82,17 @@ void GUN_SetMotion(void) {
     static uint8_t hasPending = 0;
 
     // friction wheel
-    if (DBUS_ReceiveData.rc.switch_right != 1 && DBUS_Connected) {
+    if (status != 1 && DBUS_Connected) {
         uint16_t friction_wheel_pwm = Friction_Wheel_PWM();
         friction_wheel_pwm *= FRICTION_WHEEL_PWM;
         static float ratio = 1;
         if (InfantryJudge.OverShootSpeedLastTime)
         {
-            ratio *= 0.90;
+            ratio *= 0.95;
             InfantryJudge.OverShootSpeedLastTime = 0;
         }
         friction_wheel_pwm *= ratio;
+        GUN_Data.frictionPWM = friction_wheel_pwm;
         FRIC_SET_THRUST_L(friction_wheel_pwm);
         FRIC_SET_THRUST_R(friction_wheel_pwm);
         FRIC_SET_THRUST_M(friction_wheel_pwm);
@@ -146,17 +148,27 @@ void GUN_SetMotion(void) {
     {
         GUN_Data.emptyCount = 0;
     }
+    if (GUN_Data.stuckedLastTick <= InfantryJudge.LastShotTick + 220)
+    {
+        GUN_Data.stucked = 0;
+    }
+#ifdef ADD_BULLET
     if (DBUS_ReceiveData.mouse.press_left
-            || (GUN_Data.emptyCount && GUN_Data.emptyLastTick + 220 < ticks_msimg))
+            || (GUN_Data.emptyCount && GUN_Data.emptyLastTick + 220 < ticks_msimg) || (GUN_Data.stucked && GUN_Data.stuckedLastTick + 220 < ticks_msimg))
     {
         ++pressCount;
     }
+#else
+    if (DBUS_ReceiveData.mouse.press_left)
+    {
+        ++pressCount;
+    }
+#endif
 
     shoot = jumpPress || (((pressCount & 0x000FU) == 0) && pressCount);
-    shoot = shoot || GUN_Data.stucked || shootRune;
-    GUN_Data.stucked = 0;
+    shoot = shoot || shootRune;
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
-    shoot = shoot && (ticks_msimg - lastTick > 220);
+    shoot = shoot && (ticks_msimg - lastTick > 300);
     if (DBUS_ReceiveData.mouse.press_right)
     {
         GUN_SetFree();
@@ -223,11 +235,12 @@ void GUN_Update(void)
     if (ABS(gun_driver_speed_pid.Ki * gun_driver_speed_pid.i) > 6000
             || ((ticks_msimg - GUN_Data.last_poke_tick) > 220
                 && (ticks_msimg - GUN_Data.last_poke_tick) < 240
-                && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 10)))
+                && float_equal(GMxEncoder.ecd_angle, GUN_Data.last_ecd_angle, 36)))
     {
         GUN_Direction *= -1;
         GUN_SetFree();
         GUN_Data.stucked = 1;
+        GUN_Data.stuckedLastTick = ticks_msimg;
     }
 
     GUN_DriverInput = PID_UpdateValue(&gun_driver_speed_pid,
@@ -242,36 +255,49 @@ uint16_t Friction_Wheel_PWM(void)
     uint16_t result = 0;
     if (InfantryJudge.RealVoltage > 24.5)
     {
-        result = 265; //650
+        result = 273; //650
     }
     else if (InfantryJudge.RealVoltage > 24)
     {
-        result = 268; //670
+        result = 278; //670
     }
     else if (InfantryJudge.RealVoltage > 23.5)
     {
-        result = 274; //690
+        result = 285; //690
     }
     else if (InfantryJudge.RealVoltage > 23)
     {
-        result = 280; //700
+        result = 300; //700
     }
     else if (InfantryJudge.RealVoltage > 22.5)
     {
-        result = 285; //715
+        result = 303; //715
     }
     else if (InfantryJudge.RealVoltage > 22)
     {
-        result = 289; //730
+        result = 307; //730
     }
     else if (InfantryJudge.RealVoltage > 21.5)
     {
-        result = 294; //745
+        result = 314; //745
     }
     else
     {
-        result = 299; // 750
+        result = 319; // 750
     }
-   
+
+    int delta_t = ticks_msimg - InfantryJudge.LastShotTick;
+    uint16_t b = 50;  
+    int interval = 900;
+    uint16_t offset;
+    if (delta_t > interval)
+    {
+       offset = 0; 
+    }
+    else
+    {
+        offset = b - b * delta_t / interval;
+    }
+    result += offset; 
     return result;
 }

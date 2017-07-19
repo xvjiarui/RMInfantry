@@ -19,6 +19,7 @@ EXTERNAL_CONTROL_EXT int16_t last_mouse_input[2];
 EXTERNAL_CONTROL_EXT uint8_t dancing;
 EXTERNAL_CONTROL_EXT uint8_t rune;
 EXTERNAL_CONTROL_EXT int16_t chassis_ch2_dancing_input;
+EXTERNAL_CONTROL_EXT uint8_t status;
 
 void external_control_init(void);
 

@@ -23,6 +23,8 @@ typedef struct {
 	uint8_t usrShot;
 	u32 emptyLastTick;
 	uint8_t stucked;
+	u32 stuckedLastTick;
+	uint16_t frictionPWM;
 
 } GUN_DataTypeDef;
 

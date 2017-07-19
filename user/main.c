@@ -69,14 +69,16 @@ int main(void)
 					if (DBUS_ReceiveData.rc.switch_left != 2)
 					{
 						
-						tft_prints(0, 2,"r:%d", DBUS_ReceiveData.rc.switch_right);
+						tft_prints(0, 2,"S:%d %d", status, ticks_msimg);
 						tft_prints(0, 3,"Pr:%.2f, Bf:%.2f", InfantryJudge.RealVoltage * InfantryJudge.RealCurrent, InfantryJudge.RemainBuffer);
 						tft_prints(0, 4,"DBUS:%d Judge:%d", DBUS_Connected, Judge_Connected);
 						tft_prints(0, 5,"L:%d R:%d U:%d E:%d", DBUS_ReceiveData.mouse.press_left, DBUS_ReceiveData.mouse.press_right, GUN_Data.usrShot, GUN_Data.emptyCount);
 						tft_prints(0, 6,"Chassis:%d %d %d %d %d", Chassis_Connected, can_chassis_connected[0], can_chassis_connected[1], can_chassis_connected[2], can_chassis_connected[3]);
 						tft_prints(0, 7,"Gimbal:%d %d %d %d", Gimbal_Connected, can_gimbal_connected[0], can_gimbal_connected[1], can_gimbal_connected[2]);
 						tft_prints(0, 8, "d:%d s:%d i:%d", GUN_Direction, GUN_Data.stucked, GUN_DriverInput);
-						tft_prints(0, 9, "IT:%d %f", InfantryJudge.LastShotTick, float_debug);
+						// tft_prints(0, 9, "IT:%d %d", InfantryJudge.LastShotTick, GUN_Data.frictionPWM);
+						// tft_prints(0, 9, "RS:%.2f %d", InfantryJudge.LastShotSpeed, GUN_Data.frictionPWM);
+						tft_prints(0, 9, "C:%d", manifoldCount);
 						// tft_prints(0, 10, "GT:%d %d", GUN_Data.last_poke_tick, ticks_msimg);
 						tft_prints(0, 10, "%.1f %.1f", GMYawEncoder.ecd_angle/YAW_ANGLE_RATIO, (GMPitchEncoder.ecd_angle - PITCH_HORIZONTAL_OFFSET)/PITCH_ANGLE_RATIO);
 						tft_prints(0, 11, "%.1f %.1f %d", rune_angle_x, rune_angle_y, rune_index);

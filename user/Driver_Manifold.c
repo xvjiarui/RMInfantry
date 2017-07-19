@@ -92,7 +92,6 @@ typedef union {
 void Manifold_Decoder()
 {
     FT_T FT;
-    //manifoldCount++;
 
     if (Manifold_Buffer[0] == 0xa5)
     {
@@ -108,6 +107,7 @@ void Manifold_Decoder()
         FT.u[3] = Manifold_Buffer[8];
         rune_angle_y = FT.f;
 
+        manifoldCount++;
         rune_index = Manifold_Buffer[9];
         isNewRuneAngle = 1;
     }
@@ -121,7 +121,6 @@ void UART4_IRQHandler(void)  //BOARD location: LEFT UPPER CORNER , Below DBUS PO
     clear = UART4->SR;
 
     DMA_Cmd(DMA1_Stream2, DISABLE);
-    manifoldCount++;
 
     if (DMA1_Stream2->NDTR == Manifold_Buffer_Length)
     {
