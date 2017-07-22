@@ -73,7 +73,7 @@ void Driver_Manifold_init() {
 }
 
 
-void Manifold_Rune_Select(u8 rune) { // 1 is big, 0 is small,, BORAD loccation : LEFT UPPER CORNER: BRUSH_M2 pin: beside gnd
+void Manifold_Rune_Select(u8 rune) { // 1 is big, 0 is small,, BORAD loccation : MIDDLE LEFT : BRUSH_M2 pin: beside gnd
 
     if (rune == 1) {
         GPIO_SetBits(GPIOA, GPIO_Pin_2);

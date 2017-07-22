@@ -9,7 +9,6 @@
 #include "external_control.h"
 #include "Driver_Gun.h"
 #include "const.h"
-#include "flash.h"
 
 void gimbal_control_init(void)
 {
@@ -20,12 +19,14 @@ void gimbal_control_init(void)
 	gimbal_in_buff_pos = 0;
 	buff_pressed = 0;
 	clearing_ammo = 0;
-	for (int i = 0; i < 18; ++i)
-	{
-		manual_buff_pos[i].flash = readFlash(i);
-	}
+	// for (int i = 0; i < 18; ++i)
+	// {
+	// 	manual_buff_pos[i].flash = readFlash(i);
+	// }
 	GUN_DriverInput = 0;
 	GUN_TargetPos = GMxEncoder.ecd_angle;
+	shootRune = 0;
+	lastRuneTick = 0;
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////

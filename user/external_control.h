@@ -7,6 +7,7 @@
 	#define EXTERNAL_CONTROL_EXT
 #endif
 
+EXTERNAL_CONTROL_EXT u32 InfantryID;
 EXTERNAL_CONTROL_EXT uint8_t Chassis_Connected;
 EXTERNAL_CONTROL_EXT uint8_t Gimbal_Connected;
 EXTERNAL_CONTROL_EXT uint8_t DBUS_Connected;
@@ -27,6 +28,7 @@ void external_control(void);
 void remote_control(void);
 void computer_control(void);
 void remote_buff_adjust(void);
+void remote_shooting_adjust(void);
 void process_mouse_data(void);
 void process_keyboard_data(void);
 

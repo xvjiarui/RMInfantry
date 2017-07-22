@@ -28,7 +28,11 @@ void M_wheel_analysis(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0, float
     //potential bug exists
     //the data from gyro will accumulate and may be overflow?
     if (ch2 < 1 && ch2 > -1) {
-        ch2 = delta;
+        static int16_t delta_input;
+        int16_t delta_change = delta - delta_input;
+        limit_int_range(&delta_change, 8, -8);
+        delta_input += delta_change;
+        ch2 = delta_input;
         gimbal_follow = 1;
     }
     else
@@ -62,8 +66,12 @@ void M_wheel_analysis_dancing(int16_t ch0, int16_t ch1, int16_t ch2, float ratio
 }
 
 void M_wheel_analysis_counter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio0, float ratio1, float ratio2, int16_t delta) {
-		if (ch2 < 1 && ch2 > -1) {
-        ch2 = delta;
+    if (ch2 < 1 && ch2 > -1) {
+        static int16_t delta_input;
+        int16_t delta_change = delta - delta_input;
+        limit_int_range(&delta_change, 5, -5);
+        delta_input += delta_change;
+        ch2 = delta_input;
         gimbal_follow = 1;
     }
     else
@@ -71,7 +79,7 @@ void M_wheel_analysis_counter(int16_t ch0, int16_t ch1, int16_t ch2, float ratio
         target_angle = current_angle;
         gimbal_follow = 0;
     }
-		chassis_ch2 = ch2;
+    chassis_ch2 = ch2;
     int16_t theta = -(GMYawEncoder.ecd_angle - init_yaw_pos) * GYRO_ANGLE_RATIO / YAW_ANGLE_RATIO;
     int16_t ch0_temp = ch0;
     int16_t ch1_temp = ch1;
@@ -99,19 +107,19 @@ void update_wheel_pid()
 
 int16_t get_wheel_filter_rate(uint8_t index)
 {
-    switch(index)
+    switch (index)
     {
-        case 0:
-            return CM1Encoder.filter_rate;
+    case 0:
+        return CM1Encoder.filter_rate;
         break;
-        case 1:
-            return CM2Encoder.filter_rate;
+    case 1:
+        return CM2Encoder.filter_rate;
         break;
-        case 2:
-            return CM3Encoder.filter_rate;
+    case 2:
+        return CM3Encoder.filter_rate;
         break;
-        case 3:
-            return CM4Encoder.filter_rate;
+    case 3:
+        return CM4Encoder.filter_rate;
         break;
     }
 }
@@ -122,7 +130,7 @@ float buffer_decay()
     float ratio = 0;
     ratio = PID_UpdateValue(&buffer_pid, 60, InfantryJudge.RemainBuffer);
     ratio = ratio > 0 ? ratio : 0;
-    ratio = 1- ratio;
+    ratio = 1 - ratio;
     return ratio;
 }
 
@@ -134,22 +142,22 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
         target_angle = current_angle;
         gimbal_follow = 0;
     }
-		//ch2=0.5 的时候玄学参数非常完美
+    //ch2=0.5 的时候玄学参数非常完美
     if (mode == DANCING)
     {
         M_wheel_analysis_dancing(ch0, ch1, ch2, 0.5, 0.5, 0.5);
     }
     else
-	{	
-		s32 angle_change = target_angle - current_angle;
-		limit_s32_range(&angle_change, ROTATION_ACCELERATION, -ROTATION_ACCELERATION);
+    {
+        s32 angle_change = target_angle - current_angle;
+        limit_s32_range(&angle_change, ROTATION_ACCELERATION, -ROTATION_ACCELERATION);
         s32 input_angle = current_angle + angle_change;
         if (mode == COUNTER)
         {
             M_wheel_analysis_counter(ch0, ch1, ch2, 0.5, 0.5, 0.5, PID_UpdateValue(&angle_pid, input_angle, current_angle));
         }
-		else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, input_angle, current_angle));
-	}
+        else M_wheel_analysis(ch0, ch1, ch2, 1, 1, 0.5, PID_UpdateValue(&angle_pid, input_angle, current_angle));
+    }
     static float ratio = 1;
     if (InfantryJudge.Updated)
     {
@@ -168,15 +176,15 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
 
         switch (mode)
         {
-            case OPEN_LOOP:
-                PID_UpdateValue(&wheels_speed_pid[i], wheels_speed_pid[i].current, get_wheel_filter_rate(i));
-                input[i] = target_speed[i] * 3;
-                break;
-            default :
-                input[i] = PID_UpdateValue(&wheels_speed_pid[i], target_speed[i], get_wheel_filter_rate(i));
-                break;
+        case OPEN_LOOP:
+            PID_UpdateValue(&wheels_speed_pid[i], wheels_speed_pid[i].current, get_wheel_filter_rate(i));
+            input[i] = target_speed[i] * 3;
+            break;
+        default :
+            input[i] = PID_UpdateValue(&wheels_speed_pid[i], target_speed[i], get_wheel_filter_rate(i));
+            break;
         }
-        
+
     }
     send_to_chassis(input[0], input[1], input[2], input[3]);
 
@@ -214,15 +222,15 @@ void chassis_SetMotion(void)
     {
         switch (InfantryJudge.LastHartID)
         {
-            case 1:
-                target_angle -= rotateAngle;
-                break;
-            case 2: 
-                target_angle -= 2 * rotateAngle;
-                break;
-            case 3: 
-                target_angle += rotateAngle;
-                break;
+        case 1:
+            target_angle -= rotateAngle;
+            break;
+        case 2:
+            target_angle -= 2 * rotateAngle;
+            break;
+        case 3:
+            target_angle += rotateAngle;
+            break;
         }
         hartLastTick = ticks_msimg;
         fast_turning = 1;

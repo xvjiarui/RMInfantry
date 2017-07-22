@@ -12,9 +12,9 @@
 #define POKE_DIR_PORT                           GPIOA
 #define POKE_DIR_PIN                            GPIO_Pin_1
 #define POKE_DIR                                1
-#define FRIC_SET_THRUST_L(x)                    TIM_SetCompare1(TIM1, 1000+(x))
-#define FRIC_SET_THRUST_R(x)                    TIM_SetCompare2(TIM1, 1000+(x))
-#define FRIC_SET_THRUST_M(x)                    TIM_SetCompare3(TIM1, 1000+(x))
+#define FRIC_SET_THRUST_L(x)                    TIM_SetCompare1(TIM1, 4000+(x))
+#define FRIC_SET_THRUST_R(x)                    TIM_SetCompare2(TIM1, 4000+(x))
+#define FRIC_SET_THRUST_M(x)                    TIM_SetCompare3(TIM1, 4000+(x))
 
 typedef struct {
 	float last_ecd_angle;

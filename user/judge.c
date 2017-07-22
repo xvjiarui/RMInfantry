@@ -3,6 +3,7 @@
 #include "judge.h"
 #include "main.h"
 #include "Driver_Gun.h"
+#include "data_monitor.h"
 
 #define GET_BUFFER(x) JUDGE_DataBuffer[(uint8_t)(JUDGE_NextDecodeOffset+(x))]
 
@@ -73,6 +74,38 @@ void judging_system_init(void) {
     DMA_InitStructure.DMA_PeripheralBurst   =   DMA_PeripheralBurst_Single;
     DMA_Init(DMA1_Stream1, &DMA_InitStructure);
     DMA_Cmd(DMA1_Stream1, ENABLE);
+    Judge_InitConfig();
+}
+
+void Judge_SetSendData(void) {
+    InfantryJudge.m_data[0] = InfantryJudge.ShootNum;
+}
+
+void Judge_Send(void) {
+    static uint8_t *buf = JUDGE_SendBuffer;
+    static uint8_t cnt = 0;
+    static FormatTrans FT;
+    static uint8_t i, j;
+
+    Judge_SetSendData();
+
+    buf[0] = JUDGE_FRAME_HEADER;
+    buf[1] = 12;
+    buf[2] = 0;
+    buf[3] = cnt++;
+    Append_CRC8_Check_Sum(buf, JUDGE_FRAME_HEADER_LENGTH);
+    buf[5] = 5;
+    buf[6] = 0;
+
+    for (i = 0; i < 3; ++i) {
+        FT.F = InfantryJudge.m_data[i];
+        for (j = 0; j < 4; ++j)
+            buf[7+(i<<2)+j] = FT.U[j];
+    }
+
+    Append_CRC16_Check_Sum(buf, JUDGE_SEND_LENGTH);
+
+    DataMonitor_Send(JUDGE_SendBuffer, JUDGE_SEND_LENGTH);
 }
 
 
@@ -281,6 +314,9 @@ void Judge_InitConfig(void)
     InfantryJudge.BulletShot = 0;
     InfantryJudge.LastShotTick = 0;
     InfantryJudge.ShootNum = 0;
+
+    float* foo = InfantryJudge.m_data;
+    foo[0] = foo[1] = foo[2] = 0;
 }
 
 /**

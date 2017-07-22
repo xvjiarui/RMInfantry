@@ -37,6 +37,7 @@ void TIM7_IRQHandler(void) {
     if (tick % 50 == 0)
     {
         Judge_Connected = Judge_UART_CheckConnection();
+        Judge_Send();
     }
     current_angle = output_angle;
     buzzer_check();

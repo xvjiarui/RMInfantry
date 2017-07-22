@@ -30,6 +30,7 @@ GIMBAL_CONTROL_EXT int16_t GUN_DriverInput;
 GIMBAL_CONTROL_EXT float GUN_TargetPos;
 GIMBAL_CONTROL_EXT int16_t GUN_Direction;
 GIMBAL_CONTROL_EXT uint8_t shootRune;
+GIMBAL_CONTROL_EXT u32 lastRuneTick;
 
 void gimbal_control_init(void);
 

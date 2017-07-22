@@ -35,6 +35,8 @@ void external_control_init(void)
 	int_debug2 = 0;
 	float_debug = 0;
 	float_debug2 = 0;
+	InfantryID = readFlash(0);
+	// InfantryID = 3;
 }
 
 void external_control(void) {
@@ -62,8 +64,8 @@ void external_control(void) {
 				remote_control();
 				break;
 			default:
-				buff_mode = 1;
-				remote_buff_adjust();
+				// buff_mode = 1;
+				remote_shooting_adjust();
 				break;
 			}
 		}
@@ -408,16 +410,41 @@ void remote_buff_adjust(void) {
 	if (DBUS_ReceiveData.rc.switch_left == 2 && !is_writing_flash)
 	{
 		is_writing_flash = 1;
-		u32 data[18];
-		for (int i = 0; i < 18; ++i)
-		{
-			data[i] = manual_buff_pos[i].flash;
-		}
-		writeFlash(data, 18);
+		// u32 data[18];
+		// for (int i = 0; i < 18; ++i)
+		// {
+		// 	data[i] = manual_buff_pos[i].flash;
+		// }
+		u32 data[1];
+		data[0] = InfantryID;
+		writeFlash(data, 1);
 		FAIL_MUSIC;
 	}
 }
 
+void remote_shooting_adjust(void) {
+	send_to_gimbal(0, 0);
+	chassis_disconnect_handler();
+	static uint8_t is_writing_flash = 0;
+	// writing into the flash, takes about 2s
+	if (DBUS_ReceiveData.rc.switch_left == 3)
+	{
+		is_writing_flash = 0;
+	}
+	if (DBUS_ReceiveData.rc.switch_left == 2 && !is_writing_flash)
+	{
+		is_writing_flash = 1;
+		// u32 data[18];
+		// for (int i = 0; i < 18; ++i)
+		// {
+		// 	data[i] = manual_buff_pos[i].flash;
+		// }
+		u32 data[1];
+		data[0] = InfantryID;
+		writeFlash(data, 1);
+		FAIL_MUSIC;
+	}
+}
 void dancing_mode(void)
 {
 	static int16_t dir = 1;
@@ -449,11 +476,20 @@ void rune_mode(void)
 	static float input_pitch_pos = 0;
 	float target_yaw_pos = rune_angle_x * YAW_ANGLE_RATIO;
 	float target_pitch_pos = rune_angle_y * PITCH_ANGLE_RATIO + PITCH_HORIZONTAL_OFFSET - 5 * PITCH_ANGLE_RATIO; 
+#ifdef RELOAD_BULLET
+	if (!DBUS_CheckPush(KEY_V) || lastRuneTick + 550 < ticks_msimg)
+	{
+		target_yaw_pos = 0;
+		target_pitch_pos = 0; 
+	}
+#else 
 	if (!DBUS_CheckPush(KEY_V))
 	{
 		target_yaw_pos = 0;
 		target_pitch_pos = 0; 
 	}
+
+#endif
 	float yaw_pos_change = target_yaw_pos - input_yaw_pos;
 	float pitch_pos_change = target_pitch_pos - input_pitch_pos;
 	limit_float_range(&yaw_pos_change, YAW_ACCELERATION, -YAW_ACCELERATION);

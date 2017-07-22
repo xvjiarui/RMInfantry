@@ -1,5 +1,6 @@
 #define GUN_FILE
 // #define ADD_BULLET
+// #define GUN_SHOOTING_ADJUST
 
 #include "Dbus.h"
 #include "global_variable.h"
@@ -41,12 +42,12 @@ void GUN_BSP_Init(void) {
     // TIM1 (friction wheel, 400Hz)
     TIM_TimeBaseInitStructure.TIM_ClockDivision =   TIM_CKD_DIV1;
     TIM_TimeBaseInitStructure.TIM_CounterMode   =   TIM_CounterMode_Up;
-    TIM_TimeBaseInitStructure.TIM_Period        =   2500 - 1;
-    TIM_TimeBaseInitStructure.TIM_Prescaler     =   (uint32_t) (((SystemCoreClock / 1) / 1000000) - 1); // 1MHz clock
+    TIM_TimeBaseInitStructure.TIM_Period        =   9999;
+    TIM_TimeBaseInitStructure.TIM_Prescaler     =   41; // 1MHz clock
     TIM_TimeBaseInit(TIM1, &TIM_TimeBaseInitStructure);
 
     TIM_OCInitStructure.TIM_OCMode       =   TIM_OCMode_PWM1;
-    TIM_OCInitStructure.TIM_Pulse        =   1000;
+    TIM_OCInitStructure.TIM_Pulse        =   4000;
     TIM_OCInitStructure.TIM_OutputState  =   TIM_OutputState_Enable;
     TIM_OCInitStructure.TIM_OutputNState =   TIM_OutputNState_Enable;
     TIM_OCInitStructure.TIM_OCPolarity   =   TIM_OCPolarity_High;
@@ -70,6 +71,9 @@ void GUN_Init(void) {
 
     memset((char*)&GUN_Data, 0, sizeof(GUN_Data));
     GUN_Direction = 1;
+#ifdef GUN_SHOOTING_ADJUST
+    GUN_Data.frictionPWM = 1000;
+#endif
 
 }
 
@@ -84,7 +88,6 @@ void GUN_SetMotion(void) {
     // friction wheel
     if (status != 1 && DBUS_Connected) {
         uint16_t friction_wheel_pwm = Friction_Wheel_PWM();
-        friction_wheel_pwm *= FRICTION_WHEEL_PWM;
         static float ratio = 1;
         if (InfantryJudge.OverShootSpeedLastTime)
         {
@@ -92,10 +95,16 @@ void GUN_SetMotion(void) {
             InfantryJudge.OverShootSpeedLastTime = 0;
         }
         friction_wheel_pwm *= ratio;
+#ifdef GUN_SHOOTING_ADJUST
+        FRIC_SET_THRUST_L(GUN_Data.frictionPWM);
+        FRIC_SET_THRUST_R(GUN_Data.frictionPWM);
+        FRIC_SET_THRUST_M(GUN_Data.frictionPWM);
+#else
         GUN_Data.frictionPWM = friction_wheel_pwm;
         FRIC_SET_THRUST_L(friction_wheel_pwm);
         FRIC_SET_THRUST_R(friction_wheel_pwm);
         FRIC_SET_THRUST_M(friction_wheel_pwm);
+#endif
     }
     else {
         FRIC_SET_THRUST_L(0);
@@ -115,6 +124,25 @@ void GUN_SetMotion(void) {
     uint8_t adjustJumpPress = adjustNow && !adjustLast;
     uint8_t adjustJumpRelease = !adjustNow && adjustLast;
 
+    uint8_t shootDecreaseNow = (DBUS_ReceiveData.rc.ch3 < -500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1 : 0;
+    uint8_t shootDecreaseLast = (LASTDBUS_ReceiveData.rc.ch3 < -500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1 : 0;
+
+    uint8_t shootDecreaseJumpPress = shootDecreaseNow && !shootDecreaseLast;
+    uint8_t shootDecreaseJumpRelease = !shootDecreaseNow && shootDecreaseLast;
+
+    uint8_t shootIncreaseNow = (DBUS_ReceiveData.rc.ch3 < 500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1 : 0;
+    uint8_t shootIncreaseLast = (LASTDBUS_ReceiveData.rc.ch3 < 500 && DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3) ? 1 : 0;
+
+    uint8_t shootIncreaseJumpPress = shootIncreaseNow && !shootIncreaseLast;
+    uint8_t shootIncreaseJumpRelease = !shootIncreaseNow && shootIncreaseLast;
+    if (shootDecreaseJumpPress)
+    {
+        GUN_Data.frictionPWM--;
+    }
+    if (shootIncreaseJumpPress)
+    {
+        GUN_Data.frictionPWM++;
+    }
     // poke motor
     jumpPress = DBUS_ReceiveData.mouse.press_left &&
                 !LASTDBUS_ReceiveData.mouse.press_left;
@@ -188,6 +216,7 @@ void GUN_SetMotion(void) {
             GUN_ShootOne();
             hasPending = 0;
             lastTick = ticks_msimg;
+            lastRuneTick = ticks_msimg;
             buff_pressed = 0;
         }
     }
@@ -253,51 +282,158 @@ void GUN_Update(void)
 uint16_t Friction_Wheel_PWM(void)
 {
     uint16_t result = 0;
-    if (InfantryJudge.RealVoltage > 24.5)
+    switch (InfantryID)
     {
-        result = 273; //650
-    }
-    else if (InfantryJudge.RealVoltage > 24)
-    {
-        result = 278; //670
-    }
-    else if (InfantryJudge.RealVoltage > 23.5)
-    {
-        result = 285; //690
-    }
-    else if (InfantryJudge.RealVoltage > 23)
-    {
-        result = 300; //700
-    }
-    else if (InfantryJudge.RealVoltage > 22.5)
-    {
-        result = 303; //715
-    }
-    else if (InfantryJudge.RealVoltage > 22)
-    {
-        result = 307; //730
-    }
-    else if (InfantryJudge.RealVoltage > 21.5)
-    {
-        result = 314; //745
-    }
-    else
-    {
-        result = 319; // 750
+    case 0:
+        if (InfantryJudge.RealVoltage > 24.5)
+        {
+            result = 1040; //650
+        }
+        else if (InfantryJudge.RealVoltage > 24)
+        {
+            result = 1055; //670
+        }
+        else if (InfantryJudge.RealVoltage > 23.5)
+        {
+            result = 1075; //690
+        }
+        else if (InfantryJudge.RealVoltage > 23)
+        {
+            result = 1095; //700
+        }
+        else if (InfantryJudge.RealVoltage > 22.5)
+        {
+            result = 1105; //715
+        }
+        else if (InfantryJudge.RealVoltage > 22)
+        {
+            result = 1125; //730
+        }
+        else if (InfantryJudge.RealVoltage > 21.5)
+        {
+            result = 1145; //745
+        }
+        else
+        {
+            result = 1165; // 750
+        }
+        break;
+    case 1:
+        if (InfantryJudge.RealVoltage > 24.5)
+        {
+            result = 1110; //650
+        }
+        else if (InfantryJudge.RealVoltage > 24)
+        {
+            result = 1130; //670
+        }
+        else if (InfantryJudge.RealVoltage > 23.5)
+        {
+            result = 1150; //690
+        }
+        else if (InfantryJudge.RealVoltage > 23)
+        {
+            result = 1170; //700
+        }
+        else if (InfantryJudge.RealVoltage > 22.5)
+        {
+            result = 1190; //715
+        }
+        else if (InfantryJudge.RealVoltage > 22)
+        {
+            result = 1210; //730
+        }
+        else if (InfantryJudge.RealVoltage > 21.5)
+        {
+            result = 1240; //745
+        }
+        else
+        {
+            result = 1260; // 750
+        }
+        break;
+    case 2:
+        if (InfantryJudge.RealVoltage > 24.5)
+        {
+            result = 1060; //650
+        }
+        else if (InfantryJudge.RealVoltage > 24)
+        {
+            result = 1080; //670
+        }
+        else if (InfantryJudge.RealVoltage > 23.5)
+        {
+            result = 1100; //690
+        }
+        else if (InfantryJudge.RealVoltage > 23)
+        {
+            result = 1110; //700
+        }
+        else if (InfantryJudge.RealVoltage > 22.5)
+        {
+            result = 1150; //715
+        }
+        else if (InfantryJudge.RealVoltage > 22)
+        {
+            result = 1170; //730
+        }
+        else if (InfantryJudge.RealVoltage > 21.5)
+        {
+            result = 1185; //745
+        }
+        else
+        {
+            result = 1200; // 750
+        }
+        break;
+    default :
+        if (InfantryJudge.RealVoltage > 24.5)
+        {
+            result = 1040; //650
+        }
+        else if (InfantryJudge.RealVoltage > 24)
+        {
+            result = 1055; //670
+        }
+        else if (InfantryJudge.RealVoltage > 23.5)
+        {
+            result = 1075; //690
+        }
+        else if (InfantryJudge.RealVoltage > 23)
+        {
+            result = 1085; //700
+        }
+        else if (InfantryJudge.RealVoltage > 22.5)
+        {
+            result = 1105; //715
+        }
+        else if (InfantryJudge.RealVoltage > 22)
+        {
+            result = 1125; //730
+        }
+        else if (InfantryJudge.RealVoltage > 21.5)
+        {
+            result = 1145; //745
+        }
+        else
+        {
+            result = 1165; // 750
+        }
+        break;
     }
 
     int delta_t = ticks_msimg - InfantryJudge.LastShotTick;
-    uint16_t b = 50;  
+    uint16_t b = 60;
     int interval = 900;
     uint16_t offset;
     if (delta_t > interval)
     {
-       offset = 0; 
+        offset = 0;
     }
     else
     {
         offset = b - b * delta_t / interval;
     }
-    result += offset; 
+    result += offset;
     return result;
 }
