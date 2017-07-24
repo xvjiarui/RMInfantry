@@ -471,6 +471,7 @@ void dancing_mode(void)
 
 void rune_mode(void)
 {
+	static uint8_t runeGPIO = 0;
 	static int last_rune_index = -1;
 	static float input_yaw_pos = 0;
 	static float input_pitch_pos = 0;
@@ -512,6 +513,18 @@ void rune_mode(void)
 		isNewRuneAngle = 0;
 		last_rune_index = rune_index;
 	}
+	if (DBUS_CheckPush(KEY_SHIFT) && runeGPIO == 0)
+	{
+		runeGPIO = 1;
+		Manifold_Rune_Select(runeGPIO);
+	}
+
+	if (!DBUS_CheckPush(KEY_SHIFT) && runeGPIO == 1)
+	{
+		runeGPIO = 0;
+		Manifold_Rune_Select(runeGPIO);
+	}
+
 	control_car(0, 0, 0, NORMAL);
 }
 

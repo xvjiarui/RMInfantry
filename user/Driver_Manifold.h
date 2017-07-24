@@ -22,4 +22,5 @@ DRIVER_MANIFOLD_EXT uint8_t isNewRuneAngle;
 DRIVER_MANIFOLD_EXT int manifoldCount;
 
 void Driver_Manifold_init();
+void Manifold_Rune_Select(u8 rune);
 #endif

@@ -170,6 +170,7 @@ void control_car(int16_t ch0, int16_t ch1, int16_t ch2, CarMode mode)
     {
         target_speed[i] = M_wheel_result[i];
         target_speed[i] *= ratio;
+        limit_int_range(&target_speed[i], 1500, -1500);
     }
 
     for (int i = 0; i < 4; i++) {
