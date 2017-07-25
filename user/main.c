@@ -50,8 +50,6 @@ int main(void)
 {	
 	init();
 	//testing
-	InfantryJudge.m_data[1] = 2.71828;
-	InfantryJudge.m_data[2] = -8848;
 	BSP_TIM_Start();
 	while (1)  {	
 
@@ -81,10 +79,10 @@ int main(void)
 						tft_prints(0, 8, "d:%d s:%d i:%d", GUN_Direction, GUN_Data.stucked, GUN_DriverInput);
 						// tft_prints(0, 9, "IT:%d %d", InfantryJudge.LastShotTick, GUN_Data.frictionPWM);
 						// tft_prints(0, 9, "%.2f %d %.2f", InfantryJudge.LastShotSpeed, GUN_Data.frictionPWM, InfantryJudge.RealVoltage);
-						tft_prints(0, 9, "C:%d", manifoldCount);
+						tft_prints(0, 9, "C:%d R:%d", manifoldCount, rune_index);
 						// tft_prints(0, 10, "GT:%d %d", GUN_Data.last_poke_tick, ticks_msimg);
 						tft_prints(0, 10, "%.1f %.1f", GMYawEncoder.ecd_angle/YAW_ANGLE_RATIO, (GMPitchEncoder.ecd_angle - PITCH_HORIZONTAL_OFFSET)/PITCH_ANGLE_RATIO);
-						tft_prints(0, 11, "%.1f %.1f %d", rune_angle_x, rune_angle_y, rune_index);
+						tft_prints(0, 11, "%.1f %.1f", rune_angle_x, rune_angle_y);
 						// tft_prints(0, 9, "C:%f", GMxEncoder.ecd_angle);
 						// tft_prints(0, 10, "T:%f", GUN_TargetPos);
 						// tft_prints(0, 10,"C:%d T:%d", current_angle, target_angle);
@@ -93,10 +91,9 @@ int main(void)
 					}
 					else
 					{
-						tft_prints(0, 2, "HART:%d", InfantryJudge.LastHartID);
-						tft_prints(0, 3, "ShotSpeed:%f", InfantryJudge.LastShotSpeed);
-						tft_prints(0, 4, "ShotFreq:%f", InfantryJudge.LastShotFreq);
-						tft_prints(0, 5, "HP:%d SN:%d", InfantryJudge.LastBlood, InfantryJudge.ShootNum);
+						tft_prints(0, 2, "HART:%d HP:%d", InfantryJudge.LastHartID, InfantryJudge.LastBlood);
+						tft_prints(0, 3, "SF:%.1f SS:%.2f", InfantryJudge.LastShotFreq, InfantryJudge.LastShotSpeed);
+						tft_prints(0, 5, "SN:%d %d", InfantryJudge.ShootNum, InfantryJudge.OverShootSpeedNum);
 						tft_prints(0, 6, "Armor:%d %f", InfantryJudge.ArmorDecrease, InfantryJudge.ArmorDecrease/(2000.0f - InfantryJudge.LastBlood));
 						tft_prints(0, 7, "Crash:%d %f", InfantryJudge.CrashDecrease,  InfantryJudge.CrashDecrease/(2000.0f - InfantryJudge.LastBlood));
 						tft_prints(0, 8, "OS:%d %f", InfantryJudge.OverShootSpeedDecrease, InfantryJudge.OverShootSpeedDecrease/(2000.0f - InfantryJudge.LastBlood));

@@ -63,6 +63,7 @@ typedef struct
     uint8_t BulletShot;
     u32 LastShotTick;
     int ShootNum;
+    int OverShootSpeedNum;
 
     float m_data[3];
 } InfantryJudge_Struct;

@@ -417,6 +417,7 @@ void JUDGE_DecodeFrame(uint8_t type) {
             break;
         case 3: // over speed
             InfantryJudge.OverShootSpeedDecrease += delta;
+            InfantryJudge.OverShootSpeedNum++;
             InfantryJudge.OverShootSpeedLastTime = 1;
             break;
         case 4: // over frequency

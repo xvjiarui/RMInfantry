@@ -48,7 +48,7 @@ void external_control(void) {
 	{
 		buff_mode = 0;
 	}
-	status = ticks_msimg > 26000? DBUS_ReceiveData.rc.switch_right : 1;
+	status = ticks_msimg > 10000? DBUS_ReceiveData.rc.switch_right : 1;
 	switch (status)
 	{
 	case 3:
@@ -253,8 +253,8 @@ void computer_control(void) {
 		// control_car_speed(ch_input[0], ch_input[1], ch_input[2]);
 		control_car(ch_input[0], ch_input[1], ch_input[2], NORMAL);
 	}
-	int16_t temp = ABS(CM1Encoder.filter_rate);
-	int_debug = int_debug > temp ? int_debug : temp;
+	// int16_t temp = ABS(CM1Encoder.filter_rate);
+	// int_debug = int_debug > temp ? int_debug : temp;
 }
 void process_mouse_data(void)
 {
