@@ -93,6 +93,7 @@ int main(void)
 					{
 						tft_prints(0, 2, "HART:%d HP:%d", InfantryJudge.LastHartID, InfantryJudge.LastBlood);
 						tft_prints(0, 3, "SF:%.1f SS:%.2f", InfantryJudge.LastShotFreq, InfantryJudge.LastShotSpeed);
+						tft_prints(0, 4, "V:%.2f A:%.2f", InfantryJudge.RealVoltage, InfantryJudge.RealCurrent);
 						tft_prints(0, 5, "SN:%d %d", InfantryJudge.ShootNum, InfantryJudge.OverShootSpeedNum);
 						tft_prints(0, 6, "Armor:%d %f", InfantryJudge.ArmorDecrease, InfantryJudge.ArmorDecrease/(2000.0f - InfantryJudge.LastBlood));
 						tft_prints(0, 7, "Crash:%d %f", InfantryJudge.CrashDecrease,  InfantryJudge.CrashDecrease/(2000.0f - InfantryJudge.LastBlood));

@@ -497,17 +497,19 @@ void rune_mode(void)
 	limit_float_range(&pitch_pos_change, PITCH_ACCELERATION, -PITCH_ACCELERATION);
 	input_yaw_pos += yaw_pos_change;
 	input_pitch_pos += pitch_pos_change;
-	gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos);
+	gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos, 4.0);
 	if (!DBUS_CheckPush(KEY_V))
-	{
-		rune = !gimbal_check_pos(0, 0);
+	{	
+		rune = !gimbal_check_pos(0, 0, 1.0);
 		if (!rune)
 		{
 			LED_control(LASER, 1);
 		}
 	} 
 	control_gimbal_pos(input_yaw_pos, input_pitch_pos);
-	if (rune_index != -1 && (rune_index != last_rune_index || isNewRuneAngle))
+	if (rune_index != -1 && isNewRuneAngle 
+		&& ( (!DBUS_CheckPush(KEY_SHIFT) && rune_index != last_rune_index) 
+		|| DBUS_CheckPush(KEY_SHIFT) ) )
 	{
 		shootRune = 1;
 		isNewRuneAngle = 0;

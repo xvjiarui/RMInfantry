@@ -359,15 +359,15 @@ uint16_t Friction_Wheel_PWM(void)
         }
         else if (InfantryJudge.RealVoltage > 24)
         {
-            result = 1080; //670
+            result = 1100; //670
         }
         else if (InfantryJudge.RealVoltage > 23.5)
         {
-            result = 1100; //690
+            result = 1120; //690
         }
         else if (InfantryJudge.RealVoltage > 23)
         {
-            result = 1110; //700
+            result = 1140; //700
         }
         else if (InfantryJudge.RealVoltage > 22.5)
         {

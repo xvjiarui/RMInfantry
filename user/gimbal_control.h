@@ -54,7 +54,7 @@ int16_t gimbal_exceed_upper_bound();
 int16_t gimbal_exceed_lower_bound();
 int16_t gimbal_approach_right_bound();
 int16_t gimbal_approach_left_bound();
-uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos);
+uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos, float epsilon);
 int16_t gimbal_yaw_back();
 int16_t gimbal_yaw_back_angle(float angle);
 int16_t chassis_follow();

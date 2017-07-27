@@ -225,10 +225,10 @@ int16_t gimbal_exceed_lower_bound() {
 	else return 0;
 }
 
-uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos)
+uint8_t gimbal_check_pos(int16_t target_yaw_pos, int16_t target_pitch_pos, float epsilon)
 {
-	uint8_t check_yaw = float_equal((GMYawEncoder.ecd_angle - init_yaw_pos), target_yaw_pos, 27);
-	uint8_t check_pitch = float_equal((GMPitchEncoder.ecd_angle - init_pitch_pos), target_pitch_pos, 19);
+	uint8_t check_yaw = float_equal((GMYawEncoder.ecd_angle - init_yaw_pos), target_yaw_pos, epsilon * 27);
+	uint8_t check_pitch = float_equal((GMPitchEncoder.ecd_angle - init_pitch_pos), target_pitch_pos, epsilon * 19);
 	return check_yaw && check_pitch;
 }
 
