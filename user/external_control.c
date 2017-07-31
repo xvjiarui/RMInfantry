@@ -36,7 +36,9 @@ void external_control_init(void)
 	float_debug = 0;
 	float_debug2 = 0;
 	InfantryID = readFlash(0);
-	// InfantryID = 3;
+	// GOGOGO 0
+	// RUNRUNRUN 1
+	// BACKBACKBACK 2
 }
 
 void external_control(void) {
@@ -497,7 +499,11 @@ void rune_mode(void)
 	limit_float_range(&pitch_pos_change, PITCH_ACCELERATION, -PITCH_ACCELERATION);
 	input_yaw_pos += yaw_pos_change;
 	input_pitch_pos += pitch_pos_change;
-	gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos, 4.0);
+	if (DBUS_CheckPush(KEY_SHIFT))
+	{
+		gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos, 7.0);
+	}
+	else gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos, 1.0);
 	if (!DBUS_CheckPush(KEY_V))
 	{	
 		rune = !gimbal_check_pos(0, 0, 1.0);

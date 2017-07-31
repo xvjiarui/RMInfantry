@@ -4,6 +4,8 @@
 #include "main.h"
 #include "Driver_Gun.h"
 #include "data_monitor.h"
+#include "external_control.h"
+#include "Driver_Manifold.h"
 
 #define GET_BUFFER(x) JUDGE_DataBuffer[(uint8_t)(JUDGE_NextDecodeOffset+(x))]
 
@@ -78,7 +80,24 @@ void judging_system_init(void) {
 }
 
 void Judge_SetSendData(void) {
-    InfantryJudge.m_data[0] = InfantryJudge.ShootNum;
+    switch (InfantryID)
+    {
+       case 0 :
+       InfantryJudge.m_data[0] = InfantryJudge.ShootNum;  
+       InfantryJudge.m_data[1] = InfantryJudge.RemainTime;
+       break;
+       case 1:
+       InfantryJudge.m_data[0] = InfantryJudge.ShootNum;
+       break;
+       case 3:
+       InfantryJudge.m_data[0] = rune_angle_x;
+       InfantryJudge.m_data[1] = rune_angle_y;
+       InfantryJudge.m_data[2] = rune_index + 1;
+       break;
+       default:
+       InfantryJudge.m_data[0] = InfantryJudge.ShootNum;
+       break;
+    }
 }
 
 void Judge_Send(void) {
@@ -293,6 +312,7 @@ void Judge_InitConfig(void)
     JUDGE_Started = 0;
     JUDGE_RemainByte = 0;
 
+    InfantryJudge.RemainTime = 0;
     InfantryJudge.RealVoltage = 25.2F;
     InfantryJudge.RealCurrent = 0;
     InfantryJudge.LastBlood = 1500;
@@ -377,6 +397,7 @@ extern volatile u32 ticks_msimg;
 void JUDGE_DecodeFrame(uint8_t type) {
     volatile FormatTrans FT;
     if (type == 1) {
+        InfantryJudge.RemainTime = ((uint32_t)GET_BUFFER(10) << 24) | ((uint32_t)GET_BUFFER(9) << 16) | ((uint32_t)GET_BUFFER(8) << 8) | ((uint32_t)GET_BUFFER(7));
         FT.U[0] = GET_BUFFER(13);
         FT.U[1] = GET_BUFFER(14);
         FT.U[2] = GET_BUFFER(15);

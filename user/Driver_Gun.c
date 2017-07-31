@@ -1,5 +1,5 @@
 #define GUN_FILE
-// #define ADD_BULLET
+#define ADD_BULLET
 // #define GUN_SHOOTING_ADJUST
 
 #include "Dbus.h"
@@ -195,6 +195,7 @@ void GUN_SetMotion(void) {
 
     shoot = jumpPress || (((pressCount & 0x000FU) == 0) && pressCount);
     shoot = shoot || shootRune;
+    shoot = shoot || (DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3 && DBUS_ReceiveData.rc.ch2 > 500);
     shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
     shoot = shoot && (ticks_msimg - lastTick > 300);
     if (DBUS_ReceiveData.mouse.press_right)
@@ -287,7 +288,7 @@ uint16_t Friction_Wheel_PWM(void)
     case 0:
         if (InfantryJudge.RealVoltage > 24.5)
         {
-            result = 1040; //650
+            result = 1000; //650
         }
         else if (InfantryJudge.RealVoltage > 24)
         {

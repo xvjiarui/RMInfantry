@@ -42,6 +42,7 @@ void Append_CRC16_Check_Sum(uint8_t * pchMessage, uint32_t dwLength);
 
 typedef struct
 {
+    uint32_t RemainTime;
     float RealVoltage;
     float RealCurrent;
     int16_t LastBlood;
