@@ -36,6 +36,7 @@ void GUN_SetFree(void);
 void GUN_Update(void);
 
 void GUN_ShootOne(void);
+void GUN_ShootAll(void);
 
 uint16_t Friction_Wheel_PWM(void);
 	

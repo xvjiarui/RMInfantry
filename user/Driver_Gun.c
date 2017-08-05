@@ -1,6 +1,7 @@
 #define GUN_FILE
-#define ADD_BULLET
+// #define ADD_BULLET
 // #define GUN_SHOOTING_ADJUST
+#define LONG_SHOOTING
 
 #include "Dbus.h"
 #include "global_variable.h"
@@ -84,6 +85,9 @@ void GUN_SetMotion(void) {
     static int32_t lastTick = 0;
     static int32_t pressCount = 0;
     static uint8_t hasPending = 0;
+    static uint32_t lastPressTick = 0;
+    static uint32_t lastReleaseTick = 0;
+    static uint32_t lastLongPressTick = 0;
 
     // friction wheel
     if (status != 1 && DBUS_Connected) {
@@ -149,11 +153,41 @@ void GUN_SetMotion(void) {
     jumpRelease = !DBUS_ReceiveData.mouse.press_left &&
                   LASTDBUS_ReceiveData.mouse.press_left;
 
+    if (jumpPress)
+    {
+        lastPressTick = ticks_msimg;
+    }
+    if (jumpRelease)
+    {
+        lastReleaseTick = ticks_msimg;
+    }
+    static uint8_t lastLongPressing = 0;
+    uint8_t longPressing = 0;
+#ifdef LONG_SHOOTING
+    int_debug = gun_driver_pos_pid.limit;
+    if (lastPressTick + 220 < ticks_msimg && lastReleaseTick < lastPressTick && DBUS_ReceiveData.mouse.press_left)
+    {
+        longPressing = 1;
+        gun_driver_pos_pid.limit = 250;
+    }
+    else
+    {
+        gun_driver_pos_pid.limit = 1000;
+    }
+
+    if (lastLongPressing && !longPressing)
+    {
+        GUN_SetFree();
+    }
+#endif
+
+    lastLongPressing = longPressing;
     jumpPress = jumpPress || keyJumpPress || adjustJumpPress;
     jumpRelease = jumpRelease || keyJumpRelease || adjustJumpRelease;
 
 
     if (jumpRelease) pressCount = 0;
+#ifdef ADD_BULLET
     if (GUN_Data.usrShot && (GUN_Data.last_poke_tick + 220 < ticks_msimg))
     {
         if (GUN_Data.last_poke_tick > InfantryJudge.LastShotTick)
@@ -172,6 +206,7 @@ void GUN_SetMotion(void) {
         }
         GUN_Data.usrShot = 0;
     }
+#endif
     if (GUN_Data.last_poke_tick <= InfantryJudge.LastShotTick + 220)
     {
         GUN_Data.emptyCount = 0;
@@ -193,6 +228,49 @@ void GUN_SetMotion(void) {
     }
 #endif
 
+#ifdef LONG_SHOOTING
+    if (longPressing && (ticks_msimg - lastLongPressTick > 1000))
+    {
+        GUN_ShootAll();
+        lastLongPressTick = ticks_msimg;
+    }
+    else
+    {
+        shoot = jumpPress || (((pressCount & 0x000FU) == 0) && pressCount);
+        shoot = shoot || shootRune;
+        shoot = shoot || (DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3 && DBUS_ReceiveData.rc.ch2 > 500);
+        shoot = shoot && (DBUS_ReceiveData.rc.switch_right != 1);
+        shoot = shoot && (ticks_msimg - lastTick > 300);
+        if (DBUS_ReceiveData.mouse.press_right)
+        {
+            GUN_SetFree();
+            shoot = 0;
+            pressCount = 0;
+        }
+        if (shoot && !hasPending) {
+            if (shootRune) //keyJumpPress
+            {
+                hasPending = 1;
+                shootRune = 0;
+            }
+        }
+        if (hasPending)
+        {
+            if (gimbal_in_buff_pos) {
+                GUN_ShootOne();
+                hasPending = 0;
+                lastTick = ticks_msimg;
+                lastRuneTick = ticks_msimg;
+                buff_pressed = 0;
+            }
+        }
+        else if (shoot)
+        {
+            GUN_ShootOne();
+            lastTick = ticks_msimg;
+        }
+    }
+#else
     shoot = jumpPress || (((pressCount & 0x000FU) == 0) && pressCount);
     shoot = shoot || shootRune;
     shoot = shoot || (DBUS_ReceiveData.rc.switch_right == 3 && DBUS_ReceiveData.rc.switch_left == 3 && DBUS_ReceiveData.rc.ch2 > 500);
@@ -205,27 +283,29 @@ void GUN_SetMotion(void) {
         pressCount = 0;
     }
     if (shoot && !hasPending) {
-        if (shootRune) //keyJumpPress
+            if (shootRune) //keyJumpPress
+            {
+                hasPending = 1;
+                shootRune = 0;
+            }
+        }
+        if (hasPending)
         {
-            hasPending = 1;
-            shootRune = 0;
+            if (gimbal_in_buff_pos) {
+                GUN_ShootOne();
+                hasPending = 0;
+                lastTick = ticks_msimg;
+                lastRuneTick = ticks_msimg;
+                buff_pressed = 0;
+            }
         }
-    }
-    if (hasPending)
-    {
-        if (gimbal_in_buff_pos) {
+        else if (shoot)
+        {
             GUN_ShootOne();
-            hasPending = 0;
             lastTick = ticks_msimg;
-            lastRuneTick = ticks_msimg;
-            buff_pressed = 0;
         }
-    }
-    else if (shoot)
-    {
-        GUN_ShootOne();
-        lastTick = ticks_msimg;
-    }
+#endif
+
 }
 
 void GUN_ShootOne(void)
@@ -235,6 +315,19 @@ void GUN_ShootOne(void)
         GUN_TargetPos += 36 * 72;
     }
     else GUN_TargetPos -= 36 * 72;
+    GUN_Data.last_ecd_angle = GMxEncoder.ecd_angle;
+    GUN_Data.last_poke_tick = ticks_msimg;
+    GUN_Data.usrShot = 1;
+
+}
+
+void GUN_ShootAll(void)
+{
+    if (GUN_Direction == 1)
+    {
+        GUN_TargetPos += 36 * 72 * 5;
+    }
+    else GUN_TargetPos -= 36 * 72 * 5;
     GUN_Data.last_ecd_angle = GMxEncoder.ecd_angle;
     GUN_Data.last_poke_tick = ticks_msimg;
     GUN_Data.usrShot = 1;

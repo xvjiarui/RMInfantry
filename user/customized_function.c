@@ -58,7 +58,8 @@ void PID_init_chassis(void)
 	}
 	PID_init(&angle_pid, 4, 0, 40, 1500, Positional); //4 is best 660 is some limit
 	// PID_init(&buffer_pid, 0.005, 0.0035, 0, 0.7);
-	PID_init(&buffer_pid, 0.006, 0.00055, 0, 0.7, IntegralSegment);
+	// PID_init(&buffer_pid, 0.006, 0.00055, 0, 0.7, IntegralSegment);
+	PID_init(&buffer_pid, 0.006, 0.001, 0, 1, IntegralSegment);
 	PID_init(&gimbal_reset_pid, 0.02, 0, 0, 50, Positional);
 	target_angle = current_angle;
 	gimbal_follow = 0;

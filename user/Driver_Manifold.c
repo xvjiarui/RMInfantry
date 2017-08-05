@@ -68,6 +68,7 @@ void Driver_Manifold_init() {
     rune_angle_x = 0;
     rune_angle_y = 0;
     rune_index = -1;
+    rune_distance = 0;
     isNewRuneAngle = 0;
     manifoldCount = 0;
 }
@@ -109,6 +110,13 @@ void Manifold_Decoder()
 
         manifoldCount++;
         rune_index = Manifold_Buffer[9];
+
+        FT.u[0] = Manifold_Buffer[10];
+        FT.u[1] = Manifold_Buffer[11];
+        FT.u[2] = Manifold_Buffer[12];
+        FT.u[3] = Manifold_Buffer[13];
+        rune_distance = FT.f; 
+
         isNewRuneAngle = 1;
     }
 }

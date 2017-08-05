@@ -149,7 +149,6 @@ void remote_control(void) {
 		control_gimbal(ch_input[2], ch_input[3]);
 	}
 	control_car(ch_input[0], ch_input[1], 0, NORMAL);
-	int_debug = ch_input[2];
 }
 
 void computer_control(void) {
@@ -499,11 +498,26 @@ void rune_mode(void)
 	limit_float_range(&pitch_pos_change, PITCH_ACCELERATION, -PITCH_ACCELERATION);
 	input_yaw_pos += yaw_pos_change;
 	input_pitch_pos += pitch_pos_change;
+	uint8_t gimbalArrive = 0;
+	static uint8_t buffCount = 1;
 	if (DBUS_CheckPush(KEY_SHIFT))
 	{
-		gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos, 7.0);
+		gimbalArrive = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos, 7.0);
 	}
-	else gimbal_in_buff_pos = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos, 1.0);
+	else gimbalArrive = last_rune_index != -1 && gimbal_check_pos(target_yaw_pos, target_pitch_pos, 0.3);
+	if (gimbalArrive)
+	{
+		if (buffCount)
+		{
+			gimbalInBuffPosLastTick = ticks_msimg;	
+			buffCount = 0;
+		}
+		if (gimbalInBuffPosLastTick + 50 < ticks_msimg)
+		{
+			gimbal_in_buff_pos = 1;
+		}
+	}
+	else buffCount = 1;
 	if (!DBUS_CheckPush(KEY_V))
 	{	
 		rune = !gimbal_check_pos(0, 0, 1.0);

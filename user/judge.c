@@ -88,10 +88,12 @@ void Judge_SetSendData(void) {
        break;
        case 1:
        InfantryJudge.m_data[0] = InfantryJudge.ShootNum;
+       InfantryJudge.m_data[1] = rune_distance;
+       InfantryJudge.m_data[2] = rune_index + 1;
        break;
-       case 3:
-       InfantryJudge.m_data[0] = rune_angle_x;
-       InfantryJudge.m_data[1] = rune_angle_y;
+       case 2:
+       InfantryJudge.m_data[0] = InfantryJudge.ShootNum;
+       InfantryJudge.m_data[1] = rune_distance;
        InfantryJudge.m_data[2] = rune_index + 1;
        break;
        default:
